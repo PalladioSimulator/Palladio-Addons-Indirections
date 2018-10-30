@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="indirection" nsURI="http://palladiosimulator.org/Indirection/1.0"
+    nsPrefix="indirection">
+  <eClassifiers xsi:type="ecore:EClass" name="Indirection" eSuperTypes="platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/PassiveResource">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacity" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" transient="true"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scheduling" lowerBound="1"
+        eType="#//datatypes/Scheduling" defaultValueLiteral="FirstInFirstOut"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="putPolicy" lowerBound="1"
+        eType="#//datatypes/PutPolicy"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataPacketCharacteristic" eSuperTypes="platform:/plugin/de.uka.ipd.sdq.identifier/model/identifier.ecore#//Identifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="topic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="-1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eSubpackages name="actions" nsURI="http://palladiosimulator.org/Indirection/Actions/1.0"
+      nsPrefix="actions">
+    <eClassifiers xsi:type="ecore:EClass" name="OfferAction" eSuperTypes="#//actions/IndirectionAction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="PollAction" eSuperTypes="#//actions/IndirectionAction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="removesElementsFromIndirection"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          defaultValueLiteral="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="minimumCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          defaultValueLiteral="1"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maximumCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+          defaultValueLiteral="1"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="blockIfNotAvailable"
+          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="IndirectionAction" eSuperTypes="platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="indirection" eType="#//Indirection"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="characteristic" eType="#//DataPacketCharacteristic"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CharacteristicStackManipulationAction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="javaFqn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirection/Datatypes/1.0"
+      nsPrefix="datatypes">
+    <eClassifiers xsi:type="ecore:EEnum" name="Scheduling">
+      <eLiterals name="FirstInFirstOut"/>
+      <eLiterals name="LastInFirstOut" value="1"/>
+      <eLiterals name="Priority" value="2"/>
+      <eLiterals name="Random" value="3"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="PutPolicy">
+      <eLiterals name="Blocking" literal=""/>
+      <eLiterals name="DiscardFirstIn" value="1"/>
+      <eLiterals name="DiscardLastIn" value="2"/>
+      <eLiterals name="DiscardIncoming" value="3"/>
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated indirectionaction -->
+      <package
+            uri="http://palladiosimulator.org/IndirectionAction/1.0"
+            class="indirectionaction.IndirectionactionPackage"
+            genModel="models/indirection.genmodel"/>
+   </extension>
+
+</plugin>
