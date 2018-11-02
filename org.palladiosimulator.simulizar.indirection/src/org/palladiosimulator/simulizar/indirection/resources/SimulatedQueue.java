@@ -7,5 +7,4 @@ public interface SimulatedQueue<T> {
     T pop();
 
     void push(T deepCopy);
-
 }

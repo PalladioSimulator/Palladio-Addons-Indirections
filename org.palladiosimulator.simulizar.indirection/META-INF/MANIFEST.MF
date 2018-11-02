@@ -8,7 +8,18 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Automatic-Module-Name: org.palladiosimulator.simulizar.indirection
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.palladiosimulator.simulizar.indirection.resources
+Export-Package: org.palladiosimulator.simulizar.indirection.resources,
+ org.palladiosimulator.simulizar.indirection,
+ org.palladiosimulator.simulizar.indirection.actions,
+ org.palladiosimulator.simulizar.indirection.actions.impl,
+ org.palladiosimulator.simulizar.indirection.actions.util,
+ org.palladiosimulator.simulizar.indirection.characteristics,
+ org.palladiosimulator.simulizar.indirection.characteristics.impl,
+ org.palladiosimulator.simulizar.indirection.characteristics.util,
+ org.palladiosimulator.simulizar.indirection.datatypes,
+ org.palladiosimulator.simulizar.indirection.datatypes.impl,
+ org.palladiosimulator.simulizar.indirection.impl,
+ org.palladiosimulator.simulizar.indirection.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  de.uka.ipd.sdq.identifier;visibility:=reexport,
@@ -20,5 +31,7 @@ Require-Bundle: org.eclipse.core.runtime,
  de.uka.ipd.sdq.simucomframework,
  org.palladiosimulator.reliability,
  de.uka.ipd.sdq.simulation.abstractsimengine,
- de.uka.ipd.sdq.simucomframework.variables
+ de.uka.ipd.sdq.simucomframework.variables,
+ org.modelversioning.emfprofile,
+ org.modelversioning.emfprofile.registry
 Bundle-ActivationPolicy: lazy

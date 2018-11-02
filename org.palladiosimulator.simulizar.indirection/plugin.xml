@@ -5,13 +5,38 @@
 -->
 
 <plugin>
-
+     <extension point="org.modelversioning.emfprofile.profile">
+     <profile profile_resource="models/characteristics_application.emfprofile_diagram"/>
+  </extension>
    <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated indirectionaction -->
+      <!-- @generated indirection -->
       <package
-            uri="http://palladiosimulator.org/IndirectionAction/1.0"
-            class="indirectionaction.IndirectionactionPackage"
+            uri="http://palladiosimulator.org/Indirection/1.0"
+            class="org.palladiosimulator.simulizar.indirection.IndirectionPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated indirection -->
+      <package
+            uri="http://palladiosimulator.org/Indirection/Actions/1.0"
+            class="org.palladiosimulator.simulizar.indirection.actions.ActionsPackage"
+            genModel="models/indirection.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated indirection -->
+      <package
+            uri="http://palladiosimulator.org/Indirection/Datatypes/1.0"
+            class="org.palladiosimulator.simulizar.indirection.datatypes.DatatypesPackage"
+            genModel="models/indirection.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated indirection -->
+      <package
+            uri="http://palladiosimulator.org/Indirection/Characteristics/1.0"
+            class="org.palladiosimulator.simulizar.indirection.characteristics.CharacteristicsPackage"
+            genModel="models/indirection.genmodel"/>
+   </extension>
 </plugin>

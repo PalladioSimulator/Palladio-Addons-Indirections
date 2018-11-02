@@ -1,34 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.palladiosimulator.simulizar.indirection/src-gen"
-    editDirectory="/org.palladiosimulator.simulizar.indirection.edit/src-gen" modelPluginID="org.palladiosimulator.simulizar.indirection"
-    modelName="Indirection" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
-    usedGenPackages="../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
+    editDirectory="/org.palladiosimulator.simulizar.indirection.edit/src-gen" editorDirectory="/org.palladiosimulator.simulizar.indirection.editor/src-gen"
+    modelPluginID="org.palladiosimulator.simulizar.indirection" modelName="Indirection"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" usedGenPackages="../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
     importOrganizing="true">
   <foreignModel>indirection.ecore</foreignModel>
-  <genPackages prefix="Indirection" disposableProviderFactory="true" extensibleProviderFactory="true"
-      childCreationExtenders="true" ecorePackage="indirection.ecore#/">
+  <genPackages prefix="Indirection" basePackage="org.palladiosimulator.simulizar"
+      disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
+      ecorePackage="indirection.ecore#/">
     <genClasses ecoreClass="indirection.ecore#//Indirection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//Indirection/capacity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//Indirection/scheduling"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//Indirection/putPolicy"/>
     </genClasses>
-    <genClasses ecoreClass="indirection.ecore#//DataPacketCharacteristic">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//DataPacketCharacteristic/topic"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//DataPacketCharacteristic/priority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//DataPacketCharacteristic/context"/>
-    </genClasses>
     <nestedGenPackages prefix="Actions" disposableProviderFactory="true" extensibleProviderFactory="true"
         childCreationExtenders="true" ecorePackage="indirection.ecore#//actions">
-      <genClasses ecoreClass="indirection.ecore#//actions/OfferAction"/>
+      <genClasses ecoreClass="indirection.ecore#//actions/OfferAction">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/OfferAction/removeElementsFromUser"/>
+      </genClasses>
       <genClasses ecoreClass="indirection.ecore#//actions/PollAction">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/PollAction/removesElementsFromIndirection"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/PollAction/removeElementsFromIndirection"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/PollAction/minimumCount"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/PollAction/maximumCount"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/PollAction/blockIfNotAvailable"/>
       </genClasses>
-      <genClasses ecoreClass="indirection.ecore#//actions/IndirectionAction">
+      <genClasses image="false" ecoreClass="indirection.ecore#//actions/IndirectionAction">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirection.ecore#//actions/IndirectionAction/indirection"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -36,6 +34,14 @@
       </genClasses>
       <genClasses ecoreClass="indirection.ecore#//actions/CharacteristicStackManipulationAction">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/CharacteristicStackManipulationAction/javaFqn"/>
+      </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//actions/GenerateDate">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/GenerateDate/characteristic"/>
+      </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//actions/UserGenerateDate">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/UserGenerateDate/characteristic"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" extensibleProviderFactory="true"
@@ -52,6 +58,24 @@
         <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/PutPolicy/DiscardLastIn"/>
         <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/PutPolicy/DiscardIncoming"/>
       </genEnums>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Characteristics" disposableProviderFactory="true" extensibleProviderFactory="true"
+        childCreationExtenders="true" ecorePackage="indirection.ecore#//characteristics">
+      <genClasses ecoreClass="indirection.ecore#//characteristics/Characteristic">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//characteristics/Characteristic/topic"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//characteristics/Characteristic/priority"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//characteristics/Characteristic/context"/>
+      </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//characteristics/CharacteristicsRepository">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirection.ecore#//characteristics/CharacteristicsRepository/characteristics"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirection.ecore#//characteristics/CharacteristicsRepository/bindings"/>
+      </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//characteristics/CharacteristicBinding">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//characteristics/CharacteristicBinding/identifier"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//characteristics/CharacteristicBinding/characteristic"/>
+      </genClasses>
     </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>
