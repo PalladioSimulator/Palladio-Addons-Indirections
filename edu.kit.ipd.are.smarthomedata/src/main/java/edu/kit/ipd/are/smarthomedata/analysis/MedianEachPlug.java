@@ -10,14 +10,14 @@ import edu.kit.ipd.are.smarthomedata.dto.PlugIdentifier;
 import edu.kit.ipd.are.smarthomedata.dto.SmartMeterReading;
 import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
 
-public class PlugMedianProcessor implements Consumer<SmartMeterReading> {
+public class MedianEachPlug implements Consumer<SmartMeterReading> {
 	private Consumer<WindowedMedian> callback;
 	private Map<PlugIdentifier, WindowedAggregate> aggregates = new HashMap<>();
 	private int windowSize;
 	private int windowShift;
 	private final Predicate<PlugIdentifier> responsibilityCheck;
 
-	public PlugMedianProcessor(Predicate<PlugIdentifier> responsibilityCheck, int windowSize, int windowShift, Consumer<WindowedMedian> callback) {
+	public MedianEachPlug(Predicate<PlugIdentifier> responsibilityCheck, int windowSize, int windowShift, Consumer<WindowedMedian> callback) {
 		this.windowSize = windowSize;
 		this.windowShift = windowShift;
 		this.responsibilityCheck = responsibilityCheck;
@@ -26,10 +26,7 @@ public class PlugMedianProcessor implements Consumer<SmartMeterReading> {
 	}
 	
 	private WindowedAggregate createAggregate(PlugIdentifier plugIdentifier) {
-		return new WindowedAggregate(windowSize, windowShift, (it) -> {
-//			System.out.println("Aggregate: " + it.toString());
-			callback.accept(it);
-		});
+		return new WindowedAggregate(windowSize, windowShift, callback);
 	}
 
 	@Override

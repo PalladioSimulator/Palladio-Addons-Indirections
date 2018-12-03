@@ -3,6 +3,8 @@ package edu.kit.ipd.are.smarthomedata.datastructures;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import edu.kit.ipd.are.smarthomedata.dto.MutableInterval;
+
 public class CircularBuffer {
 	public static final class Element {
 		public long timestamp;
@@ -53,6 +55,10 @@ public class CircularBuffer {
 		return (index + (full ? addPointer : 0)) % maxCapacity;
 	}
 
+	public float median(MutableInterval interval) {
+		return median(interval.start, interval.end);
+	}
+
 	public float median(long ts_start, long ts_end) {
 		final int capacity = full ? maxCapacity : addPointer;
 		int startIndex = -1;
@@ -76,7 +82,8 @@ public class CircularBuffer {
 		int maxCopyIndex = endIndex - startIndex;
 
 		if (startIndex == -1 || endIndex == -1 || maxCopyIndex < 0) {
-			throw new IllegalStateException("The given window (" + ts_start + " - " + ts_end + ") is not in the buffer.");
+			throw new IllegalStateException(
+					"The given window (" + ts_start + " - " + ts_end + ") is not in the buffer.");
 		}
 
 		long completeWeight = ts_end - ts_start + 1;

@@ -21,19 +21,19 @@ public class OldOutlierCalculation implements Consumer<WindowedMedian> {
 
 	@Override
 	public void accept(WindowedMedian wm) {
-		if (ts_start == null && ts_stop == null) {
-			// initial measurement
-			initialize(wm);
-		} else if (wm.ts_start > ts_start) {
-			// new block begins
-			calculateOutlierValuesAndEmit();
-			initialize(wm);
-			addValue(wm);
-		} else if (wm.ts_start == ts_start && wm.ts_stop == ts_stop) {
-			addValue(wm);
-		} else {
-			throw new IllegalStateException();
-		}
+//		if (ts_start == null && ts_stop == null) {
+//			// initial measurement
+//			initialize(wm);
+//		} else if (wm.ts_start > ts_start) {
+//			// new block begins
+//			calculateOutlierValuesAndEmit();
+//			initialize(wm);
+//			addValue(wm);
+//		} else if (wm.ts_start == ts_start && wm.ts_stop == ts_stop) {
+//			addValue(wm);
+//		} else {
+//			throw new IllegalStateException();
+//		}
 	}
 	
 	private void addValue(WindowedMedian wm) {
@@ -43,12 +43,12 @@ public class OldOutlierCalculation implements Consumer<WindowedMedian> {
 			}
 			
 			overallMedian = wm.value;
-		} else if (wm.isHouseMedian()) {
-			if (houseToMedian.containsKey(wm.plug.houseId)) {
-				throw new IllegalStateException();
-			}
-			
-			houseToMedian.put(wm.plug.houseId, wm.value);
+//		} else if (wm.isHouseMedian()) {
+//			if (houseToMedian.containsKey(wm.plug.houseId)) {
+//				throw new IllegalStateException();
+//			}
+//			
+//			houseToMedian.put(wm.plug.houseId, wm.value);
 		} else {
 			System.out.println(this + ": Ignoring: " + wm.toString());
 		}
@@ -63,8 +63,8 @@ public class OldOutlierCalculation implements Consumer<WindowedMedian> {
 	}
 
 	private void initialize(WindowedMedian wm) {
-		this.ts_start = wm.ts_start;
-		this.ts_stop = wm.ts_stop;
+//		this.ts_start = wm.ts_start;
+//		this.ts_stop = wm.ts_stop;
 		
 		this.houseToMedian = new HashMap<>();
 		this.overallMedian = null;

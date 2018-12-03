@@ -3,12 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>dwerle.are.ipd.kit.edu</groupId>
-	<artifactId>test-kafka-producer</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>edu.kit.ipd.are</groupId>
+	<artifactId>edu.kit.ipd.are.smarthomedata</artifactId>
+	<version>0.0.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>test-kafka-producer</name>
+	<name>edu.kit.ipd.are.smarthomedata</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -16,9 +16,15 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.3.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.3.2</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -44,8 +50,12 @@
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.6.0</version>
 				<configuration>
-					<mainClass>dwerle.are.ipd.kit.edu.testkafkaproducer.EnergyStatusDataProducer</mainClass>
+					<mainClass>edu.kit.ipd.are.smarthomedata.application.CsvProducer</mainClass>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.0</version>
 			</plugin>
 		</plugins>
 	</build>

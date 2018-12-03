@@ -1,8 +1,11 @@
 package edu.kit.ipd.are.smarthomedata.dto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class SmartMeterReading {
+public class SmartMeterReading implements Serializable {
+	private static final long serialVersionUID = -157714638172018225L;
+
 	public enum ReadingType {
 		WORK, LOAD
 	}
@@ -14,13 +17,14 @@ public class SmartMeterReading {
 	public final long plug_id;
 	public final long household_id;
 	public final long house_id;
-	
-	public final PlugIdentifier plugIdentifier;
-	
-	public static final long START = 1378027841L;//1377986401L;
+	public Long origin;
 
-	public SmartMeterReading(long id, long timestamp, float value, ReadingType property, long plug_id, long household_id,
-			long house_id) {
+	public final PlugIdentifier plugIdentifier;
+
+	public static final long START = 1378027841L;// 1377986401L;
+
+	public SmartMeterReading(long id, long timestamp, float value, ReadingType property, long plug_id,
+			long household_id, long house_id, Long currentTime) {
 		this.id = id;
 		this.timestamp = timestamp;
 		this.value = value;
@@ -28,7 +32,8 @@ public class SmartMeterReading {
 		this.plug_id = plug_id;
 		this.household_id = household_id;
 		this.house_id = house_id;
-		
+		this.origin = currentTime;
+
 		this.plugIdentifier = new PlugIdentifier(plug_id, household_id, house_id);
 	}
 
@@ -62,21 +67,34 @@ public class SmartMeterReading {
 		long id = Long.valueOf(fields[0]);
 		long timestamp = Long.valueOf(fields[1]) - START;
 		float value = Float.valueOf(fields[2]);
-		ReadingType property = fields[3].equals("0") ? ReadingType.WORK : (fields[3].equals("1") ? ReadingType.LOAD : null);
+		ReadingType property = fields[3].equals("0") ? ReadingType.WORK
+				: (fields[3].equals("1") ? ReadingType.LOAD : null);
 		Objects.requireNonNull(property);
 		long plug_id = Integer.valueOf(fields[4]);
 		long household_id = Integer.valueOf(fields[5]);
 		long house_id = Integer.valueOf(fields[6]);
 
-		SmartMeterReading smartMeterReading = new SmartMeterReading(id, timestamp, value, property, plug_id, household_id, house_id);
+		Long currentTime = fields.length == 8 ? Long.valueOf(fields[7]) : null;
+
+		SmartMeterReading smartMeterReading = new SmartMeterReading(id, timestamp, value, property, plug_id,
+				household_id, house_id, currentTime);
+
 		return smartMeterReading;
 	}
 
 	@Override
 	public String toString() {
-		return "(id=" + id + ", ts=" + timestamp + ", v=" + value + ", p="
-				+ property + ", " + plugIdentifier + ")";
+		return "(id=" + id + ", ts=" + timestamp + ", v=" + value + ", p=" + property + ", " + plugIdentifier + ", "
+				+ origin + ")";
 	}
-	
-	
+
+	public String serialize() {
+		return "" + id + "," + (timestamp + START) + "," + value + "," + property.ordinal() + "," + plug_id + ","
+				+ household_id + "," + house_id + (origin != null ? "," + origin : "");
+	}
+
+	public static SmartMeterReading deserialize(String serialized) {
+		return fromCsvString(serialized);
+	}
+
 }

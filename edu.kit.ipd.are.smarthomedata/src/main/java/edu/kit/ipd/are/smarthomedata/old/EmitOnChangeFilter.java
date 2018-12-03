@@ -1,4 +1,4 @@
-package edu.kit.ipd.are.smarthomedata.analysis;
+package edu.kit.ipd.are.smarthomedata.old;
 
 import java.util.HashMap;
 import java.util.Map;
