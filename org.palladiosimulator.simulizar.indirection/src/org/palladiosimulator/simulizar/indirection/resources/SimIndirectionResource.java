@@ -7,7 +7,10 @@ import java.util.function.Predicate;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.PassiveResource;
+import org.palladiosimulator.simulizar.indirection.Indirection;
 import org.palladiosimulator.simulizar.indirection.characteristics.Characteristic;
+import org.palladiosimulator.simulizar.indirection.characteristics.CharacteristicFilter;
+import org.palladiosimulator.simulizar.indirection.resources.queues.SimulatedQueueFactory;
 
 import de.uka.ipd.sdq.scheduler.IPassiveResource;
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
@@ -38,25 +41,27 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
     private final PassiveResource resource;
     private final AssemblyContext assemblyContext;
 
-    private final SimulatedQueue<Frame> availableInformation;
+    private final SimulatedQueue availableInformation;
 
     final class IndirectionWaitingProcess extends SchedulerEntity {
-        public IndirectionWaitingProcess(ISchedulableProcess process, Characteristic characteristic, long num,
-                SimulatedStack<Object> stack) {
+        public IndirectionWaitingProcess(ISchedulableProcess process, CharacteristicFilter filter, long minCount,
+                long maxCount, SimulatedStack<Object> stack) {
             super(myModel, "IndirectionWaiting-" + passiveResourceID);
             this.process = process;
-            this.characteristic = characteristic;
-            this.num = num;
+            this.filter = filter;
+            this.minCount = minCount;
+            this.maxCount = maxCount;
             this.stack = stack;
         }
 
         public final ISchedulableProcess process;
-        public final Characteristic characteristic;
-        public final long num;
+        public final long minCount;
+        public final long maxCount;
         public final SimulatedStack<Object> stack;
+        public final CharacteristicFilter filter;
     }
 
-    public SimIndirectionResource(final PassiveResource resource, final AssemblyContext assemblyContext,
+    public SimIndirectionResource(final Indirection resource, final AssemblyContext assemblyContext,
             final SchedulerModel model, final Long capacity) {
         super(model, capacity, resource.getEntityName(), resource.getId() + ":" + assemblyContext.getId());
 
@@ -65,7 +70,7 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
 
         this.waitingToPollQueue = new ArrayDeque<IndirectionWaitingProcess>();
         this.waitingToOfferQueue = new ArrayDeque<IndirectionWaitingProcess>();
-        
+
         this.myModel = model;
         this.passiveResourceID = resource.getId();
         this.observee = new PassiveResourceObservee();
@@ -74,25 +79,30 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
             throw new IllegalArgumentException("Capacities greater than 0 are not allowed (was " + capacity + ".");
 
         // TODO: change according to queueing discipline
-        this.availableInformation = new FairSimulatedQueue<Frame>();
+        this.availableInformation = SimulatedQueueFactory.INSTANCE.createQueue(resource.getScheduling(),
+                Math.toIntExact(capacity));
     }
 
-    private int availableToPoll() {
-        return this.availableInformation.size();
+    // private int availableToPoll() {
+    // return this.availableInformation.size();
+    // }
+    //
+    // private int availableToOffer() {
+    // return Math.toIntExact(this.capacity - this.availableInformation.size());
+    // }
+
+    private boolean canProceedToPoll(final IndirectionWaitingProcess process, final long minimumCount,
+            final long maximumCount) {
+        boolean isNextProcess = waitingToPollQueue.isEmpty() || waitingToPollQueue.peek().process.equals(process);
+        long providableCount = availableInformation.canProvideHowManyOf(process.filter);
+        return isNextProcess && (minimumCount <= providableCount && providableCount <= maximumCount);
     }
 
-    private int availableToOffer() {
-        return Math.toIntExact(this.capacity - this.availableInformation.size());
-    }
-
-    private boolean canProceedToPoll(final ISchedulableProcess process, final long num) {
-        return (waitingToPollQueue.isEmpty() || waitingToPollQueue.peek().process.equals(process))
-                && num <= availableToPoll();
-    }
-
-    private boolean canProceedToOffer(final ISchedulableProcess process, final long num) {
-        return (waitingToOfferQueue.isEmpty() || waitingToOfferQueue.peek().process.equals(process))
-                && num <= availableToOffer();
+    private boolean canProceedToOffer(final IndirectionWaitingProcess process, final long minimumCount,
+            final long maximumCount) {
+        boolean isNextProcess = waitingToOfferQueue.isEmpty() || waitingToOfferQueue.peek().process.equals(process);
+        long acceptableCount = availableInformation.canAcceptHowManyOf(process.filter);
+        return isNextProcess && (minimumCount <= acceptableCount && acceptableCount <= maximumCount);
     }
 
     @Override
@@ -108,44 +118,53 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
     @Override
     public Queue<IWaitingProcess> getWaitingProcesses() {
         Queue<IWaitingProcess> result = new ArrayDeque<IWaitingProcess>();
-        waitingToPollQueue.forEach(it -> result.add(new SimpleWaitingProcess(this.myModel, it.process, it.num)));
-        waitingToOfferQueue.forEach(it -> result.add(new SimpleWaitingProcess(this.myModel, it.process, it.num)));
+        waitingToPollQueue.forEach(it -> result.add(new SimpleWaitingProcess(this.myModel, it.process, -1L)));
+        waitingToOfferQueue.forEach(it -> result.add(new SimpleWaitingProcess(this.myModel, it.process, -1L)));
         return result;
     }
 
-    private void allowToPoll(SimulatedStack<Object> stack, final ISchedulableProcess process,
-            Characteristic characteristic, final long num) {
-        LoggingWrapper.log("Process " + process + " polls " + num + " of " + this);
-        for (int i = 0; i < num; i++) {
-            CharacteristicsContainer.find(stack).add(availableInformation.pop());
+    private void allowToPoll(SimulatedStack<Object> stack, final IndirectionWaitingProcess process,
+            CharacteristicFilter filter, final long minimumCount, final long maximumCount) {
+        LoggingWrapper.log("Process " + process + " polls " + minimumCount + "-" + maximumCount + " of " + this);
+        long providableCount = availableInformation.canProvideHowManyOf(filter);
+        if (providableCount < minimumCount) {
+            throw new IllegalStateException("Less resources available than planned");
         }
-        observee.fireAquire(process, num);
-        assert availableToPoll() <= 0 : "More resource than available have been polled!";
+
+        long num = Math.min(providableCount, maximumCount);
+        for (int i = 0; i < num; i++) {
+            CharacteristicsContainer.getOrCreate(stack).add(availableInformation.pop(process.filter));
+        }
+        observee.fireAquire(process.process, num);
+        // assert availableToPoll() <= 0 : "More resource than available have been polled!";
         notifyProcessesWaitingToOffer();
     }
 
-    private void allowToOffer(SimulatedStack<Object> stack, final ISchedulableProcess process,
-            Characteristic characteristic, final long num) {
-        LoggingWrapper.log("Process " + process + " offers " + num + " of " + this);
-        for (int i = 0; i < num; i++) {
-            availableInformation.push(CharacteristicsContainer.find(stack).frames(characteristic).get(0));
+    private void allowToOffer(SimulatedStack<Object> stack, final IndirectionWaitingProcess process,
+            CharacteristicFilter filter, final long minimumCount, final long maximumCount) {
+        LoggingWrapper.log("Process " + process + " offers " + minimumCount + "-" + maximumCount + " of " + this);
+
+        long acceptableCount = availableInformation.canAcceptHowManyOf(filter);
+        if (acceptableCount < minimumCount) {
+            throw new IllegalStateException("Less resources acceptable than planned");
         }
-        observee.fireRelease(process, num);
-        assert availableToOffer() <= 0 : "More resource than available have been offered!";
+
+        long num = Math.min(acceptableCount, maximumCount);
+
+        for (int i = 0; i < num; i++) {
+            availableInformation.push(CharacteristicsContainer.getOrCreate(stack).frames(filter).get(0));
+        }
+        observee.fireRelease(process.process, num);
+        // assert availableToOffer() <= 0 : "More resource than available have been offered!";
         notifyProcessesWaitingToPoll();
     }
 
-
-    private boolean tryIndirectionOrPassivate() {
-        return false;
-    }
-    
     /**
      * replacement for release. this is very dirty and should not be one like this (see: refused
      * bequest, knows of derived, etc.)
      */
     public boolean poll(SimulatedStack<Object> stack, ISchedulableProcess schedulableProcess,
-            Characteristic characteristic, final long num) {
+            CharacteristicFilter filter, final long minimumCount, final long maximumCount) {
         // AM: Copied from AbstractActiveResource: If simulation is stopped,
         // allow all processes to finish
         if (!myModel.getSimulationControl().isRunning()) {
@@ -156,19 +175,28 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
         // Do we need some logic here to check if the simulation has stopped?
         // In this case, this method should not block, but return in order to
         // allow processes to complete
-//        observee.fireRequest(schedulableProcess, num);
-        if (canProceedToPoll(schedulableProcess, num)) {
-            allowToPoll(stack, schedulableProcess, characteristic, num);
+        // observee.fireRequest(schedulableProcess, num);
+        IndirectionWaitingProcess process = new IndirectionWaitingProcess(schedulableProcess, filter, minimumCount,
+                maximumCount, stack);
+        if (canProceedToPoll(process, minimumCount, maximumCount)) {
+            allowToPoll(stack, process, filter, minimumCount, maximumCount);
             return true;
         } else {
-            LoggingWrapper.log("Process " + schedulableProcess + " is waiting to poll " + num + " of " + characteristic
-                    + " from " + this);
-            IndirectionWaitingProcess process = new IndirectionWaitingProcess(schedulableProcess, characteristic, num,
-                    stack);
+            LoggingWrapper.log("Process " + schedulableProcess + " is waiting to poll " + minimumCount + "-"
+                    + maximumCount + " of " + filter + " from " + this);
             waitingToPollQueue.add(process);
             schedulableProcess.passivate();
             return false;
         }
+    }
+    
+    /**
+     * replacement for release. this is very dirty and should not be one like this (see: refused
+     * bequest, knows of derived, etc.)
+     */
+    public boolean peek(SimulatedStack<Object> stack, ISchedulableProcess schedulableProcess,
+            CharacteristicFilter filter, final long minimumCount, final long maximumCount) {
+        throw new IllegalStateException();
     }
 
     /**
@@ -176,7 +204,7 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
      * bequest, knows of derived, etc.)
      */
     public boolean offer(SimulatedStack<Object> stack, ISchedulableProcess schedulableProcess,
-            Characteristic characteristic, long num) {
+            CharacteristicFilter filter, final long minimumCount, final long maximumCount) {
         // AM: Copied from AbstractActiveResource: If simulation is stopped,
         // allow all processes to finish
         if (!myModel.getSimulationControl().isRunning()) {
@@ -184,14 +212,14 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
             return true;
         }
 
-        if (canProceedToOffer(schedulableProcess, num)) {
-            allowToOffer(stack, schedulableProcess, characteristic, num);
+        final IndirectionWaitingProcess process = new IndirectionWaitingProcess(schedulableProcess, filter,
+                minimumCount, maximumCount, stack);
+        if (canProceedToOffer(process, minimumCount, maximumCount)) {
+            allowToOffer(stack, process, filter, minimumCount, maximumCount);
             return true;
         } else {
-            LoggingWrapper.log("Process " + schedulableProcess + " is waiting to offer " + num + " of " + characteristic
-                    + " to " + this);
-            final IndirectionWaitingProcess process = new IndirectionWaitingProcess(schedulableProcess, characteristic,
-                    num, stack);
+            LoggingWrapper.log("Process " + schedulableProcess + " is waiting to offer " + minimumCount + "-"
+                    + maximumCount + " of " + filter + " to " + this);
             waitingToPollQueue.add(process);
             schedulableProcess.passivate();
             return false;
@@ -221,13 +249,13 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
     }
 
     private void notifyProcessesWaitingToPoll() {
-        notifyProcesses(waitingToPollQueue, it -> canProceedToPoll(it.process, it.num),
-                it -> allowToPoll(it.stack, it.process, it.characteristic, it.num));
+        notifyProcesses(waitingToPollQueue, it -> canProceedToPoll(it, it.minCount, it.maxCount),
+                it -> allowToPoll(it.stack, it, it.filter, it.minCount, it.maxCount));
     }
 
     private void notifyProcessesWaitingToOffer() {
-        notifyProcesses(waitingToOfferQueue, it -> canProceedToOffer(it.process, it.num),
-                it -> allowToOffer(it.stack, it.process, it.characteristic, it.num));
+        notifyProcesses(waitingToOfferQueue, it -> canProceedToOffer(it, it.minCount, it.maxCount),
+                it -> allowToOffer(it.stack, it, it.filter, it.minCount, it.maxCount));
     }
 
     private void notifyProcesses(Queue<IndirectionWaitingProcess> processes,
@@ -258,6 +286,6 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
 
     @Override
     public long getAvailable() {
-        return availableToPoll();
+        return availableInformation.canProvideHowMany();
     }
 }

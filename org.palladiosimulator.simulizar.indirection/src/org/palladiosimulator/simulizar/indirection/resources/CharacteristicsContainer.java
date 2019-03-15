@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.simulizar.indirection.characteristics.Characteristic;
+import org.palladiosimulator.simulizar.indirection.characteristics.CharacteristicFilter;
+import org.palladiosimulator.simulizar.indirection.datatypes.Scheduling;
 
 import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
@@ -16,7 +18,7 @@ public class CharacteristicsContainer {
         stack.rootFrame().addValue(CHARACTERISTIC_KEY, this);
     }
     
-    public static CharacteristicsContainer find(SimulatedStack<Object> stack) {
+    public static CharacteristicsContainer getOrCreate(SimulatedStack<Object> stack) {
         try {
             return (CharacteristicsContainer) stack.rootFrame().getValue(CHARACTERISTIC_KEY);
         } catch (ValueNotInFrameException e) {
@@ -38,5 +40,9 @@ public class CharacteristicsContainer {
     
     public List<Frame> frames() {
         return new ArrayList<>(this.frames);
+    }
+
+    public List<Frame> frames(CharacteristicFilter filter) {
+        return frames.stream().filter(CharacteristicsUtil.frameMatcher(filter)).collect(Collectors.toList());
     }
 }
