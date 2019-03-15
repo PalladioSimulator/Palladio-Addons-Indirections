@@ -8,14 +8,14 @@ import edu.kit.ipd.are.smarthomedata.dto.MutableInterval;
 public class CircularBuffer {
 	public static final class Element {
 		public long timestamp;
-		public float data;
+		public double data;
 
-		public Element(long timestamp, float data) {
+		public Element(long timestamp, double data) {
 			this.timestamp = timestamp;
 			this.data = data;
 		}
 
-		public float data() {
+		public double data() {
 			return data;
 		}
 
@@ -41,7 +41,7 @@ public class CircularBuffer {
 		full = false;
 	}
 
-	public void add(long timestamp, float data) {
+	public void add(long timestamp, double data) {
 		elements[addPointer] = new Element(timestamp, data);
 		addPointer++;
 
@@ -55,11 +55,11 @@ public class CircularBuffer {
 		return (index + (full ? addPointer : 0)) % maxCapacity;
 	}
 
-	public float median(MutableInterval interval) {
+	public double median(MutableInterval interval) {
 		return median(interval.start, interval.end);
 	}
 
-	public float median(long ts_start, long ts_end) {
+	public double median(long ts_start, long ts_end) {
 		final int capacity = full ? maxCapacity : addPointer;
 		int startIndex = -1;
 		int endIndex = -1;

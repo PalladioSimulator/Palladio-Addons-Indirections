@@ -1,6 +1,7 @@
 package edu.kit.ipd.are.smarthomedata.dto;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
 
 public class SmartMeterReading implements Serializable {
@@ -12,7 +13,7 @@ public class SmartMeterReading implements Serializable {
 
 	public final long id;
 	public final long timestamp;
-	public final float value;
+	public final double value;
 	public final ReadingType property;
 	public final long plug_id;
 	public final long household_id;
@@ -22,8 +23,10 @@ public class SmartMeterReading implements Serializable {
 	public final PlugIdentifier plugIdentifier;
 
 	public static final long START = 1378027841L;// 1377986401L;
+	
+	public static final Comparator<SmartMeterReading> BY_VALUE = Comparator.comparingDouble(smr -> smr.value);
 
-	public SmartMeterReading(long id, long timestamp, float value, ReadingType property, long plug_id,
+	public SmartMeterReading(long id, long timestamp, double value, ReadingType property, long plug_id,
 			long household_id, long house_id, Long currentTime) {
 		this.id = id;
 		this.timestamp = timestamp;
@@ -66,7 +69,7 @@ public class SmartMeterReading implements Serializable {
 
 		long id = Long.valueOf(fields[0]);
 		long timestamp = Long.valueOf(fields[1]) - START;
-		float value = Float.valueOf(fields[2]);
+		double value = Double.valueOf(fields[2]);
 		ReadingType property = fields[3].equals("0") ? ReadingType.WORK
 				: (fields[3].equals("1") ? ReadingType.LOAD : null);
 		Objects.requireNonNull(property);

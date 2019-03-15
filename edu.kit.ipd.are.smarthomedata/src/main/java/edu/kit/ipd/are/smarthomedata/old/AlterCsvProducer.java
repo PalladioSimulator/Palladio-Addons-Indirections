@@ -13,7 +13,7 @@ import edu.kit.ipd.are.smarthomedata.application.CloseableProducer;
 import edu.kit.ipd.are.smarthomedata.application.KafkaConnection;
 import edu.kit.ipd.are.smarthomedata.dto.SmartMeterReading;
 import edu.kit.ipd.are.smarthomedata.dto.SmartMeterReading.ReadingType;
-import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
+import edu.kit.ipd.are.smarthomedata.dto.WindowedValue;
 
 public class AlterCsvProducer {
 	private static final String MEDIAN_ALL_PLUGS_TOPIC = "medianAllPlugs";
@@ -32,23 +32,23 @@ public class AlterCsvProducer {
 		CloseableProducer<SmartMeterReading> smrProducer = KafkaConnection
 				.getProducerForTopic(SMART_METER_READINGS_TOPIC, SmartMeterReading::serialize);
 
-		CloseableProducer<WindowedMedian> medianProducer = KafkaConnection.getProducerForTopic(MEDIANS_TOPIC,
-				WindowedMedian::serialize);
+		CloseableProducer<WindowedValue> medianProducer = KafkaConnection.getProducerForTopic(MEDIANS_TOPIC,
+				WindowedValue::serialize);
 		MedianEachPlug pmp = new MedianEachPlug((it) -> true, 360, 10, medianProducer);
 
 		Closeable smrToPmp = KafkaConnection.getConsumerForTopic(SMART_METER_READINGS_TOPIC,
 				SmartMeterReading::deserialize, pmp);
 
-		CloseableProducer<WindowedMedian> mapProducer = KafkaConnection.getProducerForTopic(MEDIAN_ALL_PLUGS_TOPIC,
-				WindowedMedian::serialize);
+		CloseableProducer<WindowedValue> mapProducer = KafkaConnection.getProducerForTopic(MEDIAN_ALL_PLUGS_TOPIC,
+				WindowedValue::serialize);
 		AverageAllPlugs map = new AverageAllPlugs(mapProducer);
 
-		Closeable pmpToMap = KafkaConnection.getConsumerForTopic(MEDIANS_TOPIC, WindowedMedian::deserialize, map);
+		Closeable pmpToMap = KafkaConnection.getConsumerForTopic(MEDIANS_TOPIC, WindowedValue::deserialize, map);
 
 		NewAndBrokenOutlierCalculation oc = new NewAndBrokenOutlierCalculation(System.out::println);
-		Closeable mapToOc = KafkaConnection.getConsumerForTopic(MEDIAN_ALL_PLUGS_TOPIC, WindowedMedian::deserialize,
+		Closeable mapToOc = KafkaConnection.getConsumerForTopic(MEDIAN_ALL_PLUGS_TOPIC, WindowedValue::deserialize,
 				oc);
-		Closeable pmpToOc = KafkaConnection.getConsumerForTopic(MEDIANS_TOPIC, WindowedMedian::deserialize, oc);
+		Closeable pmpToOc = KafkaConnection.getConsumerForTopic(MEDIANS_TOPIC, WindowedValue::deserialize, oc);
 
 //		allCloseables
 //				.addAll(Arrays.asList(smrProducer, medianProducer, smrToPmp, mapProducer, pmpToMap, mapToOc, pmpToOc));

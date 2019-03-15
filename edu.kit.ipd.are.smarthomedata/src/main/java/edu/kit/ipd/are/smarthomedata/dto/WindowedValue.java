@@ -1,12 +1,12 @@
 package edu.kit.ipd.are.smarthomedata.dto;
 
-public class WindowedMedian {
+public class WindowedValue {
 	public final PlugIdentifier plug;
-	public final float value;
+	public final double value;
 	public final Interval interval;
 	public final MutableInterval origins;
 
-	public WindowedMedian(PlugIdentifier plug, float value, Interval interval, MutableInterval originTimes) {
+	public WindowedValue(PlugIdentifier plug, double value, Interval interval, MutableInterval originTimes) {
 		this.plug = plug;
 		this.value = value;
 		this.interval = interval;
@@ -27,11 +27,11 @@ public class WindowedMedian {
 				+ this.interval.start + "," + this.interval.end + "," + this.origins.start + "," + this.origins.end;
 	}
 
-	public static WindowedMedian deserialize(String s) {
+	public static WindowedValue deserialize(String s) {
 		String[] f = s.split(",");
 		PlugIdentifier plugIdentifier = new PlugIdentifier(Long.valueOf(f[0]), Long.valueOf(f[1]), Long.valueOf(f[2]));
 		Interval interval = new Interval(Long.valueOf(f[4]), Long.valueOf(f[5]));
 		MutableInterval originTimes = new MutableInterval(Long.valueOf(f[6]), Long.valueOf(f[7]));
-		return new WindowedMedian(plugIdentifier, Float.valueOf(f[3]), interval, originTimes);
+		return new WindowedValue(plugIdentifier, Double.valueOf(f[3]), interval, originTimes);
 	}
 }

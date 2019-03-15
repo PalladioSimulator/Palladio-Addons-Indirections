@@ -7,9 +7,9 @@ import java.util.function.Consumer;
 
 import edu.kit.ipd.are.smarthomedata.dto.OutlierValue;
 import edu.kit.ipd.are.smarthomedata.dto.PlugIdentifier;
-import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
+import edu.kit.ipd.are.smarthomedata.dto.WindowedValue;
 
-public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> {
+public class NewAndBrokenOutlierCalculation implements Consumer<WindowedValue> {
 	private Long ts_start = null;
 	private Long ts_stop = null;
 
@@ -17,11 +17,11 @@ public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> 
 	private Long ts_stop_prev = null;
 
 	// house identifier to measurements for this house
-	private Map<Long, Map<PlugIdentifier, Float>> values;
-	private Map<Long, Map<PlugIdentifier, Float>> values_prev;
+	private Map<Long, Map<PlugIdentifier, Double>> values;
+	private Map<Long, Map<PlugIdentifier, Double>> values_prev;
 
-	private Float overallMedian;
-	private Float overallMedian_prev;
+	private Double overallMedian;
+	private Double overallMedian_prev;
 
 	private Consumer<OutlierValue> callback;
 
@@ -30,7 +30,7 @@ public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> 
 	}
 
 	@Override
-	synchronized public void accept(WindowedMedian wm) {
+	synchronized public void accept(WindowedValue wm) {
 //		try {
 //			if (ts_start == null && ts_stop == null) {
 //				// initial measurement
@@ -49,7 +49,7 @@ public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> 
 //		}
 	}
 
-	private void shiftBack(WindowedMedian wm) {
+	private void shiftBack(WindowedValue wm) {
 		if (this.ts_start_prev != null) {
 			throw new IllegalStateException(
 					"Value for " + this.ts_start_prev + " to " + this.ts_stop_prev + " was not emitted.");
@@ -61,14 +61,14 @@ public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> 
 		this.overallMedian_prev = this.overallMedian;
 	}
 
-	private void initialize(WindowedMedian wm) {
+	private void initialize(WindowedValue wm) {
 //		this.ts_start = wm.ts_start;
 //		this.ts_stop = wm.ts_stop;
 		this.values = new HashMap<>();
 		this.overallMedian = null;
 	}
 
-	private Boolean isCurrentBuffer(WindowedMedian wm) {
+	private Boolean isCurrentBuffer(WindowedValue wm) {
 //		if (wm.ts_start == this.ts_start && wm.ts_stop == this.ts_stop) {
 //			return true;
 //		} else if (wm.ts_start == this.ts_start_prev && wm.ts_stop == this.ts_stop_prev) {
@@ -79,7 +79,7 @@ public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> 
 		return null;
 	}
 
-	private void addValue(WindowedMedian wm) {
+	private void addValue(WindowedValue wm) {
 		Objects.requireNonNull(wm);
 
 		Boolean currentBuffer = Objects.requireNonNull(isCurrentBuffer(wm));
@@ -112,9 +112,9 @@ public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> 
 		}
 	}
 
-	private void appendMedian(WindowedMedian wm, Map<Long, Map<PlugIdentifier, Float>> map) {
+	private void appendMedian(WindowedValue wm, Map<Long, Map<PlugIdentifier, Double>> map) {
 		Long houseId = wm.plug.houseId;
-		Map<PlugIdentifier, Float> housePlugs = map.computeIfAbsent(houseId, it -> new HashMap<>());
+		Map<PlugIdentifier, Double> housePlugs = map.computeIfAbsent(houseId, it -> new HashMap<>());
 
 		if (housePlugs.containsKey(wm.plug)) {
 			throw new IllegalStateException();
@@ -136,7 +136,7 @@ public class NewAndBrokenOutlierCalculation implements Consumer<WindowedMedian> 
 		return false;
 	}
 
-	private void calculateOutliersAndEmit(WindowedMedian wm) {
+	private void calculateOutliersAndEmit(WindowedValue wm) {
 		Boolean currentBuffer = isCurrentBuffer(wm);
 		Objects.requireNonNull(currentBuffer, wm.toString() + " is neither " + ts_start + "-" + ts_stop + " nor "
 				+ ts_start_prev + "-" + ts_stop_prev);

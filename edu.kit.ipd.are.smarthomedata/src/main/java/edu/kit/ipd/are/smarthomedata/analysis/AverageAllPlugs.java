@@ -8,21 +8,21 @@ import java.util.function.Consumer;
 import edu.kit.ipd.are.smarthomedata.dto.Interval;
 import edu.kit.ipd.are.smarthomedata.dto.MutableInterval;
 import edu.kit.ipd.are.smarthomedata.dto.PlugIdentifier;
-import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
+import edu.kit.ipd.are.smarthomedata.dto.WindowedValue;
 
-public class AverageAllPlugs implements Consumer<WindowedMedian> {
+public class AverageAllPlugs implements Consumer<WindowedValue> {
 	private Interval interval = null;
 	private MutableInterval origins = null;
 
-	private Map<PlugIdentifier, Float> values;
-	private Consumer<WindowedMedian> callback;
+	private Map<PlugIdentifier, Double> values;
+	private Consumer<WindowedValue> callback;
 
-	public AverageAllPlugs(Consumer<WindowedMedian> callback) {
+	public AverageAllPlugs(Consumer<WindowedValue> callback) {
 		this.callback = callback;
 	}
 
 	@Override
-	public void accept(WindowedMedian wm) {
+	public void accept(WindowedValue wm) {
 		try {
 			if (interval == null) {
 				// initial measurement
@@ -35,22 +35,25 @@ public class AverageAllPlugs implements Consumer<WindowedMedian> {
 			} else if (wm.interval.equals(interval)) {
 				addValue(wm);
 			} else {
-				throw new IllegalStateException("Medians were not in order: current interval: " + interval.toString()
+				System.out.println("Medians were not in order: current interval: " + interval.toString()
 						+ ", got: " + wm.interval.toString() + ".");
+				/*throw new IllegalStateException("Medians were not in order: current interval: " + interval.toString()
+						+ ", got: " + wm.interval.toString() + ".");*/
+				return;
 			}
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 		}
 	}
 
-	private void initialize(WindowedMedian wm) {
+	private void initialize(WindowedValue wm) {
 //		System.out.println("Initializing to " + wm.toString());
 		this.interval = wm.interval;
 		this.origins = wm.origins.copy();
 		this.values = new HashMap<>();
 	}
 
-	private void addValue(WindowedMedian wm) {
+	private void addValue(WindowedValue wm) {
 		Objects.requireNonNull(wm);
 		if (this.values.containsKey(wm.plug)) {
 			throw new IllegalStateException();
@@ -65,6 +68,6 @@ public class AverageAllPlugs implements Consumer<WindowedMedian> {
 		// double median = median(values.values().stream().mapToDouble(f -> (double) f),
 		// values.values().size());
 		double average = values.values().stream().mapToDouble(f -> (double) f).average().getAsDouble();
-		callback.accept(new WindowedMedian(new PlugIdentifier(-1L, -1L, -1L), (float) average, interval, origins));
+		callback.accept(new WindowedValue(new PlugIdentifier(-1L, -1L, -1L), (double) average, interval, origins));
 	}
 }

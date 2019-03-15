@@ -34,7 +34,7 @@ public class OutliersHouse implements Consumer<SmartMeterReading> {
 		}
 
 		final Long plugId = Long.valueOf(in.plug_id);
-		final float value = in.value;
+		final double value = in.value;
 		if (!plugs.containsKey(plugId)) {
 			plugs.put(plugId, new WindowedAggregate(windowSize, windowShift, System.out::println));
 		}
@@ -42,9 +42,9 @@ public class OutliersHouse implements Consumer<SmartMeterReading> {
 		add++;
 	}
 
-	public float[] medians() {
+	public double[] medians() {
 //		final Collection<CircularArray> values = plugs.values();
-//		float[] medians = new float[values.size()];
+//		double[] medians = new double[values.size()];
 //		int addPointer = 0;
 //		for (CircularArray array : values) {
 //			medians[addPointer] = array.median();
@@ -54,9 +54,9 @@ public class OutliersHouse implements Consumer<SmartMeterReading> {
 		return null;
 	}
 
-	public float outliers() {
-		float[] medians = medians();
-		float median = 0.0F;
+	public double outliers() {
+		double[] medians = medians();
+		double median = 0.0F;
 		if ((medians.length % 2) == 0) {
 			median = (medians[medians.length / 2] + medians[(medians.length / 2) - 1]) / 2;
 		} else {
@@ -70,7 +70,7 @@ public class OutliersHouse implements Consumer<SmartMeterReading> {
 			}
 		}
 
-		return (float) count / medians.length;
+		return (double) count / medians.length;
 	}
 
 	public void emitIfWindowShifted() {

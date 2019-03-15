@@ -6,21 +6,21 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import edu.kit.ipd.are.smarthomedata.dto.OutlierValue;
-import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
+import edu.kit.ipd.are.smarthomedata.dto.WindowedValue;
 
 // accepts both overall values and individual house 
-public class OldOutlierCalculation implements Consumer<WindowedMedian> {
+public class OldOutlierCalculation implements Consumer<WindowedValue> {
 	private Long ts_start = null;
 	private Long ts_stop = null;
 	
-	private Float overallMedian = null;
-	private Map<Long, Float> houseToMedian = null;
+	private Double overallMedian = null;
+	private Map<Long, Double> houseToMedian = null;
 	
 	public OldOutlierCalculation(Consumer<OutlierValue> callback) {
 	}
 
 	@Override
-	public void accept(WindowedMedian wm) {
+	public void accept(WindowedValue wm) {
 //		if (ts_start == null && ts_stop == null) {
 //			// initial measurement
 //			initialize(wm);
@@ -36,7 +36,7 @@ public class OldOutlierCalculation implements Consumer<WindowedMedian> {
 //		}
 	}
 	
-	private void addValue(WindowedMedian wm) {
+	private void addValue(WindowedValue wm) {
 		if (wm.isOverallMedian()) {
 			if (overallMedian != null) {
 				throw new IllegalStateException();
@@ -62,7 +62,7 @@ public class OldOutlierCalculation implements Consumer<WindowedMedian> {
 		}
 	}
 
-	private void initialize(WindowedMedian wm) {
+	private void initialize(WindowedValue wm) {
 //		this.ts_start = wm.ts_start;
 //		this.ts_stop = wm.ts_stop;
 		

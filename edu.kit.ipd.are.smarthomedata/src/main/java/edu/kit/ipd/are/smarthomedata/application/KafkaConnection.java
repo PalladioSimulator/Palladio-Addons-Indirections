@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -20,8 +17,8 @@ import org.apache.kafka.common.KafkaException;
 
 public class KafkaConnection {
 	private static final String KAFKA_PROPERTIES_PROPERTY_NAME = "kafka.producer.properties";
-	private static final String ENERGY_STATUS_DATA_PROPERTY_NAME = "esd.producer.properties";
-	private static final String TOPIC_PROPERTY_NAME = "topic";
+//	private static final String ENERGY_STATUS_DATA_PROPERTY_NAME = "esd.producer.properties";
+//	private static final String TOPIC_PROPERTY_NAME = "topic";
 
 //	public static CloseableProducer<String> getProducer() {
 //		Properties esdProperties = getProperties(ENERGY_STATUS_DATA_PROPERTY_NAME);
@@ -35,7 +32,7 @@ public class KafkaConnection {
 		Producer<String, String> producer = createKafkaProducer();
 		return CloseableProducer.fromKafkaProducer(producer, topic);
 	}
-	
+
 	public static <T> CloseableProducer<T> getProducerForTopic(String topic, Function<T, String> serializer) {
 		Producer<String, String> producer = createKafkaProducer();
 		return CloseableProducer.fromKafkaProducer(producer, serializer, topic);
@@ -54,7 +51,6 @@ public class KafkaConnection {
 		}
 		return producer;
 	}
-	
 
 //	public static Closeable getConsumer(Consumer<String> callback) {
 //		Properties esdProperties = getProperties(ENERGY_STATUS_DATA_PROPERTY_NAME);
@@ -79,8 +75,9 @@ public class KafkaConnection {
 
 		return fromKafkaConsumer(consumer, topic, callback);
 	}
-	
-	public static <T> Closeable getConsumerForTopic(String topic, Function<String, T> deserializer, Consumer<T> callback) {
+
+	public static <T> Closeable getConsumerForTopic(String topic, Function<String, T> deserializer,
+			Consumer<T> callback) {
 		return getConsumerForTopic(topic, it -> callback.accept(deserializer.apply(it)));
 	}
 
@@ -121,7 +118,7 @@ public class KafkaConnection {
 				}
 			}
 		});
-		
+
 		t.start();
 
 		return new Closeable() {

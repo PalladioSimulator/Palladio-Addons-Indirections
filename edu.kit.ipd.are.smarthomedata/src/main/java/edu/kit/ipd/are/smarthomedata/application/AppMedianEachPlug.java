@@ -2,7 +2,7 @@ package edu.kit.ipd.are.smarthomedata.application;
 
 import edu.kit.ipd.are.smarthomedata.analysis.MedianEachPlug;
 import edu.kit.ipd.are.smarthomedata.dto.SmartMeterReading;
-import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
+import edu.kit.ipd.are.smarthomedata.dto.WindowedValue;
 
 public class AppMedianEachPlug {
 	public static void main(String[] args) {
@@ -12,15 +12,10 @@ public class AppMedianEachPlug {
 		System.out.println("Starting " + AppMedianEachPlug.class.getName() + " with window size " + window_size
 				+ ", window shift " + window_shift);
 
-		CloseableProducer<WindowedMedian> medianOneProducer = KafkaConnection
-				.getProducerForTopic(Constants.MEDIANS_ONE_TOPIC, WindowedMedian::serialize);
-		/*
-		 * CloseableProducer<WindowedMedian> medianTwoProducer = KafkaConnection
-		 * .getProducerForTopic(Constants.MEDIANS_TWO_TOPIC, WindowedMedian::serialize);
-		 */
-		MedianEachPlug pmp = new MedianEachPlug((it) -> true, window_size, window_shift,
-				// medianOneProducer.andThen(medianTwoProducer));
-				medianOneProducer);
+		CloseableProducer<WindowedValue> medianOneProducer = KafkaConnection
+				.getProducerForTopic(Constants.MEDIAN_PER_PLUG_TOPIC, WindowedValue::serialize);
+
+		MedianEachPlug pmp = new MedianEachPlug((it) -> true, window_size, window_shift, medianOneProducer);
 
 		KafkaConnection.getConsumerForTopic(Constants.SMART_METER_READINGS_TOPIC, SmartMeterReading::deserialize, pmp);
 	}

@@ -9,22 +9,39 @@ public class MutableInterval {
 		this.end = end;
 	}
 	
-	public void extendToInclude(long time) {
+	public MutableInterval extendToInclude(long time) {
 		if (time < start) {
 			start = time;
 		} else if (time > end) {
 			end = time;
 		}
+		return this;
 	}
 	
-	public void shift(long delta) {
+	public MutableInterval shift(long delta) {
 		this.start += delta;
 		this.end += delta;
+		
+		return this;
 	}
 	
-	public void extendToInclude(MutableInterval other) {
+	public MutableInterval scale(long by) {
+		if (by < 0) {
+			long temp = this.start;
+			this.start = this.end * by;
+			this.end = temp * by;
+		} else {
+			this.start = this.start * by;
+			this.end = this.end * by;
+		}
+		
+		return this;
+	}
+	
+	public MutableInterval extendToInclude(MutableInterval other) {
 		extendToInclude(other.start);
 		extendToInclude(other.end);
+		return this;
 	}
 	
 	public Interval asInterval() {

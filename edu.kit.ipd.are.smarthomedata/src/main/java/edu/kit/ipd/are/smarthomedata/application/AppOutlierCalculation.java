@@ -2,7 +2,7 @@ package edu.kit.ipd.are.smarthomedata.application;
 
 import edu.kit.ipd.are.smarthomedata.analysis.OutlierCalculation;
 import edu.kit.ipd.are.smarthomedata.dto.OutlierValue;
-import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
+import edu.kit.ipd.are.smarthomedata.dto.WindowedValue;
 
 public class AppOutlierCalculation {
 	public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class AppOutlierCalculation {
 
 		OutlierCalculation oc = new OutlierCalculation(outlierProducer);
 
-		KafkaConnection.getConsumerForTopic(Constants.MEDIANS_ONE_TOPIC, WindowedMedian::deserialize, oc);
-		KafkaConnection.getConsumerForTopic(Constants.MEDIAN_PER_PLUG_TOPIC, WindowedMedian::deserialize, oc);
+		KafkaConnection.getConsumerForTopic(Constants.MEDIAN_PER_PLUG_TOPIC, WindowedValue::deserialize, oc);
+		KafkaConnection.getConsumerForTopic(Constants.AVERAGE_MEDIAN_ALL_PLUGS_TOPIC, WindowedValue::deserialize, oc);
 	}
 }

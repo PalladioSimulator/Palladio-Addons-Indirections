@@ -29,8 +29,8 @@ public interface CloseableProducer<T> extends Consumer<T>, Closeable {
 			@Override
 			public void accept(T message) {
 				messageCount++;
-				if (messageCount % 1000L == 0) {
-					System.out.println("" + messageCount + " messaged delivered to " + topic);
+				if (messageCount % 10000L == 0) {
+					System.out.println("" + messageCount + " messages delivered to " + topic);
 				}
 				producer.send(new ProducerRecord<String, String>(topic, serializer.apply(message)));
 			}

@@ -8,16 +8,16 @@ import java.util.function.Predicate;
 import edu.kit.ipd.are.smarthomedata.datastructures.WindowedAggregate;
 import edu.kit.ipd.are.smarthomedata.dto.PlugIdentifier;
 import edu.kit.ipd.are.smarthomedata.dto.SmartMeterReading;
-import edu.kit.ipd.are.smarthomedata.dto.WindowedMedian;
+import edu.kit.ipd.are.smarthomedata.dto.WindowedValue;
 
 public class MedianEachPlug implements Consumer<SmartMeterReading> {
-	private Consumer<WindowedMedian> callback;
+	private Consumer<WindowedValue> callback;
 	private Map<PlugIdentifier, WindowedAggregate> aggregates = new HashMap<>();
 	private int windowSize;
 	private int windowShift;
 	private final Predicate<PlugIdentifier> responsibilityCheck;
 
-	public MedianEachPlug(Predicate<PlugIdentifier> responsibilityCheck, int windowSize, int windowShift, Consumer<WindowedMedian> callback) {
+	public MedianEachPlug(Predicate<PlugIdentifier> responsibilityCheck, int windowSize, int windowShift, Consumer<WindowedValue> callback) {
 		this.windowSize = windowSize;
 		this.windowShift = windowShift;
 		this.responsibilityCheck = responsibilityCheck;
