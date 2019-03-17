@@ -28,22 +28,34 @@
           defaultValueLiteral="1"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="blockIfNotAvailable"
           lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitioning" eType="#//partitioning/Partioning"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="windowing" eType="#//partitioning/Windowing"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="IndirectionAction" abstract="true"
         eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="indirection" eType="#//Indirection"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="characteristic" eType="#//characteristics/Characteristic"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="filter" eType="#//characteristics/CharacteristicFilter"
+          containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="CharacteristicStackManipulationAction">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="javaFqn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CharacteristicStackManipulationAction"
+        eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//usagemodel/AbstractUserAction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="javaClassAndMethodFqn"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameters" upperBound="-1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="GenerateDate" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+    <eClassifiers xsi:type="ecore:EClass" name="GenerateDateAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//usagemodel/AbstractUserAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="characteristic" lowerBound="1"
           eType="#//characteristics/Characteristic"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="UserGenerateDate" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//usagemodel/AbstractUserAction">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="characteristic" lowerBound="1"
-          eType="#//characteristics/Characteristic"/>
+    <eClassifiers xsi:type="ecore:EClass" name="PushDataOnStackAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregation" eType="#//datatypes/Aggregation"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="stackIdentifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="filter" eType="#//characteristics/CharacteristicFilter"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnalyseDataAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirection/Datatypes/1.0"
@@ -60,15 +72,25 @@
       <eLiterals name="DiscardLastIn" value="2"/>
       <eLiterals name="DiscardIncoming" value="3"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="WindowingTimeMode">
+      <eLiterals name="WallClock" literal="WallClock"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="Aggregation">
+      <eLiterals name="Average"/>
+      <eLiterals name="ExactlyOne" value="1"/>
+      <eLiterals name="Count" value="2"/>
+      <eLiterals name="First" value="3"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="characteristics" nsURI="http://palladiosimulator.org/Indirection/Characteristics/1.0"
       nsPrefix="org.palladiosimulator.simulizar.indirection.characteristics">
     <eClassifiers xsi:type="ecore:EClass" name="Characteristic" eSuperTypes="../../de.uka.ipd.sdq.identifier/model/identifier.ecore#//Identifier ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/NamedElement">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="topic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral=""/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="priority" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
           defaultValueLiteral="-1"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="context" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="specification" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="CharacteristicsRepository">
       <eStructuralFeatures xsi:type="ecore:EReference" name="characteristics" upperBound="-1"
@@ -80,6 +102,21 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="identifier" lowerBound="1"
           upperBound="-1" eType="ecore:EClass ../../de.uka.ipd.sdq.identifier/model/identifier.ecore#//Identifier"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="characteristic" eType="#//characteristics/Characteristic"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CharacteristicFilter">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchingTopic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchingContext" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="partitioning" nsURI="http://palladiosimulator.org/Indirection/Partitioning/1.0"
+      nsPrefix="org.palladiosimulator.simulizar.indirection.partitioning">
+    <eClassifiers xsi:type="ecore:EClass" name="Partioning">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="characteristic" eType="#//characteristics/Characteristic"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Windowing">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeMode" lowerBound="1"
+          eType="#//datatypes/WindowingTimeMode"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="interval" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>
