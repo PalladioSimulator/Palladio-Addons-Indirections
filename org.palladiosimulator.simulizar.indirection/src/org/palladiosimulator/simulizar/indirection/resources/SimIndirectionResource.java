@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.PassiveResource;
 import org.palladiosimulator.simulizar.indirection.Indirection;
-import org.palladiosimulator.simulizar.indirection.characteristics.Characteristic;
 import org.palladiosimulator.simulizar.indirection.characteristics.CharacteristicFilter;
 import org.palladiosimulator.simulizar.indirection.resources.queues.SimulatedQueueFactory;
 
@@ -82,14 +81,6 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
         this.availableInformation = SimulatedQueueFactory.INSTANCE.createQueue(resource.getScheduling(),
                 Math.toIntExact(capacity));
     }
-
-    // private int availableToPoll() {
-    // return this.availableInformation.size();
-    // }
-    //
-    // private int availableToOffer() {
-    // return Math.toIntExact(this.capacity - this.availableInformation.size());
-    // }
 
     private boolean canProceedToPoll(final IndirectionWaitingProcess process, final long minimumCount,
             final long maximumCount) {
