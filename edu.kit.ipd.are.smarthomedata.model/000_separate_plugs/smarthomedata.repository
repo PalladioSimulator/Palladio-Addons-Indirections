@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.simulizar.indirection="http://palladiosimulator.org/Indirection/1.0" xmlns:org.palladiosimulator.simulizar.indirection.actions="http://palladiosimulator.org/Indirection/Actions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_SLFGwHxWEemZXNdNTD6P-Q" entityName="SmartHomeDataRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_gep6EHxWEemZXNdNTD6P-Q" entityName="MedianEachPlug">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_J35TIHxXEemZXNdNTD6P-Q" entityName="MedianEachPlug.ICalculateMedians.OperationProvidedRole1" providedInterface__OperationProvidedRole="_slPRYHxWEemZXNdNTD6P-Q"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_J36hQHxXEemZXNdNTD6P-Q" describedService__SEFF="_9RvD4HxWEemZXNdNTD6P-Q">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_J37IUHxXEemZXNdNTD6P-Q" entityName="medianStart" successor_AbstractAction="_LXNHwnxtEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:PollAction" id="_LXNHwnxtEemX4qnXnBNY2A" entityName="medianPoll" predecessor_AbstractAction="_J37IUHxXEemZXNdNTD6P-Q" successor_AbstractAction="_YAAl83xuEemX4qnXnBNY2A" indirection="_4g3T6XxsEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:PushDataOnStackAction" id="_YAAl83xuEemX4qnXnBNY2A" entityName="medianCountToStack" predecessor_AbstractAction="_LXNHwnxtEemX4qnXnBNY2A" successor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" aggregation="Count" stackIdentifier="COUNT_OF_ELEMENTS">
+        <characteristic href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_TKAVvHxtEemX4qnXnBNY2A" entityName="medianRD" predecessor_AbstractAction="_YAAl83xuEemX4qnXnBNY2A" successor_AbstractAction="_aFF4j3xtEemX4qnXnBNY2A">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="COUNT_OF_ELEMENTS.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:OfferAction" id="_aFF4j3xtEemX4qnXnBNY2A" entityName="medianOffer" predecessor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" successor_AbstractAction="_J37IUXxXEemZXNdNTD6P-Q" indirection="_5VX6CXxsEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_J37IUXxXEemZXNdNTD6P-Q" entityName="medianStop" predecessor_AbstractAction="_aFF4j3xtEemX4qnXnBNY2A"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_g7ws0HxWEemZXNdNTD6P-Q" entityName="AverageAllPlugs">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_JVphsHxXEemZXNdNTD6P-Q" entityName="AverageAllPlugs.ICalculateAverages.OperationProvidedRole1" providedInterface__OperationProvidedRole="_yUkywHxWEemZXNdNTD6P-Q"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_JXIIYHxXEemZXNdNTD6P-Q" describedService__SEFF="_CPfXUHxXEemZXNdNTD6P-Q">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_JXIvcHxXEemZXNdNTD6P-Q" entityName="averageStart" successor_AbstractAction="_o86ocHxtEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:PollAction" id="_o86ocHxtEemX4qnXnBNY2A" entityName="averagePoll" predecessor_AbstractAction="_JXIvcHxXEemZXNdNTD6P-Q" successor_AbstractAction="_AMxaQ3xuEemX4qnXnBNY2A" indirection="_5VX6CXxsEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:PushDataOnStackAction" id="_AMxaQ3xuEemX4qnXnBNY2A" entityName="averageCountToStack" predecessor_AbstractAction="_o86ocHxtEemX4qnXnBNY2A" successor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" aggregation="Count" stackIdentifier="COUNT_OF_ELEMENTS">
+        <characteristic href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_uWR5zHxtEemX4qnXnBNY2A" entityName="averageRD" predecessor_AbstractAction="_AMxaQ3xuEemX4qnXnBNY2A">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="COUNT_OF_ELEMENTS.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:OfferAction" id="_zWttz3xtEemX4qnXnBNY2A" entityName="averageOffer" indirection="_-9R9uXxsEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_JXIvcXxXEemZXNdNTD6P-Q" entityName="averageStop"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_hJEwEHxWEemZXNdNTD6P-Q" entityName="OutlierCalculation">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Hbs9gHxXEemZXNdNTD6P-Q" entityName="OutlierCalculation.ICalculateOutliers.OperationProvidedRole1" providedInterface__OperationProvidedRole="_41DdMHxWEemZXNdNTD6P-Q"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_HcUokHxXEemZXNdNTD6P-Q" describedService__SEFF="_D085QHxXEemZXNdNTD6P-Q">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_HcVPoHxXEemZXNdNTD6P-Q" entityName="outlierStart" successor_AbstractAction="_4sitiHxuEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:PollAction" id="_4sitiHxuEemX4qnXnBNY2A" entityName="outlierPoll" predecessor_AbstractAction="_HcVPoHxXEemZXNdNTD6P-Q" successor_AbstractAction="_CqchI3xvEemX4qnXnBNY2A" indirection="_-9R9uXxsEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:PushDataOnStackAction" id="_CqchI3xvEemX4qnXnBNY2A" entityName="outlierCountToStack" predecessor_AbstractAction="_4sitiHxuEemX4qnXnBNY2A" successor_AbstractAction="_KLM8zHxvEemX4qnXnBNY2A" aggregation="Count" stackIdentifier="COUNT_OF_ELEMENTS">
+        <characteristic href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_KLM8zHxvEemX4qnXnBNY2A" entityName="outlierRD" predecessor_AbstractAction="_CqchI3xvEemX4qnXnBNY2A" successor_AbstractAction="_SAXiRHxvEemX4qnXnBNY2A">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="COUNT_OF_ELEMENTS.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:AnalyseDataAction" id="_SAXiRHxvEemX4qnXnBNY2A" entityName="outlierAnalyse" predecessor_AbstractAction="_KLM8zHxvEemX4qnXnBNY2A" successor_AbstractAction="_HcVPoXxXEemZXNdNTD6P-Q"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_HcVPoXxXEemZXNdNTD6P-Q" entityName="outlierStop" predecessor_AbstractAction="_SAXiRHxvEemX4qnXnBNY2A"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_SMpLAHxsEemX4qnXnBNY2A" entityName="Broker">
+    <passiveResource_BasicComponent xsi:type="org.palladiosimulator.simulizar.indirection:Indirection" id="_4g3T6XxsEemX4qnXnBNY2A" entityName="ingressIndirection" consumersAreCompeting="true">
+      <partitioning>
+        <characteristic href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
+      </partitioning>
+      <windowing interval="5.0"/>
+      <characteristics href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
+    </passiveResource_BasicComponent>
+    <passiveResource_BasicComponent xsi:type="org.palladiosimulator.simulizar.indirection:Indirection" id="_5VX6CXxsEemX4qnXnBNY2A" entityName="medianIndirection" consumersAreCompeting="true">
+      <characteristics href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
+    </passiveResource_BasicComponent>
+    <passiveResource_BasicComponent xsi:type="org.palladiosimulator.simulizar.indirection:Indirection" id="_-9R9uXxsEemX4qnXnBNY2A" entityName="averageIndirection" consumersAreCompeting="true">
+      <characteristics href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
+    </passiveResource_BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_slPRYHxWEemZXNdNTD6P-Q" entityName="ICalculateMedians">
+    <signatures__OperationInterface id="_9RvD4HxWEemZXNdNTD6P-Q" entityName="calculateMedians"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_yUkywHxWEemZXNdNTD6P-Q" entityName="ICalculateAverages">
+    <signatures__OperationInterface id="_CPfXUHxXEemZXNdNTD6P-Q" entityName="calculateAverages"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_41DdMHxWEemZXNdNTD6P-Q" entityName="ICalculateOutliers">
+    <signatures__OperationInterface id="_D085QHxXEemZXNdNTD6P-Q" entityName="calculateOutliers"/>
+  </interfaces__Repository>
+</repository:Repository>

@@ -5,7 +5,7 @@ import org.palladiosimulator.simulizar.indirection.resources.CharacteristicsCont
 import org.palladiosimulator.simulizar.indirection.resources.Frame;
 
 public class Aggregate {
-    public static void average(CharacteristicsContainer container, String stringCount) {
+    /*public static void average(CharacteristicsContainer container, String stringCount) {
         int count = Integer.valueOf(stringCount);
 
         Double averageBirth = container.frames.stream().limit(count).mapToDouble(Frame::birth).average().getAsDouble();
@@ -24,5 +24,5 @@ public class Aggregate {
         }
         
         container.add(new Frame(c, averageBirth, averageSpecification));
-    }
+    }*/
 }

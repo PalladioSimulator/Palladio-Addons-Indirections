@@ -1,21 +1,17 @@
 package org.palladiosimulator.simulizar.indirection.resources;
 
-import org.palladiosimulator.simulizar.indirection.characteristics.CharacteristicFilter;
-
 public interface SimulatedQueue {
-    Frame pop(CharacteristicFilter filter);
+    Frame pop();
 
     void push(Frame frame);
 
     long totalAvailable();
+
     long totalCapacity();
 
-    Frame peek(CharacteristicFilter filter, long num);
-
-    long canProvideHowManyOf(CharacteristicFilter filter);
-
-    long canAcceptHowManyOf(CharacteristicFilter filter);
+    Frame peek(long num);
 
     long canProvideHowMany();
+
     long canAcceptHowMany();
 }
