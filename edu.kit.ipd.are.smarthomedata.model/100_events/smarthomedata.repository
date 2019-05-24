@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_SLFGwHxWEemZXNdNTD6P-Q" entityName="SmartHomeDataRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_gep6EHxWEemZXNdNTD6P-Q" entityName="MedianEachPlug">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_J35TIHxXEemZXNdNTD6P-Q" entityName="MedianEachPlug.ICalculateMedians.OperationProvidedRole1" providedInterface__OperationProvidedRole="_slPRYHxWEemZXNdNTD6P-Q"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_iPMwMHyOEemK8fW_yW8fjQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_botfUH2JEemK8fW_yW8fjQ" entityName="MedianEachPlug.PlugReadingWindowGroup.SinkRole2" eventGroup__SinkRole="_O5ZUFX2JEemK8fW_yW8fjQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_sABE8H2JEemK8fW_yW8fjQ" entityName="MedianEachPlug.MedianGroup.SourceRole1" eventGroup__SourceRole="_l8re9n2IEemK8fW_yW8fjQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_J36hQHxXEemZXNdNTD6P-Q" describedService__SEFF="_9RvD4HxWEemZXNdNTD6P-Q">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_J37IUHxXEemZXNdNTD6P-Q" entityName="medianStart" successor_AbstractAction="_r9EcW3yREemK8fW_yW8fjQ"/>
+      <steps_Behaviour xsi:type="seff:EmitEventAction" id="_r9EcW3yREemK8fW_yW8fjQ" predecessor_AbstractAction="_J37IUHxXEemZXNdNTD6P-Q" successor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_J37IUXxXEemZXNdNTD6P-Q" entityName="medianStop" predecessor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_TKAVvHxtEemX4qnXnBNY2A" entityName="medianRD" predecessor_AbstractAction="_r9EcW3yREemK8fW_yW8fjQ" successor_AbstractAction="_J37IUXxXEemZXNdNTD6P-Q">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="COUNT_OF_ELEMENTS.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_boutcH2JEemK8fW_yW8fjQ" describedService__SEFF="_QkgLAH2JEemK8fW_yW8fjQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_bo0NAH2JEemK8fW_yW8fjQ" successor_AbstractAction="_bo0NAX2JEemK8fW_yW8fjQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_bo0NAX2JEemK8fW_yW8fjQ" predecessor_AbstractAction="_bo0NAH2JEemK8fW_yW8fjQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_g7ws0HxWEemZXNdNTD6P-Q" entityName="AverageAllPlugs">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_JVphsHxXEemZXNdNTD6P-Q" entityName="AverageAllPlugs.ICalculateAverages.OperationProvidedRole1" providedInterface__OperationProvidedRole="_yUkywHxWEemZXNdNTD6P-Q"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_JXIIYHxXEemZXNdNTD6P-Q" describedService__SEFF="_CPfXUHxXEemZXNdNTD6P-Q">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_JXIvcHxXEemZXNdNTD6P-Q" entityName="averageStart"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_JXIvcXxXEemZXNdNTD6P-Q" entityName="averageStop"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_uWR5zHxtEemX4qnXnBNY2A" entityName="averageRD">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="COUNT_OF_ELEMENTS.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_hJEwEHxWEemZXNdNTD6P-Q" entityName="OutlierCalculation">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Hbs9gHxXEemZXNdNTD6P-Q" entityName="OutlierCalculation.ICalculateOutliers.OperationProvidedRole1" providedInterface__OperationProvidedRole="_41DdMHxWEemZXNdNTD6P-Q"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_HcUokHxXEemZXNdNTD6P-Q" describedService__SEFF="_D085QHxXEemZXNdNTD6P-Q">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_HcVPoHxXEemZXNdNTD6P-Q" entityName="outlierStart"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_HcVPoXxXEemZXNdNTD6P-Q" entityName="outlierStop"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_KLM8zHxvEemX4qnXnBNY2A" entityName="outlierRD">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="COUNT_OF_ELEMENTS.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_8Z558H2IEemK8fW_yW8fjQ" entityName="PlugReadingEmitter">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_XavqEH2JEemK8fW_yW8fjQ" entityName="PlugReadingEmitter.IEmitPlugReading.OperationProvidedRole1" providedInterface__OperationProvidedRole="_BPwOkH2JEemK8fW_yW8fjQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_aKM58H2JEemK8fW_yW8fjQ" entityName="PlugReadingEmitter.PlugReadingGroup.SourceRole1" eventGroup__SourceRole="_DztOgH2IEemK8fW_yW8fjQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XbDMEH2JEemK8fW_yW8fjQ" describedService__SEFF="_DmL6cH2JEemK8fW_yW8fjQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_XbDMEX2JEemK8fW_yW8fjQ" successor_AbstractAction="_XbDMEn2JEemK8fW_yW8fjQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_XbDMEn2JEemK8fW_yW8fjQ" predecessor_AbstractAction="_XbDMEX2JEemK8fW_yW8fjQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_slPRYHxWEemZXNdNTD6P-Q" entityName="ICalculateMedians">
+    <signatures__OperationInterface id="_9RvD4HxWEemZXNdNTD6P-Q" entityName="calculateMedians"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_yUkywHxWEemZXNdNTD6P-Q" entityName="ICalculateAverages">
+    <signatures__OperationInterface id="_CPfXUHxXEemZXNdNTD6P-Q" entityName="calculateAverages"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_41DdMHxWEemZXNdNTD6P-Q" entityName="ICalculateOutliers">
+    <signatures__OperationInterface id="_D085QHxXEemZXNdNTD6P-Q" entityName="calculateOutliers"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_DztOgH2IEemK8fW_yW8fjQ" entityName="PlugReadingGroup">
+    <eventTypes__EventGroup id="_Enk7cH2IEemK8fW_yW8fjQ" entityName="PlugReadingEventType">
+      <parameter__EventType dataType__Parameter="_Pm_PWH2IEemK8fW_yW8fjQ" parameterName="plugReading"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_l8re9n2IEemK8fW_yW8fjQ" entityName="MedianGroup">
+    <eventTypes__EventGroup id="_m1hygH2IEemK8fW_yW8fjQ" entityName="MedianEventType">
+      <parameter__EventType parameterName="median"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_BPwOkH2JEemK8fW_yW8fjQ" entityName="IEmitPlugReading">
+    <signatures__OperationInterface id="_DmL6cH2JEemK8fW_yW8fjQ" entityName="emitPlugReading">
+      <parameters__OperationSignature dataType__Parameter="_Pm_PWH2IEemK8fW_yW8fjQ" parameterName="plugReading"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_O5ZUFX2JEemK8fW_yW8fjQ" entityName="PlugReadingWindowGroup">
+    <eventTypes__EventGroup id="_QkgLAH2JEemK8fW_yW8fjQ" entityName="PlugReadingWindowEventType">
+      <parameter__EventType dataType__Parameter="_VH3d_H2IEemK8fW_yW8fjQ" parameterName="plugReadings"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_Pm_PWH2IEemK8fW_yW8fjQ" entityName="PlugReading">
+    <innerDeclaration_CompositeDataType entityName="plugId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_VH3d_H2IEemK8fW_yW8fjQ" entityName="PlugReadingWindow" innerType_CollectionDataType="_Pm_PWH2IEemK8fW_yW8fjQ"/>
+</repository:Repository>

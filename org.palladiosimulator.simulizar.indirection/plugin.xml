@@ -8,14 +8,6 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
-            uri="http://palladiosimulator.org/Indirection/1.0"
-            class="org.palladiosimulator.simulizar.indirection.IndirectionPackage"
-            genModel="models/indirection.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated indirection -->
-      <package
             uri="http://palladiosimulator.org/Indirection/Actions/1.0"
             class="org.palladiosimulator.simulizar.indirection.actions.ActionsPackage"
             genModel="models/indirection.genmodel"/>
@@ -32,16 +24,16 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
-            uri="http://palladiosimulator.org/Indirection/Characteristics/1.0"
-            class="org.palladiosimulator.simulizar.indirection.characteristics.CharacteristicsPackage"
+            uri="http://palladiosimulator.org/Indirection/Partitioning/1.0"
+            class="org.palladiosimulator.simulizar.indirection.partitioning.PartitioningPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
-            uri="http://palladiosimulator.org/Indirection/Partitioning/1.0"
-            class="org.palladiosimulator.simulizar.indirection.partitioning.PartitioningPackage"
+            uri="http://palladiosimulator.org/Indirection/System/1.0"
+            class="org.palladiosimulator.simulizar.indirection.system.SystemPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 </plugin>

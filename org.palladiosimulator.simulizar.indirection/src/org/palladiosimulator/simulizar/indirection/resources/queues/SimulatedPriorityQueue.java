@@ -13,12 +13,13 @@ public class SimulatedPriorityQueue extends AbstractSimulatedQueue {
     private long capacity;
 
     public SimulatedPriorityQueue(long capacity) {
-        this.backing = new PriorityQueue<Frame>(Math.toIntExact(capacity),
+        throw new IllegalArgumentException();
+        /*this.backing = new PriorityQueue<Frame>(Math.toIntExact(capacity),
                 Comparator
                 .<Frame> comparingInt(it -> it.characteristic.getPriority())
-                .thenComparingDouble(it -> -it.birth));
+                .thenComparingDouble(it -> -it.birth));*/
         
-        this.capacity = capacity;
+        //this.capacity = capacity;
     }
 
     @Override

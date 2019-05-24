@@ -1,23 +1,19 @@
 package org.palladiosimulator.simulizar.indirection.resources;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.palladiosimulator.simulizar.indirection.characteristics.Characteristic;
-import org.palladiosimulator.simulizar.indirection.characteristics.CharacteristicFilter;
-import org.palladiosimulator.simulizar.indirection.datatypes.Scheduling;
+import java.io.Serializable;
+import java.util.Stack;
 
 import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
+import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
-public class CharacteristicsContainer {
+public class CharacteristicsContainer extends SimulatedStack<Object> {
+    private static final long serialVersionUID = 9084890512611014317L;
+
     private CharacteristicsContainer(SimulatedStack<Object> stack) {
         stack.rootFrame().addValue(CHARACTERISTIC_KEY, this);
     }
-    
+
     public static CharacteristicsContainer getOrCreate(SimulatedStack<Object> stack) {
         try {
             return (CharacteristicsContainer) stack.rootFrame().getValue(CHARACTERISTIC_KEY);
@@ -25,24 +21,81 @@ public class CharacteristicsContainer {
             return new CharacteristicsContainer(stack);
         }
     }
-    
+
     public final static String CHARACTERISTIC_KEY = "__CHARACTERISTICS__";
     
-    public final Collection<Characteristic> ownCharacteristics = new HashSet<Characteristic>();
-    public final List<Frame> frames = new ArrayList<Frame>();
-    public void add(Frame frame) {
-        this.frames.add(frame);
+    
+    /**
+     * Use a Java Stack internally
+     */
+    Stack<SimulatedStackframe<Object>> stack = new Stack<SimulatedStackframe<Object>>();
+
+    /**
+     * Add a stackframe to this stack. The frame has no parent frame.
+     *
+     * @return The frame added by this method
+     */
+    public SimulatedStackframe<Object> createAndPushNewStackFrame() {
+        final SimulatedStackframe<Object> frame = new SimulatedStackframe<Object>();
+        stack.push(frame);
+        return frame;
     }
 
-    public List<Frame> frames(Characteristic characteristic) {
-        return frames.stream().filter(it -> it.characteristic.equals(characteristic)).collect(Collectors.toList());
+    /**
+     * Add a stackframe to this stack using the given frame as parent frame
+     *
+     * @param parent
+     *            The parent frame of the frame to create
+     * @return The newly created frame
+     */
+    public SimulatedStackframe<T> createAndPushNewStackFrame(final SimulatedStackframe<T> parent) {
+        final SimulatedStackframe<T> frame = new SimulatedStackframe<T>(parent);
+        stack.push(frame);
+        return frame;
+    }
+
+    /**
+     * @return Topmost stackframe on this stack
+     */
+    public SimulatedStackframe<T> currentStackFrame() {
+        return stack.peek();
+    }
+
+    /**
+     * Pop the topmost stackframe. Called when exiting a scope
+     */
+    public void removeStackFrame() {
+        stack.pop();
+    }
+
+    /**
+     * @return Size of the stack
+     */
+    public int size() {
+        return stack.size();
+    }
+
+    /**
+     * Add a stackframe on top of this stack. The frame already exists.
+     *
+     * @param copyFrame
+     *            The frame to push on the stack
+     */
+    public void pushStackFrame(final SimulatedStackframe<T> copyFrame) {
+        stack.push(copyFrame);
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "SimulatedStack [stack=" + stack + "]";
     }
     
-    public List<Frame> frames() {
-        return new ArrayList<>(this.frames);
-    }
-
-    public List<Frame> frames(CharacteristicFilter filter) {
-        return frames.stream().filter(CharacteristicsUtil.frameMatcher(filter)).collect(Collectors.toList());
+    
+    // DW-CET
+    public SimulatedStackframe<T> rootFrame() {
+        return stack.firstElement();
     }
 }
