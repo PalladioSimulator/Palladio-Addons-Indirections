@@ -8,21 +8,17 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Automatic-Module-Name: org.palladiosimulator.simulizar.indirection
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.palladiosimulator.simulizar.indirection.resources,
- org.palladiosimulator.simulizar.indirection,
- org.palladiosimulator.simulizar.indirection.actions,
+Export-Package: org.palladiosimulator.simulizar.indirection.actions,
  org.palladiosimulator.simulizar.indirection.actions.impl,
  org.palladiosimulator.simulizar.indirection.actions.util,
- org.palladiosimulator.simulizar.indirection.characteristics,
- org.palladiosimulator.simulizar.indirection.characteristics.impl,
- org.palladiosimulator.simulizar.indirection.characteristics.util,
  org.palladiosimulator.simulizar.indirection.datatypes,
  org.palladiosimulator.simulizar.indirection.datatypes.impl,
- org.palladiosimulator.simulizar.indirection.impl,
  org.palladiosimulator.simulizar.indirection.partitioning,
  org.palladiosimulator.simulizar.indirection.partitioning.impl,
  org.palladiosimulator.simulizar.indirection.partitioning.util,
- org.palladiosimulator.simulizar.indirection.util
+ org.palladiosimulator.simulizar.indirection.system,
+ org.palladiosimulator.simulizar.indirection.system.impl,
+ org.palladiosimulator.simulizar.indirection.system.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  de.uka.ipd.sdq.identifier;visibility:=reexport,

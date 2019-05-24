@@ -1,17 +1,8 @@
 package org.palladiosimulator.simulizar.indirection.resources;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.palladiosimulator.simulizar.indirection.characteristics.Characteristic;
-
-import de.uka.ipd.sdq.simucomframework.variables.StackContext;
-
 public final class CharacteristicsUtil {
     // TODO: move to model
-    public static Map<Characteristic, String> splitSpecification(Collection<Characteristic> characteristics,
+    /*public static Map<Characteristic, String> splitSpecification(Collection<Characteristic> characteristics,
             String overallSpecification) {
         Map<Characteristic, String> result = new HashMap<>();
 
@@ -41,7 +32,7 @@ public final class CharacteristicsUtil {
 
     public static Map<Characteristic, Double> splitAndEvaluateSpecification(Collection<Characteristic> characteristics, String overallSpecification) {
         return evaluateSpecification(splitSpecification(characteristics, overallSpecification));
-    }
+    }*/
 
     /*
      * private static boolean canMatch(String pattern) { return (pattern != null) &&

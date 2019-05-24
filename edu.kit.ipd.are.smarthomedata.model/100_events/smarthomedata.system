@@ -9,10 +9,9 @@
   <assemblyContexts__ComposedStructure id="_bql4sHxXEemZXNdNTD6P-Q" entityName="Assembly_OutlierCalculation">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#_hJEwEHxWEemZXNdNTD6P-Q"/>
   </assemblyContexts__ComposedStructure>
-  <assemblyContexts__ComposedStructure id="_ZMM-IHxsEemX4qnXnBNY2A" entityName="Assembly_Broker">
-    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#_SMpLAHxsEemX4qnXnBNY2A"/>
-  </assemblyContexts__ComposedStructure>
-  <eventChannel__ComposedStructure id="_BfsXoXyPEemK8fW_yW8fjQ"/>
+  <eventChannel__ComposedStructure id="_0mRJEH2JEemK8fW_yW8fjQ" entityName="EventChannel1">
+    <eventGroup__EventChannel href="smarthomedata.repository#_DztOgH2IEemK8fW_yW8fjQ"/>
+  </eventChannel__ComposedStructure>
   <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_nU7_8HxXEemZXNdNTD6P-Q" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_gE7WAHxXEemZXNdNTD6P-Q" assemblyContext_ProvidedDelegationConnector="_akvD4HxXEemZXNdNTD6P-Q">
     <innerProvidedRole_ProvidedDelegationConnector href="smarthomedata.repository#_J35TIHxXEemZXNdNTD6P-Q"/>
   </connectors__ComposedStructure>
@@ -22,7 +21,6 @@
   <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_oBMpAHxXEemZXNdNTD6P-Q" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_lLF-kHxXEemZXNdNTD6P-Q" assemblyContext_ProvidedDelegationConnector="_bql4sHxXEemZXNdNTD6P-Q">
     <innerProvidedRole_ProvidedDelegationConnector href="smarthomedata.repository#_Hbs9gHxXEemZXNdNTD6P-Q"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="composition:EventChannelSourceConnector" id="_Jl_JUnyPEemK8fW_yW8fjQ"/>
   <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gE7WAHxXEemZXNdNTD6P-Q" entityName="SystemProvidesICalculateMedians">
     <providedInterface__OperationProvidedRole href="smarthomedata.repository#_slPRYHxWEemZXNdNTD6P-Q"/>
   </providedRoles_InterfaceProvidingEntity>

@@ -56,7 +56,6 @@
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_SMpLAHxsEemX4qnXnBNY2A" entityName="Broker">
     <passiveResource_BasicComponent xsi:type="org.palladiosimulator.simulizar.indirection:Indirection" id="_4g3T6XxsEemX4qnXnBNY2A" entityName="ingressIndirection" consumersAreCompeting="true">
-      <windowing interval="5.0"/>
       <characteristics href="smarthomedata.characteristics#_8EVFgHxqEemRVpkr8UzKtg"/>
     </passiveResource_BasicComponent>
     <passiveResource_BasicComponent xsi:type="org.palladiosimulator.simulizar.indirection:Indirection" id="_5VX6CXxsEemX4qnXnBNY2A" entityName="medianIndirection" consumersAreCompeting="true">
