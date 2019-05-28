@@ -14,7 +14,8 @@
     <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_1-22sHxXEemZXNdNTD6P-Q"/>
     <assemblyContext_AllocationContext href="smarthomedata.system#_bql4sHxXEemZXNdNTD6P-Q"/>
   </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="_WOCj4HxsEemX4qnXnBNY2A" entityName="Allocation_Assembly_Broker">
-    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_e0dAEXxsEemX4qnXnBNY2A"/>
+  <allocationContexts_Allocation id="_3YLPsIFdEem-54eWY5kF_g" entityName="Allocation_EventChannel1">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_1-22sHxXEemZXNdNTD6P-Q"/>
+    <eventChannel__AllocationContext href="smarthomedata.system#_0mRJEH2JEemK8fW_yW8fjQ"/>
   </allocationContexts_Allocation>
 </allocation:Allocation>

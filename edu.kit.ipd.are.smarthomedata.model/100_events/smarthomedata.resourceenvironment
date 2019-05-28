@@ -21,11 +21,4 @@
       <processingRate_ProcessingResourceSpecification specification="1"/>
     </activeResourceSpecifications_ResourceContainer>
   </resourceContainer_ResourceEnvironment>
-  <resourceContainer_ResourceEnvironment id="_e0dAEXxsEemX4qnXnBNY2A" entityName="ServerBroker">
-    <activeResourceSpecifications_ResourceContainer id="_gXYycHxsEemX4qnXnBNY2A">
-      <schedulingPolicy href="pathmap://PCM_MODELS/Palladio.resourcetype#ProcessorSharing"/>
-      <activeResourceType_ActiveResourceSpecification href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
-      <processingRate_ProcessingResourceSpecification specification="1"/>
-    </activeResourceSpecifications_ResourceContainer>
-  </resourceContainer_ResourceEnvironment>
 </resourceenvironment:ResourceEnvironment>
