@@ -1,39 +1,12 @@
-package org.palladiosimulator.simulizar.indirection.resources;
-
-import java.util.ArrayDeque;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.Set;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.PassiveResource;
-import org.palladiosimulator.simulizar.indirection.Indirection;
-import org.palladiosimulator.simulizar.indirection.characteristics.Characteristic;
-import org.palladiosimulator.simulizar.indirection.resources.queues.SimulatedQueueFactory;
-
-import de.uka.ipd.sdq.scheduler.IPassiveResource;
-import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
-import de.uka.ipd.sdq.scheduler.LoggingWrapper;
-import de.uka.ipd.sdq.scheduler.SchedulerModel;
-import de.uka.ipd.sdq.scheduler.entities.SchedulerEntity;
-import de.uka.ipd.sdq.scheduler.processes.IWaitingProcess;
-import de.uka.ipd.sdq.scheduler.processes.SimpleWaitingProcess;
-import de.uka.ipd.sdq.scheduler.resources.AbstractSimResource;
-import de.uka.ipd.sdq.scheduler.resources.passive.PassiveResourceObservee;
-import de.uka.ipd.sdq.scheduler.sensors.IPassiveResourceSensor;
-import de.uka.ipd.sdq.simucomframework.resources.SimSimpleFairPassiveResource;
-import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
+package org.palladiosimulator.simulizar.indirection.scheduler;
 
 /**
  * See {@link SimSimpleFairPassiveResource}.
  * 
  * @author Dominik Werle
  */
-public class SimIndirectionResource extends AbstractSimResource implements IPassiveResource {
-    protected Queue<IndirectionWaitingProcess> waitingToPollQueue;
+public class XSimIndirectionResource { // extends AbstractSimResource implements IPassiveResource {
+    /*protected Queue<IndirectionWaitingProcess> waitingToPollQueue;
     protected Queue<IndirectionWaitingProcess> waitingToOfferQueue;
     private final SchedulerModel myModel;
     private final String passiveResourceID;
@@ -160,10 +133,6 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
         notifyProcessesWaitingToPoll();
     }
 
-    /**
-     * replacement for release. this is very dirty and should not be one like this (see: refused
-     * bequest, knows of derived, etc.)
-     */
     public boolean poll(SimulatedStack<Object> stack, ISchedulableProcess schedulableProcess, final long minimumCount,
             final long maximumCount) {
         // AM: Copied from AbstractActiveResource: If simulation is stopped,
@@ -191,19 +160,11 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
         }
     }
 
-    /**
-     * replacement for release. this is very dirty and should not be one like this (see: refused
-     * bequest, knows of derived, etc.)
-     */
     public boolean peek(SimulatedStack<Object> stack, ISchedulableProcess schedulableProcess, final long minimumCount,
             final long maximumCount) {
         throw new IllegalStateException();
     }
 
-    /**
-     * replacement for release. this is very dirty and should not be done like this (see: refused
-     * bequest, knows of derived, etc.)
-     */
     public boolean offer(SimulatedStack<Object> stack, ISchedulableProcess schedulableProcess, final long minimumCount,
             final long maximumCount) {
         // AM: Copied from AbstractActiveResource: If simulation is stopped,
@@ -234,11 +195,6 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
         throw new IllegalStateException();
     }
 
-    /**
-     * Retrieves the passive resource ID.
-     *
-     * @return the passive resource ID
-     */
     protected String getPassiveResourceID() {
         return passiveResourceID;
     }
@@ -288,5 +244,5 @@ public class SimIndirectionResource extends AbstractSimResource implements IPass
     @Override
     public long getAvailable() {
         return availableInformation.canProvideHowMany();
-    }
+    }*/
 }

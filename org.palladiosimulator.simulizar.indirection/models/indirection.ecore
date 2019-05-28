@@ -7,7 +7,7 @@
     <eClassifiers xsi:type="ecore:EClass" name="AnalyseStackAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ConsumeEventAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallAction">
+    <eClassifiers xsi:type="ecore:EClass" name="ConsumeEventAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallReturnAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventType" ordered="false"
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventType"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sinkRole" ordered="false"
@@ -71,6 +71,25 @@
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sinkEventGroup" lowerBound="1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirection/Composition/1.0"
+      nsPrefix="org.palladiosimulator.simulizar.indirection.composition">
+    <eClassifiers xsi:type="ecore:EClass" name="DataChannelSourceConnector" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRole" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/SourceRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannel" ordered="false"
+          lowerBound="1" eType="#//system/DataChannel"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataChannelSinkConnector" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sinkRole" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/SinkRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" ordered="false"
+          lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannel" ordered="false"
+          lowerBound="1" eType="#//system/DataChannel"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>
