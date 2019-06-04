@@ -1,17 +1,15 @@
 package org.palladiosimulator.simulizar.indirection.scheduler;
 
-import java.util.Queue;
+import java.util.Map;
+import java.util.function.Consumer;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
-import de.uka.ipd.sdq.scheduler.processes.IWaitingProcess;
-import de.uka.ipd.sdq.scheduler.sensors.IPassiveResourceSensor;
-import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public interface IDataChannelResource {
-	    public abstract void put(ISchedulableProcess process, SimulatedStackframe<Object> eventStackframe);
-	    public abstract SimulatedStackframe<Object> get(ISchedulableProcess process);
+	    public abstract boolean put(ISchedulableProcess process, Map<String, Object> frame);
+	    public abstract boolean get(ISchedulableProcess process, Consumer<Map<String, Object>> callback);
 
 	    /**
 	     * Getter for the model element of the assembly context.
@@ -48,16 +46,16 @@ public interface IDataChannelResource {
 	     * Adds the given observer. Observers get notified when a process acquired or released this
 	     * resource.
 	     */
-	    public void addObserver(IPassiveResourceSensor observer);
+//	    public void addObserver(IPassiveResourceSensor observer);
 
 	    /**
 	     * Removes the given observer
 	     */
-	    public void removeObserver(IPassiveResourceSensor observer);
+//	    public void removeObserver(IPassiveResourceSensor observer);
 
 	    /**
 	     * Returns a queue containing the waiting processes for the passive resource.
 	     */
-	    public Queue<IWaitingProcess> getWaitingProcesses();
+//	    public Queue<SchedulableStackframeAndProcess> getWaitingProcesses();
 
 }

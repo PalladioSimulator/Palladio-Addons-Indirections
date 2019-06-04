@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.palladiosimulator.simulizar.indirection.interfaces
+Bundle-SymbolicName: org.palladiosimulator.simulizar.indirection.interfaces;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.palladiosimulator.simulizar.indirection.interfaces
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.palladiosimulator.pcm,
+ de.uka.ipd.sdq.scheduler,
+ de.uka.ipd.sdq.simucomframework.variables,
+ org.palladiosimulator.simulizar.indirection
+Export-Package: org.palladiosimulator.simulizar.indirection.scheduler
