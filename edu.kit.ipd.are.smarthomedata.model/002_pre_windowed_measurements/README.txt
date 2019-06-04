@@ -1,1 +1,0 @@
-* Main difference: smarthomedata.repository -> Broker -> ingressIndirection -> NO partitioning, NO windowing

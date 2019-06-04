@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model
+Bundle-SymbolicName: edu.kit.ipd.are.smarthomedata.model
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.palladiosimulator.simulizar.indirection;bundle-version="1.0.0"

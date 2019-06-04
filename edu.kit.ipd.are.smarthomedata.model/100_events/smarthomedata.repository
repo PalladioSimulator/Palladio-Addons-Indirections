@@ -2,7 +2,6 @@
 <repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_SLFGwHxWEemZXNdNTD6P-Q" entityName="SmartHomeDataRepository">
   <components__Repository xsi:type="repository:BasicComponent" id="_gep6EHxWEemZXNdNTD6P-Q" entityName="MedianEachPlug">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_J35TIHxXEemZXNdNTD6P-Q" entityName="MedianEachPlug.ICalculateMedians.OperationProvidedRole1" providedInterface__OperationProvidedRole="_slPRYHxWEemZXNdNTD6P-Q"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_iPMwMHyOEemK8fW_yW8fjQ"/>
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_botfUH2JEemK8fW_yW8fjQ" entityName="MedianEachPlug.PlugReadingWindowGroup.SinkRole2" eventGroup__SinkRole="_O5ZUFX2JEemK8fW_yW8fjQ"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_sABE8H2JEemK8fW_yW8fjQ" entityName="MedianEachPlug.MedianGroup.SourceRole1" eventGroup__SourceRole="_l8re9n2IEemK8fW_yW8fjQ"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_J36hQHxXEemZXNdNTD6P-Q" describedService__SEFF="_9RvD4HxWEemZXNdNTD6P-Q">
@@ -16,13 +15,11 @@
         </resourceDemand_Action>
       </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_boutcH2JEemK8fW_yW8fjQ" describedService__SEFF="_QkgLAH2JEemK8fW_yW8fjQ">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_bo0NAH2JEemK8fW_yW8fjQ" successor_AbstractAction="_bo0NAX2JEemK8fW_yW8fjQ"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_bo0NAX2JEemK8fW_yW8fjQ" predecessor_AbstractAction="_bo0NAH2JEemK8fW_yW8fjQ"/>
-    </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_g7ws0HxWEemZXNdNTD6P-Q" entityName="AverageAllPlugs">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_JVphsHxXEemZXNdNTD6P-Q" entityName="AverageAllPlugs.ICalculateAverages.OperationProvidedRole1" providedInterface__OperationProvidedRole="_yUkywHxWEemZXNdNTD6P-Q"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_58GbUIVKEemBm-IIXPzDsw" entityName="AverageAllPlugs.MedianGroup.SinkRole1" eventGroup__SinkRole="_l8re9n2IEemK8fW_yW8fjQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_QZWrgIVLEemBm-IIXPzDsw" entityName="AverageAllPlugs.AverageGroup.SourceRole1" eventGroup__SourceRole="_-cLUQIVKEemBm-IIXPzDsw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_JXIIYHxXEemZXNdNTD6P-Q" describedService__SEFF="_CPfXUHxXEemZXNdNTD6P-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_JXIvcHxXEemZXNdNTD6P-Q" entityName="averageStart"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_JXIvcXxXEemZXNdNTD6P-Q" entityName="averageStop"/>
@@ -36,6 +33,8 @@
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_hJEwEHxWEemZXNdNTD6P-Q" entityName="OutlierCalculation">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Hbs9gHxXEemZXNdNTD6P-Q" entityName="OutlierCalculation.ICalculateOutliers.OperationProvidedRole1" providedInterface__OperationProvidedRole="_41DdMHxWEemZXNdNTD6P-Q"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_Q27_YIVLEemBm-IIXPzDsw" entityName="OutlierCalculation.AverageGroup.SinkRole1" eventGroup__SinkRole="_-cLUQIVKEemBm-IIXPzDsw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_RPjTsIVLEemBm-IIXPzDsw" entityName="OutlierCalculation.MedianGroup.SinkRole2" eventGroup__SinkRole="_l8re9n2IEemK8fW_yW8fjQ"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_HcUokHxXEemZXNdNTD6P-Q" describedService__SEFF="_D085QHxXEemZXNdNTD6P-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_HcVPoHxXEemZXNdNTD6P-Q" entityName="outlierStart"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_HcVPoXxXEemZXNdNTD6P-Q" entityName="outlierStop"/>
@@ -71,7 +70,7 @@
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:EventGroup" id="_l8re9n2IEemK8fW_yW8fjQ" entityName="MedianGroup">
     <eventTypes__EventGroup id="_m1hygH2IEemK8fW_yW8fjQ" entityName="MedianEventType">
-      <parameter__EventType parameterName="median"/>
+      <parameter__EventType dataType__Parameter="_zGlVAIVKEemBm-IIXPzDsw" parameterName="median"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_BPwOkH2JEemK8fW_yW8fjQ" entityName="IEmitPlugReading">
@@ -84,10 +83,21 @@
       <parameter__EventType dataType__Parameter="_VH3d_H2IEemK8fW_yW8fjQ" parameterName="plugReadings"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_-cLUQIVKEemBm-IIXPzDsw" entityName="AverageGroup"/>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_Pm_PWH2IEemK8fW_yW8fjQ" entityName="PlugReading">
     <innerDeclaration_CompositeDataType entityName="plugId">
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
     </innerDeclaration_CompositeDataType>
   </dataTypes__Repository>
   <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_VH3d_H2IEemK8fW_yW8fjQ" entityName="PlugReadingWindow" innerType_CollectionDataType="_Pm_PWH2IEemK8fW_yW8fjQ"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_zGlVAIVKEemBm-IIXPzDsw" entityName="Median">
+    <innerDeclaration_CompositeDataType entityName="median">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_DylYQIVLEemBm-IIXPzDsw" entityName="Averages">
+    <innerDeclaration_CompositeDataType entityName="average">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
 </repository:Repository>
