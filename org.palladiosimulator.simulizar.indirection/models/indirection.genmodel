@@ -61,7 +61,8 @@
       </genClasses>
       <genClasses ecoreClass="indirection.ecore#//partitioning/Windowing">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/timeMode"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/interval"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/size"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/shift"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" resource="XMI" disposableProviderFactory="true"

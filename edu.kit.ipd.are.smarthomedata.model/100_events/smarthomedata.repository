@@ -33,8 +33,6 @@
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_hJEwEHxWEemZXNdNTD6P-Q" entityName="OutlierCalculation">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Hbs9gHxXEemZXNdNTD6P-Q" entityName="OutlierCalculation.ICalculateOutliers.OperationProvidedRole1" providedInterface__OperationProvidedRole="_41DdMHxWEemZXNdNTD6P-Q"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_Q27_YIVLEemBm-IIXPzDsw" entityName="OutlierCalculation.AverageGroup.SinkRole1" eventGroup__SinkRole="_-cLUQIVKEemBm-IIXPzDsw"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_RPjTsIVLEemBm-IIXPzDsw" entityName="OutlierCalculation.MedianGroup.SinkRole2" eventGroup__SinkRole="_l8re9n2IEemK8fW_yW8fjQ"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_HcUokHxXEemZXNdNTD6P-Q" describedService__SEFF="_D085QHxXEemZXNdNTD6P-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_HcVPoHxXEemZXNdNTD6P-Q" entityName="outlierStart"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_HcVPoXxXEemZXNdNTD6P-Q" entityName="outlierStop"/>
@@ -55,13 +53,19 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_slPRYHxWEemZXNdNTD6P-Q" entityName="ICalculateMedians">
-    <signatures__OperationInterface id="_9RvD4HxWEemZXNdNTD6P-Q" entityName="calculateMedians"/>
+    <signatures__OperationInterface id="_9RvD4HxWEemZXNdNTD6P-Q" entityName="calculateMedians">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </signatures__OperationInterface>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_yUkywHxWEemZXNdNTD6P-Q" entityName="ICalculateAverages">
-    <signatures__OperationInterface id="_CPfXUHxXEemZXNdNTD6P-Q" entityName="calculateAverages"/>
+    <signatures__OperationInterface id="_CPfXUHxXEemZXNdNTD6P-Q" entityName="calculateAverages">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </signatures__OperationInterface>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_41DdMHxWEemZXNdNTD6P-Q" entityName="ICalculateOutliers">
-    <signatures__OperationInterface id="_D085QHxXEemZXNdNTD6P-Q" entityName="calculateOutliers"/>
+    <signatures__OperationInterface id="_D085QHxXEemZXNdNTD6P-Q" entityName="calculateOutliers">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </signatures__OperationInterface>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:EventGroup" id="_DztOgH2IEemK8fW_yW8fjQ" entityName="PlugReadingGroup">
     <eventTypes__EventGroup id="_Enk7cH2IEemK8fW_yW8fjQ" entityName="PlugReadingEventType">
@@ -83,7 +87,12 @@
       <parameter__EventType dataType__Parameter="_VH3d_H2IEemK8fW_yW8fjQ" parameterName="plugReadings"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_-cLUQIVKEemBm-IIXPzDsw" entityName="AverageGroup"/>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_-cLUQIVKEemBm-IIXPzDsw" entityName="AverageGroup">
+    <eventTypes__EventGroup id="_kTFboIbjEemckthKxXmWQw" entityName="AverageGroupType">
+      <parameter__EventType dataType__Parameter="_DylYQIVLEemBm-IIXPzDsw" parameterName="average"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_dWZ9YIbjEemckthKxXmWQw" entityName=""/>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_Pm_PWH2IEemK8fW_yW8fjQ" entityName="PlugReading">
     <innerDeclaration_CompositeDataType entityName="plugId">
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
@@ -95,7 +104,7 @@
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
     </innerDeclaration_CompositeDataType>
   </dataTypes__Repository>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_DylYQIVLEemBm-IIXPzDsw" entityName="Averages">
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_DylYQIVLEemBm-IIXPzDsw" entityName="Average">
     <innerDeclaration_CompositeDataType entityName="average">
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
     </innerDeclaration_CompositeDataType>

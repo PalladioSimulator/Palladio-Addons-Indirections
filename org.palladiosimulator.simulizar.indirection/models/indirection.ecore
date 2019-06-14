@@ -49,8 +49,10 @@
     <eClassifiers xsi:type="ecore:EClass" name="Windowing">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeMode" lowerBound="1"
           eType="#//datatypes/WindowingTimeMode"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="interval" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="shift" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="Joining"/>
   </eSubpackages>
   <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirection/System/1.0"
       nsPrefix="org.palladiosimulator.simulizar.indirection.system">
@@ -58,19 +60,6 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacity" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" transient="true"
           defaultValueLiteral="-1"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="scheduling" lowerBound="1"
-          eType="#//datatypes/Scheduling" defaultValueLiteral="FirstInFirstOut"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="putOverCapacityPolicy"
-          lowerBound="1" eType="#//datatypes/PutPolicy"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="partitioning" eType="#//partitioning/Partitioning"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="windowing" eType="#//partitioning/Windowing"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="blockIfNotAvailable"
-          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="consumersAreCompeting"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-          defaultValueLiteral="false"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEventGroup" lowerBound="1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sinkEventGroup" lowerBound="1"
@@ -81,6 +70,12 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannelSinkConnector"
           ordered="false" upperBound="-1" eType="#//composition/DataChannelSinkConnector"
           eOpposite="#//composition/DataChannelSinkConnector/dataChannel"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="partitioning" eType="#//partitioning/Partitioning"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="windowing" eType="#//partitioning/Windowing"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="joining" upperBound="-1"
+          eType="#//partitioning/Joining" containment="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirection/Composition/1.0"
@@ -100,6 +95,15 @@
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannel" ordered="false"
           lowerBound="1" eType="#//system/DataChannel" eOpposite="#//system/DataChannel/dataChannelSinkConnector"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataChannelConnector" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+          eType="#//system/DataChannel"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sink" lowerBound="1"
+          eType="#//system/DataChannel"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="JoinTargetConnector" abstract="true">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="joining" eType="#//partitioning/Joining"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>
