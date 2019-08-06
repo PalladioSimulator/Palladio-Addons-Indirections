@@ -64,18 +64,14 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/size"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/shift"/>
       </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//partitioning/TimeGrouping"/>
+      <genClasses ecoreClass="indirection.ecore#//partitioning/ConsumeAllAvailable"/>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" resource="XMI" disposableProviderFactory="true"
         generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"
         fileExtensions="" ecorePackage="indirection.ecore#//system">
       <genClasses ecoreClass="indirection.ecore#//system/DataChannel">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//system/DataChannel/capacity"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//system/DataChannel/scheduling"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//system/DataChannel/putOverCapacityPolicy"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirection.ecore#//system/DataChannel/partitioning"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirection.ecore#//system/DataChannel/windowing"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//system/DataChannel/blockIfNotAvailable"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//system/DataChannel/consumersAreCompeting"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirection.ecore#//system/DataChannel/sourceEventGroup"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -84,6 +80,8 @@
             ecoreFeature="ecore:EReference indirection.ecore#//system/DataChannel/dataChannelSourceConnector"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirection.ecore#//system/DataChannel/dataChannelSinkConnector"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirection.ecore#//system/DataChannel/partitioning"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirection.ecore#//system/DataChannel/timeGrouping"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Composition" resource="XMI" disposableProviderFactory="true"
@@ -104,6 +102,12 @@
             ecoreFeature="ecore:EReference indirection.ecore#//composition/DataChannelSinkConnector/assemblyContext"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirection.ecore#//composition/DataChannelSinkConnector/dataChannel"/>
+      </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//composition/DataChannelConnector">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//composition/DataChannelConnector/source"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//composition/DataChannelConnector/sink"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

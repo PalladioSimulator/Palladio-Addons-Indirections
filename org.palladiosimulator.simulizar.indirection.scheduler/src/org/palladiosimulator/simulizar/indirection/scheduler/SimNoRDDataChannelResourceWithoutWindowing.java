@@ -33,8 +33,8 @@ public class SimNoRDDataChannelResourceWithoutWindowing implements IDataChannelR
 		queue = new ArrayDeque<>();
 		this.capacity = dataChannel.getCapacity();
 		
-		if (dataChannel.getWindowing() != null) {
-			throw new IllegalArgumentException("Cannot handle windows.");
+		if (dataChannel.getTimeGrouping() != null) {
+			throw new IllegalArgumentException("Cannot handle time grouping.");
 		}
 	}
 

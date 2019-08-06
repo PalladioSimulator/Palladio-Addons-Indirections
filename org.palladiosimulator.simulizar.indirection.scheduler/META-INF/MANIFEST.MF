@@ -15,6 +15,5 @@ Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.apache.log4j,
  org.palladiosimulator.simulizar.simulationevents,
  de.uka.ipd.sdq.simucomframework,
- edu.kit.ipd.sdq.commons.util.java,
  org.eclipse.xtend.lib
 Export-Package: org.palladiosimulator.simulizar.indirection.scheduler

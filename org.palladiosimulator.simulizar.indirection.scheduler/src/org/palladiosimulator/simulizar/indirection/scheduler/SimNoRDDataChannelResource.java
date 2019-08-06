@@ -18,6 +18,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.simulizar.indirection.datatypes.WindowingTimeMode;
+import org.palladiosimulator.simulizar.indirection.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.simulizar.indirection.partitioning.Partitioning;
 import org.palladiosimulator.simulizar.indirection.partitioning.Windowing;
 import org.palladiosimulator.simulizar.indirection.system.DataChannel;
@@ -45,6 +46,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 	private final DataChannel dataChannel;
 
 	public WindowGenerator windowGenerator;
+	private boolean collectAll;
 
 	public class TimestampedFrame {
 		public final double timestamp;
@@ -139,7 +141,9 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		this.dataChannel = dataChannel;
 		this.capacity = dataChannel.getCapacity();
 
-		this.windowing = dataChannel.getWindowing();
+		this.windowing = dataChannel.getTimeGrouping() instanceof Windowing ? (Windowing) dataChannel.getTimeGrouping() : null;
+		this.collectAll = dataChannel.getTimeGrouping() instanceof ConsumeAllAvailable;
+		
 		this.partitioning = dataChannel.getPartitioning();
 		if (windowing != null && windowing.getTimeMode() != WindowingTimeMode.WALL_CLOCK) {
 			throw new IllegalArgumentException(
@@ -155,6 +159,10 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 				}
 			};
 		}
+		
+		if (collectAll) {
+			this.outgoingQueue.add(createCollectionFrame());
+		}
 	}
 
 	private final static Object DUMMY_KEY = UUID.randomUUID();
@@ -169,7 +177,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		for (Window window : windows) {
 			System.out.println("Creating window " + window.toString() + " (at "
 					+ model.getSimulationControl().getCurrentSimulationTime() + ")");
-			Map<String, Object> windowFrame = new HashMap<String, Object>();
+			Map<String, Object> windowFrame = createCollectionFrame();
 
 			// TODO: take timestamp from element instead of "current simulation time"?
 			Map<Object, Map<String, List<Object>>> partitionToWindowedVariableToValues = new HashMap<>();
@@ -253,9 +261,11 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 	}
 
 	private void allowToPut(ProcessWaitingToPut process) {
-		if (windowing == null)
+		if (collectAll) {
+			addToOutgoingFrame(process.frame);
+		} else if (windowing == null) {
 			outgoingQueue.add(process.frame);
-		else {
+		} else {
 			incomingQueue.add(new TimestampedFrame(process.frame));
 		}
 
@@ -264,6 +274,35 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		notifyProcessesWaitingToGet();
 	}
 
+	private void addToOutgoingFrame(Map<String, Object> frame) {
+		if (outgoingQueue.size() != 1) {
+			throw new AssertionError("Queue must contain exactly one element at all times if collect all is true.");
+		}
+		
+		Map<String, Object> collectionFrame = outgoingQueue.remove();
+		addToCollectionFrame(collectionFrame, frame);
+		outgoingQueue.add(collectionFrame);
+	}
+
+
+	private HashMap<String, Object> createCollectionFrame() {
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("data.INNER.VALUE", new ArrayList<Map<String, Object>>());
+		result.put("data.INNER.NUMBER_OF_ELEMENTS", 0);
+		
+		return result;
+	}
+
+	private void addToCollectionFrame(Map<String, Object> collectionFrame, Map<String, Object> frame) {
+		List<Map<String, Object>> inner = (List<Map<String, Object>>) collectionFrame.get("data.INNER.VALUE");
+		Integer numberOfElements = (Integer) collectionFrame.get("data.INNER.NUMBER_OF_ELEMENTS");
+		
+		inner.add(frame);
+		numberOfElements++;
+		
+		collectionFrame.put("data.INNER.NUMBER_OF_ELEMENTS", numberOfElements);
+	}
+	
 	private void allowToGet(ProcessWaitingToGet process) {
 		process.callback.accept(getNextAvailableElement());
 		if (process.isWaiting())
@@ -272,7 +311,11 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 	}
 
 	private Map<String, Object> getNextAvailableElement() {
-		return outgoingQueue.remove();
+		Map<String, Object> nextAvailableElement = outgoingQueue.remove();
+		if (collectAll)
+			outgoingQueue.add(createCollectionFrame());
+		
+		return nextAvailableElement;
 	}
 
 	private void notifyProcessesWaitingToGet() {
