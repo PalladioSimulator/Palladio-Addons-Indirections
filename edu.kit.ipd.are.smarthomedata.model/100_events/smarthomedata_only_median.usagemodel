@@ -13,32 +13,6 @@
       <thinkTime_ClosedWorkload specification="0.0"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
-  <usageScenario_UsageModel id="_KmEyUHxYEemZXNdNTD6P-Q" entityName="AverageAllPlugsUser">
-    <scenarioBehaviour_UsageScenario id="_ppXEMHxYEemZXNdNTD6P-Q" entityName="ScenarioBehaviour">
-      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_ppXEMXxYEemZXNdNTD6P-Q" successor="_rEDgkHxYEemZXNdNTD6P-Q"/>
-      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_ppXEMnxYEemZXNdNTD6P-Q" predecessor="_rEDgkHxYEemZXNdNTD6P-Q"/>
-      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_rEDgkHxYEemZXNdNTD6P-Q" entityName="EntryLevelSystemCall1" successor="_ppXEMnxYEemZXNdNTD6P-Q" predecessor="_ppXEMXxYEemZXNdNTD6P-Q">
-        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_jG7ucHxXEemZXNdNTD6P-Q"/>
-        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#_CPfXUHxXEemZXNdNTD6P-Q"/>
-      </actions_ScenarioBehaviour>
-    </scenarioBehaviour_UsageScenario>
-    <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload" population="1">
-      <thinkTime_ClosedWorkload specification="0.0"/>
-    </workload_UsageScenario>
-  </usageScenario_UsageModel>
-  <usageScenario_UsageModel id="_LAoAUHxYEemZXNdNTD6P-Q" entityName="OutlierCalculationUser">
-    <scenarioBehaviour_UsageScenario id="_u8M20HxYEemZXNdNTD6P-Q" entityName="ScenarioBehaviour">
-      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_u8M20XxYEemZXNdNTD6P-Q" successor="_xPZogHxYEemZXNdNTD6P-Q"/>
-      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_u8M20nxYEemZXNdNTD6P-Q" predecessor="_xPZogHxYEemZXNdNTD6P-Q"/>
-      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_xPZogHxYEemZXNdNTD6P-Q" entityName="EntryLevelSystemCall1" successor="_u8M20nxYEemZXNdNTD6P-Q" predecessor="_u8M20XxYEemZXNdNTD6P-Q">
-        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_lLF-kHxXEemZXNdNTD6P-Q"/>
-        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#_D085QHxXEemZXNdNTD6P-Q"/>
-      </actions_ScenarioBehaviour>
-    </scenarioBehaviour_UsageScenario>
-    <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload" population="1">
-      <thinkTime_ClosedWorkload specification="0.0"/>
-    </workload_UsageScenario>
-  </usageScenario_UsageModel>
   <usageScenario_UsageModel id="_Lgz8QHxYEemZXNdNTD6P-Q" entityName="DataGeneratingUser">
     <scenarioBehaviour_UsageScenario id="_fyLjsHxYEemZXNdNTD6P-Q" entityName="ScenarioBehaviour">
       <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_fyMKwHxYEemZXNdNTD6P-Q" entityName="startAction" successor="__oDS0HyJEemK8fW_yW8fjQ"/>

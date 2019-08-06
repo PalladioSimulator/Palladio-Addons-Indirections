@@ -14,7 +14,20 @@
     <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_1-22sHxXEemZXNdNTD6P-Q"/>
     <assemblyContext_AllocationContext href="smarthomedata.system#_bql4sHxXEemZXNdNTD6P-Q"/>
   </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="_3YLPsIFdEem-54eWY5kF_g" entityName="Allocation_EventChannel1">
+  <allocationContexts_Allocation id="_qdPtMK62EemTf8MABW0Htw" entityName="Allocation_AverageChannel">
     <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_1-22sHxXEemZXNdNTD6P-Q"/>
+    <eventChannel__AllocationContext href="smarthomedata.system#_K55INobKEemckthKxXmWQw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_q_thEK62EemTf8MABW0Htw" entityName="Allocation_MedianChannel">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_1-22sHxXEemZXNdNTD6P-Q"/>
+    <eventChannel__AllocationContext href="smarthomedata.system#_NGqoMIVKEemBm-IIXPzDsw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_rJvm0K62EemTf8MABW0Htw" entityName="Allocation_PlugReadingChannel">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_1-22sHxXEemZXNdNTD6P-Q"/>
+    <eventChannel__AllocationContext href="smarthomedata.system#_z6DOwIVJEemBm-IIXPzDsw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_ra6PUK62EemTf8MABW0Htw" entityName="Allocation_Assembly_PlugReadingEmitter">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_1kcyoHxXEemZXNdNTD6P-Q"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_ykslYIVJEemBm-IIXPzDsw"/>
   </allocationContexts_Allocation>
 </allocation:Allocation>
