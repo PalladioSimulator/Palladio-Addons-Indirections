@@ -8,10 +8,7 @@
       <steps_Behaviour xsi:type="seff:StartAction" id="_J37IUHxXEemZXNdNTD6P-Q" entityName="medianStart" successor_AbstractAction="_07NoQK6zEemTf8MABW0Htw"/>
       <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:ConsumeEventAction" id="_07NoQK6zEemTf8MABW0Htw" entityName="ConsumePlugReadingWindowAction" predecessor_AbstractAction="_J37IUHxXEemZXNdNTD6P-Q" successor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" eventType="_QkgLAH2JEemK8fW_yW8fjQ" sinkRole="_botfUH2JEemK8fW_yW8fjQ">
         <returnVariableUsage__CallReturnAction>
-          <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
-            <specification_VariableCharacterisation specification="plugReadings.NUMBER_OF_ELEMENTS"/>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugReadings"/>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugReadings->plugReadings"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:StopAction" id="_J37IUXxXEemZXNdNTD6P-Q" entityName="medianStop" predecessor_AbstractAction="_-Or-wK6zEemTf8MABW0Htw"/>
@@ -21,12 +18,16 @@
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:EmitEventAction" id="_-Or-wK6zEemTf8MABW0Htw" entityName="EmitMedianAction" predecessor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" successor_AbstractAction="_J37IUXxXEemZXNdNTD6P-Q" eventType__EmitEventAction="_m1hygH2IEemK8fW_yW8fjQ" sourceRole__EmitEventAction="_sABE8H2JEemK8fW_yW8fjQ"/>
+      <steps_Behaviour xsi:type="seff:EmitEventAction" id="_-Or-wK6zEemTf8MABW0Htw" entityName="EmitMedianAction" predecessor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" successor_AbstractAction="_J37IUXxXEemZXNdNTD6P-Q" eventType__EmitEventAction="_m1hygH2IEemK8fW_yW8fjQ" sourceRole__EmitEventAction="_sABE8H2JEemK8fW_yW8fjQ">
+        <inputVariableUsages__CallAction>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugReadings->median"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_g7ws0HxWEemZXNdNTD6P-Q" entityName="AverageAllPlugs">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_JVphsHxXEemZXNdNTD6P-Q" entityName="AverageAllPlugs.ICalculateAverages.OperationProvidedRole1" providedInterface__OperationProvidedRole="_yUkywHxWEemZXNdNTD6P-Q"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_58GbUIVKEemBm-IIXPzDsw" entityName="AverageAllPlugs.MedianGroup.SinkRole1" eventGroup__SinkRole="_l8re9n2IEemK8fW_yW8fjQ"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_58GbUIVKEemBm-IIXPzDsw" entityName="AverageAllPlugs.MedianCollectionGroup.SinkRole1" eventGroup__SinkRole="_H5m7Yb2bEembxKoP_83uPQ"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_QZWrgIVLEemBm-IIXPzDsw" entityName="AverageAllPlugs.AverageGroup.SourceRole1" eventGroup__SourceRole="_-cLUQIVKEemBm-IIXPzDsw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_JXIIYHxXEemZXNdNTD6P-Q" describedService__SEFF="_CPfXUHxXEemZXNdNTD6P-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_JXIvcHxXEemZXNdNTD6P-Q" entityName="averageStart" successor_AbstractAction="_B8g7YK60EemTf8MABW0Htw"/>
@@ -37,8 +38,16 @@
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:ConsumeEventAction" id="_B8g7YK60EemTf8MABW0Htw" entityName="ConsumeAverageAllAction" predecessor_AbstractAction="_JXIvcHxXEemZXNdNTD6P-Q" successor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" eventType="_m1hygH2IEemK8fW_yW8fjQ" sinkRole="_58GbUIVKEemBm-IIXPzDsw"/>
-      <steps_Behaviour xsi:type="seff:EmitEventAction" id="_CgDGQK60EemTf8MABW0Htw" entityName="EmitAverageGroupAction" predecessor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" successor_AbstractAction="_JXIvcXxXEemZXNdNTD6P-Q" eventType__EmitEventAction="_kTFboIbjEemckthKxXmWQw" sourceRole__EmitEventAction="_QZWrgIVLEemBm-IIXPzDsw"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:ConsumeEventAction" id="_B8g7YK60EemTf8MABW0Htw" entityName="ConsumeAverageAllAction" predecessor_AbstractAction="_JXIvcHxXEemZXNdNTD6P-Q" successor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" eventType="_m1hygH2IEemK8fW_yW8fjQ" sinkRole="_58GbUIVKEemBm-IIXPzDsw">
+        <returnVariableUsage__CallReturnAction>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="medians->medians"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:EmitEventAction" id="_CgDGQK60EemTf8MABW0Htw" entityName="EmitAverageGroupAction" predecessor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" successor_AbstractAction="_JXIvcXxXEemZXNdNTD6P-Q" eventType__EmitEventAction="_kTFboIbjEemckthKxXmWQw" sourceRole__EmitEventAction="_QZWrgIVLEemBm-IIXPzDsw">
+        <inputVariableUsages__CallAction>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="medians->mediansAndAverages"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_hJEwEHxWEemZXNdNTD6P-Q" entityName="OutlierCalculation">
@@ -103,6 +112,11 @@
       <parameter__EventType dataType__Parameter="_zGlVAIVKEemBm-IIXPzDsw" parameterName="median"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_H5m7Yb2bEembxKoP_83uPQ" entityName="MedianCollectionGroup">
+    <eventTypes__EventGroup id="_LtKskL2bEembxKoP_83uPQ" entityName="MedianCollectionEventType">
+      <parameter__EventType parameterName="medians"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_BPwOkH2JEemK8fW_yW8fjQ" entityName="IEmitPlugReading">
     <signatures__OperationInterface id="_DmL6cH2JEemK8fW_yW8fjQ" entityName="emitPlugReading">
       <parameters__OperationSignature dataType__Parameter="_Pm_PWH2IEemK8fW_yW8fjQ" parameterName="plugReading"/>
@@ -113,9 +127,9 @@
       <parameter__EventType dataType__Parameter="_VH3d_H2IEemK8fW_yW8fjQ" parameterName="plugReadings"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="_-cLUQIVKEemBm-IIXPzDsw" entityName="AverageGroup">
-    <eventTypes__EventGroup id="_kTFboIbjEemckthKxXmWQw" entityName="AverageGroupType">
-      <parameter__EventType dataType__Parameter="_DylYQIVLEemBm-IIXPzDsw" parameterName="average"/>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_-cLUQIVKEemBm-IIXPzDsw" entityName="MediansAndAveragesGroup">
+    <eventTypes__EventGroup id="_kTFboIbjEemckthKxXmWQw" entityName="MediansAndAveragesType">
+      <parameter__EventType dataType__Parameter="_DylYQIVLEemBm-IIXPzDsw" parameterName="mediansAndAverages"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_Pm_PWH2IEemK8fW_yW8fjQ" entityName="PlugReading">

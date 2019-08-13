@@ -35,7 +35,7 @@
         <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#_D085QHxXEemZXNdNTD6P-Q"/>
       </actions_ScenarioBehaviour>
     </scenarioBehaviour_UsageScenario>
-    <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload" population="1">
+    <workload_UsageScenario xsi:type="usagemodel:ClosedWorkload">
       <thinkTime_ClosedWorkload specification="0.0"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
@@ -49,7 +49,7 @@
       <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_fyMKwXxYEemZXNdNTD6P-Q" entityName="stopAction" predecessor="__oDS0HyJEemK8fW_yW8fjQ"/>
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
-      <interArrivalTime_OpenWorkload specification="5"/>
+      <interArrivalTime_OpenWorkload specification="1"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
 </usagemodel:UsageModel>

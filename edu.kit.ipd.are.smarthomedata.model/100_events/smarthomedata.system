@@ -13,20 +13,22 @@
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#_8Z558H2IEemK8fW_yW8fjQ"/>
   </assemblyContexts__ComposedStructure>
   <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.simulizar.indirection.system:DataChannel" id="_NGqoMIVKEemBm-IIXPzDsw" entityName="MedianChannel" dataChannelSourceConnector="_H5QBoIbKEemckthKxXmWQw" dataChannelSinkConnector="_ISHNkIbKEemckthKxXmWQw">
-    <sourceEventGroup href="smarthomedata.repository#_l8re9n2IEemK8fW_yW8fjQ"/>
-    <sinkEventGroup href="smarthomedata.repository#_O5ZUFX2JEemK8fW_yW8fjQ"/>
+    <sourceEventGroup href="smarthomedata.repository#_H5m7Yb2bEembxKoP_83uPQ"/>
+    <sinkEventGroup href="smarthomedata.repository#_l8re9n2IEemK8fW_yW8fjQ"/>
+    <timeGrouping xsi:type="org.palladiosimulator.simulizar.indirection.partitioning:CollectWithHoldback" key="median.KEY"/>
   </eventChannel__ComposedStructure>
   <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.simulizar.indirection.system:DataChannel" id="_z6DOwIVJEemBm-IIXPzDsw" entityName="PlugReadingChannel" dataChannelSourceConnector="_BRtF4IbKEemckthKxXmWQw" dataChannelSinkConnector="_7run4K61EemTf8MABW0Htw">
     <sourceEventGroup href="smarthomedata.repository#_O5ZUFX2JEemK8fW_yW8fjQ"/>
     <sinkEventGroup href="smarthomedata.repository#_DztOgH2IEemK8fW_yW8fjQ"/>
     <partitioning>
       <specification specification="plugReading.plugId.VALUE"/>
+      <specification specification="plugReading.householdId.VALUE"/>
     </partitioning>
     <timeGrouping xsi:type="org.palladiosimulator.simulizar.indirection.partitioning:Windowing" size="20.0" shift="20.0"/>
   </eventChannel__ComposedStructure>
   <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.simulizar.indirection.system:DataChannel" id="_K55INobKEemckthKxXmWQw" entityName="AverageChannel" dataChannelSourceConnector="_VrpagIbKEemckthKxXmWQw" dataChannelSinkConnector="_ZPPQcK6zEemTf8MABW0Htw">
     <sourceEventGroup href="smarthomedata.repository#_-cLUQIVKEemBm-IIXPzDsw"/>
-    <sinkEventGroup href="smarthomedata.repository#_l8re9n2IEemK8fW_yW8fjQ"/>
+    <sinkEventGroup href="smarthomedata.repository#_-cLUQIVKEemBm-IIXPzDsw"/>
   </eventChannel__ComposedStructure>
   <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_nU7_8HxXEemZXNdNTD6P-Q" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_gE7WAHxXEemZXNdNTD6P-Q" assemblyContext_ProvidedDelegationConnector="_akvD4HxXEemZXNdNTD6P-Q">
     <innerProvidedRole_ProvidedDelegationConnector href="smarthomedata.repository#_J35TIHxXEemZXNdNTD6P-Q"/>
