@@ -2,12 +2,13 @@ package org.palladiosimulator.simulizar.indirection.scheduler;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.Parameter;
-import org.palladiosimulator.simulizar.indirection.datatypes.WindowingTimeMode;
+import org.palladiosimulator.simulizar.indirection.partitioning.CollectWithHoldback;
 import org.palladiosimulator.simulizar.indirection.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.simulizar.indirection.partitioning.Partitioning;
 import org.palladiosimulator.simulizar.indirection.partitioning.Windowing;
@@ -31,11 +32,13 @@ import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.Context;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
+import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class SimNoRDDataChannelResource implements IDataChannelResource {
 	protected final Queue<ProcessWaitingToGet> waitingToGetQueue;
 	protected final Queue<ProcessWaitingToPut> waitingToPutQueue;
-	protected final List<TimestampedFrame> incomingQueue;
+	protected final List<KeyedFrame> incomingQueue;
 	protected final Queue<Map<String, Object>> outgoingQueue;
 
 	private final SimuComModel model;
@@ -45,41 +48,104 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 	private PeriodicallyTriggeredSimulationEntity windowingTrigger;
 	private final DataChannel dataChannel;
 
-	public WindowGenerator windowGenerator;
 	private boolean collectAll;
+	private StatefulEmitter<KeyedFrame, List<KeyedFrame>> outgoingEmitter;
+	private WindowEmitter windowEmitter;
+	private CollectWithHoldback collectWithHoldback;
+	
+	private long lastCheckedFrameId = -1L;
+	private long numberOfFramesCreated = 0L;
 
-	public class TimestampedFrame {
-		public final double timestamp;
+	public class KeyedFrame {
+		public final Object key;
 		public final Map<String, Object> frame;
+		public final long id;
 
-		public TimestampedFrame(Map<String, Object> frame) {
-			this.timestamp = SimNoRDDataChannelResource.this.model.getSimulationControl().getCurrentSimulationTime();
+		public KeyedFrame(Map<String, Object> frame) {
+			if (SimNoRDDataChannelResource.this.isWindowingTriggeredPeriodically()) {
+				this.key = SimNoRDDataChannelResource.this.model.getSimulationControl().getCurrentSimulationTime();
+			} else {
+				SimulatedStackframe<Object> simulatedStackframe = SimulatedStackHelper.createFromMap(frame);
+				
+				Object keyValue = null;
+				try {
+					keyValue = simulatedStackframe.getValue(SimNoRDDataChannelResource.this.collectWithHoldback.getKey());
+				} catch (ValueNotInFrameException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.key = keyValue;
+			}
 			this.frame = frame;
+			this.id = numberOfFramesCreated += 1;
+		}
+		
+		@Override
+		public String toString() {
+			return "KeyedFrame[id=" + id + ", key=" + key + ", frame=" + frame + "]";
 		}
 
 	}
+	
+	// takes elements of type T and emits something of type U if the state necessitates
+	public interface StatefulEmitter<T, U> {
+		public Optional<U> accept(T t);
+	}
+	
+	// R: type of the key to check equality with
+	public class EqualityCollectorWithHoldback<T, R> implements StatefulEmitter<T, List<T>> {
+		// length of this collection is always <= n. holdback 1 means that if a new element arrives
+		// the old collection is emitted. for holdback 2, a collection is only emitted, after 2 new (distinct)
+		// elements have been seen.
+		
+		
+		public Queue<List<T>> currentCollections = new ArrayDeque<List<T>>();
+		private final int holdback;
+		private final Function<T, R> keyFunction;
+		
+		
+		public EqualityCollectorWithHoldback(Function<T, R> keyFunction, int holdback) {
+			this.keyFunction = keyFunction;
+			this.holdback = holdback;
+		}
+		
+		@Override
+		public Optional<List<T>> accept(T t) {
+			for (List<T> collection : currentCollections) {
+				R collectionKey = IndirectionUtil.claimEqualKey(collection, keyFunction);
+				if (collectionKey.equals(keyFunction.apply(t))) {
+					collection.add(t);
+					return Optional.absent();
+				}
+			}
 
-	public class WindowGenerator {
+			List<T> newCollection = new ArrayList<T>();
+			newCollection.add(t);
+			currentCollections.add(newCollection);
+			
+			if (currentCollections.size() > holdback) {
+				return Optional.of(currentCollections.remove());
+			}
+			
+			return Optional.absent();
+		}
+	}
+	
+	public class WindowCalculator {
 		public double size;
 		public double shift;
 
 		public Window currentWindow;
 		public Window emittedWindow;
 
-		public WindowGenerator(double size, double shift) {
+		public WindowCalculator(double size, double shift) {
 			super();
 			this.size = size;
 			this.shift = shift;
 		}
 
 		public Window next() {
-			Window nextWindow = createNextWindow();
-			if (currentWindow != null) {
-				currentWindow.next = nextWindow;
-				nextWindow.previous = currentWindow;
-			}
-			currentWindow = nextWindow;
-
+			currentWindow = createNextWindow();
 			return currentWindow;
 		}
 
@@ -98,11 +164,23 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 			return result;
 		}
 	}
+	
+	public class WindowEmitter implements StatefulEmitter<Double, List<Window>> {
+		private final WindowCalculator windowCalculator;
+
+		public WindowEmitter(double size, double shift) {
+			this.windowCalculator = new WindowCalculator(size, shift);
+		}
+		
+		@Override
+		public Optional<List<Window>> accept(Double t) {
+			List<Window> windows = windowCalculator.advanceUntil(t);
+			return windows.isEmpty() ? Optional.absent() : Optional.of(windows);
+		}
+		
+	}
 
 	public class Window {
-		public Window previous;
-		public Window next;
-
 		public final double start;
 		public final double end;
 
@@ -113,13 +191,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 
 		@Override
 		public String toString() {
-			return "W[start=" + start + ", end=" + end + ", previous="
-					+ Optional.fromNullable(previous).transform(Window::startAndEndToString).or("null") + ", next="
-					+ Optional.fromNullable(next).transform(Window::startAndEndToString).or("null") + "]";
-		}
-
-		private String startAndEndToString() {
-			return "W[start=" + start + ", end=" + end + "]";
+			return "W[" + start + "->" + end + "]";
 		}
 
 		public boolean contains(double timestamp) {
@@ -142,22 +214,23 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		this.capacity = dataChannel.getCapacity();
 
 		this.windowing = dataChannel.getTimeGrouping() instanceof Windowing ? (Windowing) dataChannel.getTimeGrouping() : null;
+		this.collectWithHoldback = dataChannel.getTimeGrouping() instanceof CollectWithHoldback ? (CollectWithHoldback) dataChannel.getTimeGrouping() : null;
 		this.collectAll = dataChannel.getTimeGrouping() instanceof ConsumeAllAvailable;
 		
 		this.partitioning = dataChannel.getPartitioning();
-		if (windowing != null && windowing.getTimeMode() != WindowingTimeMode.WALL_CLOCK) {
-			throw new IllegalArgumentException(
-					"Currently, only the WindowingTimeMode " + WindowingTimeMode.WALL_CLOCK + " can be simulated.");
-		}
-
-		if (windowing != null) {
-			this.windowGenerator = new WindowGenerator(windowing.getSize(), windowing.getShift());
-			this.windowingTrigger = new PeriodicallyTriggeredSimulationEntity(this.model, 0, windowing.getShift()) {
-				@Override
-				protected void triggerInternal() {
-					createOutgoingElements();
-				}
-			};
+		
+		if (isWindowingTriggeredOnIncoming()) {
+			this.outgoingEmitter = new EqualityCollectorWithHoldback<KeyedFrame, Object>((it) -> it.key, this.collectWithHoldback.getHoldback());
+		} else if (isWindowingTriggeredPeriodically()) {
+			if (isWindowingTriggeredPeriodically()) {
+				this.windowEmitter = new WindowEmitter(windowing.getShift(), windowing.getShift());
+				this.windowingTrigger = new PeriodicallyTriggeredSimulationEntity(this.model, 0, windowing.getShift()) {
+					@Override
+					protected void triggerInternal() {
+						createAllCurrentlyOutgoingElements();
+					}
+				};
+			}
 		}
 		
 		if (collectAll) {
@@ -167,21 +240,111 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 
 	private final static Object DUMMY_KEY = UUID.randomUUID();
 
+	private boolean isWindowingTriggeredOnIncoming() {
+		// currently we distinguish between periodically triggered and on-demand windowing by:
+		// "is a time provider set?"
+		// could also be done by different subclasses for a TimeProvider interface
+		return (this.collectWithHoldback != null);
+	}
+	
+	private boolean isWindowingTriggeredPeriodically() {
+		return (this.windowing != null);
+	}
+	
+	private double getTimeToAdvanceWindowingTo() {
+		return model.getSimulationControl().getCurrentSimulationTime();
+	}
+
+	private Map<Object, List<KeyedFrame>> createPartitions(List<KeyedFrame> elements) {
+		return elements.stream().collect(Collectors.groupingBy(it -> getPartition(it.frame)));
+	}
+	
+	private List<Map<String, Object>> createGroupOfOutgoingFrames(List<KeyedFrame> elements, Object key) {
+		Map<Object, List<KeyedFrame>> partitions = createPartitions(elements);
+		List<Map<String, Object>> result = new ArrayList<>();
+		for (Entry<Object, List<KeyedFrame>> entry : partitions.entrySet()) {
+			Map<String, Object> windowFrame = createCollectionFrame();
+			windowFrame.put(getOutgoingParameterName() + ".PARTITION", entry.getKey());
+			windowFrame.put(getOutgoingParameterName() + ".KEY", key);
+			windowFrame.put(getOutgoingParameterName() + ".NUMBER_OF_ELEMENTS", entry.getValue().size());
+			windowFrame.put(getOutgoingParameterName() + ".INNER", entry.getValue());
+			result.add(windowFrame);
+		}
+		
+		return result;
+	}
+	
+
+	protected void createAllCurrentlyOutgoingElements() {
+		Set<KeyedFrame> flaggedForRemoval = new HashSet<KeyedFrame>();
+		List<Map<String, Object>> outgoingFrames = new ArrayList<>();
+		
+		if (isWindowingTriggeredPeriodically()) {
+			Optional<List<Window>> windows = windowEmitter.accept(getTimeToAdvanceWindowingTo());
+			if (windows.isPresent()) {
+				for (Window window : windows.get()) {
+					System.out.println("Creating window " + window.toString() + " (at "
+							+ model.getSimulationControl().getCurrentSimulationTime() + ")");
+					List<KeyedFrame> elementsInWindow = incomingElementsInWindow(window);
+					outgoingFrames.addAll(createGroupOfOutgoingFrames(elementsInWindow, window));
+					flaggedForRemoval.addAll(elementsInWindow);
+				}
+			}
+		} else if (isWindowingTriggeredOnIncoming()) {
+			System.out.println("Checking " + incomingQueue.size() + " elements "
+					+ "(last seen: " + lastCheckedFrameId + ", "
+					+ "head: " + incomingQueue.get(0).id + ", "
+					+ "last: " + incomingQueue.get(incomingQueue.size() - 1).id + ").");
+			for (KeyedFrame element : incomingQueue) {
+				if (element.id <= lastCheckedFrameId)
+					continue;
+				
+				lastCheckedFrameId = element.id;
+				
+				Optional<List<KeyedFrame>> result = outgoingEmitter.accept(element);
+				if (result.isPresent()) {
+					System.out.println("Emitting grouping for " + result.get().size() + " frames (at "
+							+ model.getSimulationControl().getCurrentSimulationTime() + "):");
+					Object key = IndirectionUtil.claimEqual(result.get().stream().map((it) -> it.key).collect(Collectors.toList()));
+					List<Map<String, Object>> newOutgoingFrames = createGroupOfOutgoingFrames(result.get(), key);
+					outgoingFrames.addAll(newOutgoingFrames);
+					newOutgoingFrames.forEach(it -> System.out.println(" - " + it));
+					flaggedForRemoval.addAll(result.get());
+				}
+			}
+		}
+		
+		for (KeyedFrame frameToRemove : flaggedForRemoval) {
+			incomingQueue.remove(frameToRemove);
+		}
+		
+		for (Map<String, Object> outgoingFrame : outgoingFrames) {
+			outgoingQueue.add(outgoingFrame);
+		}
+		
+		notifyProcessesWaitingToGet();
+	}
+	
+
 	/**
 	 * Creates outgoing elements from the currently queued items. Respects windowing
 	 * and partitioning.
 	 */
-	protected void createOutgoingElements() {
-		List<Window> windows = windowGenerator.advanceUntil(model.getSimulationControl().getCurrentSimulationTime());
+/*	protected void createOutgoingElements() {
+ 		double timeToAdvanceWindowingTo = getTimeToAdvanceWindowingTo();
+		
+		Optional<List<Window>> windows = outgoingEmitter.accept(timeToAdvanceWindowingTo);
+		if (!windows.isPresent())
+			return;
 
-		for (Window window : windows) {
+		for (Window window : windows.get()) {
 			System.out.println("Creating window " + window.toString() + " (at "
 					+ model.getSimulationControl().getCurrentSimulationTime() + ")");
 			Map<String, Object> windowFrame = createCollectionFrame();
 
 			// TODO: take timestamp from element instead of "current simulation time"?
 			Map<Object, Map<String, List<Object>>> partitionToWindowedVariableToValues = new HashMap<>();
-			for (TimestampedFrame frame : incomingElementsInWindow(window)) {
+			for (KeyedFrame frame : incomingElementsInWindow(window)) {
 				Map<String, Object> map = frame.frame;
 				Object partition = getPartition(map);
 				Map<String, List<Object>> windowedVariables = partitionToWindowedVariableToValues
@@ -223,20 +386,22 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 			}
 		}
 		notifyProcessesWaitingToGet();
-	}
+	}*/
 
 	private Object getPartition(Map<String, Object> map) {
-		return partitioning == null ? DUMMY_KEY
-				: Context.evaluateStatic(partitioning.getSpecification().getSpecification(),
-						SimulatedStackHelper.createFromMap(map));
+		if (partitioning == null)
+			return DUMMY_KEY;
+		
+		SimulatedStackframe<Object> stack = SimulatedStackHelper.createFromMap(map);
+		
+		return partitioning.getSpecification().stream()
+				.collect(Collectors.toMap(
+						it -> it.getSpecification(),
+						it -> Context.evaluateStatic(it.getSpecification(), stack)));
 	}
 
-	private void discardIncomingElementsOlderThan(double start) {
-		incomingQueue.removeIf(it -> it.timestamp < start);
-	}
-
-	private List<TimestampedFrame> incomingElementsInWindow(Window window) {
-		return incomingQueue.stream().filter(it -> window.contains(it.timestamp)).collect(Collectors.toList());
+	private List<KeyedFrame> incomingElementsInWindow(Window window) {
+		return incomingQueue.stream().filter(it -> window.contains((double) it.key)).collect(Collectors.toList());
 	}
 
 	/**
@@ -262,11 +427,20 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 
 	private void allowToPut(ProcessWaitingToPut process) {
 		if (collectAll) {
+			System.out.println("Collecting all -> adding to outgoing group.");
 			addToOutgoingFrame(process.frame);
-		} else if (windowing == null) {
-			outgoingQueue.add(process.frame);
+		} else if (isWindowingTriggeredOnIncoming()) {
+			KeyedFrame newFrame = new KeyedFrame(process.frame);
+			incomingQueue.add(newFrame);
+			System.out.println("Added frame @ " + newFrame.key + ": " + newFrame.frame + ". Directly triggering creation.");
+			createAllCurrentlyOutgoingElements();
+		} else if (isWindowingTriggeredPeriodically()) {
+			KeyedFrame newFrame = new KeyedFrame(process.frame);
+			incomingQueue.add(newFrame);
+			System.out.println("Added frame @ " + newFrame.key + ": " + newFrame.frame + ". Doing nothing, waiting for timed creation.");
 		} else {
-			incomingQueue.add(new TimestampedFrame(process.frame));
+			System.out.println("Added frame directly: " + process.frame);
+			outgoingQueue.add(process.frame);
 		}
 
 		if (process.isWaiting())
@@ -331,9 +505,10 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 
 		T waitingProcess = processes.peek();
 		while (waitingProcess != null && canProceed.test(waitingProcess)) {
+//			System.out.println("Allowing waiting process.");
 			allow.accept(waitingProcess);
 			processes.remove();
-			processExtractor.apply(waitingProcess).activate();
+			//processExtractor.apply(waitingProcess).activate();
 
 			waitingProcess = processes.peek();
 		}
@@ -375,15 +550,18 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 
 	@Override
 	public boolean get(ISchedulableProcess schedulableProcess, Consumer<Map<String, Object>> callback) {
+//		System.out.println("Process is trying to get.");
 		if (!model.getSimulationControl().isRunning()) {
 			return true;
 		}
 
 		final ProcessWaitingToGet process = new ProcessWaitingToGet(model, schedulableProcess, callback);
 		if (canProceedToGet(process)) {
+//			System.out.println("Can take directly.");
 			allowToGet(process);
 			return true;
 		} else {
+//			System.out.println("Adding to queue.");
 			waitingToGetQueue.add(process);
 			process.passivate();
 			return false;

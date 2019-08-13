@@ -42,10 +42,6 @@
         <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/PutPolicy/DiscardLastIn"/>
         <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/PutPolicy/DiscardIncoming"/>
       </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirection.ecore#//datatypes/WindowingTimeMode">
-        <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/WindowingTimeMode/WallClock"/>
-        <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/WindowingTimeMode/Timestamp"/>
-      </genEnums>
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirection.ecore#//datatypes/Aggregation">
         <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/Aggregation/Average"/>
         <genEnumLiterals ecoreEnumLiteral="indirection.ecore#//datatypes/Aggregation/ExactlyOne"/>
@@ -59,13 +55,16 @@
       <genClasses ecoreClass="indirection.ecore#//partitioning/Partitioning">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirection.ecore#//partitioning/Partitioning/specification"/>
       </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//partitioning/TimeGrouping"/>
       <genClasses ecoreClass="indirection.ecore#//partitioning/Windowing">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/timeMode"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/size"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/Windowing/shift"/>
       </genClasses>
-      <genClasses ecoreClass="indirection.ecore#//partitioning/TimeGrouping"/>
       <genClasses ecoreClass="indirection.ecore#//partitioning/ConsumeAllAvailable"/>
+      <genClasses ecoreClass="indirection.ecore#//partitioning/CollectWithHoldback">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/CollectWithHoldback/holdback"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//partitioning/CollectWithHoldback/key"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" resource="XMI" disposableProviderFactory="true"
         generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"

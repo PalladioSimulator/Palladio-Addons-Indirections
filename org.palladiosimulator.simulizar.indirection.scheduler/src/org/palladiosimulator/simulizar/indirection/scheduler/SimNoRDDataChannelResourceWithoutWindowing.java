@@ -8,7 +8,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.simulizar.indirection.datatypes.WindowingTimeMode;
 import org.palladiosimulator.simulizar.indirection.partitioning.Windowing;
 import org.palladiosimulator.simulizar.indirection.system.DataChannel;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;

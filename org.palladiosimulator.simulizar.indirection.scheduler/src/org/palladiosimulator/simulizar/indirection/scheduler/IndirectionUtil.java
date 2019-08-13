@@ -2,6 +2,8 @@ package org.palladiosimulator.simulizar.indirection.scheduler;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 
 public final class IndirectionUtil {
 	private IndirectionUtil() {
@@ -22,9 +24,18 @@ public final class IndirectionUtil {
 	public static final <A extends Iterable<T>, T> T claimEqual(A iterable) {
 		T first = iterable.iterator().next();
 		for (T t : iterable) {
-			if (t != first)
+			if (!Objects.equals(t, first))
 				throw new IllegalStateException("It was claimed that the collection '" + iterable + "' contains only equal elements! Found " + first + " and " + t);
 		}
 		return first;
+	}
+	
+	public static final <A extends Iterable<T>, T, R> R claimEqualKey(A iterable, Function<T, R> keyFunction) {
+		T first = iterable.iterator().next();
+		for (T t : iterable) {
+			if (!Objects.equals(keyFunction.apply(t), keyFunction.apply(first)))
+				throw new IllegalStateException("It was claimed that the collection '" + iterable + "' contains only elements with equal key! Found " + first + " and " + t);
+		}
+		return keyFunction.apply(first);
 	}
 }

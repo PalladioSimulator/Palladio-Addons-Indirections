@@ -28,10 +28,6 @@
       <eLiterals name="DiscardLastIn" value="2"/>
       <eLiterals name="DiscardIncoming" value="3"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="WindowingTimeMode">
-      <eLiterals name="WallClock" literal="WallClock"/>
-      <eLiterals name="Timestamp" value="1"/>
-    </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="Aggregation">
       <eLiterals name="Average"/>
       <eLiterals name="ExactlyOne" value="1"/>
@@ -42,18 +38,21 @@
   <eSubpackages name="partitioning" nsURI="http://palladiosimulator.org/Indirection/Partitioning/1.0"
       nsPrefix="org.palladiosimulator.simulizar.indirection.partitioning">
     <eClassifiers xsi:type="ecore:EClass" name="Partitioning" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/NamedElement">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
-          lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/PCMRandomVariable"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="specification" lowerBound="1"
+          upperBound="-1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/PCMRandomVariable"
           containment="true"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="TimeGrouping" abstract="true" interface="true"/>
     <eClassifiers xsi:type="ecore:EClass" name="Windowing" eSuperTypes="#//partitioning/TimeGrouping">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="timeMode" lowerBound="1"
-          eType="#//datatypes/WindowingTimeMode"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="shift" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="TimeGrouping"/>
     <eClassifiers xsi:type="ecore:EClass" name="ConsumeAllAvailable" eSuperTypes="#//partitioning/TimeGrouping"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CollectWithHoldback" eSuperTypes="#//partitioning/TimeGrouping">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="holdback" lowerBound="1"
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirection/System/1.0"
       nsPrefix="org.palladiosimulator.simulizar.indirection.system">
