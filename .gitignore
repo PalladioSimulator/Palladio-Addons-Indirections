@@ -12,5 +12,5 @@ xtend-gen/
 hs_err_pid*
 
 # project specific: no generated files
-/org.palladiosimulator.simulizar.indirection.edit/
-/org.palladiosimulator.simulizar.indirection.editor/
+#/org.palladiosimulator.simulizar.indirection.edit/
+#/org.palladiosimulator.simulizar.indirection.editor/
