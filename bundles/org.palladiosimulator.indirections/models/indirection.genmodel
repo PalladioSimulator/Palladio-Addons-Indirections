@@ -11,7 +11,7 @@
   <modelPluginVariables>OCL=org.eclipse.ocl</modelPluginVariables>
   <modelPluginVariables>EMF_OCL=org.eclipse.ocl.ecore</modelPluginVariables>
   <modelPluginVariables>CDO=org.eclipse.emf.cdo</modelPluginVariables>
-  <genPackages prefix="Indirection" basePackage="org.palladiosimulator.simulizar"
+  <genPackages prefix="Indirection" basePackage="org.palladiosimulator"
       resource="XMI" disposableProviderFactory="true" extensibleProviderFactory="true"
       childCreationExtenders="true" ecorePackage="indirection.ecore#/">
     <nestedGenPackages prefix="Actions" resource="XMI" disposableProviderFactory="true"
