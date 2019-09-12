@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="org.palladiosimulator.simulizar.indirection.interfaces.datachannelresourcefactory" name="Data Channel Resource Factory" schema="schema/org.palladiosimulator.simulizar.indirection.interfaces.datachannelresourcefactory.exsd"/>
+   <extension-point id="org.palladiosimulator.indirections.interfaces.datachannelresourcefactory" name="Data Channel Resource Factory" schema="schema/org.palladiosimulator.indirections.interfaces.datachannelresourcefactory.exsd"/>
 
 </plugin>

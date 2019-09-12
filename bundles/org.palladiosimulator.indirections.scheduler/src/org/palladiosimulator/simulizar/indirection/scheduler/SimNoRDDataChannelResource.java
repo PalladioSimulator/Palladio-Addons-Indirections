@@ -1,4 +1,4 @@
-package org.palladiosimulator.simulizar.indirection.scheduler;
+package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.Parameter;
-import org.palladiosimulator.simulizar.indirection.partitioning.CollectWithHoldback;
-import org.palladiosimulator.simulizar.indirection.partitioning.ConsumeAllAvailable;
-import org.palladiosimulator.simulizar.indirection.partitioning.Partitioning;
-import org.palladiosimulator.simulizar.indirection.partitioning.Windowing;
-import org.palladiosimulator.simulizar.indirection.system.DataChannel;
+import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
+import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
+import org.palladiosimulator.indirections.partitioning.Partitioning;
+import org.palladiosimulator.indirections.partitioning.Windowing;
+import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 

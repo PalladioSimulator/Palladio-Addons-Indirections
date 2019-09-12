@@ -1,4 +1,4 @@
-package org.palladiosimulator.simulizar.indirection.scheduler;
+package org.palladiosimulator.indirections.scheduler;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;

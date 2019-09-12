@@ -1,19 +1,19 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.palladiosimulator.simulizar.indirection.scheduler
-Bundle-SymbolicName: org.palladiosimulator.simulizar.indirection.scheduler;singleton:=true
+Bundle-Name: org.palladiosimulator.indirections.scheduler
+Bundle-SymbolicName: org.palladiosimulator.indirections.scheduler;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Automatic-Module-Name: org.palladiosimulator.simulizar.indirection.scheduler
+Automatic-Module-Name: org.palladiosimulator.indirections.scheduler
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.palladiosimulator.pcm,
- org.palladiosimulator.simulizar.indirection,
+ org.palladiosimulator.indirections,
  org.palladiosimulator.simulizar.utils,
- org.palladiosimulator.simulizar.indirection.interfaces,
+ org.palladiosimulator.indirections.interfaces,
  de.uka.ipd.sdq.simucomframework.variables,
  de.uka.ipd.sdq.simulation.abstractsimengine,
  org.apache.log4j,
  org.palladiosimulator.simulizar.simulationevents,
  de.uka.ipd.sdq.simucomframework,
  org.eclipse.xtend.lib
-Export-Package: org.palladiosimulator.simulizar.indirection.scheduler
+Export-Package: org.palladiosimulator.indirections.scheduler

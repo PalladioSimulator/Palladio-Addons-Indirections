@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.palladiosimulator.simulizar.indirection.interfaces" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.palladiosimulator.indirections.interfaces" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.palladiosimulator.simulizar.indirection.interfaces" id="org.palladiosimulator.simulizar.indirection.interfaces.datachannelresourcefactory" name="Data Channel Resource Factory"/>
+         <meta.schema plugin="org.palladiosimulator.indirections.interfaces" id="org.palladiosimulator.indirections.interfaces.datachannelresourcefactory" name="Data Channel Resource Factory"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
@@ -55,7 +55,7 @@
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.simulizar.indirection.scheduler.IDataChannelResourceFactory"/>
+                  <meta.attribute kind="java" basedOn=":org.palladiosimulator.indirections.scheduler.IDataChannelResourceFactory"/>
                </appinfo>
             </annotation>
          </attribute>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.simulizar.indirection.actions="http://palladiosimulator.org/Indirection/Actions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_SLFGwHxWEemZXNdNTD6P-Q" entityName="SmartHomeDataRepository">
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.indirections.actions="http://palladiosimulator.org/Indirection/Actions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_SLFGwHxWEemZXNdNTD6P-Q" entityName="SmartHomeDataRepository">
   <components__Repository xsi:type="repository:BasicComponent" id="_gep6EHxWEemZXNdNTD6P-Q" entityName="Median">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_J35TIHxXEemZXNdNTD6P-Q" entityName="MedianEachPlug.ICalculateMedians.OperationProvidedRole1" providedInterface__OperationProvidedRole="_slPRYHxWEemZXNdNTD6P-Q"/>
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:SinkRole" id="_botfUH2JEemK8fW_yW8fjQ" entityName="MedianEachPlug.PlugReadingWindowGroup.SinkRole2" eventGroup__SinkRole="_O5ZUFX2JEemK8fW_yW8fjQ"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_sABE8H2JEemK8fW_yW8fjQ" entityName="MedianEachPlug.MedianGroup.SourceRole1" eventGroup__SourceRole="_l8re9n2IEemK8fW_yW8fjQ"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_J36hQHxXEemZXNdNTD6P-Q" describedService__SEFF="_9RvD4HxWEemZXNdNTD6P-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_J37IUHxXEemZXNdNTD6P-Q" entityName="medianStart" successor_AbstractAction="_07NoQK6zEemTf8MABW0Htw"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:ConsumeEventAction" id="_07NoQK6zEemTf8MABW0Htw" entityName="ConsumePlugReadingWindowAction" predecessor_AbstractAction="_J37IUHxXEemZXNdNTD6P-Q" successor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" eventType="_QkgLAH2JEemK8fW_yW8fjQ" sinkRole="_botfUH2JEemK8fW_yW8fjQ">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeEventAction" id="_07NoQK6zEemTf8MABW0Htw" entityName="ConsumePlugReadingWindowAction" predecessor_AbstractAction="_J37IUHxXEemZXNdNTD6P-Q" successor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" eventType="_QkgLAH2JEemK8fW_yW8fjQ" sinkRole="_botfUH2JEemK8fW_yW8fjQ">
         <returnVariableUsage__CallReturnAction>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugReadings->plugReadings"/>
         </returnVariableUsage__CallReturnAction>
@@ -38,7 +38,7 @@
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:ConsumeEventAction" id="_B8g7YK60EemTf8MABW0Htw" entityName="ConsumeAverageAllAction" predecessor_AbstractAction="_JXIvcHxXEemZXNdNTD6P-Q" successor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" eventType="_m1hygH2IEemK8fW_yW8fjQ" sinkRole="_58GbUIVKEemBm-IIXPzDsw">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeEventAction" id="_B8g7YK60EemTf8MABW0Htw" entityName="ConsumeAverageAllAction" predecessor_AbstractAction="_JXIvcHxXEemZXNdNTD6P-Q" successor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" eventType="_m1hygH2IEemK8fW_yW8fjQ" sinkRole="_58GbUIVKEemBm-IIXPzDsw">
         <returnVariableUsage__CallReturnAction>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="medians->medians"/>
         </returnVariableUsage__CallReturnAction>
@@ -62,7 +62,7 @@
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.simulizar.indirection.actions:ConsumeEventAction" id="_GgO-MK60EemTf8MABW0Htw" entityName="ConsumeAverageGroupAction" predecessor_AbstractAction="_HcVPoHxXEemZXNdNTD6P-Q" successor_AbstractAction="_KLM8zHxvEemX4qnXnBNY2A" eventType="_kTFboIbjEemckthKxXmWQw" sinkRole="_W_zkcK6zEemTf8MABW0Htw"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeEventAction" id="_GgO-MK60EemTf8MABW0Htw" entityName="ConsumeAverageGroupAction" predecessor_AbstractAction="_HcVPoHxXEemZXNdNTD6P-Q" successor_AbstractAction="_KLM8zHxvEemX4qnXnBNY2A" eventType="_kTFboIbjEemckthKxXmWQw" sinkRole="_W_zkcK6zEemTf8MABW0Htw"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_8Z558H2IEemK8fW_yW8fjQ" entityName="PlugReadingEmitter">

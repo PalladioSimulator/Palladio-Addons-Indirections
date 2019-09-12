@@ -1,6 +1,6 @@
-package org.palladiosimulator.simulizar.indirection.scheduler;
+package org.palladiosimulator.indirections.scheduler;
 
-import org.palladiosimulator.simulizar.indirection.system.DataChannel;
+import org.palladiosimulator.indirections.system.DataChannel;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 

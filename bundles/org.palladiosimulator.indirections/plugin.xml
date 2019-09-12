@@ -27,7 +27,7 @@
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirection/Actions/1.0"
-            class="org.palladiosimulator.simulizar.indirection.actions.ActionsPackage"
+            class="org.palladiosimulator.indirections.actions.ActionsPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 
@@ -35,7 +35,7 @@
       <!-- @generated indirection -->
       <parser
             type=""
-            class="org.palladiosimulator.simulizar.indirection.actions.util.ActionsResourceFactoryImpl"/>
+            class="org.palladiosimulator.indirections.actions.util.ActionsResourceFactoryImpl"/>
    </extension>
 
 
@@ -45,7 +45,7 @@
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirection/Datatypes/1.0"
-            class="org.palladiosimulator.simulizar.indirection.datatypes.DatatypesPackage"
+            class="org.palladiosimulator.indirections.datatypes.DatatypesPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 
@@ -53,7 +53,7 @@
       <!-- @generated indirection -->
       <parser
             type=""
-            class="org.palladiosimulator.simulizar.indirection.datatypes.util.DatatypesResourceFactoryImpl"/>
+            class="org.palladiosimulator.indirections.datatypes.util.DatatypesResourceFactoryImpl"/>
    </extension>
 
 
@@ -63,7 +63,7 @@
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirection/Partitioning/1.0"
-            class="org.palladiosimulator.simulizar.indirection.partitioning.PartitioningPackage"
+            class="org.palladiosimulator.indirections.partitioning.PartitioningPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 
@@ -71,7 +71,7 @@
       <!-- @generated indirection -->
       <parser
             type=""
-            class="org.palladiosimulator.simulizar.indirection.partitioning.util.PartitioningResourceFactoryImpl"/>
+            class="org.palladiosimulator.indirections.partitioning.util.PartitioningResourceFactoryImpl"/>
    </extension>
 
 
@@ -81,7 +81,7 @@
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirection/System/1.0"
-            class="org.palladiosimulator.simulizar.indirection.system.SystemPackage"
+            class="org.palladiosimulator.indirections.system.SystemPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 
@@ -89,7 +89,7 @@
       <!-- @generated indirection -->
       <parser
             type=""
-            class="org.palladiosimulator.simulizar.indirection.system.util.SystemResourceFactoryImpl"/>
+            class="org.palladiosimulator.indirections.system.util.SystemResourceFactoryImpl"/>
    </extension>
 
 
@@ -99,7 +99,7 @@
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirection/Composition/1.0"
-            class="org.palladiosimulator.simulizar.indirection.composition.CompositionPackage"
+            class="org.palladiosimulator.indirections.composition.CompositionPackage"
             genModel="models/indirection.genmodel"/>
    </extension>
 
@@ -107,7 +107,7 @@
       <!-- @generated indirection -->
       <parser
             type=""
-            class="org.palladiosimulator.simulizar.indirection.composition.util.CompositionResourceFactoryImpl"/>
+            class="org.palladiosimulator.indirections.composition.util.CompositionResourceFactoryImpl"/>
    </extension>
 
 </plugin>

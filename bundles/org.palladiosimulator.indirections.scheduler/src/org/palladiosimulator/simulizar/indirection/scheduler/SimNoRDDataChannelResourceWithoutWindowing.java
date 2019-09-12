@@ -1,4 +1,4 @@
-package org.palladiosimulator.simulizar.indirection.scheduler;
+package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayDeque;
 import java.util.Map;
@@ -8,8 +8,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.simulizar.indirection.partitioning.Windowing;
-import org.palladiosimulator.simulizar.indirection.system.DataChannel;
+import org.palladiosimulator.indirections.partitioning.Windowing;
+import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;

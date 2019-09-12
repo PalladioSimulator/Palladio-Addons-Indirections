@@ -11,7 +11,9 @@
 	<packaging>pom</packaging>
 	
 	<modules>
-		<!-- insert bundle folders here -->
+		<module>org.palladiosimulator.indirections</module>
+		<module>org.palladiosimulator.indirections.interfaces</module>
+		<module>org.palladiosimulator.indirections.scheduler</module>
 	</modules>
 	
 </project>
