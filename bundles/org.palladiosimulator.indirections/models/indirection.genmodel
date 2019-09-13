@@ -28,6 +28,12 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirection.ecore#//actions/ConsumeEventAction/sinkRole"/>
       </genClasses>
+      <genClasses ecoreClass="indirection.ecore#//actions/ProduceEventAction">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/ProduceEventAction/eventType"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/ProduceEventAction/sourceRole"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" resource="XMI" disposableProviderFactory="true"
         generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"

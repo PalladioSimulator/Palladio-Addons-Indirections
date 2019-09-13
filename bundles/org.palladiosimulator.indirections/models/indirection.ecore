@@ -13,6 +13,12 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="sinkRole" ordered="false"
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/SinkRole"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ProduceEventAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallAction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="eventType" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventType"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRole" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/SourceRole"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirections/Datatypes/1.0"
       nsPrefix="org.palladiosimulator.indirections.datatypes">
