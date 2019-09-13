@@ -2,6 +2,15 @@
 <?pde version="3.8"?><target name="org.palladiosimulator.indirections Target Platform" sequenceNumber="1">
 <locations>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="org.palladiosimulator.simulizar.feature.feature.group" version="tbd"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-analyzer-simulizar/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="org.palladiosimulator.simulizar.feature.feature.group" version="tbd"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-analyzer-simulizar/nightly/"/>
+		</location>
+
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
 			<unit id="org.palladiosimulator.simucom.feature.feature.group" version="tbd"/>
 			<repository location="https://sdqweb.ipd.kit.edu/eclipse/palladio/analyzer/simucom/releases/latest/"/>
 		</location>
