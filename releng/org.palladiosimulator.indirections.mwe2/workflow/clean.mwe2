@@ -1,4 +1,4 @@
-module clean
+module org.palladiosimulator.indirections.mwe2.generate.clean
 
 import org.eclipse.emf.mwe2.ecore.EcoreGenerator
 import tools.mdsd.ecoreworkflow.mwe2lib.bean.EclipseRCPSupportingStandaloneSetup
