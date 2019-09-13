@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.scheduler;
+package org.palladiosimulator.indirections.interfaces;
 
 import org.palladiosimulator.indirections.system.DataChannel;
 

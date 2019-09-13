@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.scheduler;
+package org.palladiosimulator.indirections.interfaces;
 
 import java.util.Map;
 import java.util.function.Consumer;

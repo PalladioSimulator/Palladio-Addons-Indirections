@@ -9,4 +9,4 @@ Require-Bundle: org.palladiosimulator.pcm,
  de.uka.ipd.sdq.scheduler,
  de.uka.ipd.sdq.simucomframework.variables,
  org.palladiosimulator.indirections
-Export-Package: org.palladiosimulator.indirections.scheduler
+Export-Package: org.palladiosimulator.indirections.interfaces
