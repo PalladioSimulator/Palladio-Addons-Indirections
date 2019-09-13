@@ -2,7 +2,7 @@
 bin/
 target/
 xtend-gen/
-src-get/
+src-gen/
 .settings/
 
 # Package Files #
