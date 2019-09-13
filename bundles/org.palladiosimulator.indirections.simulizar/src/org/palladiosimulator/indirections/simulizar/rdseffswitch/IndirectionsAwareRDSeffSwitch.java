@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EPackage;
-import org.palladiosimulator.indirections.actions.ConsumeEventAction;
+import org.palladiosimulator.indirections.actions.ActionsPackage;
+import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
@@ -81,13 +82,13 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 
 	@Override
 	protected boolean isSwitchFor(EPackage ePackage) {
-		return true;
+		return (ePackage instanceof ActionsPackage);
 	}
 
 	@Override
 	public Object caseAbstractAction(AbstractAction object) {
-		if (object instanceof ConsumeEventAction) {
-			return caseConsumeEventAction((ConsumeEventAction) object);
+		if (object instanceof ConsumeDataAction) {
+			return caseConsumeDataAction((ConsumeDataAction) object);
 		}
 
 		throw new UnsupportedOperationException(this.getClass().getName()
@@ -191,7 +192,7 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 	}
 
 
-	public Object caseConsumeEventAction(ConsumeEventAction action) {
+	public Object caseConsumeDataAction(ConsumeDataAction action) {
 		IDataChannelResource dataChannelResource = getDataChannelResource(action);
 
 		String randomUUID = Thread.currentThread().getName();
@@ -225,7 +226,7 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 		return dataChannelResource;
 	}
 
-	private IDataChannelResource getDataChannelResource(ConsumeEventAction action) {
+	private IDataChannelResource getDataChannelResource(ConsumeDataAction action) {
 		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
 		SinkRole sinkRole = action.getSinkRole();
 		DataChannel dataChannel = getConnectedSourceDataChannel(assemblyContext, sinkRole);

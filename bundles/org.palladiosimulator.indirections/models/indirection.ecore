@@ -7,13 +7,13 @@
     <eClassifiers xsi:type="ecore:EClass" name="AnalyseStackAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ConsumeEventAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallReturnAction">
+    <eClassifiers xsi:type="ecore:EClass" name="ConsumeDataAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallReturnAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventType" ordered="false"
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventType"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sinkRole" ordered="false"
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/SinkRole"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ProduceEventAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallAction">
+    <eClassifiers xsi:type="ecore:EClass" name="EmitDataAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventType" lowerBound="1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventType"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRole" lowerBound="1"

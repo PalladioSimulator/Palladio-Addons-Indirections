@@ -22,17 +22,17 @@
       <genClasses ecoreClass="indirection.ecore#//actions/AnalyseStackAction">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirection.ecore#//actions/AnalyseStackAction/key"/>
       </genClasses>
-      <genClasses ecoreClass="indirection.ecore#//actions/ConsumeEventAction">
+      <genClasses ecoreClass="indirection.ecore#//actions/ConsumeDataAction">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirection.ecore#//actions/ConsumeEventAction/eventType"/>
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/ConsumeDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirection.ecore#//actions/ConsumeEventAction/sinkRole"/>
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/ConsumeDataAction/sinkRole"/>
       </genClasses>
-      <genClasses ecoreClass="indirection.ecore#//actions/ProduceEventAction">
+      <genClasses ecoreClass="indirection.ecore#//actions/EmitDataAction">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirection.ecore#//actions/ProduceEventAction/eventType"/>
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/EmitDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirection.ecore#//actions/ProduceEventAction/sourceRole"/>
+            ecoreFeature="ecore:EReference indirection.ecore#//actions/EmitDataAction/sourceRole"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" resource="XMI" disposableProviderFactory="true"
