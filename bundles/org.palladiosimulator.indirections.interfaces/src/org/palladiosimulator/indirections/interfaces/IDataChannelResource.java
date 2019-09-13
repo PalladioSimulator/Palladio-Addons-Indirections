@@ -41,21 +41,4 @@ public interface IDataChannelResource {
 	     * Returns the number of remaining instances.
 	     */
 	    public long getAvailable();
-
-	    /**
-	     * Adds the given observer. Observers get notified when a process acquired or released this
-	     * resource.
-	     */
-//	    public void addObserver(IPassiveResourceSensor observer);
-
-	    /**
-	     * Removes the given observer
-	     */
-//	    public void removeObserver(IPassiveResourceSensor observer);
-
-	    /**
-	     * Returns a queue containing the waiting processes for the passive resource.
-	     */
-//	    public Queue<SchedulableStackframeAndProcess> getWaitingProcesses();
-
 }

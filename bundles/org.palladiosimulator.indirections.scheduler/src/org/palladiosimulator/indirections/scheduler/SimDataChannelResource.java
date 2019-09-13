@@ -20,6 +20,13 @@ import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.Windowing;
+import org.palladiosimulator.indirections.scheduler.Emitters.EqualityCollectorWithHoldback;
+import org.palladiosimulator.indirections.scheduler.Emitters.StatefulEmitter;
+import org.palladiosimulator.indirections.scheduler.Emitters.Window;
+import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
+import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
+import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.EventGroup;
@@ -36,9 +43,9 @@ import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
-public class SimNoRDDataChannelResource implements IDataChannelResource {
-	protected final Queue<ProcessWaitingToGet> waitingToGetQueue;
-	protected final Queue<ProcessWaitingToPut> waitingToPutQueue;
+public class SimDataChannelResource implements IDataChannelResource {
+	protected final Queue<ProcessWaitingToConsume> waitingToGetQueue;
+	protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
 	protected final List<KeyedFrame> incomingQueue;
 	protected final Queue<Map<String, Object>> outgoingQueue;
 
@@ -63,14 +70,14 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		public final long id;
 
 		public KeyedFrame(Map<String, Object> frame) {
-			if (SimNoRDDataChannelResource.this.isWindowingTriggeredPeriodically()) {
-				this.key = SimNoRDDataChannelResource.this.model.getSimulationControl().getCurrentSimulationTime();
+			if (SimDataChannelResource.this.isWindowingTriggeredPeriodically()) {
+				this.key = SimDataChannelResource.this.model.getSimulationControl().getCurrentSimulationTime();
 			} else {
 				SimulatedStackframe<Object> simulatedStackframe = SimulatedStackHelper.createFromMap(frame);
 				
 				Object keyValue = null;
 				try {
-					keyValue = simulatedStackframe.getValue(SimNoRDDataChannelResource.this.collectWithHoldback.getKey());
+					keyValue = simulatedStackframe.getValue(SimDataChannelResource.this.collectWithHoldback.getKey());
 				} catch (ValueNotInFrameException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -89,118 +96,9 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 	}
 	
 	// takes elements of type T and emits something of type U if the state necessitates
-	public interface StatefulEmitter<T, U> {
-		public Optional<U> accept(T t);
-	}
-	
-	// R: type of the key to check equality with
-	public class EqualityCollectorWithHoldback<T, R> implements StatefulEmitter<T, List<T>> {
-		// length of this collection is always <= n. holdback 1 means that if a new element arrives
-		// the old collection is emitted. for holdback 2, a collection is only emitted, after 2 new (distinct)
-		// elements have been seen.
-		
-		
-		public Queue<List<T>> currentCollections = new ArrayDeque<List<T>>();
-		private final int holdback;
-		private final Function<T, R> keyFunction;
-		
-		
-		public EqualityCollectorWithHoldback(Function<T, R> keyFunction, int holdback) {
-			this.keyFunction = keyFunction;
-			this.holdback = holdback;
-		}
-		
-		@Override
-		public Optional<List<T>> accept(T t) {
-			for (List<T> collection : currentCollections) {
-				R collectionKey = IndirectionUtil.claimEqualKey(collection, keyFunction);
-				if (collectionKey.equals(keyFunction.apply(t))) {
-					collection.add(t);
-					return Optional.absent();
-				}
-			}
 
-			List<T> newCollection = new ArrayList<T>();
-			newCollection.add(t);
-			currentCollections.add(newCollection);
-			
-			if (currentCollections.size() > holdback) {
-				return Optional.of(currentCollections.remove());
-			}
-			
-			return Optional.absent();
-		}
-	}
-	
-	public class WindowCalculator {
-		public double size;
-		public double shift;
 
-		public Window currentWindow;
-		public Window emittedWindow;
-
-		public WindowCalculator(double size, double shift) {
-			super();
-			this.size = size;
-			this.shift = shift;
-		}
-
-		public Window next() {
-			currentWindow = createNextWindow();
-			return currentWindow;
-		}
-
-		public Window createNextWindow() {
-			if (currentWindow == null)
-				return new Window(0, size);
-			else
-				return new Window(currentWindow.start + shift, currentWindow.start + shift + size);
-		}
-
-		public List<Window> advanceUntil(double currentSimulationTime) {
-			List<Window> result = new ArrayList<>();
-			while (currentSimulationTime >= createNextWindow().end) {
-				result.add(next());
-			}
-			return result;
-		}
-	}
-	
-	public class WindowEmitter implements StatefulEmitter<Double, List<Window>> {
-		private final WindowCalculator windowCalculator;
-
-		public WindowEmitter(double size, double shift) {
-			this.windowCalculator = new WindowCalculator(size, shift);
-		}
-		
-		@Override
-		public Optional<List<Window>> accept(Double t) {
-			List<Window> windows = windowCalculator.advanceUntil(t);
-			return windows.isEmpty() ? Optional.absent() : Optional.of(windows);
-		}
-		
-	}
-
-	public class Window {
-		public final double start;
-		public final double end;
-
-		public Window(double start, double end) {
-			this.start = start;
-			this.end = end;
-		}
-
-		@Override
-		public String toString() {
-			return "W[" + start + "->" + end + "]";
-		}
-
-		public boolean contains(double timestamp) {
-			return (start <= timestamp) && (end > timestamp);
-		}
-	}
-
-	public SimNoRDDataChannelResource(DataChannel dataChannel, final SchedulerModel model) {
+	public SimDataChannelResource(DataChannel dataChannel, final SchedulerModel model) {
 		if (!(model instanceof SimuComModel)) {
 			throw new IllegalArgumentException("Currently only works with " + SimuComModel.class.getName() + ", got "
 					+ model.getClass().getName());
@@ -327,68 +225,6 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 	}
 	
 
-	/**
-	 * Creates outgoing elements from the currently queued items. Respects windowing
-	 * and partitioning.
-	 */
-/*	protected void createOutgoingElements() {
- 		double timeToAdvanceWindowingTo = getTimeToAdvanceWindowingTo();
-		
-		Optional<List<Window>> windows = outgoingEmitter.accept(timeToAdvanceWindowingTo);
-		if (!windows.isPresent())
-			return;
-
-		for (Window window : windows.get()) {
-			System.out.println("Creating window " + window.toString() + " (at "
-					+ model.getSimulationControl().getCurrentSimulationTime() + ")");
-			Map<String, Object> windowFrame = createCollectionFrame();
-
-			// TODO: take timestamp from element instead of "current simulation time"?
-			Map<Object, Map<String, List<Object>>> partitionToWindowedVariableToValues = new HashMap<>();
-			for (KeyedFrame frame : incomingElementsInWindow(window)) {
-				Map<String, Object> map = frame.frame;
-				Object partition = getPartition(map);
-				Map<String, List<Object>> windowedVariables = partitionToWindowedVariableToValues
-						.computeIfAbsent(partition, it -> new HashMap<>());
-				for (Entry<String, Object> entry : map.entrySet()) {
-					List<Object> valuesForKey = windowedVariables.computeIfAbsent(entry.getKey(),
-							it -> new ArrayList<>());
-					valuesForKey.add(entry.getValue());
-				}
-				discardIncomingElementsOlderThan(window.start);
-			}
-
-			for (Entry<Object, Map<String, List<Object>>> partitionEntry : partitionToWindowedVariableToValues
-					.entrySet()) {
-				Object partition = partitionEntry.getKey();
-				Map<String, List<Object>> windowedVariables = partitionEntry.getValue();
-
-				windowFrame.put(getOutgoingParameterName() + ".PARTITION", partition);
-				windowFrame.put(getOutgoingParameterName() + ".WINDOW", window);
-				windowFrame.put(getOutgoingParameterName() + ".NUMBER_OF_ELEMENTS", IndirectionUtil
-						.claimEqual(windowedVariables.values().stream().map(List::size).collect(Collectors.toList())));
-
-				for (Entry<String, List<Object>> entry : windowedVariables.entrySet()) {
-					String key = rewriteVariableNamePrefix(entry.getKey());
-					List<Object> value = entry.getValue();
-					windowFrame.put(key + ".INNER.VALUE", value);
-
-					if (value.stream().allMatch(Number.class::isInstance)) {
-						DoubleSummaryStatistics statistics = value.stream()
-								.mapToDouble(it -> ((Number) it).doubleValue()).summaryStatistics();
-						windowFrame.put(key + ".min.VALUE", statistics.getMin());
-						windowFrame.put(key + ".max.VALUE", statistics.getMax());
-						windowFrame.put(key + ".average.VALUE", statistics.getAverage());
-					}
-				}
-
-				System.out.println(windowFrame);
-				outgoingQueue.add(windowFrame);
-			}
-		}
-		notifyProcessesWaitingToGet();
-	}*/
-
 	private Object getPartition(Map<String, Object> map) {
 		if (partitioning == null)
 			return DUMMY_KEY;
@@ -426,7 +262,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		return getOneParameter(dataChannel.getSinkEventGroup()).getParameterName();
 	}
 
-	private void allowToPut(ProcessWaitingToPut process) {
+	private void allowToPut(ProcessWaitingToEmit process) {
 		if (collectAll) {
 			System.out.println("Collecting all -> adding to outgoing group.");
 			addToOutgoingFrame(process.frame);
@@ -478,7 +314,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		collectionFrame.put("data.INNER.NUMBER_OF_ELEMENTS", numberOfElements);
 	}
 	
-	private void allowToGet(ProcessWaitingToGet process) {
+	private void allowToGet(ProcessWaitingToConsume process) {
 		process.callback.accept(getNextAvailableElement());
 		if (process.isWaiting())
 			process.activate();
@@ -523,7 +359,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 			return true;
 		}
 
-		final ProcessWaitingToPut process = new ProcessWaitingToPut(model, schedulableProcess, eventStackframe);
+		final ProcessWaitingToEmit process = new ProcessWaitingToEmit(model, schedulableProcess, eventStackframe);
 		if (canProceedToPut(process)) {
 			allowToPut(process);
 			return true;
@@ -556,7 +392,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 			return true;
 		}
 
-		final ProcessWaitingToGet process = new ProcessWaitingToGet(model, schedulableProcess, callback);
+		final ProcessWaitingToConsume process = new ProcessWaitingToConsume(model, schedulableProcess, callback);
 		if (canProceedToGet(process)) {
 //			System.out.println("Can take directly.");
 			allowToGet(process);
@@ -569,7 +405,7 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		}
 	}
 
-	private boolean canProceedToPut(final ProcessWaitingToPut process) {
+	private boolean canProceedToPut(final ProcessWaitingToEmit process) {
 		boolean isNextProcess = waitingToPutQueue.isEmpty()
 				|| waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 		if (capacity == -1) {
@@ -580,11 +416,21 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 		}
 	}
 
-	private boolean canProceedToGet(final ProcessWaitingToGet process) {
+	private boolean canProceedToGet(final ProcessWaitingToConsume process) {
 		boolean isNextProcess = waitingToGetQueue.isEmpty()
 				|| waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 		long providableCount = outgoingQueue.size();
 		return isNextProcess && (providableCount > 0);
+	}
+
+	@Override
+	public long getCapacity() {
+		return this.capacity;
+	}
+
+	@Override
+	public long getAvailable() {
+		return capacity - this.incomingQueue.size();
 	}
 
 	@Override
@@ -603,15 +449,5 @@ public class SimNoRDDataChannelResource implements IDataChannelResource {
 	public String getId() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public long getCapacity() {
-		return this.capacity;
-	}
-
-	@Override
-	public long getAvailable() {
-		return capacity - this.incomingQueue.size();
 	}
 }
