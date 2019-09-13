@@ -1,6 +1,8 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
@@ -13,6 +15,7 @@ import org.palladiosimulator.indirections.composition.DataChannelSourceConnector
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.IndirectionUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -42,12 +45,14 @@ import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
 public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 	private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
-	
+
 	private InterpreterDefaultContext context;
 	private SimulatedBasicComponentInstance basicComponentInstance;
 	private ExplicitDispatchComposedSwitch<Object> parentSwitch;
-	private Object allocation;
+	private Allocation allocation;
 	private SimulatedStackframe<Object> resultStackFrame;
+
+	private DataChannelRegistry dataChannelRegistry;
 
 	/**
 	 * copied from
@@ -63,6 +68,8 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 		this.allocation = context.getLocalPCMModelAtContextCreation().getAllocation();
 		this.resultStackFrame = new SimulatedStackframe<Object>();
 		this.basicComponentInstance = basicComponentInstance;
+		
+		this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context);
 	}
 
 	public IndirectionsAwareRDSeffSwitch(InterpreterDefaultContext context,
@@ -82,9 +89,9 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 		if (object instanceof ConsumeEventAction) {
 			return caseConsumeEventAction((ConsumeEventAction) object);
 		}
-		
-		throw new UnsupportedOperationException(
-                this.getClass().getName() + " tried to interpret unsupported action type: " + object.eClass().getName());
+
+		throw new UnsupportedOperationException(this.getClass().getName()
+				+ " tried to interpret unsupported action type: " + object.eClass().getName());
 	}
 
 	/**
@@ -157,6 +164,12 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 			}
 		}
 	}
+	
+	// TODO move to helper
+	private <K,V> Map<K,V> toMap(List<Entry<K,V>> entryList) {
+		return entryList.stream()
+				.collect(Collectors.toMap(it -> it.getKey(), it -> it.getValue()));
+	}
 
 	@Override
 	public Object caseEmitEventAction(EmitEventAction action) {
@@ -171,10 +184,12 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 		addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
 				action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
 
-		dataChannelResource.put(this.context.getThread(), eventStackframe.getDirectContents());
+		// TODO: check cases in which getContents does not work
+		dataChannelResource.put(this.context.getThread(), toMap(eventStackframe.getContents()));
 
 		return true;
 	}
+
 
 	public Object caseConsumeEventAction(ConsumeEventAction action) {
 		IDataChannelResource dataChannelResource = getDataChannelResource(action);
@@ -206,7 +221,7 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 
 		SimulatedResourceContainer resourceContainer = getSimulatedResourceContainer(dataChannel,
 				eventChannelAllocationContext);
-		IDataChannelResource dataChannelResource = resourceContainer.getOrCreateDataChannelResource(dataChannel);
+		IDataChannelResource dataChannelResource = dataChannelRegistry.getOrCreateDataChannelResource(dataChannel);
 		return dataChannelResource;
 	}
 
@@ -218,7 +233,7 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 
 		SimulatedResourceContainer resourceContainer = getSimulatedResourceContainer(dataChannel,
 				eventChannelAllocationContext);
-		IDataChannelResource dataChannelResource = resourceContainer.getOrCreateDataChannelResource(dataChannel);
+		IDataChannelResource dataChannelResource = dataChannelRegistry.getOrCreateDataChannelResource(dataChannel);
 		return dataChannelResource;
 	}
 
