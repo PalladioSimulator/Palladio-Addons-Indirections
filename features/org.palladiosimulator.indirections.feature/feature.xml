@@ -31,7 +31,7 @@
          unpack="false"/>
 		 
 	<plugin
-         id="org.palladiosimulator.indirections.schedulers"
+         id="org.palladiosimulator.indirections.scheduler"
          download-size="0"
          install-size="0"
          version="0.0.0"
