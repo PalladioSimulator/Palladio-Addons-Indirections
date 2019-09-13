@@ -44,12 +44,12 @@ public class DataChannelRegistry {
     }
     
 	private void initializeDataChannelResourceFactory() {
-		List<Object> executableExtensions = ExtensionHelper.getExecutableExtensions("org.palladiosimulator.simulizar.indirection.interfaces.datachannelresourcefactory",
-		    		"dataChannelResourceFactoy");
+		List<Object> executableExtensions = ExtensionHelper.getExecutableExtensions("org.palladiosimulator.indirections.interfaces.datachannelresourcefactory",
+		    		"dataChannelResourceFactory");
 		dataChannelResourceFactory = executableExtensions.stream()
 			.map((it) -> (IDataChannelResourceFactory) it)
 			.findFirst()
-			.orElseThrow(() -> new IllegalStateException("No  " + IDataChannelResourceFactory.class.getName() + " found.")); 
+			.orElseThrow(() -> new IllegalStateException("No " + IDataChannelResourceFactory.class.getName() + " found.")); 
 	}
 
 }

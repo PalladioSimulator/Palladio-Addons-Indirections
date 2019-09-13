@@ -4,7 +4,7 @@
    <extension
          point="org.palladiosimulator.indirections.interfaces.datachannelresourcefactory">
       <dataChannelResourceFactory
-            dataChannelResourceFactoy="org.palladiosimulator.indirections.scheduler.DataChannelResourceFactory">
+            dataChannelResourceFactory="org.palladiosimulator.indirections.scheduler.DataChannelResourceFactory">
       </dataChannelResourceFactory>
    </extension>
 
