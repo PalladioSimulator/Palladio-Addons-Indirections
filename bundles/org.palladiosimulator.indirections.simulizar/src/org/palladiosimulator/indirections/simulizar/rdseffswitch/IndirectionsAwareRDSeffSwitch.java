@@ -65,7 +65,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		this.allocation = context.getLocalPCMModelAtContextCreation().getAllocation();
 		this.resultStackFrame = new SimulatedStackframe<Object>();
 		this.basicComponentInstance = basicComponentInstance;
-		
+
 		this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context);
 	}
 
@@ -146,11 +146,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 			}
 		}
 	}
-	
+
 	// TODO move to helper
-	private <K,V> Map<K,V> toMap(List<Entry<K,V>> entryList) {
-		return entryList.stream()
-				.collect(Collectors.toMap(it -> it.getKey(), it -> it.getValue()));
+	private <K, V> Map<K, V> toMap(List<Entry<K, V>> entryList) {
+		return entryList.stream().collect(Collectors.toMap(it -> it.getKey(), it -> it.getValue()));
 	}
 
 	@Override
@@ -160,8 +159,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 		SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
 		String parameterName = IndirectionUtil
-				.claimOne(
-						action.getSourceRole().getEventGroup__SourceRole().getEventTypes__EventGroup())
+				.claimOne(action.getSourceRole().getEventGroup__SourceRole().getEventTypes__EventGroup())
 				.getParameter__EventType().getParameterName();
 		addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
 				action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
@@ -171,7 +169,6 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 		return true;
 	}
-	
 
 	@Override
 	public Object caseConsumeDataAction(ConsumeDataAction action) {
