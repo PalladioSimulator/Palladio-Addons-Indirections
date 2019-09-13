@@ -91,7 +91,7 @@ Workflow {
 		generateCustomClasses = false
 		generateEdit = false
 		generateEditor = false
-		genModel = "platform:/resource/${projectName}/model/indirection.genmodel"
+		genModel = "platform:/resource/${projectName}/model/indirections.genmodel"
 		srcPath = "platform:/resource/${projectName}/src"
 		srcPath = "platform:/resource/${projectName}.edit/src"
 		srcPath = "platform:/resource/${projectName}.editor/src"

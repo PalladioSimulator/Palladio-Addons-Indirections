@@ -28,7 +28,7 @@
       <package
             uri="http://palladiosimulator.org/Indirections/Actions/1.0"
             class="org.palladiosimulator.indirections.actions.ActionsPackage"
-            genModel="models/indirection.genmodel"/>
+            genModel="model/indirections.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
@@ -43,7 +43,7 @@
       <package
             uri="http://palladiosimulator.org/Indirections/Datatypes/1.0"
             class="org.palladiosimulator.indirections.datatypes.DatatypesPackage"
-            genModel="models/indirection.genmodel"/>
+            genModel="model/indirections.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
@@ -58,7 +58,7 @@
       <package
             uri="http://palladiosimulator.org/Indirections/Partitioning/1.0"
             class="org.palladiosimulator.indirections.partitioning.PartitioningPackage"
-            genModel="models/indirection.genmodel"/>
+            genModel="model/indirections.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
@@ -73,7 +73,7 @@
       <package
             uri="http://palladiosimulator.org/Indirections/System/1.0"
             class="org.palladiosimulator.indirections.system.SystemPackage"
-            genModel="models/indirection.genmodel"/>
+            genModel="model/indirections.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
@@ -88,7 +88,7 @@
       <package
             uri="http://palladiosimulator.org/Indirections/Composition/1.0"
             class="org.palladiosimulator.indirections.composition.CompositionPackage"
-            genModel="models/indirection.genmodel"/>
+            genModel="model/indirections.genmodel"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
