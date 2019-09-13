@@ -8,12 +8,11 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.palladiosimulator.pcm,
  org.palladiosimulator.indirections,
- org.palladiosimulator.simulizar.utils,
  org.palladiosimulator.indirections.interfaces,
  de.uka.ipd.sdq.simucomframework.variables,
  de.uka.ipd.sdq.simulation.abstractsimengine,
  org.apache.log4j,
- org.palladiosimulator.simulizar.simulationevents,
  de.uka.ipd.sdq.simucomframework,
- org.eclipse.xtend.lib
+ org.eclipse.xtend.lib,
+ org.palladiosimulator.simulizar
 Export-Package: org.palladiosimulator.indirections.scheduler

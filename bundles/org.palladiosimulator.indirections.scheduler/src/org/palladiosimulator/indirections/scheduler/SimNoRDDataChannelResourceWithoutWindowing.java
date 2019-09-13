@@ -7,15 +7,13 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.indirections.partitioning.Windowing;
+import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
-import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class SimNoRDDataChannelResourceWithoutWindowing implements IDataChannelResource {
 	protected final Queue<ProcessWaitingToGet> waitingToGetQueue;

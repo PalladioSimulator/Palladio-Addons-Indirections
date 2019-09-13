@@ -15,14 +15,15 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.EventGroup;
-import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.Windowing;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.repository.EventGroup;
+import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
