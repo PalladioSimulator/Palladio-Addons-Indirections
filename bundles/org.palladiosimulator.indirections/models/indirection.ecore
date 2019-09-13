@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="indirection" nsURI="http://palladiosimulator.org/Indirection/1.0"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="indirections" nsURI="http://palladiosimulator.org/Indirections/1.0"
     nsPrefix="org.palladiosimulator.indirections">
-  <eSubpackages name="actions" nsURI="http://palladiosimulator.org/Indirection/Actions/1.0"
+  <eSubpackages name="actions" nsURI="http://palladiosimulator.org/Indirections/Actions/1.0"
       nsPrefix="org.palladiosimulator.indirections.actions">
     <eClassifiers xsi:type="ecore:EClass" name="AnalyseStackAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -14,7 +14,7 @@
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/SinkRole"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirection/Datatypes/1.0"
+  <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirections/Datatypes/1.0"
       nsPrefix="org.palladiosimulator.indirections.datatypes">
     <eClassifiers xsi:type="ecore:EEnum" name="Scheduling">
       <eLiterals name="FirstInFirstOut"/>
@@ -35,7 +35,7 @@
       <eLiterals name="First" value="3"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="partitioning" nsURI="http://palladiosimulator.org/Indirection/Partitioning/1.0"
+  <eSubpackages name="partitioning" nsURI="http://palladiosimulator.org/Indirections/Partitioning/1.0"
       nsPrefix="org.palladiosimulator.indirections.partitioning">
     <eClassifiers xsi:type="ecore:EClass" name="Partitioning" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/NamedElement">
       <eStructuralFeatures xsi:type="ecore:EReference" name="specification" lowerBound="1"
@@ -54,7 +54,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirection/System/1.0"
+  <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirections/System/1.0"
       nsPrefix="org.palladiosimulator.indirections.system">
     <eClassifiers xsi:type="ecore:EClass" name="DataChannel" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/EventChannel">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacity" lowerBound="1"
@@ -76,7 +76,7 @@
           containment="true"/>
     </eClassifiers>
   </eSubpackages>
-  <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirection/Composition/1.0"
+  <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirections/Composition/1.0"
       nsPrefix="org.palladiosimulator.indirections.composition">
     <eClassifiers xsi:type="ecore:EClass" name="DataChannelSourceConnector" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector">
       <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRole" ordered="false"

@@ -33,10 +33,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm;visibility:=reexport,
  de.uka.ipd.sdq.probfunction;visibility:=reexport,
  de.uka.ipd.sdq.stoex;visibility:=reexport,
- de.uka.ipd.sdq.units;visibility:=reexport,
- org.palladiosimulator.reliability,
- de.uka.ipd.sdq.simulation.abstractsimengine,
- de.uka.ipd.sdq.simucomframework.variables,
- org.modelversioning.emfprofile,
- org.modelversioning.emfprofile.registry
+ de.uka.ipd.sdq.units;visibility:=reexport
 Bundle-ActivationPolicy: lazy
