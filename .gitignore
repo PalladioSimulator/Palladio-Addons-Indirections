@@ -3,7 +3,6 @@ bin/
 target/
 xtend-gen/
 src-gen/
-.settings/
 
 # Package Files #
 *.jar
