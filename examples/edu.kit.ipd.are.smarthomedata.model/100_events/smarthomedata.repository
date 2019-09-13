@@ -18,7 +18,7 @@
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="_-Or-wK6zEemTf8MABW0Htw" entityName="EmitMedianAction" predecessor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" successor_AbstractAction="_J37IUXxXEemZXNdNTD6P-Q" eventType__EmitEventAction="_m1hygH2IEemK8fW_yW8fjQ" sourceRole__EmitEventAction="_sABE8H2JEemK8fW_yW8fjQ">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="_-Or-wK6zEemTf8MABW0Htw" entityName="EmitMedianAction" predecessor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" successor_AbstractAction="_J37IUXxXEemZXNdNTD6P-Q" eventType="_m1hygH2IEemK8fW_yW8fjQ" sourceRole="_sABE8H2JEemK8fW_yW8fjQ">
         <inputVariableUsages__CallAction>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugReadings->median"/>
         </inputVariableUsages__CallAction>
@@ -43,7 +43,7 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="medians->medians"/>
         </returnVariableUsage__CallReturnAction>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="_CgDGQK60EemTf8MABW0Htw" entityName="EmitAverageGroupAction" predecessor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" successor_AbstractAction="_JXIvcXxXEemZXNdNTD6P-Q" eventType__EmitEventAction="_kTFboIbjEemckthKxXmWQw" sourceRole__EmitEventAction="_QZWrgIVLEemBm-IIXPzDsw">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="_CgDGQK60EemTf8MABW0Htw" entityName="EmitAverageGroupAction" predecessor_AbstractAction="_uWR5zHxtEemX4qnXnBNY2A" successor_AbstractAction="_JXIvcXxXEemZXNdNTD6P-Q" eventType="_kTFboIbjEemckthKxXmWQw" sourceRole="_QZWrgIVLEemBm-IIXPzDsw">
         <inputVariableUsages__CallAction>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="medians->mediansAndAverages"/>
         </inputVariableUsages__CallAction>
@@ -71,7 +71,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_XbDMEH2JEemK8fW_yW8fjQ" describedService__SEFF="_DmL6cH2JEemK8fW_yW8fjQ">
       <steps_Behaviour xsi:type="seff:StartAction" id="_XbDMEX2JEemK8fW_yW8fjQ" successor_AbstractAction="_0yNSsK6yEemTf8MABW0Htw"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_XbDMEn2JEemK8fW_yW8fjQ" predecessor_AbstractAction="_0yNSsK6yEemTf8MABW0Htw"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="_0yNSsK6yEemTf8MABW0Htw" entityName="EmitPlugReadingAction" predecessor_AbstractAction="_XbDMEX2JEemK8fW_yW8fjQ" successor_AbstractAction="_XbDMEn2JEemK8fW_yW8fjQ" eventType__EmitEventAction="_Enk7cH2IEemK8fW_yW8fjQ" sourceRole__EmitEventAction="_aKM58H2JEemK8fW_yW8fjQ">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="_0yNSsK6yEemTf8MABW0Htw" entityName="EmitPlugReadingAction" predecessor_AbstractAction="_XbDMEX2JEemK8fW_yW8fjQ" successor_AbstractAction="_XbDMEn2JEemK8fW_yW8fjQ" eventType="_Enk7cH2IEemK8fW_yW8fjQ" sourceRole="_aKM58H2JEemK8fW_yW8fjQ">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="IntPMF[(1; 0.2)(2; 0.2)(3; 0.2)(4; 0.2)(5; 0.2)]"/>

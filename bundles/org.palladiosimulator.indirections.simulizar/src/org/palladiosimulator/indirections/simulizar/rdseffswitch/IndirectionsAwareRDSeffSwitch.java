@@ -1,6 +1,5 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,9 +7,9 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EPackage;
-import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
+import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
@@ -26,9 +25,6 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.SinkRole;
 import org.palladiosimulator.pcm.repository.SourceRole;
-import org.palladiosimulator.pcm.seff.AbstractAction;
-import org.palladiosimulator.pcm.seff.EmitEventAction;
-import org.palladiosimulator.pcm.seff.util.SeffSwitch;
 import org.palladiosimulator.simulizar.exceptions.PCMModelAccessException;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
@@ -44,7 +40,7 @@ import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
-public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
+public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 	private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
 
 	private InterpreterDefaultContext context;
@@ -78,21 +74,6 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 			ExplicitDispatchComposedSwitch<Object> parentSwitch) {
 		this(context, basicComponentInstance);
 		this.parentSwitch = parentSwitch;
-	}
-
-	@Override
-	protected boolean isSwitchFor(EPackage ePackage) {
-		return (ePackage instanceof ActionsPackage);
-	}
-
-	@Override
-	public Object caseAbstractAction(AbstractAction object) {
-		if (object instanceof ConsumeDataAction) {
-			return caseConsumeDataAction((ConsumeDataAction) object);
-		}
-
-		throw new UnsupportedOperationException(this.getClass().getName()
-				+ " tried to interpret unsupported action type: " + object.eClass().getName());
 	}
 
 	/**
@@ -173,14 +154,14 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 	}
 
 	@Override
-	public Object caseEmitEventAction(EmitEventAction action) {
+	public Object caseEmitDataAction(EmitDataAction action) {
 //		System.out.println("Emit event action: " + action.getEntityName());
 		IDataChannelResource dataChannelResource = getDataChannelResource(action);
 
 		SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
 		String parameterName = IndirectionUtil
 				.claimOne(
-						action.getSourceRole__EmitEventAction().getEventGroup__SourceRole().getEventTypes__EventGroup())
+						action.getSourceRole().getEventGroup__SourceRole().getEventTypes__EventGroup())
 				.getParameter__EventType().getParameterName();
 		addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
 				action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
@@ -190,8 +171,9 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 
 		return true;
 	}
+	
 
-
+	@Override
 	public Object caseConsumeDataAction(ConsumeDataAction action) {
 		IDataChannelResource dataChannelResource = getDataChannelResource(action);
 
@@ -214,9 +196,9 @@ public class IndirectionsAwareRDSeffSwitch extends SeffSwitch<Object> {
 		return result;
 	}
 
-	private IDataChannelResource getDataChannelResource(EmitEventAction action) {
+	private IDataChannelResource getDataChannelResource(EmitDataAction action) {
 		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
-		SourceRole sourceRole = action.getSourceRole__EmitEventAction();
+		SourceRole sourceRole = action.getSourceRole();
 		DataChannel dataChannel = getConnectedSinkDataChannel(assemblyContext, sourceRole);
 		AllocationContext eventChannelAllocationContext = getAllocationContext(dataChannel);
 
