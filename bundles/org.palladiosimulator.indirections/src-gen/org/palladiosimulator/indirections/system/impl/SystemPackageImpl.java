@@ -33,13 +33,15 @@ import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
 
 import org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl;
 
+import org.palladiosimulator.indirections.repository.RepositoryPackage;
+
+import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
+
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemFactory;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.pcm.PcmPackage;
-
-import org.palladiosimulator.pcm.repository.RepositoryPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -129,6 +131,10 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
 				? registeredPackage
 				: CompositionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
+		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
+				? registeredPackage
+				: RepositoryPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theSystemPackage.createPackageContents();
@@ -136,6 +142,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		theDatatypesPackage.createPackageContents();
 		thePartitioningPackage.createPackageContents();
 		theCompositionPackage.createPackageContents();
+		theRepositoryPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSystemPackage.initializePackageContents();
@@ -143,6 +150,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		theDatatypesPackage.initializePackageContents();
 		thePartitioningPackage.initializePackageContents();
 		theCompositionPackage.initializePackageContents();
+		theRepositoryPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theSystemPackage.freeze();
@@ -238,6 +246,16 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	@Override
+	public EReference getDataChannel_Joins() {
+		return (EReference) dataChannelEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public SystemFactory getSystemFactory() {
 		return (SystemFactory) getEFactoryInstance();
 	}
@@ -270,6 +288,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		createEReference(dataChannelEClass, DATA_CHANNEL__DATA_CHANNEL_SINK_CONNECTOR);
 		createEReference(dataChannelEClass, DATA_CHANNEL__PARTITIONING);
 		createEReference(dataChannelEClass, DATA_CHANNEL__TIME_GROUPING);
+		createEReference(dataChannelEClass, DATA_CHANNEL__JOINS);
 	}
 
 	/**
@@ -299,8 +318,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		// Obtain other dependent packages
 		org.palladiosimulator.pcm.core.composition.CompositionPackage theCompositionPackage_1 = (org.palladiosimulator.pcm.core.composition.CompositionPackage) EPackage.Registry.INSTANCE
 				.getEPackage(org.palladiosimulator.pcm.core.composition.CompositionPackage.eNS_URI);
-		RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
-				.getEPackage(RepositoryPackage.eNS_URI);
+		org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
+				.getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
 		CompositionPackage theCompositionPackage = (CompositionPackage) EPackage.Registry.INSTANCE
 				.getEPackage(CompositionPackage.eNS_URI);
 		PartitioningPackage thePartitioningPackage = (PartitioningPackage) EPackage.Registry.INSTANCE
@@ -318,10 +337,10 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataChannel_Capacity(), ecorePackage.getEInt(), "capacity", "-1", 1, 1, DataChannel.class,
 				IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataChannel_SourceEventGroup(), theRepositoryPackage.getEventGroup(), null,
+		initEReference(getDataChannel_SourceEventGroup(), theRepositoryPackage_1.getEventGroup(), null,
 				"sourceEventGroup", null, 1, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataChannel_SinkEventGroup(), theRepositoryPackage.getEventGroup(), null, "sinkEventGroup",
+		initEReference(getDataChannel_SinkEventGroup(), theRepositoryPackage_1.getEventGroup(), null, "sinkEventGroup",
 				null, 1, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataChannel_DataChannelSourceConnector(),
@@ -339,6 +358,9 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		initEReference(getDataChannel_TimeGrouping(), thePartitioningPackage.getTimeGrouping(), null, "timeGrouping",
 				null, 0, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDataChannel_Joins(), thePartitioningPackage.getJoining(), null, "joins", null, 0, -1,
+				DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

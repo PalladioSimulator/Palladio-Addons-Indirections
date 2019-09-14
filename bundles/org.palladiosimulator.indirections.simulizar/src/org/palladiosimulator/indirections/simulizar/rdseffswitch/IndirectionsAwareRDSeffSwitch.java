@@ -13,6 +13,8 @@ import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
+import org.palladiosimulator.indirections.repository.DataSinkRole;
+import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.allocation.Allocation;
@@ -159,7 +161,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 		SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
 		String parameterName = IndirectionUtil
-				.claimOne(action.getSourceRole().getEventGroup__SourceRole().getEventTypes__EventGroup())
+				.claimOne(action.getDataSourceRole().getEventGroup().getEventTypes__EventGroup())
 				.getParameter__EventType().getParameterName();
 		addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
 				action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
@@ -180,7 +182,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		boolean result = dataChannelResource.get(this.context.getThread(), (eventMap) -> {
 			SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap);
 			String parameterName = IndirectionUtil
-					.claimOne(action.getSinkRole().getEventGroup__SinkRole().getEventTypes__EventGroup())
+					.claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
 					.getParameter__EventType().getParameterName();
 //			System.out.println("Parameter name: " + parameterName + " (" + randomUUID + ")");
 			addParameterToStackFrameWithCopying(contextStackframe, action.getReturnVariableUsage__CallReturnAction(),
@@ -195,7 +197,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 	private IDataChannelResource getDataChannelResource(EmitDataAction action) {
 		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
-		SourceRole sourceRole = action.getSourceRole();
+		DataSourceRole sourceRole = action.getDataSourceRole();
 		DataChannel dataChannel = getConnectedSinkDataChannel(assemblyContext, sourceRole);
 		AllocationContext eventChannelAllocationContext = getAllocationContext(dataChannel);
 
@@ -207,7 +209,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 	private IDataChannelResource getDataChannelResource(ConsumeDataAction action) {
 		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
-		SinkRole sinkRole = action.getSinkRole();
+		DataSinkRole sinkRole = action.getDataSinkRole();
 		DataChannel dataChannel = getConnectedSourceDataChannel(assemblyContext, sinkRole);
 		AllocationContext eventChannelAllocationContext = getAllocationContext(dataChannel);
 
@@ -235,7 +237,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 						"Could not find allocation context for event channel " + eventChannel));
 	}
 
-	private DataChannel getConnectedSinkDataChannel(AssemblyContext assemblyContext, SourceRole sourceRole) {
+	private DataChannel getConnectedSinkDataChannel(AssemblyContext assemblyContext, DataSourceRole sourceRole) {
 		EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
 				.getConnectors__ComposedStructure();
 		List<DataChannelSourceConnector> dataChannelSourceConnectors = connectors.stream()
@@ -248,7 +250,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 				.getDataChannel();
 	}
 
-	private DataChannel getConnectedSourceDataChannel(AssemblyContext assemblyContext, SinkRole sinkRole) {
+	private DataChannel getConnectedSourceDataChannel(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
 		EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
 				.getConnectors__ComposedStructure();
 		List<DataChannelSinkConnector> dataChannelSinkConnectors = connectors.stream()
@@ -256,7 +258,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 				.collect(Collectors.toList());
 
 		DataChannelSinkConnector sinkConnectorForRole = dataChannelSinkConnectors.stream()
-				.filter(it -> it.getSinkRole().equals(sinkRole)).findAny().orElseThrow(
+				.filter(it -> it.getDataSinkRole().equals(sinkRole)).findAny().orElseThrow(
 						() -> new PCMModelAccessException("Could not find data channel for sink role " + sinkRole));
 
 		return sinkConnectorForRole.getDataChannel();

@@ -1,15 +1,22 @@
 /**
  */
-package org.palladiosimulator.indirections.partitioning.util;
+package org.palladiosimulator.indirections.repository.util;
+
+import de.uka.ipd.sdq.identifier.Identifier;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
-import org.palladiosimulator.indirections.partitioning.*;
+import org.palladiosimulator.indirections.repository.*;
 
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
+
+import org.palladiosimulator.pcm.repository.ProvidedRole;
+import org.palladiosimulator.pcm.repository.RequiredRole;
+import org.palladiosimulator.pcm.repository.Role;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,17 +28,17 @@ import org.palladiosimulator.pcm.core.entity.NamedElement;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.palladiosimulator.indirections.partitioning.PartitioningPackage
+ * @see org.palladiosimulator.indirections.repository.RepositoryPackage
  * @generated
  */
-public class PartitioningSwitch<T> extends Switch<T> {
+public class RepositorySwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static PartitioningPackage modelPackage;
+	protected static RepositoryPackage modelPackage;
 
 	/**
 	 * Creates an instance of the switch.
@@ -39,9 +46,9 @@ public class PartitioningSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PartitioningSwitch() {
+	public RepositorySwitch() {
 		if (modelPackage == null) {
-			modelPackage = PartitioningPackage.eINSTANCE;
+			modelPackage = RepositoryPackage.eINSTANCE;
 		}
 	}
 
@@ -68,52 +75,36 @@ public class PartitioningSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case PartitioningPackage.PARTITIONING: {
-			Partitioning partitioning = (Partitioning) theEObject;
-			T result = casePartitioning(partitioning);
+		case RepositoryPackage.DATA_SINK_ROLE: {
+			DataSinkRole dataSinkRole = (DataSinkRole) theEObject;
+			T result = caseDataSinkRole(dataSinkRole);
 			if (result == null)
-				result = caseNamedElement(partitioning);
+				result = caseProvidedRole(dataSinkRole);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case PartitioningPackage.TIME_GROUPING: {
-			TimeGrouping timeGrouping = (TimeGrouping) theEObject;
-			T result = caseTimeGrouping(timeGrouping);
+				result = caseRole(dataSinkRole);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case PartitioningPackage.WINDOWING: {
-			Windowing windowing = (Windowing) theEObject;
-			T result = caseWindowing(windowing);
+				result = caseEntity(dataSinkRole);
 			if (result == null)
-				result = caseTimeGrouping(windowing);
+				result = caseIdentifier(dataSinkRole);
+			if (result == null)
+				result = caseNamedElement(dataSinkRole);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case PartitioningPackage.CONSUME_ALL_AVAILABLE: {
-			ConsumeAllAvailable consumeAllAvailable = (ConsumeAllAvailable) theEObject;
-			T result = caseConsumeAllAvailable(consumeAllAvailable);
+		case RepositoryPackage.DATA_SOURCE_ROLE: {
+			DataSourceRole dataSourceRole = (DataSourceRole) theEObject;
+			T result = caseDataSourceRole(dataSourceRole);
 			if (result == null)
-				result = caseTimeGrouping(consumeAllAvailable);
+				result = caseRequiredRole(dataSourceRole);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case PartitioningPackage.COLLECT_WITH_HOLDBACK: {
-			CollectWithHoldback collectWithHoldback = (CollectWithHoldback) theEObject;
-			T result = caseCollectWithHoldback(collectWithHoldback);
+				result = caseRole(dataSourceRole);
 			if (result == null)
-				result = caseTimeGrouping(collectWithHoldback);
+				result = caseEntity(dataSourceRole);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case PartitioningPackage.JOINING: {
-			Joining joining = (Joining) theEObject;
-			T result = caseJoining(joining);
+				result = caseIdentifier(dataSourceRole);
+			if (result == null)
+				result = caseNamedElement(dataSourceRole);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -124,92 +115,47 @@ public class PartitioningSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Partitioning</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Data Sink Role</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Partitioning</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Data Sink Role</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePartitioning(Partitioning object) {
+	public T caseDataSinkRole(DataSinkRole object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Time Grouping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Data Source Role</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Time Grouping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Data Source Role</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseTimeGrouping(TimeGrouping object) {
+	public T caseDataSourceRole(DataSourceRole object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Windowing</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Identifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Windowing</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Identifier</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseWindowing(Windowing object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Consume All Available</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Consume All Available</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseConsumeAllAvailable(ConsumeAllAvailable object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Collect With Holdback</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Collect With Holdback</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseCollectWithHoldback(CollectWithHoldback object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Joining</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Joining</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseJoining(Joining object) {
+	public T caseIdentifier(Identifier object) {
 		return null;
 	}
 
@@ -229,6 +175,66 @@ public class PartitioningSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Entity</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Entity</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEntity(Entity object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Role</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Role</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRole(Role object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Provided Role</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Provided Role</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseProvidedRole(ProvidedRole object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Required Role</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Required Role</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRequiredRole(RequiredRole object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -244,4 +250,4 @@ public class PartitioningSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //PartitioningSwitch
+} //RepositorySwitch

@@ -185,13 +185,22 @@ public interface SystemPackage extends EPackage {
 	int DATA_CHANNEL__TIME_GROUPING = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Joins</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL__JOINS = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Data Channel</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_FEATURE_COUNT = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 7;
+	int DATA_CHANNEL_FEATURE_COUNT = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 8;
 
 	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.system.DataChannel <em>Data Channel</em>}'.
@@ -281,6 +290,17 @@ public interface SystemPackage extends EPackage {
 	EReference getDataChannel_TimeGrouping();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.system.DataChannel#getJoins <em>Joins</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Joins</em>'.
+	 * @see org.palladiosimulator.indirections.system.DataChannel#getJoins()
+	 * @see #getDataChannel()
+	 * @generated
+	 */
+	EReference getDataChannel_Joins();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -367,6 +387,14 @@ public interface SystemPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DATA_CHANNEL__TIME_GROUPING = eINSTANCE.getDataChannel_TimeGrouping();
+
+		/**
+		 * The meta object literal for the '<em><b>Joins</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DATA_CHANNEL__JOINS = eINSTANCE.getDataChannel_Joins();
 
 	}
 

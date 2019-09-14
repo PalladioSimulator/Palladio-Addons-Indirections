@@ -34,13 +34,15 @@ import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
 
 import org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl;
 
+import org.palladiosimulator.indirections.repository.RepositoryPackage;
+
+import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
+
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.indirections.system.impl.SystemPackageImpl;
 
 import org.palladiosimulator.pcm.PcmPackage;
-
-import org.palladiosimulator.pcm.repository.RepositoryPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -144,6 +146,10 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 		SystemPackageImpl theSystemPackage = (SystemPackageImpl) (registeredPackage instanceof SystemPackageImpl
 				? registeredPackage
 				: SystemPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
+		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
+				? registeredPackage
+				: RepositoryPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theCompositionPackage.createPackageContents();
@@ -151,6 +157,7 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 		theDatatypesPackage.createPackageContents();
 		thePartitioningPackage.createPackageContents();
 		theSystemPackage.createPackageContents();
+		theRepositoryPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theCompositionPackage.initializePackageContents();
@@ -158,6 +165,7 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 		theDatatypesPackage.initializePackageContents();
 		thePartitioningPackage.initializePackageContents();
 		theSystemPackage.initializePackageContents();
+		theRepositoryPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theCompositionPackage.freeze();
@@ -223,7 +231,7 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 	 * @generated
 	 */
 	@Override
-	public EReference getDataChannelSinkConnector_SinkRole() {
+	public EReference getDataChannelSinkConnector_DataSinkRole() {
 		return (EReference) dataChannelSinkConnectorEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -313,7 +321,7 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 		createEReference(dataChannelSourceConnectorEClass, DATA_CHANNEL_SOURCE_CONNECTOR__DATA_CHANNEL);
 
 		dataChannelSinkConnectorEClass = createEClass(DATA_CHANNEL_SINK_CONNECTOR);
-		createEReference(dataChannelSinkConnectorEClass, DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE);
+		createEReference(dataChannelSinkConnectorEClass, DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE);
 		createEReference(dataChannelSinkConnectorEClass, DATA_CHANNEL_SINK_CONNECTOR__ASSEMBLY_CONTEXT);
 		createEReference(dataChannelSinkConnectorEClass, DATA_CHANNEL_SINK_CONNECTOR__DATA_CHANNEL);
 
@@ -365,7 +373,7 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 		// Initialize classes and features; add operations and parameters
 		initEClass(dataChannelSourceConnectorEClass, DataChannelSourceConnector.class, "DataChannelSourceConnector",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDataChannelSourceConnector_SourceRole(), theRepositoryPackage.getSourceRole(), null,
+		initEReference(getDataChannelSourceConnector_SourceRole(), theRepositoryPackage.getDataSourceRole(), null,
 				"sourceRole", null, 1, 1, DataChannelSourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDataChannelSourceConnector_AssemblyContext(), theCompositionPackage_1.getAssemblyContext(),
@@ -378,9 +386,9 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 
 		initEClass(dataChannelSinkConnectorEClass, DataChannelSinkConnector.class, "DataChannelSinkConnector",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDataChannelSinkConnector_SinkRole(), theRepositoryPackage.getSinkRole(), null, "sinkRole",
-				null, 1, 1, DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getDataChannelSinkConnector_DataSinkRole(), theRepositoryPackage.getDataSinkRole(), null,
+				"dataSinkRole", null, 1, 1, DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getDataChannelSinkConnector_AssemblyContext(), theCompositionPackage_1.getAssemblyContext(),
 				null, "assemblyContext", null, 1, 1, DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);

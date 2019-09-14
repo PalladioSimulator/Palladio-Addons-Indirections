@@ -7,6 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 
+import org.palladiosimulator.indirections.partitioning.Joining;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
 
@@ -30,6 +31,7 @@ import org.palladiosimulator.pcm.repository.EventGroup;
  *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getDataChannelSinkConnector <em>Data Channel Sink Connector</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getPartitioning <em>Partitioning</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getTimeGrouping <em>Time Grouping</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getJoins <em>Joins</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel()
@@ -175,5 +177,17 @@ public interface DataChannel extends EventChannel {
 	 * @generated
 	 */
 	void setTimeGrouping(TimeGrouping value);
+
+	/**
+	 * Returns the value of the '<em><b>Joins</b></em>' reference list.
+	 * The list contents are of type {@link org.palladiosimulator.indirections.partitioning.Joining}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Joins</em>' reference list.
+	 * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel_Joins()
+	 * @model
+	 * @generated
+	 */
+	EList<Joining> getJoins();
 
 } // DataChannel

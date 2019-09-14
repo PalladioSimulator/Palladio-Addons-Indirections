@@ -1,6 +1,6 @@
 /**
  */
-package org.palladiosimulator.indirections.datatypes.impl;
+package org.palladiosimulator.indirections.repository.impl;
 
 import de.uka.ipd.sdq.identifier.IdentifierPackage;
 
@@ -10,9 +10,11 @@ import de.uka.ipd.sdq.stoex.StoexPackage;
 
 import de.uka.ipd.sdq.units.UnitsPackage;
 
-import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.palladiosimulator.indirections.actions.ActionsPackage;
@@ -23,19 +25,18 @@ import org.palladiosimulator.indirections.composition.CompositionPackage;
 
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
 
-import org.palladiosimulator.indirections.datatypes.Aggregation;
-import org.palladiosimulator.indirections.datatypes.DatatypesFactory;
 import org.palladiosimulator.indirections.datatypes.DatatypesPackage;
-import org.palladiosimulator.indirections.datatypes.PutPolicy;
-import org.palladiosimulator.indirections.datatypes.Scheduling;
+
+import org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl;
 
 import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
 
 import org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl;
 
+import org.palladiosimulator.indirections.repository.DataSinkRole;
+import org.palladiosimulator.indirections.repository.DataSourceRole;
+import org.palladiosimulator.indirections.repository.RepositoryFactory;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
-
-import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 
 import org.palladiosimulator.indirections.system.SystemPackage;
 
@@ -49,27 +50,20 @@ import org.palladiosimulator.pcm.PcmPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPackage {
+public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum schedulingEEnum = null;
+	private EClass dataSinkRoleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum putPolicyEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum aggregationEEnum = null;
+	private EClass dataSourceRoleEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -82,12 +76,12 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.palladiosimulator.indirections.datatypes.DatatypesPackage#eNS_URI
+	 * @see org.palladiosimulator.indirections.repository.RepositoryPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
-	private DatatypesPackageImpl() {
-		super(eNS_URI, DatatypesFactory.eINSTANCE);
+	private RepositoryPackageImpl() {
+		super(eNS_URI, RepositoryFactory.eINSTANCE);
 	}
 
 	/**
@@ -100,7 +94,7 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
 	 *
-	 * <p>This method is used to initialize {@link DatatypesPackage#eINSTANCE} when that field is accessed.
+	 * <p>This method is used to initialize {@link RepositoryPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -109,15 +103,15 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static DatatypesPackage init() {
+	public static RepositoryPackage init() {
 		if (isInited)
-			return (DatatypesPackage) EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
+			return (RepositoryPackage) EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
 
 		// Obtain or create and register package
-		Object registeredDatatypesPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-		DatatypesPackageImpl theDatatypesPackage = registeredDatatypesPackage instanceof DatatypesPackageImpl
-				? (DatatypesPackageImpl) registeredDatatypesPackage
-				: new DatatypesPackageImpl();
+		Object registeredRepositoryPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		RepositoryPackageImpl theRepositoryPackage = registeredRepositoryPackage instanceof RepositoryPackageImpl
+				? (RepositoryPackageImpl) registeredRepositoryPackage
+				: new RepositoryPackageImpl();
 
 		isInited = true;
 
@@ -133,6 +127,10 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
 				? registeredPackage
 				: ActionsPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
+		DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl) (registeredPackage instanceof DatatypesPackageImpl
+				? registeredPackage
+				: DatatypesPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
 		PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl) (registeredPackage instanceof PartitioningPackageImpl
 				? registeredPackage
@@ -145,33 +143,29 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
 				? registeredPackage
 				: CompositionPackage.eINSTANCE);
-		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
-		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
-				? registeredPackage
-				: RepositoryPackage.eINSTANCE);
 
 		// Create package meta-data objects
-		theDatatypesPackage.createPackageContents();
+		theRepositoryPackage.createPackageContents();
 		theActionsPackage.createPackageContents();
+		theDatatypesPackage.createPackageContents();
 		thePartitioningPackage.createPackageContents();
 		theSystemPackage.createPackageContents();
 		theCompositionPackage.createPackageContents();
-		theRepositoryPackage.createPackageContents();
 
 		// Initialize created meta-data
-		theDatatypesPackage.initializePackageContents();
+		theRepositoryPackage.initializePackageContents();
 		theActionsPackage.initializePackageContents();
+		theDatatypesPackage.initializePackageContents();
 		thePartitioningPackage.initializePackageContents();
 		theSystemPackage.initializePackageContents();
 		theCompositionPackage.initializePackageContents();
-		theRepositoryPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
-		theDatatypesPackage.freeze();
+		theRepositoryPackage.freeze();
 
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(DatatypesPackage.eNS_URI, theDatatypesPackage);
-		return theDatatypesPackage;
+		EPackage.Registry.INSTANCE.put(RepositoryPackage.eNS_URI, theRepositoryPackage);
+		return theRepositoryPackage;
 	}
 
 	/**
@@ -180,8 +174,8 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @generated
 	 */
 	@Override
-	public EEnum getScheduling() {
-		return schedulingEEnum;
+	public EClass getDataSinkRole() {
+		return dataSinkRoleEClass;
 	}
 
 	/**
@@ -190,8 +184,8 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @generated
 	 */
 	@Override
-	public EEnum getPutPolicy() {
-		return putPolicyEEnum;
+	public EReference getDataSinkRole_EventGroup() {
+		return (EReference) dataSinkRoleEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -200,8 +194,8 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @generated
 	 */
 	@Override
-	public EEnum getAggregation() {
-		return aggregationEEnum;
+	public EAttribute getDataSinkRole_IsPushing() {
+		return (EAttribute) dataSinkRoleEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -210,8 +204,28 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @generated
 	 */
 	@Override
-	public DatatypesFactory getDatatypesFactory() {
-		return (DatatypesFactory) getEFactoryInstance();
+	public EClass getDataSourceRole() {
+		return dataSourceRoleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDataSourceRole_EventGroup() {
+		return (EReference) dataSourceRoleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public RepositoryFactory getRepositoryFactory() {
+		return (RepositoryFactory) getEFactoryInstance();
 	}
 
 	/**
@@ -233,10 +247,13 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 			return;
 		isCreated = true;
 
-		// Create enums
-		schedulingEEnum = createEEnum(SCHEDULING);
-		putPolicyEEnum = createEEnum(PUT_POLICY);
-		aggregationEEnum = createEEnum(AGGREGATION);
+		// Create classes and their features
+		dataSinkRoleEClass = createEClass(DATA_SINK_ROLE);
+		createEReference(dataSinkRoleEClass, DATA_SINK_ROLE__EVENT_GROUP);
+		createEAttribute(dataSinkRoleEClass, DATA_SINK_ROLE__IS_PUSHING);
+
+		dataSourceRoleEClass = createEClass(DATA_SOURCE_ROLE);
+		createEReference(dataSourceRoleEClass, DATA_SOURCE_ROLE__EVENT_GROUP);
 	}
 
 	/**
@@ -263,27 +280,36 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
-		// Initialize enums and add enum literals
-		initEEnum(schedulingEEnum, Scheduling.class, "Scheduling");
-		addEEnumLiteral(schedulingEEnum, Scheduling.FIRST_IN_FIRST_OUT);
-		addEEnumLiteral(schedulingEEnum, Scheduling.LAST_IN_FIRST_OUT);
-		addEEnumLiteral(schedulingEEnum, Scheduling.PRIORITY);
-		addEEnumLiteral(schedulingEEnum, Scheduling.RANDOM);
+		// Obtain other dependent packages
+		org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
+				.getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
 
-		initEEnum(putPolicyEEnum, PutPolicy.class, "PutPolicy");
-		addEEnumLiteral(putPolicyEEnum, PutPolicy.BLOCKING);
-		addEEnumLiteral(putPolicyEEnum, PutPolicy.DISCARD_FIRST_IN);
-		addEEnumLiteral(putPolicyEEnum, PutPolicy.DISCARD_LAST_IN);
-		addEEnumLiteral(putPolicyEEnum, PutPolicy.DISCARD_INCOMING);
+		// Create type parameters
 
-		initEEnum(aggregationEEnum, Aggregation.class, "Aggregation");
-		addEEnumLiteral(aggregationEEnum, Aggregation.AVERAGE);
-		addEEnumLiteral(aggregationEEnum, Aggregation.EXACTLY_ONE);
-		addEEnumLiteral(aggregationEEnum, Aggregation.COUNT);
-		addEEnumLiteral(aggregationEEnum, Aggregation.FIRST);
+		// Set bounds for type parameters
+
+		// Add supertypes to classes
+		dataSinkRoleEClass.getESuperTypes().add(theRepositoryPackage_1.getProvidedRole());
+		dataSourceRoleEClass.getESuperTypes().add(theRepositoryPackage_1.getRequiredRole());
+
+		// Initialize classes and features; add operations and parameters
+		initEClass(dataSinkRoleEClass, DataSinkRole.class, "DataSinkRole", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDataSinkRole_EventGroup(), theRepositoryPackage_1.getEventGroup(), null, "eventGroup", null,
+				0, 1, DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataSinkRole_IsPushing(), ecorePackage.getEBoolean(), "isPushing", null, 0, 1,
+				DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+
+		initEClass(dataSourceRoleEClass, DataSourceRole.class, "DataSourceRole", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getDataSourceRole_EventGroup(), theRepositoryPackage_1.getEventGroup(), null, "eventGroup", null,
+				0, 1, DataSourceRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
 	}
 
-} //DatatypesPackageImpl
+} //RepositoryPackageImpl

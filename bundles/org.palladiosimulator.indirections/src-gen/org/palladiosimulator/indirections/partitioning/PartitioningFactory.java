@@ -58,6 +58,15 @@ public interface PartitioningFactory extends EFactory {
 	CollectWithHoldback createCollectWithHoldback();
 
 	/**
+	 * Returns a new object of class '<em>Joining</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Joining</em>'.
+	 * @generated
+	 */
+	Joining createJoining();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

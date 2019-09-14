@@ -35,13 +35,15 @@ import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
 
 import org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl;
 
+import org.palladiosimulator.indirections.repository.RepositoryPackage;
+
+import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
+
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.indirections.system.impl.SystemPackageImpl;
 
 import org.palladiosimulator.pcm.PcmPackage;
-
-import org.palladiosimulator.pcm.repository.RepositoryPackage;
 
 import org.palladiosimulator.pcm.seff.SeffPackage;
 
@@ -147,6 +149,10 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
 				? registeredPackage
 				: CompositionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
+		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
+				? registeredPackage
+				: RepositoryPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theActionsPackage.createPackageContents();
@@ -154,6 +160,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		thePartitioningPackage.createPackageContents();
 		theSystemPackage.createPackageContents();
 		theCompositionPackage.createPackageContents();
+		theRepositoryPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theActionsPackage.initializePackageContents();
@@ -161,6 +168,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		thePartitioningPackage.initializePackageContents();
 		theSystemPackage.initializePackageContents();
 		theCompositionPackage.initializePackageContents();
+		theRepositoryPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theActionsPackage.freeze();
@@ -216,7 +224,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getConsumeDataAction_SinkRole() {
+	public EReference getConsumeDataAction_DataSinkRole() {
 		return (EReference) consumeDataActionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -246,7 +254,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getEmitDataAction_SourceRole() {
+	public EReference getEmitDataAction_DataSourceRole() {
 		return (EReference) emitDataActionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -285,11 +293,11 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
 		consumeDataActionEClass = createEClass(CONSUME_DATA_ACTION);
 		createEReference(consumeDataActionEClass, CONSUME_DATA_ACTION__EVENT_TYPE);
-		createEReference(consumeDataActionEClass, CONSUME_DATA_ACTION__SINK_ROLE);
+		createEReference(consumeDataActionEClass, CONSUME_DATA_ACTION__DATA_SINK_ROLE);
 
 		emitDataActionEClass = createEClass(EMIT_DATA_ACTION);
 		createEReference(emitDataActionEClass, EMIT_DATA_ACTION__EVENT_TYPE);
-		createEReference(emitDataActionEClass, EMIT_DATA_ACTION__SOURCE_ROLE);
+		createEReference(emitDataActionEClass, EMIT_DATA_ACTION__DATA_SOURCE_ROLE);
 	}
 
 	/**
@@ -318,6 +326,8 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
 		// Obtain other dependent packages
 		SeffPackage theSeffPackage = (SeffPackage) EPackage.Registry.INSTANCE.getEPackage(SeffPackage.eNS_URI);
+		org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
+				.getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
 		RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
 				.getEPackage(RepositoryPackage.eNS_URI);
 
@@ -341,21 +351,21 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
 		initEClass(consumeDataActionEClass, ConsumeDataAction.class, "ConsumeDataAction", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getConsumeDataAction_EventType(), theRepositoryPackage.getEventType(), null, "eventType", null,
+		initEReference(getConsumeDataAction_EventType(), theRepositoryPackage_1.getEventType(), null, "eventType", null,
 				1, 1, ConsumeDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getConsumeDataAction_SinkRole(), theRepositoryPackage.getSinkRole(), null, "sinkRole", null, 1,
-				1, ConsumeDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConsumeDataAction_DataSinkRole(), theRepositoryPackage.getDataSinkRole(), null,
+				"dataSinkRole", null, 1, 1, ConsumeDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(emitDataActionEClass, EmitDataAction.class, "EmitDataAction", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEmitDataAction_EventType(), theRepositoryPackage.getEventType(), null, "eventType", null, 1,
+		initEReference(getEmitDataAction_EventType(), theRepositoryPackage_1.getEventType(), null, "eventType", null, 1,
 				1, EmitDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEmitDataAction_SourceRole(), theRepositoryPackage.getSourceRole(), null, "sourceRole", null,
-				1, 1, EmitDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEmitDataAction_DataSourceRole(), theRepositoryPackage.getDataSourceRole(), null,
+				"dataSourceRole", null, 1, 1, EmitDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

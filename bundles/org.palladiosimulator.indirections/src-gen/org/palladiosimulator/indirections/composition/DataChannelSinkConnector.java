@@ -2,12 +2,12 @@
  */
 package org.palladiosimulator.indirections.composition;
 
+import org.palladiosimulator.indirections.repository.DataSinkRole;
+
 import org.palladiosimulator.indirections.system.DataChannel;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
-
-import org.palladiosimulator.pcm.repository.SinkRole;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,7 +18,7 @@ import org.palladiosimulator.pcm.repository.SinkRole;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getSinkRole <em>Sink Role</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataSinkRole <em>Data Sink Role</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getAssemblyContext <em>Assembly Context</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataChannel <em>Data Channel</em>}</li>
  * </ul>
@@ -29,26 +29,26 @@ import org.palladiosimulator.pcm.repository.SinkRole;
  */
 public interface DataChannelSinkConnector extends Connector {
 	/**
-	 * Returns the value of the '<em><b>Sink Role</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Sink Role</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Sink Role</em>' reference.
-	 * @see #setSinkRole(SinkRole)
-	 * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSinkConnector_SinkRole()
+	 * @return the value of the '<em>Data Sink Role</em>' reference.
+	 * @see #setDataSinkRole(DataSinkRole)
+	 * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSinkConnector_DataSinkRole()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	SinkRole getSinkRole();
+	DataSinkRole getDataSinkRole();
 
 	/**
-	 * Sets the value of the '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getSinkRole <em>Sink Role</em>}' reference.
+	 * Sets the value of the '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataSinkRole <em>Data Sink Role</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Sink Role</em>' reference.
-	 * @see #getSinkRole()
+	 * @param value the new value of the '<em>Data Sink Role</em>' reference.
+	 * @see #getDataSinkRole()
 	 * @generated
 	 */
-	void setSinkRole(SinkRole value);
+	void setDataSinkRole(DataSinkRole value);
 
 	/**
 	 * Returns the value of the '<em><b>Assembly Context</b></em>' reference.

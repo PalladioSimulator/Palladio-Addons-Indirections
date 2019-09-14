@@ -2,9 +2,8 @@
  */
 package org.palladiosimulator.indirections.actions;
 
+import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.pcm.repository.EventType;
-import org.palladiosimulator.pcm.repository.SourceRole;
-
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.CallAction;
 
@@ -18,7 +17,7 @@ import org.palladiosimulator.pcm.seff.CallAction;
  * </p>
  * <ul>
  *   <li>{@link org.palladiosimulator.indirections.actions.EmitDataAction#getEventType <em>Event Type</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.actions.EmitDataAction#getSourceRole <em>Source Role</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.actions.EmitDataAction#getDataSourceRole <em>Data Source Role</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.actions.ActionsPackage#getEmitDataAction()
@@ -49,25 +48,25 @@ public interface EmitDataAction extends AbstractAction, CallAction {
 	void setEventType(EventType value);
 
 	/**
-	 * Returns the value of the '<em><b>Source Role</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Source Role</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Source Role</em>' reference.
-	 * @see #setSourceRole(SourceRole)
-	 * @see org.palladiosimulator.indirections.actions.ActionsPackage#getEmitDataAction_SourceRole()
+	 * @return the value of the '<em>Data Source Role</em>' reference.
+	 * @see #setDataSourceRole(DataSourceRole)
+	 * @see org.palladiosimulator.indirections.actions.ActionsPackage#getEmitDataAction_DataSourceRole()
 	 * @model required="true"
 	 * @generated
 	 */
-	SourceRole getSourceRole();
+	DataSourceRole getDataSourceRole();
 
 	/**
-	 * Sets the value of the '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getSourceRole <em>Source Role</em>}' reference.
+	 * Sets the value of the '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getDataSourceRole <em>Data Source Role</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Source Role</em>' reference.
-	 * @see #getSourceRole()
+	 * @param value the new value of the '<em>Data Source Role</em>' reference.
+	 * @see #getDataSourceRole()
 	 * @generated
 	 */
-	void setSourceRole(SourceRole value);
+	void setDataSourceRole(DataSourceRole value);
 
 } // EmitDataAction

@@ -16,11 +16,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 
+import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 
 import org.palladiosimulator.pcm.repository.EventType;
-import org.palladiosimulator.pcm.repository.SinkRole;
-
 import org.palladiosimulator.pcm.seff.CallAction;
 import org.palladiosimulator.pcm.seff.CallReturnAction;
 import org.palladiosimulator.pcm.seff.SeffPackage;
@@ -38,7 +37,7 @@ import org.palladiosimulator.pcm.seff.impl.AbstractActionImpl;
  *   <li>{@link org.palladiosimulator.indirections.actions.impl.ConsumeDataActionImpl#getInputVariableUsages__CallAction <em>Input Variable Usages Call Action</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.actions.impl.ConsumeDataActionImpl#getReturnVariableUsage__CallReturnAction <em>Return Variable Usage Call Return Action</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.actions.impl.ConsumeDataActionImpl#getEventType <em>Event Type</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.actions.impl.ConsumeDataActionImpl#getSinkRole <em>Sink Role</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.actions.impl.ConsumeDataActionImpl#getDataSinkRole <em>Data Sink Role</em>}</li>
  * </ul>
  *
  * @generated
@@ -126,9 +125,9 @@ public class ConsumeDataActionImpl extends AbstractActionImpl implements Consume
 	 * @generated
 	 */
 	@Override
-	public SinkRole getSinkRole() {
-		return (SinkRole) eDynamicGet(ActionsPackage.CONSUME_DATA_ACTION__SINK_ROLE,
-				ActionsPackage.Literals.CONSUME_DATA_ACTION__SINK_ROLE, true, true);
+	public DataSinkRole getDataSinkRole() {
+		return (DataSinkRole) eDynamicGet(ActionsPackage.CONSUME_DATA_ACTION__DATA_SINK_ROLE,
+				ActionsPackage.Literals.CONSUME_DATA_ACTION__DATA_SINK_ROLE, true, true);
 	}
 
 	/**
@@ -136,9 +135,9 @@ public class ConsumeDataActionImpl extends AbstractActionImpl implements Consume
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SinkRole basicGetSinkRole() {
-		return (SinkRole) eDynamicGet(ActionsPackage.CONSUME_DATA_ACTION__SINK_ROLE,
-				ActionsPackage.Literals.CONSUME_DATA_ACTION__SINK_ROLE, false, true);
+	public DataSinkRole basicGetDataSinkRole() {
+		return (DataSinkRole) eDynamicGet(ActionsPackage.CONSUME_DATA_ACTION__DATA_SINK_ROLE,
+				ActionsPackage.Literals.CONSUME_DATA_ACTION__DATA_SINK_ROLE, false, true);
 	}
 
 	/**
@@ -147,9 +146,9 @@ public class ConsumeDataActionImpl extends AbstractActionImpl implements Consume
 	 * @generated
 	 */
 	@Override
-	public void setSinkRole(SinkRole newSinkRole) {
-		eDynamicSet(ActionsPackage.CONSUME_DATA_ACTION__SINK_ROLE,
-				ActionsPackage.Literals.CONSUME_DATA_ACTION__SINK_ROLE, newSinkRole);
+	public void setDataSinkRole(DataSinkRole newDataSinkRole) {
+		eDynamicSet(ActionsPackage.CONSUME_DATA_ACTION__DATA_SINK_ROLE,
+				ActionsPackage.Literals.CONSUME_DATA_ACTION__DATA_SINK_ROLE, newDataSinkRole);
 	}
 
 	/**
@@ -203,10 +202,10 @@ public class ConsumeDataActionImpl extends AbstractActionImpl implements Consume
 			if (resolve)
 				return getEventType();
 			return basicGetEventType();
-		case ActionsPackage.CONSUME_DATA_ACTION__SINK_ROLE:
+		case ActionsPackage.CONSUME_DATA_ACTION__DATA_SINK_ROLE:
 			if (resolve)
-				return getSinkRole();
-			return basicGetSinkRole();
+				return getDataSinkRole();
+			return basicGetDataSinkRole();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -231,8 +230,8 @@ public class ConsumeDataActionImpl extends AbstractActionImpl implements Consume
 		case ActionsPackage.CONSUME_DATA_ACTION__EVENT_TYPE:
 			setEventType((EventType) newValue);
 			return;
-		case ActionsPackage.CONSUME_DATA_ACTION__SINK_ROLE:
-			setSinkRole((SinkRole) newValue);
+		case ActionsPackage.CONSUME_DATA_ACTION__DATA_SINK_ROLE:
+			setDataSinkRole((DataSinkRole) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -255,8 +254,8 @@ public class ConsumeDataActionImpl extends AbstractActionImpl implements Consume
 		case ActionsPackage.CONSUME_DATA_ACTION__EVENT_TYPE:
 			setEventType((EventType) null);
 			return;
-		case ActionsPackage.CONSUME_DATA_ACTION__SINK_ROLE:
-			setSinkRole((SinkRole) null);
+		case ActionsPackage.CONSUME_DATA_ACTION__DATA_SINK_ROLE:
+			setDataSinkRole((DataSinkRole) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -276,8 +275,8 @@ public class ConsumeDataActionImpl extends AbstractActionImpl implements Consume
 			return !getReturnVariableUsage__CallReturnAction().isEmpty();
 		case ActionsPackage.CONSUME_DATA_ACTION__EVENT_TYPE:
 			return basicGetEventType() != null;
-		case ActionsPackage.CONSUME_DATA_ACTION__SINK_ROLE:
-			return basicGetSinkRole() != null;
+		case ActionsPackage.CONSUME_DATA_ACTION__DATA_SINK_ROLE:
+			return basicGetDataSinkRole() != null;
 		}
 		return super.eIsSet(featureID);
 	}

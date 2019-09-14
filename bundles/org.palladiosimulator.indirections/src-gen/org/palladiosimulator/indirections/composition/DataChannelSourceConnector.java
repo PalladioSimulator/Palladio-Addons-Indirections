@@ -2,12 +2,12 @@
  */
 package org.palladiosimulator.indirections.composition;
 
+import org.palladiosimulator.indirections.repository.DataSourceRole;
+
 import org.palladiosimulator.indirections.system.DataChannel;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
-
-import org.palladiosimulator.pcm.repository.SourceRole;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,12 +33,12 @@ public interface DataChannelSourceConnector extends Connector {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source Role</em>' reference.
-	 * @see #setSourceRole(SourceRole)
+	 * @see #setSourceRole(DataSourceRole)
 	 * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSourceConnector_SourceRole()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	SourceRole getSourceRole();
+	DataSourceRole getSourceRole();
 
 	/**
 	 * Sets the value of the '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getSourceRole <em>Source Role</em>}' reference.
@@ -48,7 +48,7 @@ public interface DataChannelSourceConnector extends Connector {
 	 * @see #getSourceRole()
 	 * @generated
 	 */
-	void setSourceRole(SourceRole value);
+	void setSourceRole(DataSourceRole value);
 
 	/**
 	 * Returns the value of the '<em><b>Assembly Context</b></em>' reference.

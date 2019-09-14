@@ -16,9 +16,9 @@
   <genPackages prefix="Indirections" basePackage="org.palladiosimulator" resource="XMI"
       disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
       ecorePackage="indirections.ecore#/">
-    <nestedGenPackages prefix="Actions" resource="XMI" disposableProviderFactory="true"
-        generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"
-        fileExtensions="" ecorePackage="indirections.ecore#//actions">
+    <nestedGenPackages prefix="Actions" disposableProviderFactory="true" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
+        ecorePackage="indirections.ecore#//actions">
       <genClasses ecoreClass="indirections.ecore#//actions/AnalyseStackAction">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//actions/AnalyseStackAction/key"/>
       </genClasses>
@@ -26,18 +26,18 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/sinkRole"/>
+            ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/dataSinkRole"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/EmitDataAction">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/sourceRole"/>
+            ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/dataSourceRole"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="Datatypes" resource="XMI" disposableProviderFactory="true"
-        generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"
-        fileExtensions="" ecorePackage="indirections.ecore#//datatypes">
+    <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
+        ecorePackage="indirections.ecore#//datatypes">
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/Scheduling">
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Scheduling/FirstInFirstOut"/>
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Scheduling/LastInFirstOut"/>
@@ -57,9 +57,9 @@
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Aggregation/First"/>
       </genEnums>
     </nestedGenPackages>
-    <nestedGenPackages prefix="Partitioning" resource="XMI" disposableProviderFactory="true"
-        generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"
-        fileExtensions="" ecorePackage="indirections.ecore#//partitioning">
+    <nestedGenPackages prefix="Partitioning" disposableProviderFactory="true" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
+        ecorePackage="indirections.ecore#//partitioning">
       <genClasses ecoreClass="indirections.ecore#//partitioning/Partitioning">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Partitioning/specification"/>
       </genClasses>
@@ -73,10 +73,15 @@
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/holdback"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/key"/>
       </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//partitioning/Joining">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/source"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Joining/canContributeMultipleTimes"/>
+      </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="System" resource="XMI" disposableProviderFactory="true"
-        generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"
-        fileExtensions="" ecorePackage="indirections.ecore#//system">
+    <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
+        ecorePackage="indirections.ecore#//system">
       <genClasses ecoreClass="indirections.ecore#//system/DataChannel">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/capacity"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -89,11 +94,13 @@
             ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataChannelSinkConnector"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/partitioning"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/timeGrouping"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/joins"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="Composition" resource="XMI" disposableProviderFactory="true"
-        generateModelWizard="false" extensibleProviderFactory="true" childCreationExtenders="true"
-        fileExtensions="" ecorePackage="indirections.ecore#//composition">
+    <nestedGenPackages prefix="Composition" disposableProviderFactory="true" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
+        ecorePackage="indirections.ecore#//composition">
       <genClasses ecoreClass="indirections.ecore#//composition/DataChannelSourceConnector">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/sourceRole"/>
@@ -104,7 +111,7 @@
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//composition/DataChannelSinkConnector">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSinkConnector/sinkRole"/>
+            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSinkConnector/dataSinkRole"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSinkConnector/assemblyContext"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -115,6 +122,18 @@
             ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelConnector/source"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelConnector/sink"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Repository" disposableProviderFactory="true" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
+        ecorePackage="indirections.ecore#//repository">
+      <genClasses ecoreClass="indirections.ecore#//repository/DataSinkRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/eventGroup"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//repository/DataSourceRole">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSourceRole/eventGroup"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

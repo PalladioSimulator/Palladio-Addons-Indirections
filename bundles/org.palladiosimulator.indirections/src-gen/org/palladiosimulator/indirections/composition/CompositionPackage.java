@@ -169,13 +169,13 @@ public interface CompositionPackage extends EPackage {
 	int DATA_CHANNEL_SINK_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
 
 	/**
-	 * The feature id for the '<em><b>Sink Role</b></em>' reference.
+	 * The feature id for the '<em><b>Data Sink Role</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
 			+ 0;
 
 	/**
@@ -329,15 +329,15 @@ public interface CompositionPackage extends EPackage {
 	EClass getDataChannelSinkConnector();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getSinkRole <em>Sink Role</em>}'.
+	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataSinkRole <em>Data Sink Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Sink Role</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getSinkRole()
+	 * @return the meta object for the reference '<em>Data Sink Role</em>'.
+	 * @see org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataSinkRole()
 	 * @see #getDataChannelSinkConnector()
 	 * @generated
 	 */
-	EReference getDataChannelSinkConnector_SinkRole();
+	EReference getDataChannelSinkConnector_DataSinkRole();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getAssemblyContext <em>Assembly Context</em>}'.
@@ -461,12 +461,12 @@ public interface CompositionPackage extends EPackage {
 		EClass DATA_CHANNEL_SINK_CONNECTOR = eINSTANCE.getDataChannelSinkConnector();
 
 		/**
-		 * The meta object literal for the '<em><b>Sink Role</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Sink Role</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE = eINSTANCE.getDataChannelSinkConnector_SinkRole();
+		EReference DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE = eINSTANCE.getDataChannelSinkConnector_DataSinkRole();
 
 		/**
 		 * The meta object literal for the '<em><b>Assembly Context</b></em>' reference feature.

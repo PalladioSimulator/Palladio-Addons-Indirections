@@ -64,6 +64,8 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 			return createConsumeAllAvailable();
 		case PartitioningPackage.COLLECT_WITH_HOLDBACK:
 			return createCollectWithHoldback();
+		case PartitioningPackage.JOINING:
+			return createJoining();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -111,6 +113,17 @@ public class PartitioningFactoryImpl extends EFactoryImpl implements Partitionin
 	public CollectWithHoldback createCollectWithHoldback() {
 		CollectWithHoldbackImpl collectWithHoldback = new CollectWithHoldbackImpl();
 		return collectWithHoldback;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Joining createJoining() {
+		JoiningImpl joining = new JoiningImpl();
+		return joining;
 	}
 
 	/**

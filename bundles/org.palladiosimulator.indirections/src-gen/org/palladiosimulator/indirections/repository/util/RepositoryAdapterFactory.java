@@ -1,6 +1,8 @@
 /**
  */
-package org.palladiosimulator.indirections.partitioning.util;
+package org.palladiosimulator.indirections.repository.util;
+
+import de.uka.ipd.sdq.identifier.Identifier;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -9,26 +11,31 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.palladiosimulator.indirections.partitioning.*;
+import org.palladiosimulator.indirections.repository.*;
 
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
+
+import org.palladiosimulator.pcm.repository.ProvidedRole;
+import org.palladiosimulator.pcm.repository.RequiredRole;
+import org.palladiosimulator.pcm.repository.Role;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.palladiosimulator.indirections.partitioning.PartitioningPackage
+ * @see org.palladiosimulator.indirections.repository.RepositoryPackage
  * @generated
  */
-public class PartitioningAdapterFactory extends AdapterFactoryImpl {
+public class RepositoryAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static PartitioningPackage modelPackage;
+	protected static RepositoryPackage modelPackage;
 
 	/**
 	 * Creates an instance of the adapter factory.
@@ -36,9 +43,9 @@ public class PartitioningAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PartitioningAdapterFactory() {
+	public RepositoryAdapterFactory() {
 		if (modelPackage == null) {
-			modelPackage = PartitioningPackage.eINSTANCE;
+			modelPackage = RepositoryPackage.eINSTANCE;
 		}
 	}
 
@@ -67,40 +74,45 @@ public class PartitioningAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PartitioningSwitch<Adapter> modelSwitch = new PartitioningSwitch<Adapter>() {
+	protected RepositorySwitch<Adapter> modelSwitch = new RepositorySwitch<Adapter>() {
 		@Override
-		public Adapter casePartitioning(Partitioning object) {
-			return createPartitioningAdapter();
+		public Adapter caseDataSinkRole(DataSinkRole object) {
+			return createDataSinkRoleAdapter();
 		}
 
 		@Override
-		public Adapter caseTimeGrouping(TimeGrouping object) {
-			return createTimeGroupingAdapter();
+		public Adapter caseDataSourceRole(DataSourceRole object) {
+			return createDataSourceRoleAdapter();
 		}
 
 		@Override
-		public Adapter caseWindowing(Windowing object) {
-			return createWindowingAdapter();
-		}
-
-		@Override
-		public Adapter caseConsumeAllAvailable(ConsumeAllAvailable object) {
-			return createConsumeAllAvailableAdapter();
-		}
-
-		@Override
-		public Adapter caseCollectWithHoldback(CollectWithHoldback object) {
-			return createCollectWithHoldbackAdapter();
-		}
-
-		@Override
-		public Adapter caseJoining(Joining object) {
-			return createJoiningAdapter();
+		public Adapter caseIdentifier(Identifier object) {
+			return createIdentifierAdapter();
 		}
 
 		@Override
 		public Adapter caseNamedElement(NamedElement object) {
 			return createNamedElementAdapter();
+		}
+
+		@Override
+		public Adapter caseEntity(Entity object) {
+			return createEntityAdapter();
+		}
+
+		@Override
+		public Adapter caseRole(Role object) {
+			return createRoleAdapter();
+		}
+
+		@Override
+		public Adapter caseProvidedRole(ProvidedRole object) {
+			return createProvidedRoleAdapter();
+		}
+
+		@Override
+		public Adapter caseRequiredRole(RequiredRole object) {
+			return createRequiredRoleAdapter();
 		}
 
 		@Override
@@ -123,86 +135,44 @@ public class PartitioningAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.partitioning.Partitioning <em>Partitioning</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.repository.DataSinkRole <em>Data Sink Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.partitioning.Partitioning
+	 * @see org.palladiosimulator.indirections.repository.DataSinkRole
 	 * @generated
 	 */
-	public Adapter createPartitioningAdapter() {
+	public Adapter createDataSinkRoleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.partitioning.TimeGrouping <em>Time Grouping</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.repository.DataSourceRole <em>Data Source Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.partitioning.TimeGrouping
+	 * @see org.palladiosimulator.indirections.repository.DataSourceRole
 	 * @generated
 	 */
-	public Adapter createTimeGroupingAdapter() {
+	public Adapter createDataSourceRoleAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.partitioning.Windowing <em>Windowing</em>}'.
+	 * Creates a new adapter for an object of class '{@link de.uka.ipd.sdq.identifier.Identifier <em>Identifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.partitioning.Windowing
+	 * @see de.uka.ipd.sdq.identifier.Identifier
 	 * @generated
 	 */
-	public Adapter createWindowingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable <em>Consume All Available</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable
-	 * @generated
-	 */
-	public Adapter createConsumeAllAvailableAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.partitioning.CollectWithHoldback <em>Collect With Holdback</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.partitioning.CollectWithHoldback
-	 * @generated
-	 */
-	public Adapter createCollectWithHoldbackAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.partitioning.Joining <em>Joining</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.partitioning.Joining
-	 * @generated
-	 */
-	public Adapter createJoiningAdapter() {
+	public Adapter createIdentifierAdapter() {
 		return null;
 	}
 
@@ -221,6 +191,62 @@ public class PartitioningAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.core.entity.Entity <em>Entity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.pcm.core.entity.Entity
+	 * @generated
+	 */
+	public Adapter createEntityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.repository.Role <em>Role</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.pcm.repository.Role
+	 * @generated
+	 */
+	public Adapter createRoleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.repository.ProvidedRole <em>Provided Role</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.pcm.repository.ProvidedRole
+	 * @generated
+	 */
+	public Adapter createProvidedRoleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.repository.RequiredRole <em>Required Role</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.pcm.repository.RequiredRole
+	 * @generated
+	 */
+	public Adapter createRequiredRoleAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for the default case.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null.
@@ -232,4 +258,4 @@ public class PartitioningAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //PartitioningAdapterFactory
+} //RepositoryAdapterFactory

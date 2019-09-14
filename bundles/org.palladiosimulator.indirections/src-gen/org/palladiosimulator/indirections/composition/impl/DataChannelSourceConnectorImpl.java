@@ -10,14 +10,14 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 
+import org.palladiosimulator.indirections.repository.DataSourceRole;
+
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import org.palladiosimulator.pcm.core.composition.impl.ConnectorImpl;
-
-import org.palladiosimulator.pcm.repository.SourceRole;
 
 /**
  * <!-- begin-user-doc -->
@@ -60,8 +60,8 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
 	 * @generated
 	 */
 	@Override
-	public SourceRole getSourceRole() {
-		return (SourceRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
+	public DataSourceRole getSourceRole() {
+		return (DataSourceRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
 				CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE, true, true);
 	}
 
@@ -70,8 +70,8 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SourceRole basicGetSourceRole() {
-		return (SourceRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
+	public DataSourceRole basicGetSourceRole() {
+		return (DataSourceRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
 				CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE, false, true);
 	}
 
@@ -81,7 +81,7 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
 	 * @generated
 	 */
 	@Override
-	public void setSourceRole(SourceRole newSourceRole) {
+	public void setSourceRole(DataSourceRole newSourceRole) {
 		eDynamicSet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
 				CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE, newSourceRole);
 	}
@@ -226,7 +226,7 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE:
-			setSourceRole((SourceRole) newValue);
+			setSourceRole((DataSourceRole) newValue);
 			return;
 		case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT:
 			setAssemblyContext((AssemblyContext) newValue);
@@ -247,7 +247,7 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE:
-			setSourceRole((SourceRole) null);
+			setSourceRole((DataSourceRole) null);
 			return;
 		case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT:
 			setAssemblyContext((AssemblyContext) null);

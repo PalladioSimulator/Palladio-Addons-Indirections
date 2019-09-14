@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 
+import org.palladiosimulator.indirections.partitioning.Joining;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
 
@@ -41,6 +42,7 @@ import org.palladiosimulator.pcm.repository.EventGroup;
  *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getDataChannelSinkConnector <em>Data Channel Sink Connector</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getPartitioning <em>Partitioning</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getTimeGrouping <em>Time Grouping</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getJoins <em>Joins</em>}</li>
  * </ul>
  *
  * @generated
@@ -256,6 +258,18 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
+	public EList<Joining> getJoins() {
+		return (EList<Joining>) eDynamicGet(SystemPackage.DATA_CHANNEL__JOINS,
+				SystemPackage.Literals.DATA_CHANNEL__JOINS, true, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case SystemPackage.DATA_CHANNEL__DATA_CHANNEL_SOURCE_CONNECTOR:
@@ -314,6 +328,8 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 			return getPartitioning();
 		case SystemPackage.DATA_CHANNEL__TIME_GROUPING:
 			return getTimeGrouping();
+		case SystemPackage.DATA_CHANNEL__JOINS:
+			return getJoins();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -350,6 +366,10 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 		case SystemPackage.DATA_CHANNEL__TIME_GROUPING:
 			setTimeGrouping((TimeGrouping) newValue);
 			return;
+		case SystemPackage.DATA_CHANNEL__JOINS:
+			getJoins().clear();
+			getJoins().addAll((Collection<? extends Joining>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -383,6 +403,9 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 		case SystemPackage.DATA_CHANNEL__TIME_GROUPING:
 			setTimeGrouping((TimeGrouping) null);
 			return;
+		case SystemPackage.DATA_CHANNEL__JOINS:
+			getJoins().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -409,6 +432,8 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 			return getPartitioning() != null;
 		case SystemPackage.DATA_CHANNEL__TIME_GROUPING:
 			return getTimeGrouping() != null;
+		case SystemPackage.DATA_CHANNEL__JOINS:
+			return !getJoins().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

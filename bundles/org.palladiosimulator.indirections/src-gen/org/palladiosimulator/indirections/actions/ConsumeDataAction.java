@@ -2,9 +2,8 @@
  */
 package org.palladiosimulator.indirections.actions;
 
+import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.pcm.repository.EventType;
-import org.palladiosimulator.pcm.repository.SinkRole;
-
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.CallReturnAction;
 
@@ -18,7 +17,7 @@ import org.palladiosimulator.pcm.seff.CallReturnAction;
  * </p>
  * <ul>
  *   <li>{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getEventType <em>Event Type</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getSinkRole <em>Sink Role</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getDataSinkRole <em>Data Sink Role</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.actions.ActionsPackage#getConsumeDataAction()
@@ -49,25 +48,25 @@ public interface ConsumeDataAction extends AbstractAction, CallReturnAction {
 	void setEventType(EventType value);
 
 	/**
-	 * Returns the value of the '<em><b>Sink Role</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Sink Role</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Sink Role</em>' reference.
-	 * @see #setSinkRole(SinkRole)
-	 * @see org.palladiosimulator.indirections.actions.ActionsPackage#getConsumeDataAction_SinkRole()
+	 * @return the value of the '<em>Data Sink Role</em>' reference.
+	 * @see #setDataSinkRole(DataSinkRole)
+	 * @see org.palladiosimulator.indirections.actions.ActionsPackage#getConsumeDataAction_DataSinkRole()
 	 * @model required="true" ordered="false"
 	 * @generated
 	 */
-	SinkRole getSinkRole();
+	DataSinkRole getDataSinkRole();
 
 	/**
-	 * Sets the value of the '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getSinkRole <em>Sink Role</em>}' reference.
+	 * Sets the value of the '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getDataSinkRole <em>Data Sink Role</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Sink Role</em>' reference.
-	 * @see #getSinkRole()
+	 * @param value the new value of the '<em>Data Sink Role</em>' reference.
+	 * @see #getDataSinkRole()
 	 * @generated
 	 */
-	void setSinkRole(SinkRole value);
+	void setDataSinkRole(DataSinkRole value);
 
 } // ConsumeDataAction

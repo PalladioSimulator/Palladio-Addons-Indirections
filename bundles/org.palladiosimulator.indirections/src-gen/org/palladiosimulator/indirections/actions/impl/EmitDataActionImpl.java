@@ -16,11 +16,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 
+import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 
 import org.palladiosimulator.pcm.repository.EventType;
-import org.palladiosimulator.pcm.repository.SourceRole;
-
 import org.palladiosimulator.pcm.seff.CallAction;
 import org.palladiosimulator.pcm.seff.SeffPackage;
 
@@ -36,7 +35,7 @@ import org.palladiosimulator.pcm.seff.impl.AbstractActionImpl;
  * <ul>
  *   <li>{@link org.palladiosimulator.indirections.actions.impl.EmitDataActionImpl#getInputVariableUsages__CallAction <em>Input Variable Usages Call Action</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.actions.impl.EmitDataActionImpl#getEventType <em>Event Type</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.actions.impl.EmitDataActionImpl#getSourceRole <em>Source Role</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.actions.impl.EmitDataActionImpl#getDataSourceRole <em>Data Source Role</em>}</li>
  * </ul>
  *
  * @generated
@@ -111,9 +110,9 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 	 * @generated
 	 */
 	@Override
-	public SourceRole getSourceRole() {
-		return (SourceRole) eDynamicGet(ActionsPackage.EMIT_DATA_ACTION__SOURCE_ROLE,
-				ActionsPackage.Literals.EMIT_DATA_ACTION__SOURCE_ROLE, true, true);
+	public DataSourceRole getDataSourceRole() {
+		return (DataSourceRole) eDynamicGet(ActionsPackage.EMIT_DATA_ACTION__DATA_SOURCE_ROLE,
+				ActionsPackage.Literals.EMIT_DATA_ACTION__DATA_SOURCE_ROLE, true, true);
 	}
 
 	/**
@@ -121,9 +120,9 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SourceRole basicGetSourceRole() {
-		return (SourceRole) eDynamicGet(ActionsPackage.EMIT_DATA_ACTION__SOURCE_ROLE,
-				ActionsPackage.Literals.EMIT_DATA_ACTION__SOURCE_ROLE, false, true);
+	public DataSourceRole basicGetDataSourceRole() {
+		return (DataSourceRole) eDynamicGet(ActionsPackage.EMIT_DATA_ACTION__DATA_SOURCE_ROLE,
+				ActionsPackage.Literals.EMIT_DATA_ACTION__DATA_SOURCE_ROLE, false, true);
 	}
 
 	/**
@@ -132,9 +131,9 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 	 * @generated
 	 */
 	@Override
-	public void setSourceRole(SourceRole newSourceRole) {
-		eDynamicSet(ActionsPackage.EMIT_DATA_ACTION__SOURCE_ROLE, ActionsPackage.Literals.EMIT_DATA_ACTION__SOURCE_ROLE,
-				newSourceRole);
+	public void setDataSourceRole(DataSourceRole newDataSourceRole) {
+		eDynamicSet(ActionsPackage.EMIT_DATA_ACTION__DATA_SOURCE_ROLE,
+				ActionsPackage.Literals.EMIT_DATA_ACTION__DATA_SOURCE_ROLE, newDataSourceRole);
 	}
 
 	/**
@@ -181,10 +180,10 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 			if (resolve)
 				return getEventType();
 			return basicGetEventType();
-		case ActionsPackage.EMIT_DATA_ACTION__SOURCE_ROLE:
+		case ActionsPackage.EMIT_DATA_ACTION__DATA_SOURCE_ROLE:
 			if (resolve)
-				return getSourceRole();
-			return basicGetSourceRole();
+				return getDataSourceRole();
+			return basicGetDataSourceRole();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -205,8 +204,8 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 		case ActionsPackage.EMIT_DATA_ACTION__EVENT_TYPE:
 			setEventType((EventType) newValue);
 			return;
-		case ActionsPackage.EMIT_DATA_ACTION__SOURCE_ROLE:
-			setSourceRole((SourceRole) newValue);
+		case ActionsPackage.EMIT_DATA_ACTION__DATA_SOURCE_ROLE:
+			setDataSourceRole((DataSourceRole) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -226,8 +225,8 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 		case ActionsPackage.EMIT_DATA_ACTION__EVENT_TYPE:
 			setEventType((EventType) null);
 			return;
-		case ActionsPackage.EMIT_DATA_ACTION__SOURCE_ROLE:
-			setSourceRole((SourceRole) null);
+		case ActionsPackage.EMIT_DATA_ACTION__DATA_SOURCE_ROLE:
+			setDataSourceRole((DataSourceRole) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -245,8 +244,8 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 			return !getInputVariableUsages__CallAction().isEmpty();
 		case ActionsPackage.EMIT_DATA_ACTION__EVENT_TYPE:
 			return basicGetEventType() != null;
-		case ActionsPackage.EMIT_DATA_ACTION__SOURCE_ROLE:
-			return basicGetSourceRole() != null;
+		case ActionsPackage.EMIT_DATA_ACTION__DATA_SOURCE_ROLE:
+			return basicGetDataSourceRole() != null;
 		}
 		return super.eIsSet(featureID);
 	}

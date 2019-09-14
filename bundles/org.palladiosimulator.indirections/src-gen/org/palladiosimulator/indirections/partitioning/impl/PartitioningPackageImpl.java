@@ -31,11 +31,16 @@ import org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl;
 
 import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
+import org.palladiosimulator.indirections.partitioning.Joining;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.PartitioningFactory;
 import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
 import org.palladiosimulator.indirections.partitioning.Windowing;
+
+import org.palladiosimulator.indirections.repository.RepositoryPackage;
+
+import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 
 import org.palladiosimulator.indirections.system.SystemPackage;
 
@@ -88,6 +93,13 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	private EClass collectWithHoldbackEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass joiningEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -163,6 +175,10 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
 				? registeredPackage
 				: CompositionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
+		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
+				? registeredPackage
+				: RepositoryPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		thePartitioningPackage.createPackageContents();
@@ -170,6 +186,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		theDatatypesPackage.createPackageContents();
 		theSystemPackage.createPackageContents();
 		theCompositionPackage.createPackageContents();
+		theRepositoryPackage.createPackageContents();
 
 		// Initialize created meta-data
 		thePartitioningPackage.initializePackageContents();
@@ -177,6 +194,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		theDatatypesPackage.initializePackageContents();
 		theSystemPackage.initializePackageContents();
 		theCompositionPackage.initializePackageContents();
+		theRepositoryPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		thePartitioningPackage.freeze();
@@ -292,6 +310,36 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	@Override
+	public EClass getJoining() {
+		return joiningEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getJoining_Source() {
+		return (EReference) joiningEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getJoining_CanContributeMultipleTimes() {
+		return (EAttribute) joiningEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PartitioningFactory getPartitioningFactory() {
 		return (PartitioningFactory) getEFactoryInstance();
 	}
@@ -330,6 +378,10 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		collectWithHoldbackEClass = createEClass(COLLECT_WITH_HOLDBACK);
 		createEAttribute(collectWithHoldbackEClass, COLLECT_WITH_HOLDBACK__HOLDBACK);
 		createEAttribute(collectWithHoldbackEClass, COLLECT_WITH_HOLDBACK__KEY);
+
+		joiningEClass = createEClass(JOINING);
+		createEReference(joiningEClass, JOINING__SOURCE);
+		createEAttribute(joiningEClass, JOINING__CAN_CONTRIBUTE_MULTIPLE_TIMES);
 	}
 
 	/**
@@ -359,6 +411,8 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		// Obtain other dependent packages
 		EntityPackage theEntityPackage = (EntityPackage) EPackage.Registry.INSTANCE.getEPackage(EntityPackage.eNS_URI);
 		CorePackage theCorePackage = (CorePackage) EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+		CompositionPackage theCompositionPackage = (CompositionPackage) EPackage.Registry.INSTANCE
+				.getEPackage(CompositionPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -398,6 +452,14 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		initEAttribute(getCollectWithHoldback_Key(), ecorePackage.getEString(), "key", null, 1, 1,
 				CollectWithHoldback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(joiningEClass, Joining.class, "Joining", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getJoining_Source(), theCompositionPackage.getDataChannelSourceConnector(), null, "source", null,
+				1, 1, Joining.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJoining_CanContributeMultipleTimes(), ecorePackage.getEBoolean(),
+				"canContributeMultipleTimes", null, 1, 1, Joining.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

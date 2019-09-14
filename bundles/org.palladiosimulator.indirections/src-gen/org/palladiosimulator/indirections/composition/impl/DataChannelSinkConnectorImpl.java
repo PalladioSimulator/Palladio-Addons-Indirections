@@ -10,14 +10,14 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 
+import org.palladiosimulator.indirections.repository.DataSinkRole;
+
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import org.palladiosimulator.pcm.core.composition.impl.ConnectorImpl;
-
-import org.palladiosimulator.pcm.repository.SinkRole;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +27,7 @@ import org.palladiosimulator.pcm.repository.SinkRole;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl#getSinkRole <em>Sink Role</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl#getDataSinkRole <em>Data Sink Role</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl#getAssemblyContext <em>Assembly Context</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl#getDataChannel <em>Data Channel</em>}</li>
  * </ul>
@@ -60,9 +60,9 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 	 * @generated
 	 */
 	@Override
-	public SinkRole getSinkRole() {
-		return (SinkRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE,
-				CompositionPackage.Literals.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE, true, true);
+	public DataSinkRole getDataSinkRole() {
+		return (DataSinkRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE,
+				CompositionPackage.Literals.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE, true, true);
 	}
 
 	/**
@@ -70,9 +70,9 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SinkRole basicGetSinkRole() {
-		return (SinkRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE,
-				CompositionPackage.Literals.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE, false, true);
+	public DataSinkRole basicGetDataSinkRole() {
+		return (DataSinkRole) eDynamicGet(CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE,
+				CompositionPackage.Literals.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE, false, true);
 	}
 
 	/**
@@ -81,9 +81,9 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 	 * @generated
 	 */
 	@Override
-	public void setSinkRole(SinkRole newSinkRole) {
-		eDynamicSet(CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE,
-				CompositionPackage.Literals.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE, newSinkRole);
+	public void setDataSinkRole(DataSinkRole newDataSinkRole) {
+		eDynamicSet(CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE,
+				CompositionPackage.Literals.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE, newDataSinkRole);
 	}
 
 	/**
@@ -201,10 +201,10 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE:
+		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE:
 			if (resolve)
-				return getSinkRole();
-			return basicGetSinkRole();
+				return getDataSinkRole();
+			return basicGetDataSinkRole();
 		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__ASSEMBLY_CONTEXT:
 			if (resolve)
 				return getAssemblyContext();
@@ -225,8 +225,8 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE:
-			setSinkRole((SinkRole) newValue);
+		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE:
+			setDataSinkRole((DataSinkRole) newValue);
 			return;
 		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__ASSEMBLY_CONTEXT:
 			setAssemblyContext((AssemblyContext) newValue);
@@ -246,8 +246,8 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE:
-			setSinkRole((SinkRole) null);
+		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE:
+			setDataSinkRole((DataSinkRole) null);
 			return;
 		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__ASSEMBLY_CONTEXT:
 			setAssemblyContext((AssemblyContext) null);
@@ -267,8 +267,8 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__SINK_ROLE:
-			return basicGetSinkRole() != null;
+		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE:
+			return basicGetDataSinkRole() != null;
 		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__ASSEMBLY_CONTEXT:
 			return basicGetAssemblyContext() != null;
 		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR__DATA_CHANNEL:

@@ -213,13 +213,13 @@ public interface ActionsPackage extends EPackage {
 	int CONSUME_DATA_ACTION__EVENT_TYPE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Sink Role</b></em>' reference.
+	 * The feature id for the '<em><b>Data Sink Role</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONSUME_DATA_ACTION__SINK_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 3;
+	int CONSUME_DATA_ACTION__DATA_SINK_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Consume Data Action</em>' class.
@@ -304,13 +304,13 @@ public interface ActionsPackage extends EPackage {
 	int EMIT_DATA_ACTION__EVENT_TYPE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Source Role</b></em>' reference.
+	 * The feature id for the '<em><b>Data Source Role</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EMIT_DATA_ACTION__SOURCE_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
+	int EMIT_DATA_ACTION__DATA_SOURCE_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Emit Data Action</em>' class.
@@ -364,15 +364,15 @@ public interface ActionsPackage extends EPackage {
 	EReference getConsumeDataAction_EventType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getSinkRole <em>Sink Role</em>}'.
+	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getDataSinkRole <em>Data Sink Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Sink Role</em>'.
-	 * @see org.palladiosimulator.indirections.actions.ConsumeDataAction#getSinkRole()
+	 * @return the meta object for the reference '<em>Data Sink Role</em>'.
+	 * @see org.palladiosimulator.indirections.actions.ConsumeDataAction#getDataSinkRole()
 	 * @see #getConsumeDataAction()
 	 * @generated
 	 */
-	EReference getConsumeDataAction_SinkRole();
+	EReference getConsumeDataAction_DataSinkRole();
 
 	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.actions.EmitDataAction <em>Emit Data Action</em>}'.
@@ -396,15 +396,15 @@ public interface ActionsPackage extends EPackage {
 	EReference getEmitDataAction_EventType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getSourceRole <em>Source Role</em>}'.
+	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getDataSourceRole <em>Data Source Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source Role</em>'.
-	 * @see org.palladiosimulator.indirections.actions.EmitDataAction#getSourceRole()
+	 * @return the meta object for the reference '<em>Data Source Role</em>'.
+	 * @see org.palladiosimulator.indirections.actions.EmitDataAction#getDataSourceRole()
 	 * @see #getEmitDataAction()
 	 * @generated
 	 */
-	EReference getEmitDataAction_SourceRole();
+	EReference getEmitDataAction_DataSourceRole();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -465,12 +465,12 @@ public interface ActionsPackage extends EPackage {
 		EReference CONSUME_DATA_ACTION__EVENT_TYPE = eINSTANCE.getConsumeDataAction_EventType();
 
 		/**
-		 * The meta object literal for the '<em><b>Sink Role</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Sink Role</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONSUME_DATA_ACTION__SINK_ROLE = eINSTANCE.getConsumeDataAction_SinkRole();
+		EReference CONSUME_DATA_ACTION__DATA_SINK_ROLE = eINSTANCE.getConsumeDataAction_DataSinkRole();
 
 		/**
 		 * The meta object literal for the '{@link org.palladiosimulator.indirections.actions.impl.EmitDataActionImpl <em>Emit Data Action</em>}' class.
@@ -491,12 +491,12 @@ public interface ActionsPackage extends EPackage {
 		EReference EMIT_DATA_ACTION__EVENT_TYPE = eINSTANCE.getEmitDataAction_EventType();
 
 		/**
-		 * The meta object literal for the '<em><b>Source Role</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Source Role</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EMIT_DATA_ACTION__SOURCE_ROLE = eINSTANCE.getEmitDataAction_SourceRole();
+		EReference EMIT_DATA_ACTION__DATA_SOURCE_ROLE = eINSTANCE.getEmitDataAction_DataSourceRole();
 
 	}
 

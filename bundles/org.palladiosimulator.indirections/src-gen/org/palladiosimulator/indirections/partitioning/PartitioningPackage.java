@@ -207,6 +207,43 @@ public interface PartitioningPackage extends EPackage {
 	int COLLECT_WITH_HOLDBACK_FEATURE_COUNT = TIME_GROUPING_FEATURE_COUNT + 2;
 
 	/**
+	 * The meta object id for the '{@link org.palladiosimulator.indirections.partitioning.impl.JoiningImpl <em>Joining</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.palladiosimulator.indirections.partitioning.impl.JoiningImpl
+	 * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getJoining()
+	 * @generated
+	 */
+	int JOINING = 5;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOINING__SOURCE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Can Contribute Multiple Times</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOINING__CAN_CONTRIBUTE_MULTIPLE_TIMES = 1;
+
+	/**
+	 * The number of structural features of the '<em>Joining</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOINING_FEATURE_COUNT = 2;
+
+	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.partitioning.Partitioning <em>Partitioning</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -310,6 +347,38 @@ public interface PartitioningPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCollectWithHoldback_Key();
+
+	/**
+	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.partitioning.Joining <em>Joining</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Joining</em>'.
+	 * @see org.palladiosimulator.indirections.partitioning.Joining
+	 * @generated
+	 */
+	EClass getJoining();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.partitioning.Joining#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see org.palladiosimulator.indirections.partitioning.Joining#getSource()
+	 * @see #getJoining()
+	 * @generated
+	 */
+	EReference getJoining_Source();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.partitioning.Joining#isCanContributeMultipleTimes <em>Can Contribute Multiple Times</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Can Contribute Multiple Times</em>'.
+	 * @see org.palladiosimulator.indirections.partitioning.Joining#isCanContributeMultipleTimes()
+	 * @see #getJoining()
+	 * @generated
+	 */
+	EAttribute getJoining_CanContributeMultipleTimes();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -422,6 +491,32 @@ public interface PartitioningPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLLECT_WITH_HOLDBACK__KEY = eINSTANCE.getCollectWithHoldback_Key();
+
+		/**
+		 * The meta object literal for the '{@link org.palladiosimulator.indirections.partitioning.impl.JoiningImpl <em>Joining</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.palladiosimulator.indirections.partitioning.impl.JoiningImpl
+		 * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getJoining()
+		 * @generated
+		 */
+		EClass JOINING = eINSTANCE.getJoining();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JOINING__SOURCE = eINSTANCE.getJoining_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Can Contribute Multiple Times</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JOINING__CAN_CONTRIBUTE_MULTIPLE_TIMES = eINSTANCE.getJoining_CanContributeMultipleTimes();
 
 	}
 
