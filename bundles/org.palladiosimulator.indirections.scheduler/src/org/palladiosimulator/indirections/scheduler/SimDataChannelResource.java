@@ -48,8 +48,22 @@ public class SimDataChannelResource implements IDataChannelResource {
 	protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
 	protected final List<KeyedFrame> incomingQueue;
 
-	protected final Queue<ProcessWaitingToConsume> waitingToGetQueue;
-	protected final Map<DataChannelSinkConnector, Queue<Map<String, Object>>> outgoingQueues;
+	protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
+	
+	private class OutgoingQueue {
+		public final Queue<Map<String, Object>> elements;
+		public final Queue<ProcessWaitingToConsume> processes;
+		
+		public OutgoingQueue() {
+			this.elements = new ArrayDeque<>();
+			this.processes = new ArrayDeque<>();
+		}
+	}
+	
+	private void initializeOutgoingQueues() {
+		outgoingQueues = new HashMap<>();
+		dataChannel.getDataChannelSinkConnector().stream().forEach(it -> outgoingQueues.put(it, new OutgoingQueue()));
+	}
 
 	private final SimuComModel model;
 	private final int capacity;
@@ -107,12 +121,11 @@ public class SimDataChannelResource implements IDataChannelResource {
 		}
 
 		this.model = (SimuComModel) model;
-		waitingToGetQueue = new ArrayDeque<>();
+		
 		waitingToPutQueue = new ArrayDeque<>();
 		incomingQueue = new ArrayList<>();
 
-		outgoingQueues = new HashMap<>();
-		dataChannel.getDataChannelSinkConnector().stream().forEach(it -> outgoingQueues.put(it, new ArrayDeque<>()));
+		initializeOutgoingQueues();
 
 		this.dataChannel = dataChannel;
 		this.capacity = dataChannel.getCapacity();
@@ -142,7 +155,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 		}
 
 		if (collectAll) {
-			this.outgoingQueues.forEach((k, v) -> v.add(createCollectionFrame()));
+			this.outgoingQueues.forEach((k, v) -> v.elements.add(createCollectionFrame()));
 		}
 	}
 
@@ -227,7 +240,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 		}
 
 		for (Map<String, Object> outgoingFrame : outgoingFrames) {
-			outgoingQueues.forEach((k, v) -> v.add(outgoingFrame));
+			outgoingQueues.forEach((k, v) -> v.elements.add(outgoingFrame));
 		}
 
 		handleReadyOutgoingData();
@@ -272,7 +285,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 					+ ". Doing nothing, waiting for timed creation.");
 		} else {
 			System.out.println("Added frame directly: " + process.frame);
-			outgoingQueues.forEach((k, v) -> v.add(process.frame));
+			outgoingQueues.forEach((k, v) -> v.elements.add(process.frame));
 		}
 
 		if (process.isWaiting())
@@ -281,14 +294,14 @@ public class SimDataChannelResource implements IDataChannelResource {
 	}
 
 	private void addToOutgoingFrame(Map<String, Object> frame) {
-		if (outgoingQueues.values().stream().anyMatch(it -> it.size() != 1)) {
+		if (outgoingQueues.values().stream().anyMatch(it -> it.elements.size() != 1)) {
 			throw new AssertionError("Queue must contain exactly one element at all times if collect all is true.");
 		}
 
-		for (Queue<Map<String, Object>> outgoingQueue : outgoingQueues.values()) {
-			Map<String, Object> collectionFrame = outgoingQueue.remove();
+		for (OutgoingQueue outgoingQueue : outgoingQueues.values()) {
+			Map<String, Object> collectionFrame = outgoingQueue.elements.remove();
 			addToCollectionFrame(collectionFrame, frame);
-			outgoingQueue.add(collectionFrame);
+			outgoingQueue.elements.add(collectionFrame);
 		}
 	}
 
@@ -318,9 +331,9 @@ public class SimDataChannelResource implements IDataChannelResource {
 	}
 
 	private Map<String, Object> getNextAvailableElement(DataChannelSinkConnector sinkConnector) {
-		Map<String, Object> nextAvailableElement = outgoingQueues.get(sinkConnector).remove();
+		Map<String, Object> nextAvailableElement = outgoingQueues.get(sinkConnector).elements.remove();
 		if (collectAll)
-			outgoingQueues.get(sinkConnector).add(createCollectionFrame());
+			outgoingQueues.get(sinkConnector).elements.add(createCollectionFrame());
 
 		return nextAvailableElement;
 	}
@@ -330,7 +343,9 @@ public class SimDataChannelResource implements IDataChannelResource {
 	}
 
 	private void notifyProcessesWaitingToGet() {
-		notifyProcesses(waitingToGetQueue, p -> p.schedulableProcess, this::canProceedToGet, this::allowToGet);
+		for (OutgoingQueue queue : outgoingQueues.values()) {
+			notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet, this::allowToGet);
+		}
 	}
 
 	private void notifyProcessesWaitingToPut() {
@@ -391,7 +406,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 			return true;
 		} else {
 //			System.out.println("Adding to queue.");
-			waitingToGetQueue.add(process);
+			outgoingQueues.get(sinkConnector).processes.add(process);
 			process.passivate();
 			return false;
 		}
@@ -409,9 +424,10 @@ public class SimDataChannelResource implements IDataChannelResource {
 	}
 
 	private boolean canProceedToGet(final ProcessWaitingToConsume process) {
+		Queue<ProcessWaitingToConsume> waitingToGetQueue = outgoingQueues.get(process.sinkConnector).processes;
 		boolean isNextProcess = waitingToGetQueue.isEmpty()
 				|| waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-		long providableCount = outgoingQueues.get(process.sinkConnector).size();
+		long providableCount = outgoingQueues.get(process.sinkConnector).elements.size();
 		return isNextProcess && (providableCount > 0);
 	}
 
