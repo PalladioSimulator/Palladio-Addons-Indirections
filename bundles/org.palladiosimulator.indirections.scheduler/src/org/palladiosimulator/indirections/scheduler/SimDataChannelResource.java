@@ -30,8 +30,6 @@ import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
 import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.EventGroup;
-import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
@@ -61,7 +59,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 	private StatefulEmitter<KeyedFrame, List<KeyedFrame>> outgoingEmitter;
 	private WindowEmitter windowEmitter;
 	private CollectWithHoldback collectWithHoldback;
-	
+
 	private long lastCheckedFrameId = -1L;
 	private long numberOfFramesCreated = 0L;
 
@@ -75,7 +73,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 				this.key = SimDataChannelResource.this.model.getSimulationControl().getCurrentSimulationTime();
 			} else {
 				SimulatedStackframe<Object> simulatedStackframe = SimulatedStackHelper.createFromMap(frame);
-				
+
 				Object keyValue = null;
 				try {
 					keyValue = simulatedStackframe.getValue(SimDataChannelResource.this.collectWithHoldback.getKey());
@@ -88,16 +86,16 @@ public class SimDataChannelResource implements IDataChannelResource {
 			this.frame = frame;
 			this.id = numberOfFramesCreated += 1;
 		}
-		
+
 		@Override
 		public String toString() {
 			return "KeyedFrame[id=" + id + ", key=" + key + ", frame=" + frame + "]";
 		}
 
 	}
-	
-	// takes elements of type T and emits something of type U if the state necessitates
 
+	// takes elements of type T and emits something of type U if the state
+	// necessitates
 
 	public SimDataChannelResource(DataChannel dataChannel, final SchedulerModel model) {
 		if (!(model instanceof SimuComModel)) {
@@ -113,14 +111,18 @@ public class SimDataChannelResource implements IDataChannelResource {
 		this.dataChannel = dataChannel;
 		this.capacity = dataChannel.getCapacity();
 
-		this.windowing = dataChannel.getTimeGrouping() instanceof Windowing ? (Windowing) dataChannel.getTimeGrouping() : null;
-		this.collectWithHoldback = dataChannel.getTimeGrouping() instanceof CollectWithHoldback ? (CollectWithHoldback) dataChannel.getTimeGrouping() : null;
+		this.windowing = dataChannel.getTimeGrouping() instanceof Windowing ? (Windowing) dataChannel.getTimeGrouping()
+				: null;
+		this.collectWithHoldback = dataChannel.getTimeGrouping() instanceof CollectWithHoldback
+				? (CollectWithHoldback) dataChannel.getTimeGrouping()
+				: null;
 		this.collectAll = dataChannel.getTimeGrouping() instanceof ConsumeAllAvailable;
-		
+
 		this.partitioning = dataChannel.getPartitioning();
-		
+
 		if (isWindowingTriggeredOnIncoming()) {
-			this.outgoingEmitter = new EqualityCollectorWithHoldback<KeyedFrame, Object>((it) -> it.key, this.collectWithHoldback.getHoldback());
+			this.outgoingEmitter = new EqualityCollectorWithHoldback<KeyedFrame, Object>((it) -> it.key,
+					this.collectWithHoldback.getHoldback());
 		} else if (isWindowingTriggeredPeriodically()) {
 			if (isWindowingTriggeredPeriodically()) {
 				this.windowEmitter = new WindowEmitter(windowing.getShift(), windowing.getShift());
@@ -132,7 +134,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 				};
 			}
 		}
-		
+
 		if (collectAll) {
 			this.outgoingQueue.add(createCollectionFrame());
 		}
@@ -141,16 +143,17 @@ public class SimDataChannelResource implements IDataChannelResource {
 	private final static Object DUMMY_KEY = UUID.randomUUID();
 
 	private boolean isWindowingTriggeredOnIncoming() {
-		// currently we distinguish between periodically triggered and on-demand windowing by:
+		// currently we distinguish between periodically triggered and on-demand
+		// windowing by:
 		// "is a time provider set?"
 		// could also be done by different subclasses for a TimeProvider interface
 		return (this.collectWithHoldback != null);
 	}
-	
+
 	private boolean isWindowingTriggeredPeriodically() {
 		return (this.windowing != null);
 	}
-	
+
 	private double getTimeToAdvanceWindowingTo() {
 		return model.getSimulationControl().getCurrentSimulationTime();
 	}
@@ -158,7 +161,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 	private Map<Object, List<KeyedFrame>> createPartitions(List<KeyedFrame> elements) {
 		return elements.stream().collect(Collectors.groupingBy(it -> getPartition(it.frame)));
 	}
-	
+
 	private List<Map<String, Object>> createGroupOfOutgoingFrames(List<KeyedFrame> elements, Object key) {
 		Map<Object, List<KeyedFrame>> partitions = createPartitions(elements);
 		List<Map<String, Object>> result = new ArrayList<>();
@@ -170,15 +173,14 @@ public class SimDataChannelResource implements IDataChannelResource {
 			windowFrame.put(getOutgoingParameterName() + ".INNER", entry.getValue());
 			result.add(windowFrame);
 		}
-		
+
 		return result;
 	}
-	
 
 	protected void createAllCurrentlyOutgoingElements() {
 		Set<KeyedFrame> flaggedForRemoval = new HashSet<KeyedFrame>();
 		List<Map<String, Object>> outgoingFrames = new ArrayList<>();
-		
+
 		if (isWindowingTriggeredPeriodically()) {
 			Optional<List<Window>> windows = windowEmitter.accept(getTimeToAdvanceWindowingTo());
 			if (windows.isPresent()) {
@@ -191,21 +193,21 @@ public class SimDataChannelResource implements IDataChannelResource {
 				}
 			}
 		} else if (isWindowingTriggeredOnIncoming()) {
-			System.out.println("Checking " + incomingQueue.size() + " elements "
-					+ "(last seen: " + lastCheckedFrameId + ", "
-					+ "head: " + incomingQueue.get(0).id + ", "
-					+ "last: " + incomingQueue.get(incomingQueue.size() - 1).id + ").");
+			System.out.println("Checking " + incomingQueue.size() + " elements " + "(last seen: " + lastCheckedFrameId
+					+ ", " + "head: " + incomingQueue.get(0).id + ", " + "last: "
+					+ incomingQueue.get(incomingQueue.size() - 1).id + ").");
 			for (KeyedFrame element : incomingQueue) {
 				if (element.id <= lastCheckedFrameId)
 					continue;
-				
+
 				lastCheckedFrameId = element.id;
-				
+
 				Optional<List<KeyedFrame>> result = outgoingEmitter.accept(element);
 				if (result.isPresent()) {
 					System.out.println("Emitting grouping for " + result.get().size() + " frames (at "
 							+ model.getSimulationControl().getCurrentSimulationTime() + "):");
-					Object key = IterableUtil.claimEqual(result.get().stream().map((it) -> it.key).collect(Collectors.toList()));
+					Object key = IterableUtil
+							.claimEqual(result.get().stream().map((it) -> it.key).collect(Collectors.toList()));
 					List<Map<String, Object>> newOutgoingFrames = createGroupOfOutgoingFrames(result.get(), key);
 					outgoingFrames.addAll(newOutgoingFrames);
 					newOutgoingFrames.forEach(it -> System.out.println(" - " + it));
@@ -213,29 +215,26 @@ public class SimDataChannelResource implements IDataChannelResource {
 				}
 			}
 		}
-		
+
 		for (KeyedFrame frameToRemove : flaggedForRemoval) {
 			incomingQueue.remove(frameToRemove);
 		}
-		
+
 		for (Map<String, Object> outgoingFrame : outgoingFrames) {
 			outgoingQueue.add(outgoingFrame);
 		}
-		
+
 		notifyProcessesWaitingToGet();
 	}
-	
 
 	private Object getPartition(Map<String, Object> map) {
 		if (partitioning == null)
 			return DUMMY_KEY;
-		
+
 		SimulatedStackframe<Object> stack = SimulatedStackHelper.createFromMap(map);
-		
-		return partitioning.getSpecification().stream()
-				.collect(Collectors.toMap(
-						it -> it.getSpecification(),
-						it -> Context.evaluateStatic(it.getSpecification(), stack)));
+
+		return partitioning.getSpecification().stream().collect(Collectors.toMap(it -> it.getSpecification(),
+				it -> Context.evaluateStatic(it.getSpecification(), stack)));
 	}
 
 	private List<KeyedFrame> incomingElementsInWindow(Window window) {
@@ -270,12 +269,14 @@ public class SimDataChannelResource implements IDataChannelResource {
 		} else if (isWindowingTriggeredOnIncoming()) {
 			KeyedFrame newFrame = new KeyedFrame(process.frame);
 			incomingQueue.add(newFrame);
-			System.out.println("Added frame @ " + newFrame.key + ": " + newFrame.frame + ". Directly triggering creation.");
+			System.out.println(
+					"Added frame @ " + newFrame.key + ": " + newFrame.frame + ". Directly triggering creation.");
 			createAllCurrentlyOutgoingElements();
 		} else if (isWindowingTriggeredPeriodically()) {
 			KeyedFrame newFrame = new KeyedFrame(process.frame);
 			incomingQueue.add(newFrame);
-			System.out.println("Added frame @ " + newFrame.key + ": " + newFrame.frame + ". Doing nothing, waiting for timed creation.");
+			System.out.println("Added frame @ " + newFrame.key + ": " + newFrame.frame
+					+ ". Doing nothing, waiting for timed creation.");
 		} else {
 			System.out.println("Added frame directly: " + process.frame);
 			outgoingQueue.add(process.frame);
@@ -290,31 +291,30 @@ public class SimDataChannelResource implements IDataChannelResource {
 		if (outgoingQueue.size() != 1) {
 			throw new AssertionError("Queue must contain exactly one element at all times if collect all is true.");
 		}
-		
+
 		Map<String, Object> collectionFrame = outgoingQueue.remove();
 		addToCollectionFrame(collectionFrame, frame);
 		outgoingQueue.add(collectionFrame);
 	}
 
-
 	private HashMap<String, Object> createCollectionFrame() {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("data.INNER.VALUE", new ArrayList<Map<String, Object>>());
 		result.put("data.INNER.NUMBER_OF_ELEMENTS", 0);
-		
+
 		return result;
 	}
 
 	private void addToCollectionFrame(Map<String, Object> collectionFrame, Map<String, Object> frame) {
 		List<Map<String, Object>> inner = (List<Map<String, Object>>) collectionFrame.get("data.INNER.VALUE");
 		Integer numberOfElements = (Integer) collectionFrame.get("data.INNER.NUMBER_OF_ELEMENTS");
-		
+
 		inner.add(frame);
 		numberOfElements++;
-		
+
 		collectionFrame.put("data.INNER.NUMBER_OF_ELEMENTS", numberOfElements);
 	}
-	
+
 	private void allowToGet(ProcessWaitingToConsume process) {
 		process.callback.accept(getNextAvailableElement());
 		if (process.isWaiting())
@@ -326,7 +326,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 		Map<String, Object> nextAvailableElement = outgoingQueue.remove();
 		if (collectAll)
 			outgoingQueue.add(createCollectionFrame());
-		
+
 		return nextAvailableElement;
 	}
 
@@ -346,7 +346,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 //			System.out.println("Allowing waiting process.");
 			allow.accept(waitingProcess);
 			processes.remove();
-			//processExtractor.apply(waitingProcess).activate();
+			// processExtractor.apply(waitingProcess).activate();
 
 			waitingProcess = processes.peek();
 		}
