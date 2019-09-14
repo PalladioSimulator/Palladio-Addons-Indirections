@@ -26,6 +26,7 @@ import org.palladiosimulator.indirections.scheduler.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
 import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -255,11 +256,11 @@ public class SimDataChannelResource implements IDataChannelResource {
 	}
 
 	private String getOutgoingParameterName() {
-		return getOneParameter(dataChannel.getSourceEventGroup()).getParameterName();
+		return IndirectionUtil.getOneParameter(dataChannel.getSourceEventGroup()).getParameterName();
 	}
 
 	private String getIncomingParameterName() {
-		return getOneParameter(dataChannel.getSinkEventGroup()).getParameterName();
+		return IndirectionUtil.getOneParameter(dataChannel.getSinkEventGroup()).getParameterName();
 	}
 
 	private void allowToPut(ProcessWaitingToEmit process) {
@@ -353,7 +354,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 
 	@Override
 	public boolean put(ISchedulableProcess schedulableProcess, Map<String, Object> eventStackframe) {
-		validateStackframeStructure(eventStackframe, getIncomingParameterName());
+		IndirectionUtil.validateStackframeStructure(eventStackframe, getIncomingParameterName());
 
 		if (!model.getSimulationControl().isRunning()) {
 			return true;
@@ -368,21 +369,6 @@ public class SimDataChannelResource implements IDataChannelResource {
 			process.passivate();
 			return false;
 		}
-	}
-
-	public static void validateStackframeStructure(Map<String, Object> dataMap, String parameterName) {
-		String parameterCharacterisationPrefix = parameterName + ".";
-
-		for (Entry<String, Object> entry : dataMap.entrySet()) {
-			if (!entry.getKey().startsWith(parameterCharacterisationPrefix)) {
-				throw new IllegalArgumentException("Invalid characteristation for data frame: " + entry.getKey()
-						+ ", expected characteristations for " + parameterName);
-			}
-		}
-	}
-
-	public static Parameter getOneParameter(EventGroup eventGroup) {
-		return IterableUtil.claimOne(eventGroup.getEventTypes__EventGroup()).getParameter__EventType();
 	}
 
 	@Override
