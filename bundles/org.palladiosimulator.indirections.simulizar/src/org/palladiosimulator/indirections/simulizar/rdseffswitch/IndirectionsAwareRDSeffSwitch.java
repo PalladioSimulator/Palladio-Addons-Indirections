@@ -15,7 +15,7 @@ import org.palladiosimulator.indirections.composition.DataChannelSourceConnector
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
-import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
+import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
@@ -160,7 +160,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		IDataChannelResource dataChannelResource = getDataChannelResource(action);
 
 		SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
-		String parameterName = IndirectionUtil
+		String parameterName = IterableUtil
 				.claimOne(action.getDataSourceRole().getEventGroup().getEventTypes__EventGroup())
 				.getParameter__EventType().getParameterName();
 		addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
@@ -181,7 +181,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 //		System.out.println("Trying to get (" + randomUUID + ")");
 		boolean result = dataChannelResource.get(this.context.getThread(), (eventMap) -> {
 			SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap);
-			String parameterName = IndirectionUtil
+			String parameterName = IterableUtil
 					.claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
 					.getParameter__EventType().getParameterName();
 //			System.out.println("Parameter name: " + parameterName + " (" + randomUUID + ")");

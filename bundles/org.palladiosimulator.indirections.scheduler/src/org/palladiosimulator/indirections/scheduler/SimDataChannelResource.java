@@ -26,7 +26,7 @@ import org.palladiosimulator.indirections.scheduler.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
-import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
+import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.EventGroup;
@@ -204,7 +204,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 				if (result.isPresent()) {
 					System.out.println("Emitting grouping for " + result.get().size() + " frames (at "
 							+ model.getSimulationControl().getCurrentSimulationTime() + "):");
-					Object key = IndirectionUtil.claimEqual(result.get().stream().map((it) -> it.key).collect(Collectors.toList()));
+					Object key = IterableUtil.claimEqual(result.get().stream().map((it) -> it.key).collect(Collectors.toList()));
 					List<Map<String, Object>> newOutgoingFrames = createGroupOfOutgoingFrames(result.get(), key);
 					outgoingFrames.addAll(newOutgoingFrames);
 					newOutgoingFrames.forEach(it -> System.out.println(" - " + it));
@@ -370,7 +370,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 		}
 	}
 
-	private void validateStackframeStructure(Map<String, Object> dataMap, String parameterName) {
+	public static void validateStackframeStructure(Map<String, Object> dataMap, String parameterName) {
 		String parameterCharacterisationPrefix = parameterName + ".";
 
 		for (Entry<String, Object> entry : dataMap.entrySet()) {
@@ -381,8 +381,8 @@ public class SimDataChannelResource implements IDataChannelResource {
 		}
 	}
 
-	private Parameter getOneParameter(EventGroup eventGroup) {
-		return IndirectionUtil.claimOne(eventGroup.getEventTypes__EventGroup()).getParameter__EventType();
+	public static Parameter getOneParameter(EventGroup eventGroup) {
+		return IterableUtil.claimOne(eventGroup.getEventTypes__EventGroup()).getParameter__EventType();
 	}
 
 	@Override

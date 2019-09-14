@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.function.Function;
 
-import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
+import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 
 import com.google.common.base.Optional;
 
@@ -35,7 +35,7 @@ public final class Emitters {
 		@Override
 		public Optional<List<T>> accept(T t) {
 			for (List<T> collection : currentCollections) {
-				R collectionKey = IndirectionUtil.claimEqualKey(collection, keyFunction);
+				R collectionKey = IterableUtil.claimEqualKey(collection, keyFunction);
 				if (collectionKey.equals(keyFunction.apply(t))) {
 					collection.add(t);
 					return Optional.absent();
