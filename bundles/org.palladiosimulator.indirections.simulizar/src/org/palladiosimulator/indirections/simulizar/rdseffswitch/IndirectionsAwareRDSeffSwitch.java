@@ -174,12 +174,13 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 	@Override
 	public Object caseConsumeDataAction(ConsumeDataAction action) {
+		DataChannelSinkConnector dataChannelSinkConnector = getSinkConnector(action);
 		IDataChannelResource dataChannelResource = getDataChannelResource(action);
 
 		String randomUUID = Thread.currentThread().getName();
 
 //		System.out.println("Trying to get (" + randomUUID + ")");
-		boolean result = dataChannelResource.get(this.context.getThread(), (eventMap) -> {
+		boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (eventMap) -> {
 			SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap);
 			String parameterName = IterableUtil
 					.claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
@@ -199,24 +200,22 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
 		DataSourceRole sourceRole = action.getDataSourceRole();
 		DataChannel dataChannel = getConnectedSinkDataChannel(assemblyContext, sourceRole);
-		AllocationContext eventChannelAllocationContext = getAllocationContext(dataChannel);
 
-		SimulatedResourceContainer resourceContainer = getSimulatedResourceContainer(dataChannel,
-				eventChannelAllocationContext);
 		IDataChannelResource dataChannelResource = dataChannelRegistry.getOrCreateDataChannelResource(dataChannel);
 		return dataChannelResource;
 	}
 
 	private IDataChannelResource getDataChannelResource(ConsumeDataAction action) {
-		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
-		DataSinkRole sinkRole = action.getDataSinkRole();
-		DataChannel dataChannel = getConnectedSourceDataChannel(assemblyContext, sinkRole);
-		AllocationContext eventChannelAllocationContext = getAllocationContext(dataChannel);
-
-		SimulatedResourceContainer resourceContainer = getSimulatedResourceContainer(dataChannel,
-				eventChannelAllocationContext);
+		DataChannel dataChannel = getSinkConnector(action).getDataChannel();
 		IDataChannelResource dataChannelResource = dataChannelRegistry.getOrCreateDataChannelResource(dataChannel);
 		return dataChannelResource;
+	}
+
+	private DataChannelSinkConnector getSinkConnector(ConsumeDataAction action) {
+		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
+		DataSinkRole sinkRole = action.getDataSinkRole();
+
+		return getSinkConnectorForRole(assemblyContext, sinkRole);
 	}
 
 	private SimulatedResourceContainer getSimulatedResourceContainer(EventChannel eventChannel,
@@ -250,7 +249,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 				.getDataChannel();
 	}
 
-	private DataChannel getConnectedSourceDataChannel(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
+	private DataChannelSinkConnector getSinkConnectorForRole(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
 		EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
 				.getConnectors__ComposedStructure();
 		List<DataChannelSinkConnector> dataChannelSinkConnectors = connectors.stream()
@@ -261,6 +260,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 				.filter(it -> it.getDataSinkRole().equals(sinkRole)).findAny().orElseThrow(
 						() -> new PCMModelAccessException("Could not find data channel for sink role " + sinkRole));
 
-		return sinkConnectorForRole.getDataChannel();
+		return sinkConnectorForRole;
+	}
+
+	private DataChannel getConnectedSourceDataChannel(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
+		return getSinkConnectorForRole(assemblyContext, sinkRole).getDataChannel();
 	}
 }

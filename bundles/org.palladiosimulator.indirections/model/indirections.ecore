@@ -40,6 +40,10 @@
       <eLiterals name="Count" value="2"/>
       <eLiterals name="First" value="3"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="OutgoingDistribution">
+      <eLiterals name="DistributeToAll"/>
+      <eLiterals name="RoundRobin" value="1"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="partitioning" nsURI="http://palladiosimulator.org/Indirections/Partitioning/1.0"
       nsPrefix="org.palladiosimulator.indirections.partitioning">
@@ -88,6 +92,8 @@
           containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="joins" upperBound="-1"
           eType="#//partitioning/Joining"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoingDistribution"
+          eType="#//datatypes/OutgoingDistribution"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirections/Composition/1.0"

@@ -26,4 +26,17 @@ public final class IndirectionUtil {
 		return IterableUtil.claimOne(eventGroup.getEventTypes__EventGroup()).getParameter__EventType();
 	}
 
+	/**
+	 * Changes the prefix in the given variable name from the parameter name of the
+	 * incoming event type to the one of the outgoing event type.
+	 */
+	public static String rewriteVariableNamePrefix(String variableName, String incomingParameterName,
+			String outgoingParameterName) {
+		if (variableName.startsWith(incomingParameterName)) {
+			return outgoingParameterName + variableName.substring(incomingParameterName.length());
+		} else {
+			throw new AssertionError("Variable '" + variableName + "' does not start with incoming paramete name: "
+					+ incomingParameterName);
+		}
+	}
 }
