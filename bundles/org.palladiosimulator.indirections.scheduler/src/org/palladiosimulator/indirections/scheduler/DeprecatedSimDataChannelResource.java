@@ -1,42 +1,9 @@
 package org.palladiosimulator.indirections.scheduler;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
-import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
-import org.palladiosimulator.indirections.partitioning.Partitioning;
-import org.palladiosimulator.indirections.partitioning.Windowing;
-import org.palladiosimulator.indirections.scheduler.Emitters.EqualityCollectorWithHoldback;
-import org.palladiosimulator.indirections.scheduler.Emitters.StatefulEmitter;
-import org.palladiosimulator.indirections.scheduler.Emitters.Window;
-import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
-import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
-import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
-import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.util.IterableUtil;
-import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
-import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
-
-import de.uka.ipd.sdq.scheduler.SchedulerModel;
-import de.uka.ipd.sdq.simucomframework.variables.StackContext;
-import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
-import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
-
 @Deprecated // only use during rewrite
-public class DeprecatedSimDataChannelResource {} /*extends AbstractDistributingSimDataChannelResource {
+public class DeprecatedSimDataChannelResource {
+}
+/*-extends AbstractDistributingSimDataChannelResource {
     private final Windowing windowing;
     private final Partitioning partitioning;
     private PeriodicallyTriggeredSimulationEntity windowingTrigger;
