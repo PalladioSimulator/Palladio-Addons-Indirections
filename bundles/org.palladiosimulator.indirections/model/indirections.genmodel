@@ -50,11 +50,9 @@
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/PutPolicy/DiscardLastIn"/>
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/PutPolicy/DiscardIncoming"/>
       </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/Aggregation">
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Aggregation/Average"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Aggregation/ExactlyOne"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Aggregation/Count"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Aggregation/First"/>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/OutgoingDistribution">
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/OutgoingDistribution/DistributeToAll"/>
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/OutgoingDistribution/RoundRobin"/>
       </genEnums>
     </nestedGenPackages>
     <nestedGenPackages prefix="Partitioning" disposableProviderFactory="true" generateModelWizard="false"
@@ -96,6 +94,9 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/timeGrouping"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/joins"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/outgoingDistribution"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/scheduling"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/putPolicy"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Composition" disposableProviderFactory="true" generateModelWizard="false"

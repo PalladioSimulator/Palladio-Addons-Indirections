@@ -10,9 +10,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
 
 import org.palladiosimulator.indirections.system.*;
-
-import org.palladiosimulator.pcm.core.composition.EventChannel;
-
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 
@@ -76,8 +73,6 @@ public class SystemSwitch<T> extends Switch<T> {
 		case SystemPackage.DATA_CHANNEL: {
 			DataChannel dataChannel = (DataChannel) theEObject;
 			T result = caseDataChannel(dataChannel);
-			if (result == null)
-				result = caseEventChannel(dataChannel);
 			if (result == null)
 				result = caseEntity(dataChannel);
 			if (result == null)
@@ -150,21 +145,6 @@ public class SystemSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEntity(Entity object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Event Channel</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Event Channel</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseEventChannel(EventChannel object) {
 		return null;
 	}
 

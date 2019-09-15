@@ -42,6 +42,7 @@ import org.palladiosimulator.indirections.system.SystemFactory;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.pcm.PcmPackage;
+import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -256,6 +257,36 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getDataChannel_OutgoingDistribution() {
+		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataChannel_Scheduling() {
+		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getDataChannel_PutPolicy() {
+		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public SystemFactory getSystemFactory() {
 		return (SystemFactory) getEFactoryInstance();
 	}
@@ -289,6 +320,9 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		createEReference(dataChannelEClass, DATA_CHANNEL__PARTITIONING);
 		createEReference(dataChannelEClass, DATA_CHANNEL__TIME_GROUPING);
 		createEReference(dataChannelEClass, DATA_CHANNEL__JOINS);
+		createEAttribute(dataChannelEClass, DATA_CHANNEL__OUTGOING_DISTRIBUTION);
+		createEAttribute(dataChannelEClass, DATA_CHANNEL__SCHEDULING);
+		createEAttribute(dataChannelEClass, DATA_CHANNEL__PUT_POLICY);
 	}
 
 	/**
@@ -316,21 +350,22 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		org.palladiosimulator.pcm.core.composition.CompositionPackage theCompositionPackage_1 = (org.palladiosimulator.pcm.core.composition.CompositionPackage) EPackage.Registry.INSTANCE
-				.getEPackage(org.palladiosimulator.pcm.core.composition.CompositionPackage.eNS_URI);
+		EntityPackage theEntityPackage = (EntityPackage) EPackage.Registry.INSTANCE.getEPackage(EntityPackage.eNS_URI);
 		org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
 				.getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
 		CompositionPackage theCompositionPackage = (CompositionPackage) EPackage.Registry.INSTANCE
 				.getEPackage(CompositionPackage.eNS_URI);
 		PartitioningPackage thePartitioningPackage = (PartitioningPackage) EPackage.Registry.INSTANCE
 				.getEPackage(PartitioningPackage.eNS_URI);
+		DatatypesPackage theDatatypesPackage = (DatatypesPackage) EPackage.Registry.INSTANCE
+				.getEPackage(DatatypesPackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		dataChannelEClass.getESuperTypes().add(theCompositionPackage_1.getEventChannel());
+		dataChannelEClass.getESuperTypes().add(theEntityPackage.getEntity());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(dataChannelEClass, DataChannel.class, "DataChannel", !IS_ABSTRACT, !IS_INTERFACE,
@@ -361,6 +396,15 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		initEReference(getDataChannel_Joins(), thePartitioningPackage.getJoining(), null, "joins", null, 0, -1,
 				DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataChannel_OutgoingDistribution(), theDatatypesPackage.getOutgoingDistribution(),
+				"outgoingDistribution", null, 0, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataChannel_Scheduling(), theDatatypesPackage.getScheduling(), "scheduling", null, 0, 1,
+				DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDataChannel_PutPolicy(), theDatatypesPackage.getPutPolicy(), "putPolicy", null, 0, 1,
+				DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

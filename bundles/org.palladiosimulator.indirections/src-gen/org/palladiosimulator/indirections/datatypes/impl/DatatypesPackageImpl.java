@@ -22,10 +22,9 @@ import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
-
-import org.palladiosimulator.indirections.datatypes.Aggregation;
 import org.palladiosimulator.indirections.datatypes.DatatypesFactory;
 import org.palladiosimulator.indirections.datatypes.DatatypesPackage;
+import org.palladiosimulator.indirections.datatypes.OutgoingDistribution;
 import org.palladiosimulator.indirections.datatypes.PutPolicy;
 import org.palladiosimulator.indirections.datatypes.Scheduling;
 
@@ -69,7 +68,7 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum aggregationEEnum = null;
+	private EEnum outgoingDistributionEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -200,8 +199,8 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 	 * @generated
 	 */
 	@Override
-	public EEnum getAggregation() {
-		return aggregationEEnum;
+	public EEnum getOutgoingDistribution() {
+		return outgoingDistributionEEnum;
 	}
 
 	/**
@@ -236,7 +235,7 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		// Create enums
 		schedulingEEnum = createEEnum(SCHEDULING);
 		putPolicyEEnum = createEEnum(PUT_POLICY);
-		aggregationEEnum = createEEnum(AGGREGATION);
+		outgoingDistributionEEnum = createEEnum(OUTGOING_DISTRIBUTION);
 	}
 
 	/**
@@ -276,11 +275,9 @@ public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPacka
 		addEEnumLiteral(putPolicyEEnum, PutPolicy.DISCARD_LAST_IN);
 		addEEnumLiteral(putPolicyEEnum, PutPolicy.DISCARD_INCOMING);
 
-		initEEnum(aggregationEEnum, Aggregation.class, "Aggregation");
-		addEEnumLiteral(aggregationEEnum, Aggregation.AVERAGE);
-		addEEnumLiteral(aggregationEEnum, Aggregation.EXACTLY_ONE);
-		addEEnumLiteral(aggregationEEnum, Aggregation.COUNT);
-		addEEnumLiteral(aggregationEEnum, Aggregation.FIRST);
+		initEEnum(outgoingDistributionEEnum, OutgoingDistribution.class, "OutgoingDistribution");
+		addEEnumLiteral(outgoingDistributionEEnum, OutgoingDistribution.DISTRIBUTE_TO_ALL);
+		addEEnumLiteral(outgoingDistributionEEnum, OutgoingDistribution.ROUND_ROBIN);
 
 		// Create resource
 		createResource(eNS_URI);

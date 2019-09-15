@@ -7,12 +7,13 @@ import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 
+import org.palladiosimulator.indirections.datatypes.OutgoingDistribution;
+import org.palladiosimulator.indirections.datatypes.PutPolicy;
+import org.palladiosimulator.indirections.datatypes.Scheduling;
 import org.palladiosimulator.indirections.partitioning.Joining;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
-
-import org.palladiosimulator.pcm.core.composition.EventChannel;
-
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
 /**
@@ -32,13 +33,16 @@ import org.palladiosimulator.pcm.repository.EventGroup;
  *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getPartitioning <em>Partitioning</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getTimeGrouping <em>Time Grouping</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getJoins <em>Joins</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getOutgoingDistribution <em>Outgoing Distribution</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getScheduling <em>Scheduling</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.DataChannel#getPutPolicy <em>Put Policy</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel()
  * @model
  * @generated
  */
-public interface DataChannel extends EventChannel {
+public interface DataChannel extends Entity {
 	/**
 	 * Returns the value of the '<em><b>Capacity</b></em>' attribute.
 	 * The default value is <code>"-1"</code>.
@@ -189,5 +193,80 @@ public interface DataChannel extends EventChannel {
 	 * @generated
 	 */
 	EList<Joining> getJoins();
+
+	/**
+	 * Returns the value of the '<em><b>Outgoing Distribution</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.palladiosimulator.indirections.datatypes.OutgoingDistribution}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Outgoing Distribution</em>' attribute.
+	 * @see org.palladiosimulator.indirections.datatypes.OutgoingDistribution
+	 * @see #setOutgoingDistribution(OutgoingDistribution)
+	 * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel_OutgoingDistribution()
+	 * @model
+	 * @generated
+	 */
+	OutgoingDistribution getOutgoingDistribution();
+
+	/**
+	 * Sets the value of the '{@link org.palladiosimulator.indirections.system.DataChannel#getOutgoingDistribution <em>Outgoing Distribution</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Outgoing Distribution</em>' attribute.
+	 * @see org.palladiosimulator.indirections.datatypes.OutgoingDistribution
+	 * @see #getOutgoingDistribution()
+	 * @generated
+	 */
+	void setOutgoingDistribution(OutgoingDistribution value);
+
+	/**
+	 * Returns the value of the '<em><b>Scheduling</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.palladiosimulator.indirections.datatypes.Scheduling}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Scheduling</em>' attribute.
+	 * @see org.palladiosimulator.indirections.datatypes.Scheduling
+	 * @see #setScheduling(Scheduling)
+	 * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel_Scheduling()
+	 * @model
+	 * @generated
+	 */
+	Scheduling getScheduling();
+
+	/**
+	 * Sets the value of the '{@link org.palladiosimulator.indirections.system.DataChannel#getScheduling <em>Scheduling</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Scheduling</em>' attribute.
+	 * @see org.palladiosimulator.indirections.datatypes.Scheduling
+	 * @see #getScheduling()
+	 * @generated
+	 */
+	void setScheduling(Scheduling value);
+
+	/**
+	 * Returns the value of the '<em><b>Put Policy</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.palladiosimulator.indirections.datatypes.PutPolicy}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Put Policy</em>' attribute.
+	 * @see org.palladiosimulator.indirections.datatypes.PutPolicy
+	 * @see #setPutPolicy(PutPolicy)
+	 * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel_PutPolicy()
+	 * @model
+	 * @generated
+	 */
+	PutPolicy getPutPolicy();
+
+	/**
+	 * Sets the value of the '{@link org.palladiosimulator.indirections.system.DataChannel#getPutPolicy <em>Put Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Put Policy</em>' attribute.
+	 * @see org.palladiosimulator.indirections.datatypes.PutPolicy
+	 * @see #getPutPolicy()
+	 * @generated
+	 */
+	void setPutPolicy(PutPolicy value);
 
 } // DataChannel

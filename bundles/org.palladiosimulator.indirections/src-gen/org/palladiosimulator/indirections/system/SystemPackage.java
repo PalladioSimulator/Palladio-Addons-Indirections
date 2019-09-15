@@ -6,8 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
-import org.palladiosimulator.pcm.core.composition.CompositionPackage;
+import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -74,7 +73,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__ID = CompositionPackage.EVENT_CHANNEL__ID;
+	int DATA_CHANNEL__ID = EntityPackage.ENTITY__ID;
 
 	/**
 	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
@@ -83,43 +82,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__ENTITY_NAME = CompositionPackage.EVENT_CHANNEL__ENTITY_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Event Group Event Channel</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__EVENT_GROUP_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__EVENT_GROUP_EVENT_CHANNEL;
-
-	/**
-	 * The feature id for the '<em><b>Event Channel Source Connector Event Channel</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__EVENT_CHANNEL_SOURCE_CONNECTOR_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__EVENT_CHANNEL_SOURCE_CONNECTOR_EVENT_CHANNEL;
-
-	/**
-	 * The feature id for the '<em><b>Event Channel Sink Connector Event Channel</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__EVENT_CHANNEL_SINK_CONNECTOR_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__EVENT_CHANNEL_SINK_CONNECTOR_EVENT_CHANNEL;
-
-	/**
-	 * The feature id for the '<em><b>Parent Structure Event Channel</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__PARENT_STRUCTURE_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__PARENT_STRUCTURE_EVENT_CHANNEL;
+	int DATA_CHANNEL__ENTITY_NAME = EntityPackage.ENTITY__ENTITY_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Capacity</b></em>' attribute.
@@ -128,7 +91,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__CAPACITY = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 0;
+	int DATA_CHANNEL__CAPACITY = EntityPackage.ENTITY_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Source Event Group</b></em>' reference.
@@ -137,7 +100,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__SOURCE_EVENT_GROUP = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 1;
+	int DATA_CHANNEL__SOURCE_EVENT_GROUP = EntityPackage.ENTITY_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Sink Event Group</b></em>' reference.
@@ -146,7 +109,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__SINK_EVENT_GROUP = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 2;
+	int DATA_CHANNEL__SINK_EVENT_GROUP = EntityPackage.ENTITY_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Data Channel Source Connector</b></em>' reference list.
@@ -155,7 +118,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__DATA_CHANNEL_SOURCE_CONNECTOR = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 3;
+	int DATA_CHANNEL__DATA_CHANNEL_SOURCE_CONNECTOR = EntityPackage.ENTITY_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Data Channel Sink Connector</b></em>' reference list.
@@ -164,7 +127,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__DATA_CHANNEL_SINK_CONNECTOR = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 4;
+	int DATA_CHANNEL__DATA_CHANNEL_SINK_CONNECTOR = EntityPackage.ENTITY_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Partitioning</b></em>' containment reference.
@@ -173,7 +136,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__PARTITIONING = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 5;
+	int DATA_CHANNEL__PARTITIONING = EntityPackage.ENTITY_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Time Grouping</b></em>' containment reference.
@@ -182,7 +145,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__TIME_GROUPING = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 6;
+	int DATA_CHANNEL__TIME_GROUPING = EntityPackage.ENTITY_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Joins</b></em>' reference list.
@@ -191,7 +154,34 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__JOINS = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 7;
+	int DATA_CHANNEL__JOINS = EntityPackage.ENTITY_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Distribution</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL__OUTGOING_DISTRIBUTION = EntityPackage.ENTITY_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Scheduling</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL__SCHEDULING = EntityPackage.ENTITY_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Put Policy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL__PUT_POLICY = EntityPackage.ENTITY_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the '<em>Data Channel</em>' class.
@@ -200,7 +190,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_FEATURE_COUNT = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 8;
+	int DATA_CHANNEL_FEATURE_COUNT = EntityPackage.ENTITY_FEATURE_COUNT + 11;
 
 	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.system.DataChannel <em>Data Channel</em>}'.
@@ -301,6 +291,39 @@ public interface SystemPackage extends EPackage {
 	EReference getDataChannel_Joins();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getOutgoingDistribution <em>Outgoing Distribution</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Outgoing Distribution</em>'.
+	 * @see org.palladiosimulator.indirections.system.DataChannel#getOutgoingDistribution()
+	 * @see #getDataChannel()
+	 * @generated
+	 */
+	EAttribute getDataChannel_OutgoingDistribution();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getScheduling <em>Scheduling</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Scheduling</em>'.
+	 * @see org.palladiosimulator.indirections.system.DataChannel#getScheduling()
+	 * @see #getDataChannel()
+	 * @generated
+	 */
+	EAttribute getDataChannel_Scheduling();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getPutPolicy <em>Put Policy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Put Policy</em>'.
+	 * @see org.palladiosimulator.indirections.system.DataChannel#getPutPolicy()
+	 * @see #getDataChannel()
+	 * @generated
+	 */
+	EAttribute getDataChannel_PutPolicy();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -395,6 +418,30 @@ public interface SystemPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DATA_CHANNEL__JOINS = eINSTANCE.getDataChannel_Joins();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing Distribution</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_CHANNEL__OUTGOING_DISTRIBUTION = eINSTANCE.getDataChannel_OutgoingDistribution();
+
+		/**
+		 * The meta object literal for the '<em><b>Scheduling</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_CHANNEL__SCHEDULING = eINSTANCE.getDataChannel_Scheduling();
+
+		/**
+		 * The meta object literal for the '<em><b>Put Policy</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_CHANNEL__PUT_POLICY = eINSTANCE.getDataChannel_PutPolicy();
 
 	}
 

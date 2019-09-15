@@ -74,8 +74,8 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
 			return createSchedulingFromString(eDataType, initialValue);
 		case DatatypesPackage.PUT_POLICY:
 			return createPutPolicyFromString(eDataType, initialValue);
-		case DatatypesPackage.AGGREGATION:
-			return createAggregationFromString(eDataType, initialValue);
+		case DatatypesPackage.OUTGOING_DISTRIBUTION:
+			return createOutgoingDistributionFromString(eDataType, initialValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -93,8 +93,8 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
 			return convertSchedulingToString(eDataType, instanceValue);
 		case DatatypesPackage.PUT_POLICY:
 			return convertPutPolicyToString(eDataType, instanceValue);
-		case DatatypesPackage.AGGREGATION:
-			return convertAggregationToString(eDataType, instanceValue);
+		case DatatypesPackage.OUTGOING_DISTRIBUTION:
+			return convertOutgoingDistributionToString(eDataType, instanceValue);
 		default:
 			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -149,8 +149,8 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Aggregation createAggregationFromString(EDataType eDataType, String initialValue) {
-		Aggregation result = Aggregation.get(initialValue);
+	public OutgoingDistribution createOutgoingDistributionFromString(EDataType eDataType, String initialValue) {
+		OutgoingDistribution result = OutgoingDistribution.get(initialValue);
 		if (result == null)
 			throw new IllegalArgumentException(
 					"The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -162,7 +162,7 @@ public class DatatypesFactoryImpl extends EFactoryImpl implements DatatypesFacto
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertAggregationToString(EDataType eDataType, Object instanceValue) {
+	public String convertOutgoingDistributionToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

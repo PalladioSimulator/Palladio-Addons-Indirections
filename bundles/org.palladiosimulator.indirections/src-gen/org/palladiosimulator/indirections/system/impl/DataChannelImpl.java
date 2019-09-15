@@ -16,15 +16,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 
+import org.palladiosimulator.indirections.datatypes.OutgoingDistribution;
+import org.palladiosimulator.indirections.datatypes.PutPolicy;
+import org.palladiosimulator.indirections.datatypes.Scheduling;
 import org.palladiosimulator.indirections.partitioning.Joining;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
 
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
-
-import org.palladiosimulator.pcm.core.composition.impl.EventChannelImpl;
-
+import org.palladiosimulator.pcm.core.entity.impl.EntityImpl;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
 /**
@@ -43,11 +44,14 @@ import org.palladiosimulator.pcm.repository.EventGroup;
  *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getPartitioning <em>Partitioning</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getTimeGrouping <em>Time Grouping</em>}</li>
  *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getJoins <em>Joins</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getOutgoingDistribution <em>Outgoing Distribution</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getScheduling <em>Scheduling</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl#getPutPolicy <em>Put Policy</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class DataChannelImpl extends EventChannelImpl implements DataChannel {
+public class DataChannelImpl extends EntityImpl implements DataChannel {
 	/**
 	 * The default value of the '{@link #getCapacity() <em>Capacity</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -57,6 +61,36 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 	 * @ordered
 	 */
 	protected static final int CAPACITY_EDEFAULT = -1;
+
+	/**
+	 * The default value of the '{@link #getOutgoingDistribution() <em>Outgoing Distribution</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOutgoingDistribution()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OutgoingDistribution OUTGOING_DISTRIBUTION_EDEFAULT = OutgoingDistribution.DISTRIBUTE_TO_ALL;
+
+	/**
+	 * The default value of the '{@link #getScheduling() <em>Scheduling</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getScheduling()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Scheduling SCHEDULING_EDEFAULT = Scheduling.FIRST_IN_FIRST_OUT;
+
+	/**
+	 * The default value of the '{@link #getPutPolicy() <em>Put Policy</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPutPolicy()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final PutPolicy PUT_POLICY_EDEFAULT = PutPolicy.BLOCKING;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -268,6 +302,72 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public OutgoingDistribution getOutgoingDistribution() {
+		return (OutgoingDistribution) eDynamicGet(SystemPackage.DATA_CHANNEL__OUTGOING_DISTRIBUTION,
+				SystemPackage.Literals.DATA_CHANNEL__OUTGOING_DISTRIBUTION, true, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setOutgoingDistribution(OutgoingDistribution newOutgoingDistribution) {
+		eDynamicSet(SystemPackage.DATA_CHANNEL__OUTGOING_DISTRIBUTION,
+				SystemPackage.Literals.DATA_CHANNEL__OUTGOING_DISTRIBUTION, newOutgoingDistribution);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Scheduling getScheduling() {
+		return (Scheduling) eDynamicGet(SystemPackage.DATA_CHANNEL__SCHEDULING,
+				SystemPackage.Literals.DATA_CHANNEL__SCHEDULING, true, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setScheduling(Scheduling newScheduling) {
+		eDynamicSet(SystemPackage.DATA_CHANNEL__SCHEDULING, SystemPackage.Literals.DATA_CHANNEL__SCHEDULING,
+				newScheduling);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PutPolicy getPutPolicy() {
+		return (PutPolicy) eDynamicGet(SystemPackage.DATA_CHANNEL__PUT_POLICY,
+				SystemPackage.Literals.DATA_CHANNEL__PUT_POLICY, true, true);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPutPolicy(PutPolicy newPutPolicy) {
+		eDynamicSet(SystemPackage.DATA_CHANNEL__PUT_POLICY, SystemPackage.Literals.DATA_CHANNEL__PUT_POLICY,
+				newPutPolicy);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -330,6 +430,12 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 			return getTimeGrouping();
 		case SystemPackage.DATA_CHANNEL__JOINS:
 			return getJoins();
+		case SystemPackage.DATA_CHANNEL__OUTGOING_DISTRIBUTION:
+			return getOutgoingDistribution();
+		case SystemPackage.DATA_CHANNEL__SCHEDULING:
+			return getScheduling();
+		case SystemPackage.DATA_CHANNEL__PUT_POLICY:
+			return getPutPolicy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -370,6 +476,15 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 			getJoins().clear();
 			getJoins().addAll((Collection<? extends Joining>) newValue);
 			return;
+		case SystemPackage.DATA_CHANNEL__OUTGOING_DISTRIBUTION:
+			setOutgoingDistribution((OutgoingDistribution) newValue);
+			return;
+		case SystemPackage.DATA_CHANNEL__SCHEDULING:
+			setScheduling((Scheduling) newValue);
+			return;
+		case SystemPackage.DATA_CHANNEL__PUT_POLICY:
+			setPutPolicy((PutPolicy) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -406,6 +521,15 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 		case SystemPackage.DATA_CHANNEL__JOINS:
 			getJoins().clear();
 			return;
+		case SystemPackage.DATA_CHANNEL__OUTGOING_DISTRIBUTION:
+			setOutgoingDistribution(OUTGOING_DISTRIBUTION_EDEFAULT);
+			return;
+		case SystemPackage.DATA_CHANNEL__SCHEDULING:
+			setScheduling(SCHEDULING_EDEFAULT);
+			return;
+		case SystemPackage.DATA_CHANNEL__PUT_POLICY:
+			setPutPolicy(PUT_POLICY_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -434,6 +558,12 @@ public class DataChannelImpl extends EventChannelImpl implements DataChannel {
 			return getTimeGrouping() != null;
 		case SystemPackage.DATA_CHANNEL__JOINS:
 			return !getJoins().isEmpty();
+		case SystemPackage.DATA_CHANNEL__OUTGOING_DISTRIBUTION:
+			return getOutgoingDistribution() != OUTGOING_DISTRIBUTION_EDEFAULT;
+		case SystemPackage.DATA_CHANNEL__SCHEDULING:
+			return getScheduling() != SCHEDULING_EDEFAULT;
+		case SystemPackage.DATA_CHANNEL__PUT_POLICY:
+			return getPutPolicy() != PUT_POLICY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
