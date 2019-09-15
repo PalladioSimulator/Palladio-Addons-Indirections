@@ -21,7 +21,6 @@ import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.Windowing;
-import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.scheduler.Emitters.EqualityCollectorWithHoldback;
 import org.palladiosimulator.indirections.scheduler.Emitters.StatefulEmitter;
 import org.palladiosimulator.indirections.scheduler.Emitters.Window;
