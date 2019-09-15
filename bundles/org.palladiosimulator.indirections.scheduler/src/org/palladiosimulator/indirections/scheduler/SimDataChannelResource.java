@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,8 +26,6 @@ import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
-
-import com.google.common.base.Optional;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.Context;
