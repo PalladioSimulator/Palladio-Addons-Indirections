@@ -16,6 +16,7 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
+import org.palladiosimulator.indirections.simulizar.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
@@ -199,7 +200,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 	private IDataChannelResource getDataChannelResource(EmitDataAction action) {
 		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
 		DataSourceRole sourceRole = action.getDataSourceRole();
-		DataChannel dataChannel = getConnectedSinkDataChannel(assemblyContext, sourceRole);
+		DataChannel dataChannel = IndirectionModelUtil.getConnectedSinkDataChannel(assemblyContext, sourceRole);
 
 		IDataChannelResource dataChannelResource = dataChannelRegistry.getOrCreateDataChannelResource(dataChannel);
 		return dataChannelResource;
@@ -215,10 +216,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
 		DataSinkRole sinkRole = action.getDataSinkRole();
 
-		return getSinkConnectorForRole(assemblyContext, sinkRole);
+		return IndirectionModelUtil.getSinkConnectorForRole(assemblyContext, sinkRole);
 	}
 
-	private SimulatedResourceContainer getSimulatedResourceContainer(EventChannel eventChannel,
+	private SimulatedResourceContainer getSimulatedResourceContainer(DataChannel dataChannel,
 			AllocationContext eventChannelAllocationContext) {
 		List<SimulatedResourceContainer> simulatedResourceContainers = this.context.getModel().getResourceRegistry()
 				.getSimulatedResourceContainers();
@@ -226,7 +227,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 				.filter(it -> it.getResourceContainerID()
 						.equals(eventChannelAllocationContext.getResourceContainer_AllocationContext().getId()))
 				.findAny().orElseThrow(() -> new PCMModelAccessException(
-						"Could not find resource container for event channel " + eventChannel));
+						"Could not find resource container for event channel " + dataChannel));
 	}
 
 	private AllocationContext getAllocationContext(EventChannel eventChannel) {
@@ -234,36 +235,5 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 				.filter(it -> it.getEventChannel__AllocationContext() == eventChannel).findAny()
 				.orElseThrow(() -> new PCMModelAccessException(
 						"Could not find allocation context for event channel " + eventChannel));
-	}
-
-	private DataChannel getConnectedSinkDataChannel(AssemblyContext assemblyContext, DataSourceRole sourceRole) {
-		EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
-				.getConnectors__ComposedStructure();
-		List<DataChannelSourceConnector> dataChannelSourceConnectors = connectors.stream()
-				.filter(DataChannelSourceConnector.class::isInstance).map(DataChannelSourceConnector.class::cast)
-				.collect(Collectors.toList());
-
-		return dataChannelSourceConnectors.stream().filter(it -> it.getSourceRole().equals(sourceRole)).findAny()
-				.orElseThrow(
-						() -> new PCMModelAccessException("Could not find data channel for source role " + sourceRole))
-				.getDataChannel();
-	}
-
-	private DataChannelSinkConnector getSinkConnectorForRole(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
-		EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
-				.getConnectors__ComposedStructure();
-		List<DataChannelSinkConnector> dataChannelSinkConnectors = connectors.stream()
-				.filter(DataChannelSinkConnector.class::isInstance).map(DataChannelSinkConnector.class::cast)
-				.collect(Collectors.toList());
-
-		DataChannelSinkConnector sinkConnectorForRole = dataChannelSinkConnectors.stream()
-				.filter(it -> it.getDataSinkRole().equals(sinkRole)).findAny().orElseThrow(
-						() -> new PCMModelAccessException("Could not find data channel for sink role " + sinkRole));
-
-		return sinkConnectorForRole;
-	}
-
-	private DataChannel getConnectedSourceDataChannel(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
-		return getSinkConnectorForRole(assemblyContext, sinkRole).getDataChannel();
 	}
 }
