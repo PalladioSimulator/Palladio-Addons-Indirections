@@ -1,6 +1,8 @@
 package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -215,7 +217,7 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
     }
 
     @Override
-    protected void allowToPut(final ProcessWaitingToEmit process) {
+    protected void acceptDataFrom(final ProcessWaitingToEmit process) {
         if (this.collectAll) {
             System.out.println("Collecting all -> adding to outgoing group.");
             this.addToOutgoingFrame(process.frame);
@@ -237,10 +239,10 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
     }
 
     @Override
-    protected void allowToGet(final ProcessWaitingToConsume process) {
-        process.callback.accept(this.getNextAvailableElement(process.sinkConnector));
+    protected List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process) {
+        return Collections.singletonList(this.getNextAvailableElement(process.sinkConnector));
     }
-
+    
     private void addToOutgoingFrame(final IndirectionDate frame) {
         if (this.outgoingQueues.values().stream().anyMatch(it -> it.elements.size() != 1)) {
             throw new AssertionError("Queue must contain exactly one element at all times if collect all is true.");
@@ -281,12 +283,12 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
     }
 
     @Override
-    protected boolean canAccept(ProcessWaitingToEmit process) {
+    protected boolean canAcceptDataFrom(ProcessWaitingToEmit process) {
         return (this.capacity == -1) || (this.capacity - this.incomingQueue.size() > 0);
     }
 
     @Override
-    protected boolean canProvide(ProcessWaitingToConsume process) {
+    protected boolean canProvideDataFor(ProcessWaitingToConsume process) {
         return this.outgoingQueues.get(process.sinkConnector).elements.size() > 0;
     }
 }

@@ -163,11 +163,11 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         final boolean isNextProcess = this.waitingToPutQueue.isEmpty()
                 || this.waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
         
-        return isNextProcess && canAccept(process);
+        return isNextProcess && canAcceptDataFrom(process);
     }
 
-    protected abstract boolean canAccept(ProcessWaitingToEmit process);
-    protected abstract boolean canProvide(ProcessWaitingToConsume process);
+    protected abstract boolean canAcceptDataFrom(ProcessWaitingToEmit process);
+    protected abstract boolean canProvideDataFor(ProcessWaitingToConsume process);
 
     private boolean canProceedToGet(final ProcessWaitingToConsume process) {
         final Queue<ProcessWaitingToConsume> waitingToGetQueue = this.outgoingQueues
@@ -175,7 +175,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         final boolean isNextProcess = waitingToGetQueue.isEmpty()
                 || waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
         
-        return isNextProcess && canProvide(process);
+        return isNextProcess && canProvideDataFor(process);
     }
 
     @Override
@@ -188,17 +188,17 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         return this.capacity - this.incomingQueue.size();
     }
 
-    protected abstract void allowToGet(ProcessWaitingToConsume process);
+    protected abstract List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process);
     
     private void allowToGetAndActivate(ProcessWaitingToConsume process) {
-        allowToGet(process);
+        this.provideDataFor(process).forEach(process.callback::accept);
         activateIfWaiting(process);
     }
 
-    protected abstract void allowToPut(ProcessWaitingToEmit process);
+    protected abstract void acceptDataFrom(ProcessWaitingToEmit process);
 
     private void allowToPutAndActivate(ProcessWaitingToEmit process) {
-        allowToPut(process);
+        acceptDataFrom(process);
         activateIfWaiting(process);
     }
     

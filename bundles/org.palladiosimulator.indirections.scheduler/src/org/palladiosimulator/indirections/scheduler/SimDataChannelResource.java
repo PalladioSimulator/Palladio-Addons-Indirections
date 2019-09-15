@@ -26,20 +26,24 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
     }
 
     @Override
-    protected void allowToGet(ProcessWaitingToConsume process) {
-    }
-
-    @Override
-    protected void allowToPut(ProcessWaitingToEmit process) {
-    }
-
-    @Override
-    protected boolean canAccept(ProcessWaitingToEmit process) {
+    protected boolean canAcceptDataFrom(ProcessWaitingToEmit process) {
         return false;
     }
 
     @Override
-    protected boolean canProvide(ProcessWaitingToConsume process) {
+    protected boolean canProvideDataFor(ProcessWaitingToConsume process) {
         return false;
+    }
+
+    @Override
+    protected List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected void acceptDataFrom(ProcessWaitingToEmit process) {
+        // TODO Auto-generated method stub
+        
     }
 }
