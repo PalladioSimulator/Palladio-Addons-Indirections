@@ -74,14 +74,14 @@ public interface DatatypesPackage extends EPackage {
 	int PUT_POLICY = 1;
 
 	/**
-	 * The meta object id for the '{@link org.palladiosimulator.indirections.datatypes.Aggregation <em>Aggregation</em>}' enum.
+	 * The meta object id for the '{@link org.palladiosimulator.indirections.datatypes.OutgoingDistribution <em>Outgoing Distribution</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.palladiosimulator.indirections.datatypes.Aggregation
-	 * @see org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl#getAggregation()
+	 * @see org.palladiosimulator.indirections.datatypes.OutgoingDistribution
+	 * @see org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl#getOutgoingDistribution()
 	 * @generated
 	 */
-	int AGGREGATION = 2;
+	int OUTGOING_DISTRIBUTION = 2;
 
 	/**
 	 * Returns the meta object for enum '{@link org.palladiosimulator.indirections.datatypes.Scheduling <em>Scheduling</em>}'.
@@ -104,14 +104,14 @@ public interface DatatypesPackage extends EPackage {
 	EEnum getPutPolicy();
 
 	/**
-	 * Returns the meta object for enum '{@link org.palladiosimulator.indirections.datatypes.Aggregation <em>Aggregation</em>}'.
+	 * Returns the meta object for enum '{@link org.palladiosimulator.indirections.datatypes.OutgoingDistribution <em>Outgoing Distribution</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Aggregation</em>'.
-	 * @see org.palladiosimulator.indirections.datatypes.Aggregation
+	 * @return the meta object for enum '<em>Outgoing Distribution</em>'.
+	 * @see org.palladiosimulator.indirections.datatypes.OutgoingDistribution
 	 * @generated
 	 */
-	EEnum getAggregation();
+	EEnum getOutgoingDistribution();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -156,14 +156,14 @@ public interface DatatypesPackage extends EPackage {
 		EEnum PUT_POLICY = eINSTANCE.getPutPolicy();
 
 		/**
-		 * The meta object literal for the '{@link org.palladiosimulator.indirections.datatypes.Aggregation <em>Aggregation</em>}' enum.
+		 * The meta object literal for the '{@link org.palladiosimulator.indirections.datatypes.OutgoingDistribution <em>Outgoing Distribution</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.palladiosimulator.indirections.datatypes.Aggregation
-		 * @see org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl#getAggregation()
+		 * @see org.palladiosimulator.indirections.datatypes.OutgoingDistribution
+		 * @see org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl#getOutgoingDistribution()
 		 * @generated
 		 */
-		EEnum AGGREGATION = eINSTANCE.getAggregation();
+		EEnum OUTGOING_DISTRIBUTION = eINSTANCE.getOutgoingDistribution();
 
 	}
 

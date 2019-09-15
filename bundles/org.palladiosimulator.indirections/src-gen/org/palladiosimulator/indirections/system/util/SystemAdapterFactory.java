@@ -12,9 +12,6 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 
 import org.palladiosimulator.indirections.system.*;
-
-import org.palladiosimulator.pcm.core.composition.EventChannel;
-
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 
@@ -94,11 +91,6 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseEventChannel(EventChannel object) {
-			return createEventChannelAdapter();
-		}
-
-		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -170,20 +162,6 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEntityAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.core.composition.EventChannel <em>Event Channel</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.palladiosimulator.pcm.core.composition.EventChannel
-	 * @generated
-	 */
-	public Adapter createEventChannelAdapter() {
 		return null;
 	}
 

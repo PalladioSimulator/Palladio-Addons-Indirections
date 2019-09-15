@@ -34,12 +34,6 @@
       <eLiterals name="DiscardLastIn" value="2"/>
       <eLiterals name="DiscardIncoming" value="3"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="Aggregation">
-      <eLiterals name="Average"/>
-      <eLiterals name="ExactlyOne" value="1"/>
-      <eLiterals name="Count" value="2"/>
-      <eLiterals name="First" value="3"/>
-    </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="OutgoingDistribution">
       <eLiterals name="DistributeToAll"/>
       <eLiterals name="RoundRobin" value="1"/>
@@ -72,7 +66,7 @@
   </eSubpackages>
   <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirections/System/1.0"
       nsPrefix="org.palladiosimulator.indirections.system">
-    <eClassifiers xsi:type="ecore:EClass" name="DataChannel" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/EventChannel">
+    <eClassifiers xsi:type="ecore:EClass" name="DataChannel" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/Entity">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacity" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" transient="true"
           defaultValueLiteral="-1"/>
@@ -94,6 +88,8 @@
           eType="#//partitioning/Joining"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoingDistribution"
           eType="#//datatypes/OutgoingDistribution"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="scheduling" eType="#//datatypes/Scheduling"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="putPolicy" eType="#//datatypes/PutPolicy"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirections/Composition/1.0"
