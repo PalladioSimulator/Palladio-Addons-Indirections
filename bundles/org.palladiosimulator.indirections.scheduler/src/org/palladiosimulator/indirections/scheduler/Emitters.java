@@ -3,12 +3,11 @@ package org.palladiosimulator.indirections.scheduler;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Function;
 
 import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
-
-import com.google.common.base.Optional;
 
 public final class Emitters {
 	public static interface StatefulEmitter<T, U> {
@@ -38,7 +37,7 @@ public final class Emitters {
 				R collectionKey = IterableUtil.claimEqualKey(collection, keyFunction);
 				if (collectionKey.equals(keyFunction.apply(t))) {
 					collection.add(t);
-					return Optional.absent();
+					return Optional.empty();
 				}
 			}
 
@@ -50,7 +49,7 @@ public final class Emitters {
 				return Optional.of(currentCollections.remove());
 			}
 			
-			return Optional.absent();
+			return Optional.empty();
 		}
 	}
 	
@@ -98,7 +97,7 @@ public final class Emitters {
 		@Override
 		public Optional<List<Window>> accept(Double t) {
 			List<Window> windows = windowCalculator.advanceUntil(t);
-			return windows.isEmpty() ? Optional.absent() : Optional.of(windows);
+			return windows.isEmpty() ? Optional.empty() : Optional.of(windows);
 		}
 		
 	}
