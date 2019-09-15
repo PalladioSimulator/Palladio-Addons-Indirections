@@ -13,9 +13,11 @@ import java.util.function.Predicate;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.DeprecatedSimDataChannelResource.KeyedFrame;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
+import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionUtil;
 
@@ -36,7 +38,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     protected final int capacity;
 
     protected class OutgoingQueue {
-        public final Queue<Map<String, Object>> elements;
+        public final Queue<IndirectionDate> elements;
         public final Queue<ProcessWaitingToConsume> processes;
 
         public OutgoingQueue() {
@@ -84,13 +86,13 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 
     private void notifyProcessesWaitingToGet() {
         for (final OutgoingQueue queue : this.outgoingQueues.values()) {
-            this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet, this::allowToGet,
-                    this::notifyProcessesWaitingToPut);
+            this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet,
+                    this::allowToGetAndActivate, this::notifyProcessesWaitingToPut);
         }
     }
 
     private void notifyProcessesWaitingToPut() {
-        this.notifyProcesses(this.waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut, this::allowToPut,
+        this.notifyProcesses(this.waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut, this::allowToPutAndActivate,
                 this::notifyProcessesWaitingToGet);
     }
 
@@ -107,7 +109,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     @Override
-    public boolean put(final ISchedulableProcess schedulableProcess, final Map<String, Object> eventStackframe) {
+    public boolean put(final ISchedulableProcess schedulableProcess, final IndirectionDate eventStackframe) {
         IndirectionUtil.validateStackframeStructure(eventStackframe, this.getIncomingParameterName());
 
         if (!this.model.getSimulationControl().isRunning()) {
@@ -116,7 +118,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 
         final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, eventStackframe);
         if (this.canProceedToPut(process)) {
-            this.allowToPut(process);
+            this.allowToPutAndActivate(process);
             this.notifyProcessesWaitingToGet();
             return true;
         } else {
@@ -128,7 +130,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 
     @Override
     public boolean get(final ISchedulableProcess schedulableProcess, final DataChannelSinkConnector sinkConnector,
-            final Consumer<Map<String, Object>> callback) {
+            final Consumer<IndirectionDate> callback) {
         if (!this.model.getSimulationControl().isRunning()) {
             return true;
         }
@@ -141,7 +143,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         final ProcessWaitingToConsume process = new ProcessWaitingToConsume(this.model, schedulableProcess,
                 sinkConnector, callback);
         if (this.canProceedToGet(process)) {
-            this.allowToGet(process);
+            this.allowToGetAndActivate(process);
             this.notifyProcessesWaitingToPut();
             return true;
         } else {
@@ -151,9 +153,16 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         }
     }
 
+    private void activateIfWaiting(SuspendableSchedulerEntity process) {
+        if (process.isWaiting()) {
+            process.activate();
+        }
+    }
+
     private boolean canProceedToPut(final ProcessWaitingToEmit process) {
         final boolean isNextProcess = this.waitingToPutQueue.isEmpty()
                 || this.waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
+        
         if (this.capacity == -1) {
             return isNextProcess;
         } else {
@@ -182,9 +191,19 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     protected abstract void allowToGet(ProcessWaitingToConsume process);
+    
+    private void allowToGetAndActivate(ProcessWaitingToConsume process) {
+        allowToGet(process);
+        activateIfWaiting(process);
+    }
 
     protected abstract void allowToPut(ProcessWaitingToEmit process);
 
+    private void allowToPutAndActivate(ProcessWaitingToEmit process) {
+        allowToPut(process);
+        activateIfWaiting(process);
+    }
+    
     protected String getOutgoingParameterName() {
         return IndirectionUtil.getOneParameter(this.dataChannel.getSourceEventGroup()).getParameterName();
     }

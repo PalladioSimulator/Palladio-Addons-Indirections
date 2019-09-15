@@ -12,6 +12,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
@@ -48,15 +49,15 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
 
     public class KeyedFrame {
         public final Object key;
-        public final Map<String, Object> frame;
+        public final IndirectionDate frame;
         public final long id;
 
-        public KeyedFrame(final Map<String, Object> frame) {
+        public KeyedFrame(final IndirectionDate frame) {
             if (DeprecatedSimDataChannelResource.this.isWindowingTriggeredPeriodically()) {
                 this.key = DeprecatedSimDataChannelResource.this.model.getSimulationControl()
                         .getCurrentSimulationTime();
             } else {
-                final SimulatedStackframe<Object> simulatedStackframe = SimulatedStackHelper.createFromMap(frame);
+                final SimulatedStackframe<Object> simulatedStackframe = SimulatedStackHelper.createFromMap(frame.data);
 
                 Object keyValue = null;
                 try {
@@ -134,15 +135,15 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
         return elements.stream().collect(Collectors.groupingBy(it -> this.getPartition(it.frame)));
     }
 
-    private List<Map<String, Object>> createGroupOfOutgoingFrames(final List<KeyedFrame> elements, final Object key) {
+    private List<IndirectionDate> createGroupOfOutgoingFrames(final List<KeyedFrame> elements, final Object key) {
         final Map<Object, List<KeyedFrame>> partitions = this.createPartitions(elements);
-        final List<Map<String, Object>> result = new ArrayList<>();
+        final List<IndirectionDate> result = new ArrayList<>();
         for (final Entry<Object, List<KeyedFrame>> entry : partitions.entrySet()) {
-            final Map<String, Object> windowFrame = this.createCollectionFrame();
-            windowFrame.put(this.getOutgoingParameterName() + ".PARTITION", entry.getKey());
-            windowFrame.put(this.getOutgoingParameterName() + ".KEY", key);
-            windowFrame.put(this.getOutgoingParameterName() + ".NUMBER_OF_ELEMENTS", entry.getValue().size());
-            windowFrame.put(this.getOutgoingParameterName() + ".INNER", entry.getValue());
+            final IndirectionDate windowFrame = this.createCollectionFrame();
+            windowFrame.data.put(this.getOutgoingParameterName() + ".PARTITION", entry.getKey());
+            windowFrame.data.put(this.getOutgoingParameterName() + ".KEY", key);
+            windowFrame.data.put(this.getOutgoingParameterName() + ".NUMBER_OF_ELEMENTS", entry.getValue().size());
+            windowFrame.data.put(this.getOutgoingParameterName() + ".INNER", entry.getValue());
             result.add(windowFrame);
         }
 
@@ -151,7 +152,7 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
 
     protected void createAllCurrentlyOutgoingElements() {
         final Set<KeyedFrame> flaggedForRemoval = new HashSet<KeyedFrame>();
-        final List<Map<String, Object>> outgoingFrames = new ArrayList<>();
+        final List<IndirectionDate> outgoingFrames = new ArrayList<>();
 
         if (this.isWindowingTriggeredPeriodically()) {
             final Optional<List<Window>> windows = this.windowEmitter.accept(this.getTimeToAdvanceWindowingTo());
@@ -181,8 +182,7 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
                             + this.model.getSimulationControl().getCurrentSimulationTime() + "):");
                     final Object key = IterableUtil
                             .claimEqual(result.get().stream().map((it) -> it.key).collect(Collectors.toList()));
-                    final List<Map<String, Object>> newOutgoingFrames = this.createGroupOfOutgoingFrames(result.get(),
-                            key);
+                    final List<IndirectionDate> newOutgoingFrames = this.createGroupOfOutgoingFrames(result.get(), key);
                     outgoingFrames.addAll(newOutgoingFrames);
                     newOutgoingFrames.forEach(it -> System.out.println(" - " + it));
                     flaggedForRemoval.addAll(result.get());
@@ -194,17 +194,17 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
             this.incomingQueue.remove(frameToRemove);
         }
 
-        for (final Map<String, Object> outgoingFrame : outgoingFrames) {
+        for (final IndirectionDate outgoingFrame : outgoingFrames) {
             this.outgoingQueues.forEach((k, v) -> v.elements.add(outgoingFrame));
         }
     }
 
-    private Object getPartition(final Map<String, Object> map) {
+    private Object getPartition(final IndirectionDate date) {
         if (this.partitioning == null) {
             return DUMMY_KEY;
         }
 
-        final SimulatedStackframe<Object> stack = SimulatedStackHelper.createFromMap(map);
+        final SimulatedStackframe<Object> stack = SimulatedStackHelper.createFromMap(date.data);
 
         return this.partitioning.getSpecification().stream().collect(Collectors.toMap(it -> it.getSpecification(),
                 it -> StackContext.evaluateStatic(it.getSpecification(), stack)));
@@ -234,52 +234,45 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
             System.out.println("Added frame directly: " + process.frame);
             this.outgoingQueues.forEach((k, v) -> v.elements.add(process.frame));
         }
-
-        if (process.isWaiting()) {
-            process.activate();
-        }
     }
 
     @Override
     protected void allowToGet(final ProcessWaitingToConsume process) {
         process.callback.accept(this.getNextAvailableElement(process.sinkConnector));
-        if (process.isWaiting()) {
-            process.activate();
-        }
     }
 
-    private void addToOutgoingFrame(final Map<String, Object> frame) {
+    private void addToOutgoingFrame(final IndirectionDate frame) {
         if (this.outgoingQueues.values().stream().anyMatch(it -> it.elements.size() != 1)) {
             throw new AssertionError("Queue must contain exactly one element at all times if collect all is true.");
         }
 
         for (final OutgoingQueue outgoingQueue : this.outgoingQueues.values()) {
-            final Map<String, Object> collectionFrame = outgoingQueue.elements.remove();
+            final IndirectionDate collectionFrame = outgoingQueue.elements.remove();
             this.addToCollectionFrame(collectionFrame, frame);
             outgoingQueue.elements.add(collectionFrame);
         }
     }
 
-    private HashMap<String, Object> createCollectionFrame() {
+    private IndirectionDate createCollectionFrame() {
         final HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("data.INNER.VALUE", new ArrayList<Map<String, Object>>());
         result.put("data.INNER.NUMBER_OF_ELEMENTS", 0);
 
-        return result;
+        return new IndirectionDate(result);
     }
 
-    private void addToCollectionFrame(final Map<String, Object> collectionFrame, final Map<String, Object> frame) {
-        final List<Map<String, Object>> inner = (List<Map<String, Object>>) collectionFrame.get("data.INNER.VALUE");
-        Integer numberOfElements = (Integer) collectionFrame.get("data.INNER.NUMBER_OF_ELEMENTS");
+    private void addToCollectionFrame(final IndirectionDate collectionFrame, final IndirectionDate frame) {
+        final List<IndirectionDate> inner = (List<IndirectionDate>) collectionFrame.data.get("data.INNER.VALUE");
+        Integer numberOfElements = (Integer) collectionFrame.data.get("data.INNER.NUMBER_OF_ELEMENTS");
 
         inner.add(frame);
         numberOfElements++;
 
-        collectionFrame.put("data.INNER.NUMBER_OF_ELEMENTS", numberOfElements);
+        collectionFrame.data.put("data.INNER.NUMBER_OF_ELEMENTS", numberOfElements);
     }
 
-    private Map<String, Object> getNextAvailableElement(final DataChannelSinkConnector sinkConnector) {
-        final Map<String, Object> nextAvailableElement = this.outgoingQueues.get(sinkConnector).elements.remove();
+    private IndirectionDate getNextAvailableElement(final DataChannelSinkConnector sinkConnector) {
+        final IndirectionDate nextAvailableElement = this.outgoingQueues.get(sinkConnector).elements.remove();
         if (this.collectAll) {
             this.outgoingQueues.get(sinkConnector).elements.add(this.createCollectionFrame());
         }

@@ -1,8 +1,8 @@
 package org.palladiosimulator.indirections.util;
 
-import java.util.Map;
 import java.util.Map.Entry;
 
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.Parameter;
 
@@ -11,10 +11,10 @@ public final class IndirectionUtil {
 
     }
 
-    public static void validateStackframeStructure(final Map<String, Object> dataMap, final String parameterName) {
+    public static void validateStackframeStructure(final IndirectionDate dataMap, final String parameterName) {
         final String parameterCharacterisationPrefix = parameterName + ".";
 
-        for (final Entry<String, Object> entry : dataMap.entrySet()) {
+        for (final Entry<String, Object> entry : dataMap.data.entrySet()) {
             if (!entry.getKey().startsWith(parameterCharacterisationPrefix)) {
                 throw new IllegalArgumentException("Invalid characteristation for data frame: " + entry.getKey()
                         + ", expected characteristations for " + parameterName);

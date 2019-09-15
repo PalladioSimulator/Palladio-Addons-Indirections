@@ -12,6 +12,7 @@ import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.system.DataChannel;
@@ -160,7 +161,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
 
         // TODO: check cases in which getContents does not work
-        dataChannelResource.put(this.context.getThread(), this.toMap(eventStackframe.getContents()));
+        dataChannelResource.put(this.context.getThread(), new IndirectionDate(this.toMap(eventStackframe.getContents())));
 
         return true;
     }
@@ -175,7 +176,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 //		System.out.println("Trying to get (" + randomUUID + ")");
         final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector,
                 (eventMap) -> {
-                    final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap);
+                    final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap.data);
                     final String parameterName = IterableUtil
                             .claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
                             .getParameter__EventType().getParameterName();

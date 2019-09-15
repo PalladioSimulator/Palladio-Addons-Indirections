@@ -8,10 +8,10 @@ import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 
 public interface IDataChannelResource {
-    public abstract boolean put(ISchedulableProcess process, Map<String, Object> frame);
+    public abstract boolean put(ISchedulableProcess process, IndirectionDate frame);
 
     public abstract boolean get(ISchedulableProcess process, DataChannelSinkConnector sinkConnector,
-            Consumer<Map<String, Object>> callback);
+            Consumer<IndirectionDate> callback);
 
     /**
      * Name of the resource.
