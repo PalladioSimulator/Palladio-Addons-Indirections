@@ -13,38 +13,41 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 
 public final class IndirectionModelUtil {
-	private IndirectionModelUtil() {
-		
-	}
+    private IndirectionModelUtil() {
 
-	public static DataChannel getConnectedSinkDataChannel(AssemblyContext assemblyContext, DataSourceRole sourceRole) {
-		EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
-				.getConnectors__ComposedStructure();
-		List<DataChannelSourceConnector> dataChannelSourceConnectors = connectors.stream()
-				.filter(DataChannelSourceConnector.class::isInstance).map(DataChannelSourceConnector.class::cast)
-				.collect(Collectors.toList());
+    }
 
-		return dataChannelSourceConnectors.stream().filter(it -> it.getSourceRole().equals(sourceRole)).findAny()
-				.orElseThrow(
-						() -> new IllegalStateException("Could not find data channel for source role " + sourceRole))
-				.getDataChannel();
-	}
+    public static DataChannel getConnectedSinkDataChannel(final AssemblyContext assemblyContext,
+            final DataSourceRole sourceRole) {
+        final EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
+                .getConnectors__ComposedStructure();
+        final List<DataChannelSourceConnector> dataChannelSourceConnectors = connectors.stream()
+                .filter(DataChannelSourceConnector.class::isInstance).map(DataChannelSourceConnector.class::cast)
+                .collect(Collectors.toList());
 
-	public static DataChannelSinkConnector getSinkConnectorForRole(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
-		EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
-				.getConnectors__ComposedStructure();
-		List<DataChannelSinkConnector> dataChannelSinkConnectors = connectors.stream()
-				.filter(DataChannelSinkConnector.class::isInstance).map(DataChannelSinkConnector.class::cast)
-				.collect(Collectors.toList());
+        return dataChannelSourceConnectors.stream().filter(it -> it.getSourceRole().equals(sourceRole)).findAny()
+                .orElseThrow(
+                        () -> new IllegalStateException("Could not find data channel for source role " + sourceRole))
+                .getDataChannel();
+    }
 
-		DataChannelSinkConnector sinkConnectorForRole = dataChannelSinkConnectors.stream()
-				.filter(it -> it.getDataSinkRole().equals(sinkRole)).findAny().orElseThrow(
-						() -> new IllegalStateException("Could not find data channel for sink role " + sinkRole));
+    public static DataChannelSinkConnector getSinkConnectorForRole(final AssemblyContext assemblyContext,
+            final DataSinkRole sinkRole) {
+        final EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
+                .getConnectors__ComposedStructure();
+        final List<DataChannelSinkConnector> dataChannelSinkConnectors = connectors.stream()
+                .filter(DataChannelSinkConnector.class::isInstance).map(DataChannelSinkConnector.class::cast)
+                .collect(Collectors.toList());
 
-		return sinkConnectorForRole;
-	}
+        final DataChannelSinkConnector sinkConnectorForRole = dataChannelSinkConnectors.stream()
+                .filter(it -> it.getDataSinkRole().equals(sinkRole)).findAny()
+                .orElseThrow(() -> new IllegalStateException("Could not find data channel for sink role " + sinkRole));
 
-	public static DataChannel getConnectedSourceDataChannel(AssemblyContext assemblyContext, DataSinkRole sinkRole) {
-		return getSinkConnectorForRole(assemblyContext, sinkRole).getDataChannel();
-	}	
+        return sinkConnectorForRole;
+    }
+
+    public static DataChannel getConnectedSourceDataChannel(final AssemblyContext assemblyContext,
+            final DataSinkRole sinkRole) {
+        return getSinkConnectorForRole(assemblyContext, sinkRole).getDataChannel();
+    }
 }
