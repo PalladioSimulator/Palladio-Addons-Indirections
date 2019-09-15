@@ -340,6 +340,16 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 	 * @generated
 	 */
 	@Override
+	public EReference getJoining_Key() {
+		return (EReference) joiningEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public PartitioningFactory getPartitioningFactory() {
 		return (PartitioningFactory) getEFactoryInstance();
 	}
@@ -382,6 +392,7 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		joiningEClass = createEClass(JOINING);
 		createEReference(joiningEClass, JOINING__SOURCE);
 		createEAttribute(joiningEClass, JOINING__CAN_CONTRIBUTE_MULTIPLE_TIMES);
+		createEReference(joiningEClass, JOINING__KEY);
 	}
 
 	/**
@@ -460,6 +471,9 @@ public class PartitioningPackageImpl extends EPackageImpl implements Partitionin
 		initEAttribute(getJoining_CanContributeMultipleTimes(), ecorePackage.getEBoolean(),
 				"canContributeMultipleTimes", null, 1, 1, Joining.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getJoining_Key(), theCorePackage.getPCMRandomVariable(), null, "key", null, 1, -1, Joining.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

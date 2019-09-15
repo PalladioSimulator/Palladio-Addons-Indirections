@@ -75,6 +75,7 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/source"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Joining/canContributeMultipleTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/key"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"

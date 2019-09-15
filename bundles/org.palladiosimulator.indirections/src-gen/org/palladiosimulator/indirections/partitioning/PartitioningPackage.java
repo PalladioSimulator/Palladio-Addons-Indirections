@@ -235,13 +235,22 @@ public interface PartitioningPackage extends EPackage {
 	int JOINING__CAN_CONTRIBUTE_MULTIPLE_TIMES = 1;
 
 	/**
+	 * The feature id for the '<em><b>Key</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JOINING__KEY = 2;
+
+	/**
 	 * The number of structural features of the '<em>Joining</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JOINING_FEATURE_COUNT = 2;
+	int JOINING_FEATURE_COUNT = 3;
 
 	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.partitioning.Partitioning <em>Partitioning</em>}'.
@@ -381,6 +390,17 @@ public interface PartitioningPackage extends EPackage {
 	EAttribute getJoining_CanContributeMultipleTimes();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.palladiosimulator.indirections.partitioning.Joining#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Key</em>'.
+	 * @see org.palladiosimulator.indirections.partitioning.Joining#getKey()
+	 * @see #getJoining()
+	 * @generated
+	 */
+	EReference getJoining_Key();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -517,6 +537,14 @@ public interface PartitioningPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute JOINING__CAN_CONTRIBUTE_MULTIPLE_TIMES = eINSTANCE.getJoining_CanContributeMultipleTimes();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JOINING__KEY = eINSTANCE.getJoining_Key();
 
 	}
 
