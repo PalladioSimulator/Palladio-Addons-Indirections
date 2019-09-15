@@ -18,6 +18,7 @@ import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
+import org.palladiosimulator.indirections.scheduler.time.TimeProvider;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionUtil;
 
@@ -36,6 +37,8 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     protected final String name;
     protected final String id;
     protected final int capacity;
+
+    private TimeProvider timeProvider;
 
     protected class OutgoingQueue {
         public final Queue<IndirectionDate> elements;
@@ -71,6 +74,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         this.capacity = dataChannel.getCapacity();
 
         this.model = (SimuComModel) model;
+        this.timeProvider = (process, data) -> model.getSimulationControl().getCurrentSimulationTime();
 
         this.waitingToPutQueue = new ArrayDeque<>();
         this.incomingQueue = new ArrayList<>();
@@ -92,7 +96,8 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     private void notifyProcessesWaitingToPut() {
-        this.notifyProcesses(this.waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut, this::allowToPutAndActivate,
+        this.notifyProcesses(this.waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut,
+                this::allowToPutAndActivate,
                 this::notifyProcessesWaitingToGet);
     }
 
@@ -115,8 +120,9 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         if (!this.model.getSimulationControl().isRunning()) {
             return true;
         }
-        
-        IndirectionDate date = new ConcreteIndirectionDate(eventStackframe, getTimeForNewDate());
+
+        double time = timeProvider.getTime(schedulableProcess, eventStackframe);
+        IndirectionDate date = new ConcreteIndirectionDate(eventStackframe, time);
 
         final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, date);
         if (this.canProceedToPut(process)) {
@@ -128,10 +134,6 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
             process.passivate();
             return false;
         }
-    }
-
-    private Double getTimeForNewDate() {
-        return model.getSimulationControl().getCurrentSimulationTime();
     }
 
     @Override
@@ -168,11 +170,12 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     private boolean canProceedToPut(final ProcessWaitingToEmit process) {
         final boolean isNextProcess = this.waitingToPutQueue.isEmpty()
                 || this.waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-        
+
         return isNextProcess && canAcceptDataFrom(process);
     }
 
     protected abstract boolean canAcceptDataFrom(ProcessWaitingToEmit process);
+
     protected abstract boolean canProvideDataFor(ProcessWaitingToConsume process);
 
     private boolean canProceedToGet(final ProcessWaitingToConsume process) {
@@ -180,12 +183,12 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
                 .get(process.sinkConnector).processes;
         final boolean isNextProcess = waitingToGetQueue.isEmpty()
                 || waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-        
+
         return isNextProcess && canProvideDataFor(process);
     }
 
     protected abstract List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process);
-    
+
     private void allowToGetAndActivate(ProcessWaitingToConsume process) {
         this.provideDataFor(process).forEach(process.callback::accept);
         activateIfWaiting(process);
@@ -197,7 +200,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         acceptDataFrom(process);
         activateIfWaiting(process);
     }
-    
+
     protected String getOutgoingParameterName() {
         return IndirectionUtil.getOneParameter(this.dataChannel.getSourceEventGroup()).getParameterName();
     }
