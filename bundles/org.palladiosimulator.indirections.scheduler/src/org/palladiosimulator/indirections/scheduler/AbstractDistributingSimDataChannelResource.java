@@ -13,7 +13,6 @@ import java.util.function.Predicate;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
-import org.palladiosimulator.indirections.scheduler.AbstractDistributingSimDataChannelResource.OutgoingQueue;
 import org.palladiosimulator.indirections.scheduler.SimDataChannelResource.KeyedFrame;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;

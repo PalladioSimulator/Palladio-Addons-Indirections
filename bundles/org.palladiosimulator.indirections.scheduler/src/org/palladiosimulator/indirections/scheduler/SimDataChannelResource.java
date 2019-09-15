@@ -6,12 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Queue;
 import java.util.Set;
 import java.util.UUID;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
@@ -32,7 +28,6 @@ import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import com.google.common.base.Optional;
 
-import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.Context;
 import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
@@ -81,9 +76,6 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
 		}
 
 	}
-
-	// takes elements of type T and emits something of type U if the state
-	// necessitates
 
 	public SimDataChannelResource(DataChannel dataChannel, final SchedulerModel model) {
 		super(dataChannel, model);
