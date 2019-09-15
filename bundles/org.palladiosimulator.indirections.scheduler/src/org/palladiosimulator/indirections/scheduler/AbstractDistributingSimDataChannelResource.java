@@ -30,6 +30,9 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 	protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
 	protected DataChannel dataChannel;
 	protected SimuComModel model;
+	
+	protected final String name;
+	protected final String id;
 	protected final int capacity;
 
 	protected class OutgoingQueue {
@@ -41,6 +44,16 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 			this.processes = new ArrayDeque<>();
 		}
 	}
+	
+	@Override
+	public String getName() {
+		return this.name;
+	}
+
+	@Override
+	public String getId() {
+		return this.id;
+	}
 
 	public AbstractDistributingSimDataChannelResource(DataChannel dataChannel, final SchedulerModel model) {
 		if (!(model instanceof SimuComModel)) {
@@ -49,6 +62,10 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 		}
 
 		this.dataChannel = dataChannel;
+		
+		this.id = dataChannel.getId() + "_" + UUID.randomUUID().toString();
+		this.name = dataChannel.getEntityName() + "_" + this.getClass().getSimpleName();
+		
 		this.capacity = dataChannel.getCapacity();
 
 		this.model = (SimuComModel) model;
@@ -160,18 +177,6 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 	@Override
 	public long getAvailable() {
 		return capacity - this.incomingQueue.size();
-	}
-
-	@Override
-	public String getName() {
-		return dataChannel.getEntityName() + "_" + this.getClass().getSimpleName();
-	}
-
-	private final static UUID uuid = UUID.randomUUID();
-
-	@Override
-	public String getId() {
-		return dataChannel.getId() + "_" + uuid.toString();
 	}
 
 	protected abstract void allowToGet(ProcessWaitingToConsume process);
