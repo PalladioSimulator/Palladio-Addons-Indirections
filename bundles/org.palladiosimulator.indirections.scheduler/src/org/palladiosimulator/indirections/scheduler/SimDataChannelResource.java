@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
+import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
@@ -21,25 +22,27 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         super(dataChannel, model);
     }
 
-    public abstract class SimStatefulOperator implements Consumer<IndirectionDate> {
-        private final List<Consumer<IndirectionDate>> emitsTo;
+    public abstract class SimStatefulOperator<T extends IndirectionDate, U extends IndirectionDate>
+            implements Consumer<T> {
+        private final List<Consumer<U>> emitsTo;
 
-        public SimStatefulOperator(List<Consumer<IndirectionDate>> emitsTo) {
+        public SimStatefulOperator(List<Consumer<U>> emitsTo) {
             this.emitsTo = new ArrayList<>(emitsTo);
         }
 
-        protected final void emit(IndirectionDate date) {
+        protected final void emit(U date) {
             emitsTo.forEach(it -> it.accept(date));
         }
     }
 
-    public class WindowingOperator extends SimStatefulOperator {
+    public class WindowingOperator extends SimStatefulOperator<IndirectionDate, WindowingIndirectionDate> {
         private final boolean emitEmptyWindows;
         private final WindowEmitter windowEmitter;
 
         public List<IndirectionDate> emittableIndirectionDates;
 
-        public WindowingOperator(List<Consumer<IndirectionDate>> emitsTo, boolean emitEmptyWindows, double size,
+        public WindowingOperator(List<Consumer<WindowingIndirectionDate>> emitsTo, boolean emitEmptyWindows,
+                double size,
                 double shift) {
             super(emitsTo);
             this.emitEmptyWindows = emitEmptyWindows;
@@ -69,27 +72,24 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         }
     }
 
-    public class PartitioningOperator extends SimStatefulOperator {
-        public PartitioningOperator(List<Consumer<IndirectionDate>> emitsTo) {
+    public class PartitioningOperator extends SimStatefulOperator<GroupingIndirectionDate, GroupingIndirectionDate> {
+        public PartitioningOperator(List<Consumer<GroupingIndirectionDate>> emitsTo) {
             super(emitsTo);
         }
 
         @Override
-        public void accept(IndirectionDate t) {
-            // TODO Auto-generated method stub
-
+        public void accept(GroupingIndirectionDate t) {
+            throw new UnsupportedOperationException();
         }
     }
 
-    public class JoiningOperator extends SimStatefulOperator {
+    public class JoiningOperator extends SimStatefulOperator<IndirectionDate, IndirectionDate> {
         public JoiningOperator(List<Consumer<IndirectionDate>> emitsTo) {
             super(emitsTo);
         }
 
         @Override
         public void accept(IndirectionDate t) {
-            // TODO Auto-generated method stub
-
         }
     }
 
