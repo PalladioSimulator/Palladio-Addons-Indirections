@@ -2,6 +2,7 @@ package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -10,15 +11,20 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionUtil;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
+import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.variables.StackContext;
+import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class SimDataChannelResource extends AbstractDistributingSimDataChannelResource {
     public SimDataChannelResource(DataChannel dataChannel, SchedulerModel model) {
@@ -101,15 +107,42 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         }
     }
 
-    public class PartitioningOperator extends SimStatefulOperator<GroupingIndirectionDate, GroupingIndirectionDate> {
-        public PartitioningOperator(List<Consumer<GroupingIndirectionDate>> emitsTo) {
+    public abstract class PartitioningOperator<T>
+            extends SimStatefulOperator<GroupingIndirectionDate, PartitionedIndirectionDate<T>> {
+        public PartitioningOperator(List<Consumer<PartitionedIndirectionDate<T>>> emitsTo) {
             super(emitsTo);
         }
 
         @Override
-        public void accept(GroupingIndirectionDate t) {
-            throw new UnsupportedOperationException();
+        public void accept(GroupingIndirectionDate group) {
+            Map<T, List<IndirectionDate>> collect = group.getDataInGroup().stream()
+                    .collect(Collectors.groupingBy(this::getPartition));
+            
+            emit(new PartitionedIndirectionDate<T>(collect));
         }
+
+        protected abstract T getPartition(IndirectionDate date);
+    }
+
+    public class SpecificationPartitioningOperator extends PartitioningOperator<Object> {
+        private List<PCMRandomVariable> specification;
+
+        public SpecificationPartitioningOperator(List<Consumer<PartitionedIndirectionDate<Object>>> emitsTo,
+                List<PCMRandomVariable> specification) {
+            super(emitsTo);
+
+            this.specification = specification;
+        }
+
+        @Override
+        protected Object getPartition(IndirectionDate date) {
+            final SimulatedStackframe<Object> stack = SimulatedStackHelper.createFromMap(date.getData());
+
+            return specification.stream().collect(Collectors.toMap(it -> it.getSpecification(),
+                    it -> StackContext.evaluateStatic(it.getSpecification(), stack)));
+
+        }
+
     }
 
     public class JoiningOperator extends SimStatefulOperator<IndirectionDate, IndirectionDate> {

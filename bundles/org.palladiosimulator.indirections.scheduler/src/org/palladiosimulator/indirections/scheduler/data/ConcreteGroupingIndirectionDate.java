@@ -1,15 +1,22 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
-public class WindowingIndirectionDate extends ConcreteGroupingIndirectionDate {
-    public WindowingIndirectionDate(List<IndirectionDate> dataInGroup) {
-        super(dataInGroup);
+public class ConcreteGroupingIndirectionDate implements GroupingIndirectionDate {
+    private final List<IndirectionDate> dataInGroup;
+
+    public ConcreteGroupingIndirectionDate(List<IndirectionDate> dataInGroup) {
+        this.dataInGroup = dataInGroup;
     }
 
+    public List<IndirectionDate> getDataInGroup() {
+        return Collections.unmodifiableList(dataInGroup);
+    }
+    
     @Override
     public Map<String, Object> getData() {
         throw new UnsupportedOperationException();
@@ -19,4 +26,5 @@ public class WindowingIndirectionDate extends ConcreteGroupingIndirectionDate {
     public Double getTime() {
         throw new UnsupportedOperationException();
     }
+
 }
