@@ -16,4 +16,5 @@ Require-Bundle: org.palladiosimulator.simulizar;bundle-version="2.1.0",
  org.palladiosimulator.indirections.scheduler,
  de.uka.ipd.sdq.simucomframework,
  de.uka.ipd.sdq.simulation.abstractsimengine;bundle-version="4.1.0",
- org.palladiosimulator.commons
+ org.palladiosimulator.commons,
+ org.palladiosimulator.indirections.util

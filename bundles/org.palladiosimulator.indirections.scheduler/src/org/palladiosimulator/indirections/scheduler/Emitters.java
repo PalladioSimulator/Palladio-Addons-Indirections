@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Function;
-
-import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
+import org.palladiosimulator.indirections.util.IterableUtil;
 
 public final class Emitters {
 	public static interface StatefulEmitter<T, U> {

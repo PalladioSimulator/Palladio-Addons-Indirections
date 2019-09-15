@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.scheduler.util;
+package org.palladiosimulator.indirections.util;
 
 import java.util.Map;
 import java.util.Map.Entry;

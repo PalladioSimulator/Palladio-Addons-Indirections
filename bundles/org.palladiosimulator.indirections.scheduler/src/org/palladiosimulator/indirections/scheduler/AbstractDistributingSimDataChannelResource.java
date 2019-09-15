@@ -16,8 +16,8 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.SimDataChannelResource.KeyedFrame;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
-import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.util.IndirectionUtil;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
@@ -168,7 +168,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 	}
 
 	private final static UUID uuid = UUID.randomUUID();
-	
+
 	@Override
 	public String getId() {
 		return dataChannel.getId() + "_" + uuid.toString();
