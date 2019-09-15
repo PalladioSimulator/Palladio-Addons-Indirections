@@ -5,6 +5,9 @@ import java.util.Map.Entry;
 
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
+
+import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public final class IndirectionUtil {
     private IndirectionUtil() {
@@ -38,5 +41,16 @@ public final class IndirectionUtil {
             throw new AssertionError("Variable '" + variableName + "' does not start with incoming paramete name: "
                     + incomingParameterName);
         }
+    }
+
+    public static PeriodicallyTriggeredSimulationEntity triggerPeriodically(SimuComModel model, double firstOccurrence, double delay,
+            Runnable taskToRun) {
+        
+        return new PeriodicallyTriggeredSimulationEntity(model, firstOccurrence, delay) {
+            @Override
+            protected void triggerInternal() {
+                taskToRun.run();
+            }
+        };
     }
 }

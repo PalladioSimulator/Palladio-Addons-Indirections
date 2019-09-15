@@ -14,8 +14,11 @@ import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDat
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.util.IndirectionUtil;
+import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
+import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public class SimDataChannelResource extends AbstractDistributingSimDataChannelResource {
     public SimDataChannelResource(DataChannel dataChannel, SchedulerModel model) {
@@ -35,9 +38,9 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         }
     }
 
-    public class WindowingOperator extends SimStatefulOperator<IndirectionDate, WindowingIndirectionDate> {
-        private final boolean emitEmptyWindows;
-        private final WindowEmitter windowEmitter;
+    public abstract class WindowingOperator extends SimStatefulOperator<IndirectionDate, WindowingIndirectionDate> {
+        protected final boolean emitEmptyWindows;
+        protected final WindowEmitter windowEmitter;
 
         public List<IndirectionDate> emittableIndirectionDates;
 
@@ -53,13 +56,9 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         @Override
         public void accept(IndirectionDate indirectionDate) {
             emittableIndirectionDates.add(indirectionDate);
-            Double time = indirectionDate.getTime();
-
-            Optional<List<Window>> windowsToEmit = windowEmitter.accept(time);
-            windowsToEmit.ifPresent(this::emitWindows);
         }
 
-        private void emitWindows(List<Window> windows) {
+        protected final void emitWindows(List<Window> windows) {
             for (Window w : windows) {
                 List<IndirectionDate> dataInWindow = emittableIndirectionDates.stream()
                         .filter(it -> w.contains(it.getTime()))
@@ -69,6 +68,36 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
                     emit(new WindowingIndirectionDate(dataInWindow));
                 }
             }
+        }
+    }
+
+    public class KeyBasedWindowingOperator extends WindowingOperator {
+        public KeyBasedWindowingOperator(List<Consumer<WindowingIndirectionDate>> emitsTo, boolean emitEmptyWindows,
+                double size, double shift) {
+            super(emitsTo, emitEmptyWindows, size, shift);
+        }
+
+        @Override
+        public void accept(IndirectionDate indirectionDate) {
+            super.accept(indirectionDate);
+
+            Double time = indirectionDate.getTime();
+            Optional<List<Window>> windowsToEmit = windowEmitter.accept(time);
+            windowsToEmit.ifPresent(this::emitWindows);
+        }
+    }
+
+    public class TimeBasedWindowingOperator extends WindowingOperator {
+        private PeriodicallyTriggeredSimulationEntity windowingTrigger;
+
+        public TimeBasedWindowingOperator(List<Consumer<WindowingIndirectionDate>> emitsTo, boolean emitEmptyWindows,
+                double size, double shift, SimuComModel model) {
+            super(emitsTo, emitEmptyWindows, size, shift);
+
+            this.windowingTrigger = IndirectionUtil.triggerPeriodically(model, 0, shift, () -> {
+                Optional<List<Window>> windowsToEmit = windowEmitter.accept(null);
+                windowsToEmit.ifPresent(this::emitWindows);
+            });
         }
     }
 
