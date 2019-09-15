@@ -108,14 +108,16 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     @Override
-    public boolean put(final ISchedulableProcess schedulableProcess, final IndirectionDate eventStackframe) {
+    public boolean put(final ISchedulableProcess schedulableProcess, final Map<String, Object> eventStackframe) {
         IndirectionUtil.validateStackframeStructure(eventStackframe, this.getIncomingParameterName());
 
         if (!this.model.getSimulationControl().isRunning()) {
             return true;
         }
+        
+        IndirectionDate date = new IndirectionDate(eventStackframe, getTimeForNewDate());
 
-        final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, eventStackframe);
+        final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, date);
         if (this.canProceedToPut(process)) {
             this.allowToPutAndActivate(process);
             this.notifyProcessesWaitingToGet();
@@ -125,6 +127,10 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
             process.passivate();
             return false;
         }
+    }
+
+    private Double getTimeForNewDate() {
+        return model.getSimulationControl().getCurrentSimulationTime();
     }
 
     @Override
@@ -175,16 +181,6 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
                 || waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
         
         return isNextProcess && canProvideDataFor(process);
-    }
-
-    @Override
-    public long getCapacity() {
-        return this.capacity;
-    }
-
-    @Override
-    public long getAvailable() {
-        return this.capacity - this.incomingQueue.size();
     }
 
     protected abstract List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process);

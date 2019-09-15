@@ -161,7 +161,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
 
         // TODO: check cases in which getContents does not work
-        dataChannelResource.put(this.context.getThread(), new IndirectionDate(this.toMap(eventStackframe.getContents())));
+        dataChannelResource.put(this.context.getThread(), this.toMap(eventStackframe.getContents()));
 
         return true;
     }
