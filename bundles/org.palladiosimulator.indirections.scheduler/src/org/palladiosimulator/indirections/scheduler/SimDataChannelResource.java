@@ -16,7 +16,6 @@ import org.palladiosimulator.indirections.system.DataChannel;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-// Currently: mock interface (all public methods)
 public class SimDataChannelResource extends AbstractDistributingSimDataChannelResource {
     public SimDataChannelResource(DataChannel dataChannel, SchedulerModel model) {
         super(dataChannel, model);
@@ -31,17 +30,6 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
 
         protected final void emit(IndirectionDate date) {
             emitsTo.forEach(it -> it.accept(date));
-        }
-    }
-
-    public class DistributingOperator extends SimStatefulOperator {
-        public DistributingOperator(List<Consumer<IndirectionDate>> emitsTo) {
-            super(emitsTo);
-        }
-
-        @Override
-        public void accept(IndirectionDate t) {
-            emit(t);
         }
     }
 
@@ -78,6 +66,30 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
                     emit(new WindowingIndirectionDate(dataInWindow));
                 }
             }
+        }
+    }
+
+    public class PartitioningOperator extends SimStatefulOperator {
+        public PartitioningOperator(List<Consumer<IndirectionDate>> emitsTo) {
+            super(emitsTo);
+        }
+
+        @Override
+        public void accept(IndirectionDate t) {
+            // TODO Auto-generated method stub
+
+        }
+    }
+
+    public class JoiningOperator extends SimStatefulOperator {
+        public JoiningOperator(List<Consumer<IndirectionDate>> emitsTo) {
+            super(emitsTo);
+        }
+
+        @Override
+        public void accept(IndirectionDate t) {
+            // TODO Auto-generated method stub
+
         }
     }
 
