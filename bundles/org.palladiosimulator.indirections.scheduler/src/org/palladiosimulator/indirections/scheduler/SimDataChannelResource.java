@@ -2,10 +2,14 @@ package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
+import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.system.DataChannel;
@@ -24,12 +28,12 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         public SimStatefulOperator(List<Consumer<IndirectionDate>> emitsTo) {
             this.emitsTo = new ArrayList<>(emitsTo);
         }
-        
+
         protected final void emit(IndirectionDate date) {
             emitsTo.forEach(it -> it.accept(date));
         }
     }
-    
+
     public class DistributingOperator extends SimStatefulOperator {
         public DistributingOperator(List<Consumer<IndirectionDate>> emitsTo) {
             super(emitsTo);
@@ -40,20 +44,40 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
             emit(t);
         }
     }
-    
+
     public class WindowingOperator extends SimStatefulOperator {
         private final boolean emitEmptyWindows;
         private final WindowEmitter windowEmitter;
 
-        public WindowingOperator(List<Consumer<IndirectionDate>> emitsTo, boolean emitEmptyWindows, double size, double shift) {
+        public List<IndirectionDate> emittableIndirectionDates;
+
+        public WindowingOperator(List<Consumer<IndirectionDate>> emitsTo, boolean emitEmptyWindows, double size,
+                double shift) {
             super(emitsTo);
             this.emitEmptyWindows = emitEmptyWindows;
             this.windowEmitter = new WindowEmitter(size, shift);
+            this.emittableIndirectionDates = new ArrayList<>();
         }
 
         @Override
-        public void accept(IndirectionDate t) {
-            windowEmitter.accept(t.getTime());
+        public void accept(IndirectionDate indirectionDate) {
+            emittableIndirectionDates.add(indirectionDate);
+            Double time = indirectionDate.getTime();
+
+            Optional<List<Window>> windowsToEmit = windowEmitter.accept(time);
+            windowsToEmit.ifPresent(this::emitWindows);
+        }
+
+        private void emitWindows(List<Window> windows) {
+            for (Window w : windows) {
+                List<IndirectionDate> dataInWindow = emittableIndirectionDates.stream()
+                        .filter(it -> w.contains(it.getTime()))
+                        .collect(Collectors.toList());
+
+                if (emitEmptyWindows || !dataInWindow.isEmpty()) {
+                    emit(new WindowingIndirectionDate(dataInWindow));
+                }
+            }
         }
     }
 
@@ -76,6 +100,6 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
     @Override
     protected void acceptDataFrom(ProcessWaitingToEmit process) {
         // TODO Auto-generated method stub
-        
+
     }
 }

@@ -78,6 +78,10 @@ public final class Emitters {
                         this.currentWindow.start + this.shift + this.size);
             }
         }
+        
+        public boolean isInCurrentWindow(final double time) {
+            return currentWindow.contains(time);
+        }
 
         public List<Window> advanceUntil(final double currentSimulationTime) {
             final List<Window> result = new ArrayList<>();
