@@ -163,21 +163,19 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         final boolean isNextProcess = this.waitingToPutQueue.isEmpty()
                 || this.waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
         
-        if (this.capacity == -1) {
-            return isNextProcess;
-        } else {
-            final long acceptableCount = this.capacity - this.incomingQueue.size();
-            return isNextProcess && (acceptableCount > 0);
-        }
+        return isNextProcess && canAccept(process);
     }
+
+    protected abstract boolean canAccept(ProcessWaitingToEmit process);
+    protected abstract boolean canProvide(ProcessWaitingToConsume process);
 
     private boolean canProceedToGet(final ProcessWaitingToConsume process) {
         final Queue<ProcessWaitingToConsume> waitingToGetQueue = this.outgoingQueues
                 .get(process.sinkConnector).processes;
         final boolean isNextProcess = waitingToGetQueue.isEmpty()
                 || waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-        final long providableCount = this.outgoingQueues.get(process.sinkConnector).elements.size();
-        return isNextProcess && (providableCount > 0);
+        
+        return isNextProcess && canProvide(process);
     }
 
     @Override

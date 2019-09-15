@@ -279,4 +279,14 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
 
         return nextAvailableElement;
     }
+
+    @Override
+    protected boolean canAccept(ProcessWaitingToEmit process) {
+        return (this.capacity == -1) || (this.capacity - this.incomingQueue.size() > 0);
+    }
+
+    @Override
+    protected boolean canProvide(ProcessWaitingToConsume process) {
+        return this.outgoingQueues.get(process.sinkConnector).elements.size() > 0;
+    }
 }
