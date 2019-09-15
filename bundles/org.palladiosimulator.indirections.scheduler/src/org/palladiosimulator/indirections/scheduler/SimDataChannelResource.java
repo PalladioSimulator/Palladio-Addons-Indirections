@@ -1,6 +1,5 @@
 package org.palladiosimulator.indirections.scheduler;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +15,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
@@ -27,10 +25,8 @@ import org.palladiosimulator.indirections.scheduler.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
-import org.palladiosimulator.indirections.scheduler.util.IndirectionUtil;
 import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
@@ -39,37 +35,13 @@ import com.google.common.base.Optional;
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.Context;
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
-public class SimDataChannelResource implements IDataChannelResource {
-	protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
-	protected final List<KeyedFrame> incomingQueue;
-
-	protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
-	
-	private class OutgoingQueue {
-		public final Queue<Map<String, Object>> elements;
-		public final Queue<ProcessWaitingToConsume> processes;
-		
-		public OutgoingQueue() {
-			this.elements = new ArrayDeque<>();
-			this.processes = new ArrayDeque<>();
-		}
-	}
-	
-	private void initializeOutgoingQueues() {
-		outgoingQueues = new HashMap<>();
-		dataChannel.getDataChannelSinkConnector().stream().forEach(it -> outgoingQueues.put(it, new OutgoingQueue()));
-	}
-
-	private final SimuComModel model;
-	private final int capacity;
+public class SimDataChannelResource extends AbstractDistributingSimDataChannelResource {
 	private final Windowing windowing;
 	private final Partitioning partitioning;
 	private PeriodicallyTriggeredSimulationEntity windowingTrigger;
-	private final DataChannel dataChannel;
 
 	private boolean collectAll;
 	private StatefulEmitter<KeyedFrame, List<KeyedFrame>> outgoingEmitter;
@@ -114,20 +86,7 @@ public class SimDataChannelResource implements IDataChannelResource {
 	// necessitates
 
 	public SimDataChannelResource(DataChannel dataChannel, final SchedulerModel model) {
-		if (!(model instanceof SimuComModel)) {
-			throw new IllegalArgumentException("Currently only works with " + SimuComModel.class.getName() + ", got "
-					+ model.getClass().getName());
-		}
-
-		this.model = (SimuComModel) model;
-		
-		waitingToPutQueue = new ArrayDeque<>();
-		incomingQueue = new ArrayList<>();
-
-		initializeOutgoingQueues();
-
-		this.dataChannel = dataChannel;
-		this.capacity = dataChannel.getCapacity();
+		super(dataChannel, model);
 
 		this.windowing = dataChannel.getTimeGrouping() instanceof Windowing ? (Windowing) dataChannel.getTimeGrouping()
 				: null;
@@ -241,8 +200,6 @@ public class SimDataChannelResource implements IDataChannelResource {
 		for (Map<String, Object> outgoingFrame : outgoingFrames) {
 			outgoingQueues.forEach((k, v) -> v.elements.add(outgoingFrame));
 		}
-
-		handleReadyOutgoingData();
 	}
 
 	private Object getPartition(Map<String, Object> map) {
@@ -259,15 +216,8 @@ public class SimDataChannelResource implements IDataChannelResource {
 		return incomingQueue.stream().filter(it -> window.contains((double) it.key)).collect(Collectors.toList());
 	}
 
-	private String getOutgoingParameterName() {
-		return IndirectionUtil.getOneParameter(dataChannel.getSourceEventGroup()).getParameterName();
-	}
-
-	private String getIncomingParameterName() {
-		return IndirectionUtil.getOneParameter(dataChannel.getSinkEventGroup()).getParameterName();
-	}
-
-	private void allowToPut(ProcessWaitingToEmit process) {
+	@Override
+	protected void allowToPut(ProcessWaitingToEmit process) {
 		if (collectAll) {
 			System.out.println("Collecting all -> adding to outgoing group.");
 			addToOutgoingFrame(process.frame);
@@ -289,7 +239,13 @@ public class SimDataChannelResource implements IDataChannelResource {
 
 		if (process.isWaiting())
 			process.activate();
-		handleReadyOutgoingData();
+	}
+	
+	@Override
+	protected void allowToGet(ProcessWaitingToConsume process) {
+		process.callback.accept(getNextAvailableElement(process.sinkConnector));
+		if (process.isWaiting())
+			process.activate();
 	}
 
 	private void addToOutgoingFrame(Map<String, Object> frame) {
@@ -322,139 +278,11 @@ public class SimDataChannelResource implements IDataChannelResource {
 		collectionFrame.put("data.INNER.NUMBER_OF_ELEMENTS", numberOfElements);
 	}
 
-	private void allowToGet(ProcessWaitingToConsume process) {
-		process.callback.accept(getNextAvailableElement(process.sinkConnector));
-		if (process.isWaiting())
-			process.activate();
-		notifyProcessesWaitingToPut();
-	}
-
 	private Map<String, Object> getNextAvailableElement(DataChannelSinkConnector sinkConnector) {
 		Map<String, Object> nextAvailableElement = outgoingQueues.get(sinkConnector).elements.remove();
 		if (collectAll)
 			outgoingQueues.get(sinkConnector).elements.add(createCollectionFrame());
 
 		return nextAvailableElement;
-	}
-
-	private void handleReadyOutgoingData() {
-		notifyProcessesWaitingToGet();
-	}
-
-	private void notifyProcessesWaitingToGet() {
-		for (OutgoingQueue queue : outgoingQueues.values()) {
-			notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet, this::allowToGet);
-		}
-	}
-
-	private void notifyProcessesWaitingToPut() {
-		notifyProcesses(waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut, this::allowToPut);
-	}
-
-	private <T> void notifyProcesses(Queue<T> processes, Function<T, ISchedulableProcess> processExtractor,
-			Predicate<T> canProceed, Consumer<T> allow) {
-
-		T waitingProcess = processes.peek();
-		while (waitingProcess != null && canProceed.test(waitingProcess)) {
-//			System.out.println("Allowing waiting process.");
-			allow.accept(waitingProcess);
-			processes.remove();
-			// processExtractor.apply(waitingProcess).activate();
-
-			waitingProcess = processes.peek();
-		}
-	}
-
-	@Override
-	public boolean put(ISchedulableProcess schedulableProcess, Map<String, Object> eventStackframe) {
-		IndirectionUtil.validateStackframeStructure(eventStackframe, getIncomingParameterName());
-
-		if (!model.getSimulationControl().isRunning()) {
-			return true;
-		}
-
-		final ProcessWaitingToEmit process = new ProcessWaitingToEmit(model, schedulableProcess, eventStackframe);
-		if (canProceedToPut(process)) {
-			allowToPut(process);
-			return true;
-		} else {
-			waitingToPutQueue.add(process);
-			process.passivate();
-			return false;
-		}
-	}
-
-	@Override
-	public boolean get(ISchedulableProcess schedulableProcess, DataChannelSinkConnector sinkConnector,
-			Consumer<Map<String, Object>> callback) {
-//		System.out.println("Process is trying to get.");
-		if (!model.getSimulationControl().isRunning()) {
-			return true;
-		}
-
-		if (sinkConnector.getDataSinkRole().isIsPushing()) {
-			throw new IllegalStateException("Cannot pull data over pushing connector " + sinkConnector.toString()
-					+ ", SinkRole: " + sinkConnector.getDataSinkRole().toString());
-		}
-
-		final ProcessWaitingToConsume process = new ProcessWaitingToConsume(model, schedulableProcess, sinkConnector,
-				callback);
-		if (canProceedToGet(process)) {
-//			System.out.println("Can take directly.");
-			allowToGet(process);
-			return true;
-		} else {
-//			System.out.println("Adding to queue.");
-			outgoingQueues.get(sinkConnector).processes.add(process);
-			process.passivate();
-			return false;
-		}
-	}
-
-	private boolean canProceedToPut(final ProcessWaitingToEmit process) {
-		boolean isNextProcess = waitingToPutQueue.isEmpty()
-				|| waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-		if (capacity == -1) {
-			return isNextProcess;
-		} else {
-			long acceptableCount = capacity - incomingQueue.size();
-			return isNextProcess && (acceptableCount > 0);
-		}
-	}
-
-	private boolean canProceedToGet(final ProcessWaitingToConsume process) {
-		Queue<ProcessWaitingToConsume> waitingToGetQueue = outgoingQueues.get(process.sinkConnector).processes;
-		boolean isNextProcess = waitingToGetQueue.isEmpty()
-				|| waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-		long providableCount = outgoingQueues.get(process.sinkConnector).elements.size();
-		return isNextProcess && (providableCount > 0);
-	}
-
-	@Override
-	public long getCapacity() {
-		return this.capacity;
-	}
-
-	@Override
-	public long getAvailable() {
-		return capacity - this.incomingQueue.size();
-	}
-
-	@Override
-	public AssemblyContext getAssemblyContext() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getId() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

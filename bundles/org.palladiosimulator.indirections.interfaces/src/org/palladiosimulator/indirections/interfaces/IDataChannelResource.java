@@ -15,13 +15,6 @@ public interface IDataChannelResource {
 			Consumer<Map<String, Object>> callback);
 
 	/**
-	 * Getter for the model element of the assembly context.
-	 * 
-	 * @return The assembly context of the passive resource.
-	 */
-	public AssemblyContext getAssemblyContext();
-
-	/**
 	 * Name of the resource.
 	 * 
 	 * @return
