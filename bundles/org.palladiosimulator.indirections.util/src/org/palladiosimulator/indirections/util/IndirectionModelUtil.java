@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.simulizar.util;
+package org.palladiosimulator.indirections.util;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +11,6 @@ import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
-import org.palladiosimulator.simulizar.exceptions.PCMModelAccessException;
 
 public final class IndirectionModelUtil {
 	private IndirectionModelUtil() {
@@ -27,7 +26,7 @@ public final class IndirectionModelUtil {
 
 		return dataChannelSourceConnectors.stream().filter(it -> it.getSourceRole().equals(sourceRole)).findAny()
 				.orElseThrow(
-						() -> new PCMModelAccessException("Could not find data channel for source role " + sourceRole))
+						() -> new IllegalStateException("Could not find data channel for source role " + sourceRole))
 				.getDataChannel();
 	}
 
@@ -40,7 +39,7 @@ public final class IndirectionModelUtil {
 
 		DataChannelSinkConnector sinkConnectorForRole = dataChannelSinkConnectors.stream()
 				.filter(it -> it.getDataSinkRole().equals(sinkRole)).findAny().orElseThrow(
-						() -> new PCMModelAccessException("Could not find data channel for sink role " + sinkRole));
+						() -> new IllegalStateException("Could not find data channel for sink role " + sinkRole));
 
 		return sinkConnectorForRole;
 	}

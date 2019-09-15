@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.scheduler.util;
+package org.palladiosimulator.indirections.util;
 
 import java.util.Iterator;
 import java.util.Objects;

@@ -22,8 +22,8 @@ import org.palladiosimulator.indirections.scheduler.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.Emitters.WindowEmitter;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
-import org.palladiosimulator.indirections.scheduler.util.IterableUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
@@ -231,7 +231,7 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
 		if (process.isWaiting())
 			process.activate();
 	}
-	
+
 	@Override
 	protected void allowToGet(ProcessWaitingToConsume process) {
 		process.callback.accept(getNextAvailableElement(process.sinkConnector));
