@@ -5,13 +5,14 @@ import java.util.Map;
 
 public class IndirectionDate {
     public final Map<String, Object> data;
+    private final Double time;
     
-    public IndirectionDate() {
-        data = new HashMap<>();
+    public IndirectionDate(Map<String, Object> map, Double time) {
+        data = new HashMap<>(map);
+        this.time = time;
     }
 
-    public IndirectionDate(Map<String, Object> map) {
-        this();
-        data.putAll(map);
+    public Double getTime() {
+        return this.time;
     }
 }

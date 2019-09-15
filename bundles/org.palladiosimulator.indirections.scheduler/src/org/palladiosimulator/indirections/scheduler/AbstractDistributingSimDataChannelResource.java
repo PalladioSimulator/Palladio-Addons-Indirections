@@ -14,7 +14,6 @@ import java.util.function.Predicate;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.scheduler.DeprecatedSimDataChannelResource.KeyedFrame;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
@@ -27,7 +26,7 @@ import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public abstract class AbstractDistributingSimDataChannelResource implements IDataChannelResource {
     protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
-    protected final List<KeyedFrame> incomingQueue;
+    protected final List<IndirectionDate> incomingQueue;
 
     protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
     protected DataChannel dataChannel;

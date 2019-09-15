@@ -36,7 +36,7 @@ import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameExcep
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 @Deprecated // only use during rewrite
-public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDataChannelResource {
+public class DeprecatedSimDataChannelResource {} /*extends AbstractDistributingSimDataChannelResource {
     private final Windowing windowing;
     private final Partitioning partitioning;
     private PeriodicallyTriggeredSimulationEntity windowingTrigger;
@@ -291,4 +291,4 @@ public class DeprecatedSimDataChannelResource extends AbstractDistributingSimDat
     protected boolean canProvideDataFor(ProcessWaitingToConsume process) {
         return this.outgoingQueues.get(process.sinkConnector).elements.size() > 0;
     }
-}
+}*/

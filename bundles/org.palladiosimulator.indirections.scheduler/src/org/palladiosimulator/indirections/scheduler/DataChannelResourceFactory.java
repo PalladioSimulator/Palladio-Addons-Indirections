@@ -10,7 +10,7 @@ public class DataChannelResourceFactory implements IDataChannelResourceFactory {
 
     @Override
     public IDataChannelResource createDataChannelResource(final DataChannel dataChannel, final SchedulerModel model) {
-        return new DeprecatedSimDataChannelResource(dataChannel, model);
+        return new SimDataChannelResource(dataChannel, model);
     }
 
 }
