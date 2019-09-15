@@ -218,22 +218,4 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 		return IndirectionModelUtil.getSinkConnectorForRole(assemblyContext, sinkRole);
 	}
-
-	private SimulatedResourceContainer getSimulatedResourceContainer(DataChannel dataChannel,
-			AllocationContext eventChannelAllocationContext) {
-		List<SimulatedResourceContainer> simulatedResourceContainers = this.context.getModel().getResourceRegistry()
-				.getSimulatedResourceContainers();
-		return simulatedResourceContainers.stream()
-				.filter(it -> it.getResourceContainerID()
-						.equals(eventChannelAllocationContext.getResourceContainer_AllocationContext().getId()))
-				.findAny().orElseThrow(() -> new PCMModelAccessException(
-						"Could not find resource container for event channel " + dataChannel));
-	}
-
-	private AllocationContext getAllocationContext(EventChannel eventChannel) {
-		return this.allocation.getAllocationContexts_Allocation().stream()
-				.filter(it -> it.getEventChannel__AllocationContext() == eventChannel).findAny()
-				.orElseThrow(() -> new PCMModelAccessException(
-						"Could not find allocation context for event channel " + eventChannel));
-	}
 }
