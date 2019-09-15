@@ -176,7 +176,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 //		System.out.println("Trying to get (" + randomUUID + ")");
         final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector,
                 (eventMap) -> {
-                    final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap.data);
+                    final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap.getData());
                     final String parameterName = IterableUtil
                             .claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
                             .getParameter__EventType().getParameterName();

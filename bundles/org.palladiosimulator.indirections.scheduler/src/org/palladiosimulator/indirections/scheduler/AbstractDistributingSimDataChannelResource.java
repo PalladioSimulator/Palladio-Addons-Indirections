@@ -14,6 +14,7 @@ import java.util.function.Predicate;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
@@ -115,7 +116,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
             return true;
         }
         
-        IndirectionDate date = new IndirectionDate(eventStackframe, getTimeForNewDate());
+        IndirectionDate date = new ConcreteIndirectionDate(eventStackframe, getTimeForNewDate());
 
         final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, date);
         if (this.canProceedToPut(process)) {
