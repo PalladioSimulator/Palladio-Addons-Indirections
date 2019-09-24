@@ -12,7 +12,6 @@ import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
-import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.system.DataChannel;
@@ -150,7 +149,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
     @Override
     public Object caseEmitDataAction(final EmitDataAction action) {
-//		System.out.println("Emit event action: " + action.getEntityName());
+		LOGGER.trace("Emit event action: " + action.getEntityName());
+        
         final IDataChannelResource dataChannelResource = this.getDataChannelResource(action);
 
         final SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
@@ -171,23 +171,24 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         final DataChannelSinkConnector dataChannelSinkConnector = this.getSinkConnector(action);
         final IDataChannelResource dataChannelResource = this.getDataChannelResource(action);
 
-        final String randomUUID = Thread.currentThread().getName();
+        final String threadName = Thread.currentThread().getName();
 
-//		System.out.println("Trying to get (" + randomUUID + ")");
+		LOGGER.trace("Trying to get (" + threadName + ")");
         final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector,
                 (eventMap) -> {
-                    final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper.createFromMap(eventMap.getData());
+                    final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper
+                            .createFromMap(eventMap.getData());
                     final String parameterName = IterableUtil
                             .claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
                             .getParameter__EventType().getParameterName();
-//			System.out.println("Parameter name: " + parameterName + " (" + randomUUID + ")");
+                    LOGGER.trace("Parameter name: " + parameterName + " (thread: " + threadName+ ")");
                     addParameterToStackFrameWithCopying(contextStackframe,
                             action.getReturnVariableUsage__CallReturnAction(), parameterName,
                             this.context.getStack().currentStackFrame());
-//			System.out.println(this.context.getStack().currentStackFrame());
+			LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
                 });
 
-//		System.out.println("Continuing with " + this.context.getStack().currentStackFrame() + " (" + randomUUID + ")");
+        LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
 
         return result;
     }
