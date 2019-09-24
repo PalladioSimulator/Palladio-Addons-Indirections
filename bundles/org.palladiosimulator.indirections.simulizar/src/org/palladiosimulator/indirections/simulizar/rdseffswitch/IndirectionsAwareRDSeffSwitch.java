@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
+import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
@@ -194,6 +195,20 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
 
         return result;
+    }
+    
+    @Override
+    public Object caseCreateBirthDateAction(CreateBirthDateAction action) {
+        LOGGER.trace("Creating birth date: " + action.getEntityName());
+        
+        String referenceName = action.getVariableReference().getReferenceName();
+        
+        double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
+        SimulatedStackframe<Object> currentStackFrame = this.context.getStack().currentStackFrame();
+        
+        currentStackFrame.addValue(referenceName, currentSimulationTime);
+        
+        return true;
     }
 
     private IDataChannelResource getDataChannelResource(final EmitDataAction action) {
