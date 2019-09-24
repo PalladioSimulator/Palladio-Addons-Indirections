@@ -149,8 +149,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
     @Override
     public Object caseEmitDataAction(final EmitDataAction action) {
-		LOGGER.trace("Emit event action: " + action.getEntityName());
-        
+        LOGGER.trace("Emit event action: " + action.getEntityName());
+
         final IDataChannelResource dataChannelResource = this.getDataChannelResource(action);
 
         final SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
@@ -161,6 +161,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
 
         // TODO: check cases in which getContents does not work
+        LOGGER.trace("Trying to emit data to " + dataChannelResource.getName() + " - " + dataChannelResource.getId());
         dataChannelResource.put(this.context.getThread(), this.toMap(eventStackframe.getContents()));
 
         return true;
@@ -168,12 +169,14 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
     @Override
     public Object caseConsumeDataAction(final ConsumeDataAction action) {
+        LOGGER.trace("Consume data action: " + action.getEntityName());
+
         final DataChannelSinkConnector dataChannelSinkConnector = this.getSinkConnector(action);
         final IDataChannelResource dataChannelResource = this.getDataChannelResource(action);
 
         final String threadName = Thread.currentThread().getName();
 
-		LOGGER.trace("Trying to get (" + threadName + ")");
+        LOGGER.trace("Trying to get (" + threadName + ")");
         final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector,
                 (eventMap) -> {
                     final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper
@@ -181,11 +184,11 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                     final String parameterName = IterableUtil
                             .claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
                             .getParameter__EventType().getParameterName();
-                    LOGGER.trace("Parameter name: " + parameterName + " (thread: " + threadName+ ")");
+                    LOGGER.trace("Parameter name: " + parameterName + " (thread: " + threadName + ")");
                     addParameterToStackFrameWithCopying(contextStackframe,
                             action.getReturnVariableUsage__CallReturnAction(), parameterName,
                             this.context.getStack().currentStackFrame());
-			LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
+                    LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
                 });
 
         LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
