@@ -85,14 +85,14 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
                 .forEach(it -> this.outgoingQueues.put(it, new OutgoingQueue()));
     }
 
-    private void notifyProcessesWaitingToGet() {
+    protected void notifyProcessesWaitingToGet() {
         for (final OutgoingQueue queue : this.outgoingQueues.values()) {
             this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet,
                     this::allowToGetAndActivate, this::notifyProcessesWaitingToPut);
         }
     }
 
-    private void notifyProcessesWaitingToPut() {
+    protected void notifyProcessesWaitingToPut() {
         this.notifyProcesses(this.waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut,
                 this::allowToPutAndActivate,
                 this::notifyProcessesWaitingToGet);

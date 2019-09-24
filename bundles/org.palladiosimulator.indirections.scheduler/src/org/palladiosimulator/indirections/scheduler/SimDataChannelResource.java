@@ -1,9 +1,12 @@
 package org.palladiosimulator.indirections.scheduler;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,32 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
     public SimDataChannelResource(DataChannel dataChannel, SchedulerModel model) {
         super(dataChannel, model);
     }
+    
+    private Queue<IndirectionDate> dataQueue = new ArrayDeque<>();
+    
+    
+    @Override
+    protected boolean canAcceptDataFrom(ProcessWaitingToEmit process) {
+        return true;
+    }
+
+    @Override
+    protected boolean canProvideDataFor(ProcessWaitingToConsume process) {
+        return !dataQueue.isEmpty();
+    }
+
+    @Override
+    protected List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process) {
+        return Collections.singletonList(dataQueue.remove());
+    }
+
+    @Override
+    protected void acceptDataFrom(ProcessWaitingToEmit process) {
+        dataQueue.add(process.frame);
+        notifyProcessesWaitingToGet();
+    }
+    
+    
 
     public abstract class SimStatefulOperator<T extends IndirectionDate, U extends IndirectionDate>
             implements Consumer<T> {
@@ -153,27 +182,5 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         @Override
         public void accept(IndirectionDate t) {
         }
-    }
-
-    @Override
-    protected boolean canAcceptDataFrom(ProcessWaitingToEmit process) {
-        return false;
-    }
-
-    @Override
-    protected boolean canProvideDataFor(ProcessWaitingToConsume process) {
-        return false;
-    }
-
-    @Override
-    protected List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    protected void acceptDataFrom(ProcessWaitingToEmit process) {
-        // TODO Auto-generated method stub
-
     }
 }
