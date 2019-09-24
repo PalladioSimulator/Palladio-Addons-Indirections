@@ -25,7 +25,7 @@ public final class IndirectionModelUtil {
                 .filter(DataChannelSourceConnector.class::isInstance).map(DataChannelSourceConnector.class::cast)
                 .collect(Collectors.toList());
 
-        return dataChannelSourceConnectors.stream().filter(it -> it.getSourceRole().equals(sourceRole)).findAny()
+        return dataChannelSourceConnectors.stream().filter(it -> it.getDataSourceRole().equals(sourceRole)).findAny()
                 .orElseThrow(
                         () -> new IllegalStateException("Could not find data channel for source role " + sourceRole))
                 .getDataChannel();
@@ -55,7 +55,7 @@ public final class IndirectionModelUtil {
                 .collect(Collectors.toList());
 
         final DataChannelSourceConnector sourceConnectorForRole = dataChannelSourceConnectors.stream()
-                .filter(it -> it.getSourceRole().equals(sourceRole)).findAny()
+                .filter(it -> it.getDataSourceRole().equals(sourceRole)).findAny()
                 .orElseThrow(() -> new IllegalStateException("Could not find data channel for source role " + sourceRole));
 
         return sourceConnectorForRole;

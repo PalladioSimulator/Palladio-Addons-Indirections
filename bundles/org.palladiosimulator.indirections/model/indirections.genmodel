@@ -108,7 +108,7 @@
         ecorePackage="indirections.ecore#//composition">
       <genClasses ecoreClass="indirections.ecore#//composition/DataChannelSourceConnector">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/sourceRole"/>
+            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/dataSourceRole"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/assemblyContext"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

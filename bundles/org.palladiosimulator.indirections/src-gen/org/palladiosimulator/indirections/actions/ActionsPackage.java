@@ -378,7 +378,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */

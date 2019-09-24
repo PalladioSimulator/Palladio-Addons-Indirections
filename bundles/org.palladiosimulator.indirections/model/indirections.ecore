@@ -103,7 +103,7 @@
   <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirections/Composition/1.0"
       nsPrefix="org.palladiosimulator.indirections.composition">
     <eClassifiers xsi:type="ecore:EClass" name="DataChannelSourceConnector" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRole" ordered="false"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceRole" ordered="false"
           lowerBound="1" eType="#//repository/DataSourceRole"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" ordered="false"
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>

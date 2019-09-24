@@ -17,7 +17,6 @@ import org.palladiosimulator.indirections.datatypes.Scheduling;
 import org.palladiosimulator.indirections.partitioning.Joining;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
-
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
 import org.palladiosimulator.pcm.core.entity.impl.EntityImpl;

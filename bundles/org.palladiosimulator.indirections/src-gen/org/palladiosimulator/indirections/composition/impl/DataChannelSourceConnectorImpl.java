@@ -20,8 +20,8 @@ import org.palladiosimulator.pcm.core.composition.impl.ConnectorImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl#getSourceRole
- * <em>Source Role</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl#getDataSourceRole
+ * <em>Data Source Role</em>}</li>
  * <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl#getAssemblyContext
  * <em>Assembly Context</em>}</li>
  * <li>{@link org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl#getDataChannel
@@ -56,9 +56,9 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
      * @generated
      */
     @Override
-    public DataSourceRole getSourceRole() {
-        return (DataSourceRole) this.eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
-                CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE, true, true);
+    public DataSourceRole getDataSourceRole() {
+        return (DataSourceRole) this.eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE,
+                CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE, true, true);
     }
 
     /**
@@ -66,9 +66,9 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
      * 
      * @generated
      */
-    public DataSourceRole basicGetSourceRole() {
-        return (DataSourceRole) this.eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
-                CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE, false, true);
+    public DataSourceRole basicGetDataSourceRole() {
+        return (DataSourceRole) this.eDynamicGet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE,
+                CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE, false, true);
     }
 
     /**
@@ -77,9 +77,9 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
      * @generated
      */
     @Override
-    public void setSourceRole(final DataSourceRole newSourceRole) {
-        this.eDynamicSet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE,
-                CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE, newSourceRole);
+    public void setDataSourceRole(final DataSourceRole newDataSourceRole) {
+        this.eDynamicSet(CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE,
+                CompositionPackage.Literals.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE, newDataSourceRole);
     }
 
     /**
@@ -199,11 +199,11 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
     @Override
     public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
         switch (featureID) {
-        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE:
+        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE:
             if (resolve) {
-                return this.getSourceRole();
+                return this.getDataSourceRole();
             }
-            return this.basicGetSourceRole();
+            return this.basicGetDataSourceRole();
         case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT:
             if (resolve) {
                 return this.getAssemblyContext();
@@ -226,8 +226,8 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
     @Override
     public void eSet(final int featureID, final Object newValue) {
         switch (featureID) {
-        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE:
-            this.setSourceRole((DataSourceRole) newValue);
+        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE:
+            this.setDataSourceRole((DataSourceRole) newValue);
             return;
         case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT:
             this.setAssemblyContext((AssemblyContext) newValue);
@@ -247,8 +247,8 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
     @Override
     public void eUnset(final int featureID) {
         switch (featureID) {
-        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE:
-            this.setSourceRole((DataSourceRole) null);
+        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE:
+            this.setDataSourceRole((DataSourceRole) null);
             return;
         case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT:
             this.setAssemblyContext((AssemblyContext) null);
@@ -268,8 +268,8 @@ public class DataChannelSourceConnectorImpl extends ConnectorImpl implements Dat
     @Override
     public boolean eIsSet(final int featureID) {
         switch (featureID) {
-        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_ROLE:
-            return this.basicGetSourceRole() != null;
+        case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE:
+            return this.basicGetDataSourceRole() != null;
         case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT:
             return this.basicGetAssemblyContext() != null;
         case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_CHANNEL:
