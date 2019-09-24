@@ -118,13 +118,22 @@ public interface ActionsPackage extends EPackage {
     int ANALYSE_STACK_ACTION__KEY = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int ANALYSE_STACK_ACTION__VARIABLE_REFERENCE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Analyse Stack Action</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int ANALYSE_STACK_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
+    int ANALYSE_STACK_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the
@@ -417,6 +426,18 @@ public interface ActionsPackage extends EPackage {
     EAttribute getAnalyseStackAction_Key();
 
     /**
+     * Returns the meta object for the containment reference
+     * '{@link org.palladiosimulator.indirections.actions.AnalyseStackAction#getVariableReference
+     * <em>Variable Reference</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the containment reference '<em>Variable Reference</em>'.
+     * @see org.palladiosimulator.indirections.actions.AnalyseStackAction#getVariableReference()
+     * @see #getAnalyseStackAction()
+     * @generated
+     */
+    EReference getAnalyseStackAction_VariableReference();
+
+    /**
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction <em>Consume Data
      * Action</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -549,6 +570,14 @@ public interface ActionsPackage extends EPackage {
          * @generated
          */
         EAttribute ANALYSE_STACK_ACTION__KEY = eINSTANCE.getAnalyseStackAction_Key();
+
+        /**
+         * The meta object literal for the '<em><b>Variable Reference</b></em>' containment
+         * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @generated
+         */
+        EReference ANALYSE_STACK_ACTION__VARIABLE_REFERENCE = eINSTANCE.getAnalyseStackAction_VariableReference();
 
         /**
          * The meta object literal for the

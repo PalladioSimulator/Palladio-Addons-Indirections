@@ -4,6 +4,8 @@ package org.palladiosimulator.indirections.actions;
 
 import org.palladiosimulator.pcm.seff.AbstractAction;
 
+import de.uka.ipd.sdq.stoex.VariableReference;
+
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Analyse Stack
  * Action</b></em>'. <!-- end-user-doc -->
@@ -14,6 +16,8 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
  * <ul>
  * <li>{@link org.palladiosimulator.indirections.actions.AnalyseStackAction#getKey
  * <em>Key</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.actions.AnalyseStackAction#getVariableReference
+ * <em>Variable Reference</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.actions.ActionsPackage#getAnalyseStackAction()
@@ -44,5 +48,30 @@ public interface AnalyseStackAction extends AbstractAction {
      * @generated
      */
     void setKey(String value);
+
+    /**
+     * Returns the value of the '<em><b>Variable Reference</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the value of the '<em>Variable Reference</em>' containment reference.
+     * @see #setVariableReference(VariableReference)
+     * @see org.palladiosimulator.indirections.actions.ActionsPackage#getAnalyseStackAction_VariableReference()
+     * @model containment="true"
+     * @generated
+     */
+    VariableReference getVariableReference();
+
+    /**
+     * Sets the value of the
+     * '{@link org.palladiosimulator.indirections.actions.AnalyseStackAction#getVariableReference
+     * <em>Variable Reference</em>}' containment reference. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @param value
+     *            the new value of the '<em>Variable Reference</em>' containment reference.
+     * @see #getVariableReference()
+     * @generated
+     */
+    void setVariableReference(VariableReference value);
 
 } // AnalyseStackAction
