@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
+import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
@@ -139,6 +140,26 @@ public class ActionsSwitch<T> extends Switch<T> {
             }
             return result;
         }
+        case ActionsPackage.CREATE_BIRTH_DATE_ACTION: {
+            final CreateBirthDateAction createBirthDateAction = (CreateBirthDateAction) theEObject;
+            T result = this.caseCreateBirthDateAction(createBirthDateAction);
+            if (result == null) {
+                result = this.caseAbstractAction(createBirthDateAction);
+            }
+            if (result == null) {
+                result = this.caseEntity(createBirthDateAction);
+            }
+            if (result == null) {
+                result = this.caseIdentifier(createBirthDateAction);
+            }
+            if (result == null) {
+                result = this.caseNamedElement(createBirthDateAction);
+            }
+            if (result == null) {
+                result = this.defaultCase(theEObject);
+            }
+            return result;
+        }
         default:
             return this.defaultCase(theEObject);
         }
@@ -192,10 +213,26 @@ public class ActionsSwitch<T> extends Switch<T> {
     }
 
     /**
+     * Returns the result of interpreting the object as an instance of '<em>Create Birth Date
+     * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
+     * result will terminate the switch. <!-- end-user-doc -->
+     * 
+     * @param object
+     *            the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Create Birth Date
+     *         Action</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseCreateBirthDateAction(final CreateBirthDateAction object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>Identifier</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Identifier</em>'.
@@ -225,7 +262,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Entity</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Entity</em>'.
@@ -255,7 +292,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Call Action</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Call Action</em>'.
@@ -286,7 +323,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>EObject</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch, but this is the last case anyway. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>EObject</em>'.

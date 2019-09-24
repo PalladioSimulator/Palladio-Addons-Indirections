@@ -358,14 +358,16 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 
         // Initialize classes and features; add operations and parameters
         this.initEClass(this.dataChannelSourceConnectorEClass, DataChannelSourceConnector.class,
-                "DataChannelSourceConnector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+                "DataChannelSourceConnector",
+                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getDataChannelSourceConnector_SourceRole(), theRepositoryPackage.getDataSourceRole(),
-                null, "sourceRole", null, 1, 1, DataChannelSourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE,
-                IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+                null,
+                "sourceRole", null, 1, 1, DataChannelSourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         this.initEReference(this.getDataChannelSourceConnector_AssemblyContext(),
-                theCompositionPackage_1.getAssemblyContext(), null, "assemblyContext", null, 1, 1,
-                DataChannelSourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+                theCompositionPackage_1.getAssemblyContext(),
+                null, "assemblyContext", null, 1, 1, DataChannelSourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         this.initEReference(this.getDataChannelSourceConnector_DataChannel(), theSystemPackage.getDataChannel(),
                 theSystemPackage.getDataChannel_DataChannelSourceConnector(), "dataChannel", null, 1, 1,
                 DataChannelSourceConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
@@ -374,24 +376,28 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
         this.initEClass(this.dataChannelSinkConnectorEClass, DataChannelSinkConnector.class, "DataChannelSinkConnector",
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getDataChannelSinkConnector_DataSinkRole(), theRepositoryPackage.getDataSinkRole(),
-                null, "dataSinkRole", null, 1, 1, DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE,
-                IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+                null,
+                "dataSinkRole", null, 1, 1, DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         this.initEReference(this.getDataChannelSinkConnector_AssemblyContext(),
-                theCompositionPackage_1.getAssemblyContext(), null, "assemblyContext", null, 1, 1,
-                DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+                theCompositionPackage_1.getAssemblyContext(),
+                null, "assemblyContext", null, 1, 1, DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         this.initEReference(this.getDataChannelSinkConnector_DataChannel(), theSystemPackage.getDataChannel(),
                 theSystemPackage.getDataChannel_DataChannelSinkConnector(), "dataChannel", null, 1, 1,
                 DataChannelSinkConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
                 IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
         this.initEClass(this.dataChannelConnectorEClass, DataChannelConnector.class, "DataChannelConnector",
-                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+                !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getDataChannelConnector_Source(), theSystemPackage.getDataChannel(), null, "source",
-                null, 1, 1, DataChannelConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                null, 1, 1,
+                DataChannelConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
                 IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         this.initEReference(this.getDataChannelConnector_Sink(), theSystemPackage.getDataChannel(), null, "sink", null,
-                1, 1, DataChannelConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                1, 1,
+                DataChannelConnector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
                 IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource

@@ -157,7 +157,7 @@ public interface DataChannel extends Entity {
     /**
      * Returns the value of the '<em><b>Partitioning</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Partitioning</em>' containment reference.
      * @see #setPartitioning(Partitioning)
      * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel_Partitioning()
@@ -181,7 +181,7 @@ public interface DataChannel extends Entity {
     /**
      * Returns the value of the '<em><b>Time Grouping</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Time Grouping</em>' containment reference.
      * @see #setTimeGrouping(TimeGrouping)
      * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel_TimeGrouping()
@@ -219,7 +219,7 @@ public interface DataChannel extends Entity {
      * from the enumeration
      * {@link org.palladiosimulator.indirections.datatypes.OutgoingDistribution}. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Outgoing Distribution</em>' attribute.
      * @see org.palladiosimulator.indirections.datatypes.OutgoingDistribution
      * @see #setOutgoingDistribution(OutgoingDistribution)
@@ -246,7 +246,7 @@ public interface DataChannel extends Entity {
      * Returns the value of the '<em><b>Scheduling</b></em>' attribute. The literals are from the
      * enumeration {@link org.palladiosimulator.indirections.datatypes.Scheduling}. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Scheduling</em>' attribute.
      * @see org.palladiosimulator.indirections.datatypes.Scheduling
      * @see #setScheduling(Scheduling)
@@ -273,7 +273,7 @@ public interface DataChannel extends Entity {
      * Returns the value of the '<em><b>Put Policy</b></em>' attribute. The literals are from the
      * enumeration {@link org.palladiosimulator.indirections.datatypes.PutPolicy}. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Put Policy</em>' attribute.
      * @see org.palladiosimulator.indirections.datatypes.PutPolicy
      * @see #setPutPolicy(PutPolicy)

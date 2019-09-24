@@ -19,6 +19,11 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceRole" lowerBound="1"
           eType="#//repository/DataSourceRole"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CreateBirthDateAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
+          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
+          containment="true"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirections/Datatypes/1.0"
       nsPrefix="org.palladiosimulator.indirections.datatypes">

@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
+import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
@@ -83,6 +84,11 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseEmitDataAction(final EmitDataAction object) {
             return ActionsAdapterFactory.this.createEmitDataActionAdapter();
+        }
+
+        @Override
+        public Adapter caseCreateBirthDateAction(final CreateBirthDateAction object) {
+            return ActionsAdapterFactory.this.createCreateBirthDateActionAdapter();
         }
 
         @Override
@@ -180,6 +186,21 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class
+     * '{@link org.palladiosimulator.indirections.actions.CreateBirthDateAction <em>Create Birth
+     * Date Action</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the
+     * cases anyway. <!-- end-user-doc -->
+     * 
+     * @return the new adapter.
+     * @see org.palladiosimulator.indirections.actions.CreateBirthDateAction
+     * @generated
+     */
+    public Adapter createCreateBirthDateActionAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link de.uka.ipd.sdq.identifier.Identifier
      * <em>Identifier</em>}'. <!-- begin-user-doc --> This default implementation returns null so
      * that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all
@@ -199,7 +220,7 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
      * begin-user-doc --> This default implementation returns null so that we can easily ignore
      * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
+     *
      * @return the new adapter.
      * @see org.palladiosimulator.pcm.core.entity.NamedElement
      * @generated
@@ -228,7 +249,7 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
      * begin-user-doc --> This default implementation returns null so that we can easily ignore
      * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
+     *
      * @return the new adapter.
      * @see org.palladiosimulator.pcm.seff.AbstractAction
      * @generated
@@ -257,7 +278,7 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
      * begin-user-doc --> This default implementation returns null so that we can easily ignore
      * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
+     *
      * @return the new adapter.
      * @see org.palladiosimulator.pcm.seff.CallReturnAction
      * @generated

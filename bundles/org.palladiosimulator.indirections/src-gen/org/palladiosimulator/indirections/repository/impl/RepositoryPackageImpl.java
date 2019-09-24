@@ -281,8 +281,9 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
         this.initEClass(this.dataSinkRoleEClass, DataSinkRole.class, "DataSinkRole", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getDataSinkRole_EventGroup(), theRepositoryPackage_1.getEventGroup(), null,
-                "eventGroup", null, 0, 1, DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+                "eventGroup", null,
+                0, 1, DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         this.initEAttribute(this.getDataSinkRole_IsPushing(), this.ecorePackage.getEBoolean(), "isPushing", null, 0, 1,
                 DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
@@ -290,8 +291,9 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
         this.initEClass(this.dataSourceRoleEClass, DataSourceRole.class, "DataSourceRole", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getDataSourceRole_EventGroup(), theRepositoryPackage_1.getEventGroup(), null,
-                "eventGroup", null, 0, 1, DataSourceRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+                "eventGroup", null,
+                0, 1, DataSourceRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         this.createResource(eNS_URI);

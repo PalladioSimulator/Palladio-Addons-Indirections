@@ -59,7 +59,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
     /**
      * The default value of the '{@link #getCapacity() <em>Capacity</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getCapacity()
      * @generated
      * @ordered
@@ -79,7 +79,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
     /**
      * The default value of the '{@link #getScheduling() <em>Scheduling</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getScheduling()
      * @generated
      * @ordered
@@ -89,7 +89,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
     /**
      * The default value of the '{@link #getPutPolicy() <em>Put Policy</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getPutPolicy()
      * @generated
      * @ordered
@@ -198,7 +198,8 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
     @Override
     public void setSinkEventGroup(final EventGroup newSinkEventGroup) {
         this.eDynamicSet(SystemPackage.DATA_CHANNEL__SINK_EVENT_GROUP,
-                SystemPackage.Literals.DATA_CHANNEL__SINK_EVENT_GROUP, newSinkEventGroup);
+                SystemPackage.Literals.DATA_CHANNEL__SINK_EVENT_GROUP,
+                newSinkEventGroup);
     }
 
     /**

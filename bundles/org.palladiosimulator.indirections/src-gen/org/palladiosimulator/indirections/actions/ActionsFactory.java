@@ -47,6 +47,15 @@ public interface ActionsFactory extends EFactory {
     EmitDataAction createEmitDataAction();
 
     /**
+     * Returns a new object of class '<em>Create Birth Date Action</em>'. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
+     * @return a new object of class '<em>Create Birth Date Action</em>'.
+     * @generated
+     */
+    CreateBirthDateAction createCreateBirthDateAction();
+
+    /**
      * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @return the package supported by this factory.

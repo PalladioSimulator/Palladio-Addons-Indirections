@@ -103,13 +103,17 @@ public enum Scheduling implements Enumerator {
      * 
      * @generated
      */
-    private static final Scheduling[] VALUES_ARRAY = new Scheduling[] { FIRST_IN_FIRST_OUT, LAST_IN_FIRST_OUT, PRIORITY,
-            RANDOM, };
+    private static final Scheduling[] VALUES_ARRAY = new Scheduling[] {
+            FIRST_IN_FIRST_OUT,
+            LAST_IN_FIRST_OUT,
+            PRIORITY,
+            RANDOM,
+    };
 
     /**
      * A public read-only list of all the '<em><b>Scheduling</b></em>' enumerators. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public static final List<Scheduling> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
@@ -117,7 +121,7 @@ public enum Scheduling implements Enumerator {
     /**
      * Returns the '<em><b>Scheduling</b></em>' literal with the specified literal value. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param literal
      *            the literal.
      * @return the matching enumerator or <code>null</code>.
@@ -153,7 +157,7 @@ public enum Scheduling implements Enumerator {
     /**
      * Returns the '<em><b>Scheduling</b></em>' literal with the specified integer value. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the integer value.
      * @return the matching enumerator or <code>null</code>.
@@ -238,7 +242,7 @@ public enum Scheduling implements Enumerator {
     /**
      * Returns the literal value of the enumerator, which is its string representation. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

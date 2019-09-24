@@ -11,6 +11,7 @@ import org.palladiosimulator.indirections.actions.ActionsFactory;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
+import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
@@ -56,6 +57,13 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
      * @generated
      */
     private EClass emitDataActionEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    private EClass createBirthDateActionEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -248,6 +256,26 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
      * @generated
      */
     @Override
+    public EClass getCreateBirthDateAction() {
+        return this.createBirthDateActionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
+    public EReference getCreateBirthDateAction_VariableReference() {
+        return (EReference) this.createBirthDateActionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
     public ActionsFactory getActionsFactory() {
         return (ActionsFactory) this.getEFactoryInstance();
     }
@@ -282,6 +310,9 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         this.emitDataActionEClass = this.createEClass(EMIT_DATA_ACTION);
         this.createEReference(this.emitDataActionEClass, EMIT_DATA_ACTION__EVENT_TYPE);
         this.createEReference(this.emitDataActionEClass, EMIT_DATA_ACTION__DATA_SOURCE_ROLE);
+
+        this.createBirthDateActionEClass = this.createEClass(CREATE_BIRTH_DATE_ACTION);
+        this.createEReference(this.createBirthDateActionEClass, CREATE_BIRTH_DATE_ACTION__VARIABLE_REFERENCE);
     }
 
     /**
@@ -314,6 +345,8 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
                 .getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
         final RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
                 .getEPackage(RepositoryPackage.eNS_URI);
+        final StoexPackage theStoexPackage = (StoexPackage) EPackage.Registry.INSTANCE
+                .getEPackage(StoexPackage.eNS_URI);
 
         // Create type parameters
 
@@ -325,6 +358,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         this.consumeDataActionEClass.getESuperTypes().add(theSeffPackage.getCallReturnAction());
         this.emitDataActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
         this.emitDataActionEClass.getESuperTypes().add(theSeffPackage.getCallAction());
+        this.createBirthDateActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
 
         // Initialize classes and features; add operations and parameters
         this.initEClass(this.analyseStackActionEClass, AnalyseStackAction.class, "AnalyseStackAction", !IS_ABSTRACT,
@@ -334,10 +368,12 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
                 !IS_DERIVED, IS_ORDERED);
 
         this.initEClass(this.consumeDataActionEClass, ConsumeDataAction.class, "ConsumeDataAction", !IS_ABSTRACT,
-                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+                !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getConsumeDataAction_EventType(), theRepositoryPackage_1.getEventType(), null,
-                "eventType", null, 1, 1, ConsumeDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+                "eventType", null,
+                1, 1, ConsumeDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
         this.initEReference(this.getConsumeDataAction_DataSinkRole(), theRepositoryPackage.getDataSinkRole(), null,
                 "dataSinkRole", null, 1, 1, ConsumeDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
                 !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -345,11 +381,20 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         this.initEClass(this.emitDataActionEClass, EmitDataAction.class, "EmitDataAction", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getEmitDataAction_EventType(), theRepositoryPackage_1.getEventType(), null,
-                "eventType", null, 1, 1, EmitDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+                "eventType", null, 1,
+                1, EmitDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         this.initEReference(this.getEmitDataAction_DataSourceRole(), theRepositoryPackage.getDataSourceRole(), null,
                 "dataSourceRole", null, 1, 1, EmitDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
                 !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        this.initEClass(this.createBirthDateActionEClass, CreateBirthDateAction.class, "CreateBirthDateAction",
+                !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        this.initEReference(this.getCreateBirthDateAction_VariableReference(), theStoexPackage.getVariableReference(),
+                null,
+                "variableReference", null, 1, 1, CreateBirthDateAction.class, !IS_TRANSIENT, !IS_VOLATILE,
+                IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         this.createResource(eNS_URI);

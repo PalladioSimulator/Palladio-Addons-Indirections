@@ -27,7 +27,7 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
     /**
      * The default value of the '{@link #isIsPushing() <em>Is Pushing</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #isIsPushing()
      * @generated
      * @ordered
@@ -104,7 +104,8 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
     @Override
     public void setIsPushing(final boolean newIsPushing) {
         this.eDynamicSet(RepositoryPackage.DATA_SINK_ROLE__IS_PUSHING,
-                RepositoryPackage.Literals.DATA_SINK_ROLE__IS_PUSHING, newIsPushing);
+                RepositoryPackage.Literals.DATA_SINK_ROLE__IS_PUSHING,
+                newIsPushing);
     }
 
     /**
