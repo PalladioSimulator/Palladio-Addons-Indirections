@@ -1,7 +1,6 @@
 package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +27,6 @@ import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public abstract class AbstractDistributingSimDataChannelResource implements IDataChannelResource {
     protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
-    protected final List<IndirectionDate> incomingQueue;
 
     protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
     protected DataChannel dataChannel;
@@ -77,7 +75,6 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         this.timeProvider = (process, data) -> model.getSimulationControl().getCurrentSimulationTime();
 
         this.waitingToPutQueue = new ArrayDeque<>();
-        this.incomingQueue = new ArrayList<>();
 
         this.initializeOutgoingQueues();
     }
