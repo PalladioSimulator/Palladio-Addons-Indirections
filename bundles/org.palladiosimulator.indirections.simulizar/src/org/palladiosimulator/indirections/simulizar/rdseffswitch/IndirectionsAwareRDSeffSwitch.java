@@ -12,6 +12,7 @@ import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
@@ -156,6 +157,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseEmitDataAction(final EmitDataAction action) {
         LOGGER.trace("Emit event action: " + action.getEntityName());
 
+        this.getSourceConnector(action);
+        final DataChannelSourceConnector dataChannelSourceConnecoor = this.getSourceConnector(action);
         final IDataChannelResource dataChannelResource = this.getDataChannelResource(action);
 
         final SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
@@ -167,7 +170,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
         // TODO: check cases in which getContents does not work
         LOGGER.trace("Trying to emit data to " + dataChannelResource.getName() + " - " + dataChannelResource.getId());
-        dataChannelResource.put(this.context.getThread(), this.toMap(eventStackframe.getContents()));
+        dataChannelResource.put(this.context.getThread(), dataChannelSourceConnecoor,
+                this.toMap(eventStackframe.getContents()));
 
         return true;
     }
@@ -216,13 +220,18 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     }
 
     private IDataChannelResource getDataChannelResource(final EmitDataAction action) {
-        final AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
-        final DataSourceRole sourceRole = action.getDataSourceRole();
-        final DataChannel dataChannel = IndirectionModelUtil.getConnectedSinkDataChannel(assemblyContext, sourceRole);
+        final DataChannel dataChannel = this.getSourceConnector(action).getDataChannel();
 
         final IDataChannelResource dataChannelResource = this.dataChannelRegistry
                 .getOrCreateDataChannelResource(dataChannel);
         return dataChannelResource;
+    }
+
+    private DataChannelSourceConnector getSourceConnector(final EmitDataAction action) {
+        final AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
+        final DataSourceRole sinkRole = action.getDataSourceRole();
+
+        return IndirectionModelUtil.getSourceConnectorForRole(assemblyContext, sinkRole);
     }
 
     private IDataChannelResource getDataChannelResource(final ConsumeDataAction action) {
