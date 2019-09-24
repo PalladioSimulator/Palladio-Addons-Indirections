@@ -19,6 +19,11 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceRole" lowerBound="1"
           eType="#//repository/DataSourceRole"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="CreateBirthDateAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
+          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
+          containment="true"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirections/Datatypes/1.0"
       nsPrefix="org.palladiosimulator.indirections.datatypes">
@@ -62,6 +67,9 @@
           eType="#//composition/DataChannelSourceConnector"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="canContributeMultipleTimes"
           lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" upperBound="-1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/PCMRandomVariable"
+          containment="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirections/System/1.0"

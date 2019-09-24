@@ -6,5 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.indirections.util
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.palladiosimulator.pcm,
- org.palladiosimulator.indirections
+ org.palladiosimulator.indirections,
+ org.palladiosimulator.indirections.interfaces,
+ de.uka.ipd.sdq.simucomframework,
+ org.palladiosimulator.simulizar
 Export-Package: org.palladiosimulator.indirections.util

@@ -8,9 +8,9 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
 public class DataChannelResourceFactory implements IDataChannelResourceFactory {
 
-	@Override
-	public IDataChannelResource createDataChannelResource(DataChannel dataChannel, SchedulerModel model) {
-		return new SimDataChannelResource(dataChannel, model);
-	}
+    @Override
+    public IDataChannelResource createDataChannelResource(final DataChannel dataChannel, final SchedulerModel model) {
+        return new SimDataChannelResource(dataChannel, model);
+    }
 
 }

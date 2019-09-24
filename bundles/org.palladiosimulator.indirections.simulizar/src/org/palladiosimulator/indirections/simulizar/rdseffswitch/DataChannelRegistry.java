@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
 import org.palladiosimulator.indirections.system.DataChannel;
@@ -11,45 +12,43 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
-import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
-
 public class DataChannelRegistry {
-	private Map<DataChannel, IDataChannelResource> dataChannelToDataChannelResource = new HashMap<DataChannel, IDataChannelResource>();
-	private IDataChannelResourceFactory dataChannelResourceFactory;
-	private SimuComModel myModel;
+    private final Map<DataChannel, IDataChannelResource> dataChannelToDataChannelResource = new HashMap<DataChannel, IDataChannelResource>();
+    private IDataChannelResourceFactory dataChannelResourceFactory;
+    private final SimuComModel myModel;
 
-	private static Map<InterpreterDefaultContext, DataChannelRegistry> registries = new HashMap<>();
+    private static Map<InterpreterDefaultContext, DataChannelRegistry> registries = new HashMap<>();
 
-	// TODO: really static?
-	public static DataChannelRegistry getInstanceFor(InterpreterDefaultContext context) {
-		registries.computeIfAbsent(context, (ctx) -> new DataChannelRegistry(ctx.getModel()));
+    // TODO: really static?
+    public static DataChannelRegistry getInstanceFor(final InterpreterDefaultContext context) {
+        registries.computeIfAbsent(context, (ctx) -> new DataChannelRegistry(ctx.getModel()));
 
-		return registries.get(context);
-	}
+        return registries.get(context);
+    }
 
-	private DataChannelRegistry(final SimuComModel myModel) {
-		this.myModel = myModel;
-	}
+    private DataChannelRegistry(final SimuComModel myModel) {
+        this.myModel = myModel;
+    }
 
-	public IDataChannelResource getOrCreateDataChannelResource(final DataChannel dataChannel) {
-		if (dataChannelResourceFactory == null) {
-			initializeDataChannelResourceFactory();
-		}
+    public IDataChannelResource getOrCreateDataChannelResource(final DataChannel dataChannel) {
+        if (this.dataChannelResourceFactory == null) {
+            this.initializeDataChannelResourceFactory();
+        }
 
-		if (!dataChannelToDataChannelResource.containsKey(dataChannel)) {
-			dataChannelToDataChannelResource.put(dataChannel,
-					dataChannelResourceFactory.createDataChannelResource(dataChannel, this.myModel));
-		}
-		return dataChannelToDataChannelResource.get(dataChannel);
-	}
+        if (!this.dataChannelToDataChannelResource.containsKey(dataChannel)) {
+            this.dataChannelToDataChannelResource.put(dataChannel,
+                    this.dataChannelResourceFactory.createDataChannelResource(dataChannel, this.myModel));
+        }
+        return this.dataChannelToDataChannelResource.get(dataChannel);
+    }
 
-	private void initializeDataChannelResourceFactory() {
-		List<Object> executableExtensions = ExtensionHelper.getExecutableExtensions(
-				"org.palladiosimulator.indirections.interfaces.datachannelresourcefactory",
-				"dataChannelResourceFactory");
-		dataChannelResourceFactory = executableExtensions.stream().map((it) -> (IDataChannelResourceFactory) it)
-				.findFirst().orElseThrow(() -> new IllegalStateException(
-						"No " + IDataChannelResourceFactory.class.getName() + " found."));
-	}
+    private void initializeDataChannelResourceFactory() {
+        final List<Object> executableExtensions = ExtensionHelper.getExecutableExtensions(
+                "org.palladiosimulator.indirections.interfaces.datachannelresourcefactory",
+                "dataChannelResourceFactory");
+        this.dataChannelResourceFactory = executableExtensions.stream().map((it) -> (IDataChannelResourceFactory) it)
+                .findFirst().orElseThrow(() -> new IllegalStateException(
+                        "No " + IDataChannelResourceFactory.class.getName() + " found."));
+    }
 
 }

@@ -5,8 +5,7 @@ package org.palladiosimulator.indirections.partitioning;
 import org.eclipse.emf.cdo.CDOObject;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Time Grouping</b></em>'.
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Time Grouping</b></em>'.
  * <!-- end-user-doc -->
  *
  *

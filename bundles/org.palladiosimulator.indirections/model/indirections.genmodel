@@ -34,6 +34,9 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/dataSourceRole"/>
       </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//actions/CreateBirthDateAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateBirthDateAction/variableReference"/>
+      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" generateModelWizard="false"
         extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
@@ -75,6 +78,7 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/source"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Joining/canContributeMultipleTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/key"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"

@@ -6,14 +6,14 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 
 public class IndirectionsAwareRDSeffSwitchFactory
-		extends org.palladiosimulator.simulizar.interpreter.AbstractRDSeffSwitchFactory {
+        extends org.palladiosimulator.simulizar.interpreter.AbstractRDSeffSwitchFactory {
 
-	@Override
-	protected Switch<Object> createRDSeffSwitch(InterpreterDefaultContext context,
-			SimulatedBasicComponentInstance basicComponentInstance,
-			ExplicitDispatchComposedSwitch<Object> parentSwitch) {
+    @Override
+    protected Switch<Object> createRDSeffSwitch(final InterpreterDefaultContext context,
+            final SimulatedBasicComponentInstance basicComponentInstance,
+            final ExplicitDispatchComposedSwitch<Object> parentSwitch) {
 
-		return new IndirectionsAwareRDSeffSwitch(context, basicComponentInstance, parentSwitch);
-	}
+        return new IndirectionsAwareRDSeffSwitch(context, basicComponentInstance, parentSwitch);
+    }
 
 }

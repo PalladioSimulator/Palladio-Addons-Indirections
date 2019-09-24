@@ -13,9 +13,12 @@ import java.util.function.Predicate;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
-import org.palladiosimulator.indirections.scheduler.SimDataChannelResource.KeyedFrame;
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
+import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
+import org.palladiosimulator.indirections.scheduler.time.TimeProvider;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionUtil;
 
@@ -24,165 +27,187 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public abstract class AbstractDistributingSimDataChannelResource implements IDataChannelResource {
-	protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
-	protected final List<KeyedFrame> incomingQueue;
+    protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
+    protected final List<IndirectionDate> incomingQueue;
 
-	protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
-	protected DataChannel dataChannel;
-	protected SimuComModel model;
-	protected final int capacity;
+    protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
+    protected DataChannel dataChannel;
+    protected SimuComModel model;
 
-	protected class OutgoingQueue {
-		public final Queue<Map<String, Object>> elements;
-		public final Queue<ProcessWaitingToConsume> processes;
+    protected final String name;
+    protected final String id;
+    protected final int capacity;
 
-		public OutgoingQueue() {
-			this.elements = new ArrayDeque<>();
-			this.processes = new ArrayDeque<>();
-		}
-	}
+    private TimeProvider timeProvider;
 
-	public AbstractDistributingSimDataChannelResource(DataChannel dataChannel, final SchedulerModel model) {
-		if (!(model instanceof SimuComModel)) {
-			throw new IllegalArgumentException("Currently only works with " + SimuComModel.class.getName() + ", got "
-					+ model.getClass().getName());
-		}
+    protected class OutgoingQueue {
+        public final Queue<IndirectionDate> elements;
+        public final Queue<ProcessWaitingToConsume> processes;
 
-		this.dataChannel = dataChannel;
-		this.capacity = dataChannel.getCapacity();
+        public OutgoingQueue() {
+            this.elements = new ArrayDeque<>();
+            this.processes = new ArrayDeque<>();
+        }
+    }
 
-		this.model = (SimuComModel) model;
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-		waitingToPutQueue = new ArrayDeque<>();
-		incomingQueue = new ArrayList<>();
+    @Override
+    public String getId() {
+        return this.id;
+    }
 
-		initializeOutgoingQueues();
-	}
+    public AbstractDistributingSimDataChannelResource(final DataChannel dataChannel, final SchedulerModel model) {
+        if (!(model instanceof SimuComModel)) {
+            throw new IllegalArgumentException("Currently only works with " + SimuComModel.class.getName() + ", got "
+                    + model.getClass().getName());
+        }
 
-	private void initializeOutgoingQueues() {
-		outgoingQueues = new HashMap<>();
-		dataChannel.getDataChannelSinkConnector().stream().forEach(it -> outgoingQueues.put(it, new OutgoingQueue()));
-	}
+        this.dataChannel = dataChannel;
 
-	private void notifyProcessesWaitingToGet() {
-		for (OutgoingQueue queue : outgoingQueues.values()) {
-			notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet, this::allowToGet,
-					this::notifyProcessesWaitingToPut);
-		}
-	}
+        this.id = dataChannel.getId() + "_" + UUID.randomUUID().toString();
+        this.name = dataChannel.getEntityName() + "_" + this.getClass().getSimpleName();
 
-	private void notifyProcessesWaitingToPut() {
-		notifyProcesses(waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut, this::allowToPut,
-				this::notifyProcessesWaitingToGet);
-	}
+        this.capacity = dataChannel.getCapacity();
 
-	private <T> void notifyProcesses(Queue<T> processes, Function<T, ISchedulableProcess> processExtractor,
-			Predicate<T> canProceed, Consumer<T> allow, Runnable callAfterAllowing) {
+        this.model = (SimuComModel) model;
+        this.timeProvider = (process, data) -> model.getSimulationControl().getCurrentSimulationTime();
 
-		T waitingProcess = processes.peek();
-		while (waitingProcess != null && canProceed.test(waitingProcess)) {
-			allow.accept(waitingProcess);
-			callAfterAllowing.run();
-			processes.remove();
-			waitingProcess = processes.peek();
-		}
-	}
+        this.waitingToPutQueue = new ArrayDeque<>();
+        this.incomingQueue = new ArrayList<>();
 
-	@Override
-	public boolean put(ISchedulableProcess schedulableProcess, Map<String, Object> eventStackframe) {
-		IndirectionUtil.validateStackframeStructure(eventStackframe, getIncomingParameterName());
+        this.initializeOutgoingQueues();
+    }
 
-		if (!model.getSimulationControl().isRunning()) {
-			return true;
-		}
+    private void initializeOutgoingQueues() {
+        this.outgoingQueues = new HashMap<>();
+        this.dataChannel.getDataChannelSinkConnector().stream()
+                .forEach(it -> this.outgoingQueues.put(it, new OutgoingQueue()));
+    }
 
-		final ProcessWaitingToEmit process = new ProcessWaitingToEmit(model, schedulableProcess, eventStackframe);
-		if (canProceedToPut(process)) {
-			allowToPut(process);
-			notifyProcessesWaitingToGet();
-			return true;
-		} else {
-			waitingToPutQueue.add(process);
-			process.passivate();
-			return false;
-		}
-	}
+    private void notifyProcessesWaitingToGet() {
+        for (final OutgoingQueue queue : this.outgoingQueues.values()) {
+            this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet,
+                    this::allowToGetAndActivate, this::notifyProcessesWaitingToPut);
+        }
+    }
 
-	@Override
-	public boolean get(ISchedulableProcess schedulableProcess, DataChannelSinkConnector sinkConnector,
-			Consumer<Map<String, Object>> callback) {
-		if (!model.getSimulationControl().isRunning()) {
-			return true;
-		}
+    private void notifyProcessesWaitingToPut() {
+        this.notifyProcesses(this.waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut,
+                this::allowToPutAndActivate,
+                this::notifyProcessesWaitingToGet);
+    }
 
-		if (sinkConnector.getDataSinkRole().isIsPushing()) {
-			throw new IllegalStateException("Cannot pull data over pushing connector " + sinkConnector.toString()
-					+ ", SinkRole: " + sinkConnector.getDataSinkRole().toString());
-		}
+    // TODO: should remove unnecessary complexity introduced with this kind of reuse and just inline
+    // into two methods above
+    private <T> void notifyProcesses(final Queue<T> processes, final Function<T, ISchedulableProcess> processExtractor,
+            final Predicate<T> canProceed, final Consumer<T> allow, final Runnable callAfterAllowing) {
 
-		final ProcessWaitingToConsume process = new ProcessWaitingToConsume(model, schedulableProcess, sinkConnector,
-				callback);
-		if (canProceedToGet(process)) {
-			allowToGet(process);
-			notifyProcessesWaitingToPut();
-			return true;
-		} else {
-			outgoingQueues.get(sinkConnector).processes.add(process);
-			process.passivate();
-			return false;
-		}
-	}
+        T waitingProcess = processes.peek();
+        while (waitingProcess != null && canProceed.test(waitingProcess)) {
+            allow.accept(waitingProcess);
+            callAfterAllowing.run();
+            processes.remove();
+            waitingProcess = processes.peek();
+        }
+    }
 
-	private boolean canProceedToPut(final ProcessWaitingToEmit process) {
-		boolean isNextProcess = waitingToPutQueue.isEmpty()
-				|| waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-		if (capacity == -1) {
-			return isNextProcess;
-		} else {
-			long acceptableCount = capacity - incomingQueue.size();
-			return isNextProcess && (acceptableCount > 0);
-		}
-	}
+    @Override
+    public boolean put(final ISchedulableProcess schedulableProcess, final Map<String, Object> eventStackframe) {
+        IndirectionUtil.validateStackframeStructure(eventStackframe, this.getIncomingParameterName());
 
-	private boolean canProceedToGet(final ProcessWaitingToConsume process) {
-		Queue<ProcessWaitingToConsume> waitingToGetQueue = outgoingQueues.get(process.sinkConnector).processes;
-		boolean isNextProcess = waitingToGetQueue.isEmpty()
-				|| waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
-		long providableCount = outgoingQueues.get(process.sinkConnector).elements.size();
-		return isNextProcess && (providableCount > 0);
-	}
+        if (!this.model.getSimulationControl().isRunning()) {
+            return true;
+        }
 
-	@Override
-	public long getCapacity() {
-		return this.capacity;
-	}
+        double time = timeProvider.getTime(schedulableProcess, eventStackframe);
+        IndirectionDate date = new ConcreteIndirectionDate(eventStackframe, time);
 
-	@Override
-	public long getAvailable() {
-		return capacity - this.incomingQueue.size();
-	}
+        final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, date);
+        if (this.canProceedToPut(process)) {
+            this.allowToPutAndActivate(process);
+            this.notifyProcessesWaitingToGet();
+            return true;
+        } else {
+            this.waitingToPutQueue.add(process);
+            process.passivate();
+            return false;
+        }
+    }
 
-	@Override
-	public String getName() {
-		return dataChannel.getEntityName() + "_" + this.getClass().getSimpleName();
-	}
+    @Override
+    public boolean get(final ISchedulableProcess schedulableProcess, final DataChannelSinkConnector sinkConnector,
+            final Consumer<IndirectionDate> callback) {
+        if (!this.model.getSimulationControl().isRunning()) {
+            return true;
+        }
 
-	private final static UUID uuid = UUID.randomUUID();
+        if (sinkConnector.getDataSinkRole().isIsPushing()) {
+            throw new IllegalStateException("Cannot pull data over pushing connector " + sinkConnector.toString()
+                    + ", SinkRole: " + sinkConnector.getDataSinkRole().toString());
+        }
 
-	@Override
-	public String getId() {
-		return dataChannel.getId() + "_" + uuid.toString();
-	}
+        final ProcessWaitingToConsume process = new ProcessWaitingToConsume(this.model, schedulableProcess,
+                sinkConnector, callback);
+        if (this.canProceedToGet(process)) {
+            this.allowToGetAndActivate(process);
+            this.notifyProcessesWaitingToPut();
+            return true;
+        } else {
+            this.outgoingQueues.get(sinkConnector).processes.add(process);
+            process.passivate();
+            return false;
+        }
+    }
 
-	protected abstract void allowToGet(ProcessWaitingToConsume process);
+    private void activateIfWaiting(SuspendableSchedulerEntity process) {
+        if (process.isWaiting()) {
+            process.activate();
+        }
+    }
 
-	protected abstract void allowToPut(ProcessWaitingToEmit process);
+    private boolean canProceedToPut(final ProcessWaitingToEmit process) {
+        final boolean isNextProcess = this.waitingToPutQueue.isEmpty()
+                || this.waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 
-	protected String getOutgoingParameterName() {
-		return IndirectionUtil.getOneParameter(dataChannel.getSourceEventGroup()).getParameterName();
-	}
+        return isNextProcess && canAcceptDataFrom(process);
+    }
 
-	protected String getIncomingParameterName() {
-		return IndirectionUtil.getOneParameter(dataChannel.getSinkEventGroup()).getParameterName();
-	}
+    protected abstract boolean canAcceptDataFrom(ProcessWaitingToEmit process);
+
+    protected abstract boolean canProvideDataFor(ProcessWaitingToConsume process);
+
+    private boolean canProceedToGet(final ProcessWaitingToConsume process) {
+        final Queue<ProcessWaitingToConsume> waitingToGetQueue = this.outgoingQueues
+                .get(process.sinkConnector).processes;
+        final boolean isNextProcess = waitingToGetQueue.isEmpty()
+                || waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
+
+        return isNextProcess && canProvideDataFor(process);
+    }
+
+    protected abstract List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process);
+
+    private void allowToGetAndActivate(ProcessWaitingToConsume process) {
+        this.provideDataFor(process).forEach(process.callback::accept);
+        activateIfWaiting(process);
+    }
+
+    protected abstract void acceptDataFrom(ProcessWaitingToEmit process);
+
+    private void allowToPutAndActivate(ProcessWaitingToEmit process) {
+        acceptDataFrom(process);
+        activateIfWaiting(process);
+    }
+
+    protected String getOutgoingParameterName() {
+        return IndirectionUtil.getOneParameter(this.dataChannel.getSourceEventGroup()).getParameterName();
+    }
+
+    protected String getIncomingParameterName() {
+        return IndirectionUtil.getOneParameter(this.dataChannel.getSinkEventGroup()).getParameterName();
+    }
 }
