@@ -30,13 +30,20 @@ import de.uka.ipd.sdq.simucomframework.variables.StackContext;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class SimDataChannelResource extends AbstractDistributingSimDataChannelResource {
+    private Queue<IndirectionDate> dataQueue = new ArrayDeque<>();
+    private Consumer<IndirectionDate> processor;
+
     public SimDataChannelResource(DataChannel dataChannel, SchedulerModel model) {
         super(dataChannel, model);
+
+        this.processor = new DirectTransferOperator<IndirectionDate>(List.of(this::emit));
     }
-    
-    private Queue<IndirectionDate> dataQueue = new ArrayDeque<>();
-    
-    
+
+    private void emit(IndirectionDate date) {
+        dataQueue.add(date);
+        notifyProcessesWaitingToGet();
+    }
+
     @Override
     protected boolean canAcceptDataFrom(ProcessWaitingToEmit process) {
         return true;
@@ -54,11 +61,9 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
 
     @Override
     protected void acceptDataFrom(ProcessWaitingToEmit process) {
-        dataQueue.add(process.frame);
+        processor.accept(process.frame);
         notifyProcessesWaitingToGet();
     }
-    
-    
 
     public abstract class SimStatefulOperator<T extends IndirectionDate, U extends IndirectionDate>
             implements Consumer<T> {
@@ -71,6 +76,19 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         protected final void emit(U date) {
             emitsTo.forEach(it -> it.accept(date));
         }
+    }
+
+    public class DirectTransferOperator<T extends IndirectionDate> extends SimStatefulOperator<T, T> {
+
+        public DirectTransferOperator(List<Consumer<T>> emitsTo) {
+            super(emitsTo);
+        }
+
+        @Override
+        public void accept(T t) {
+            this.emit(t);
+        }
+
     }
 
     public abstract class WindowingOperator extends SimStatefulOperator<IndirectionDate, WindowingIndirectionDate> {
@@ -98,7 +116,6 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
                 List<IndirectionDate> dataInWindow = emittableIndirectionDates.stream()
                         .filter(it -> w.contains(it.getTime()))
                         .collect(Collectors.toList());
-
                 if (emitEmptyWindows || !dataInWindow.isEmpty()) {
                     emit(new WindowingIndirectionDate(dataInWindow));
                 }
@@ -146,7 +163,7 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         public void accept(GroupingIndirectionDate group) {
             Map<T, List<IndirectionDate>> collect = group.getDataInGroup().stream()
                     .collect(Collectors.groupingBy(this::getPartition));
-            
+
             emit(new PartitionedIndirectionDate<T>(collect));
         }
 
