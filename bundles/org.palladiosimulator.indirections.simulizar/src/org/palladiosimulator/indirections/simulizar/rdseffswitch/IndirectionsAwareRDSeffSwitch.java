@@ -77,8 +77,12 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
      * {@link SimulatedStackHelper#addParameterToStackFrame(SimulatedStackframe, EList, SimulatedStackframe)}
      * but defaults for the parameters.
      * 
+     * Additionally, it can copy all characterizations for a type by specifying a reference name of:
+     * input->output
+     * 
      * @param parameterName
      */
+    // TODO clean up and refactor
     private static final void addParameterToStackFrameWithCopying(final SimulatedStackframe<Object> contextStackFrame,
             final EList<VariableUsage> parameter, final String parameterName,
             final SimulatedStackframe<Object> targetStackFrame) {
@@ -196,18 +200,18 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
         return result;
     }
-    
+
     @Override
     public Object caseCreateBirthDateAction(CreateBirthDateAction action) {
         LOGGER.trace("Creating birth date: " + action.getEntityName());
-        
+
         String referenceName = action.getVariableReference().getReferenceName();
-        
+
         double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
         SimulatedStackframe<Object> currentStackFrame = this.context.getStack().currentStackFrame();
-        
+
         currentStackFrame.addValue(referenceName, currentSimulationTime);
-        
+
         return true;
     }
 
