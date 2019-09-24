@@ -101,6 +101,8 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
                 this::notifyProcessesWaitingToGet);
     }
 
+    // TODO: should remove unnecessary complexity introduced with this kind of reuse and just inline
+    // into two methods above
     private <T> void notifyProcesses(final Queue<T> processes, final Function<T, ISchedulableProcess> processExtractor,
             final Predicate<T> canProceed, final Consumer<T> allow, final Runnable callAfterAllowing) {
 
