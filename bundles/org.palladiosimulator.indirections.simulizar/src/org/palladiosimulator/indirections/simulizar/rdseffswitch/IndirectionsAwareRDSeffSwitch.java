@@ -70,7 +70,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseEmitDataAction(final EmitDataAction action) {
         LOGGER.trace("Emit event action: " + action.getEntityName());
 
-        final DataChannelSourceConnector dataChannelSourceConnecoor = IndirectionModelUtil.getSourceConnector(context,
+        final DataChannelSourceConnector dataChannelSourceConnector = IndirectionModelUtil.getSourceConnector(context,
                 action);
         final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
 
@@ -83,7 +83,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
         // TODO: check cases in which getContents does not work
         LOGGER.trace("Trying to emit data to " + dataChannelResource.getName() + " - " + dataChannelResource.getId());
-        dataChannelResource.put(this.context.getThread(), dataChannelSourceConnecoor,
+        dataChannelResource.put(this.context.getThread(), dataChannelSourceConnector,
                 IterableUtil.toMap(eventStackframe.getContents()));
 
         return true;
