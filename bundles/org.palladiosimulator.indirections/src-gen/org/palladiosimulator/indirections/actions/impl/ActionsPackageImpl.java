@@ -196,6 +196,16 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
      * @generated
      */
     @Override
+    public EReference getAnalyseStackAction_VariableReference() {
+        return (EReference) this.analyseStackActionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
     public EClass getConsumeDataAction() {
         return this.consumeDataActionEClass;
     }
@@ -302,6 +312,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         // Create classes and their features
         this.analyseStackActionEClass = this.createEClass(ANALYSE_STACK_ACTION);
         this.createEAttribute(this.analyseStackActionEClass, ANALYSE_STACK_ACTION__KEY);
+        this.createEReference(this.analyseStackActionEClass, ANALYSE_STACK_ACTION__VARIABLE_REFERENCE);
 
         this.consumeDataActionEClass = this.createEClass(CONSUME_DATA_ACTION);
         this.createEReference(this.consumeDataActionEClass, CONSUME_DATA_ACTION__EVENT_TYPE);
@@ -341,12 +352,12 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
         // Obtain other dependent packages
         final SeffPackage theSeffPackage = (SeffPackage) EPackage.Registry.INSTANCE.getEPackage(SeffPackage.eNS_URI);
+        final StoexPackage theStoexPackage = (StoexPackage) EPackage.Registry.INSTANCE
+                .getEPackage(StoexPackage.eNS_URI);
         final org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
                 .getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
         final RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
                 .getEPackage(RepositoryPackage.eNS_URI);
-        final StoexPackage theStoexPackage = (StoexPackage) EPackage.Registry.INSTANCE
-                .getEPackage(StoexPackage.eNS_URI);
 
         // Create type parameters
 
@@ -366,6 +377,10 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         this.initEAttribute(this.getAnalyseStackAction_Key(), this.ecorePackage.getEString(), "key", null, 0, 1,
                 AnalyseStackAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
                 !IS_DERIVED, IS_ORDERED);
+        this.initEReference(this.getAnalyseStackAction_VariableReference(), theStoexPackage.getVariableReference(),
+                null,
+                "variableReference", null, 0, 1, AnalyseStackAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         this.initEClass(this.consumeDataActionEClass, ConsumeDataAction.class, "ConsumeDataAction", !IS_ABSTRACT,
                 !IS_INTERFACE,

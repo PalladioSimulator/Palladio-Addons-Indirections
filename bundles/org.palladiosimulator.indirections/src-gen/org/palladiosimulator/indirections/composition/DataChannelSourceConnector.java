@@ -15,8 +15,8 @@ import org.palladiosimulator.pcm.core.composition.Connector;
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getSourceRole
- * <em>Source Role</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getDataSourceRole
+ * <em>Data Source Role</em>}</li>
  * <li>{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getAssemblyContext
  * <em>Assembly Context</em>}</li>
  * <li>{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getDataChannel
@@ -29,28 +29,28 @@ import org.palladiosimulator.pcm.core.composition.Connector;
  */
 public interface DataChannelSourceConnector extends Connector {
     /**
-     * Returns the value of the '<em><b>Source Role</b></em>' reference. <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns the value of the '<em><b>Data Source Role</b></em>' reference. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * 
-     * @return the value of the '<em>Source Role</em>' reference.
-     * @see #setSourceRole(DataSourceRole)
-     * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSourceConnector_SourceRole()
+     * @return the value of the '<em>Data Source Role</em>' reference.
+     * @see #setDataSourceRole(DataSourceRole)
+     * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSourceConnector_DataSourceRole()
      * @model required="true" ordered="false"
      * @generated
      */
-    DataSourceRole getSourceRole();
+    DataSourceRole getDataSourceRole();
 
     /**
      * Sets the value of the
-     * '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getSourceRole
-     * <em>Source Role</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getDataSourceRole
+     * <em>Data Source Role</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @param value
-     *            the new value of the '<em>Source Role</em>' reference.
-     * @see #getSourceRole()
+     *            the new value of the '<em>Data Source Role</em>' reference.
+     * @see #getDataSourceRole()
      * @generated
      */
-    void setSourceRole(DataSourceRole value);
+    void setDataSourceRole(DataSourceRole value);
 
     /**
      * Returns the value of the '<em><b>Assembly Context</b></em>' reference. <!-- begin-user-doc

@@ -295,5 +295,5 @@ public interface DataChannel extends Entity {
      * @generated
      */
     void setPutPolicy(PutPolicy value);
-  
+
 } // DataChannel

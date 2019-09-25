@@ -6,6 +6,8 @@
       nsPrefix="org.palladiosimulator.indirections.actions">
     <eClassifiers xsi:type="ecore:EClass" name="AnalyseStackAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ConsumeDataAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction ../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/CallReturnAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventType" ordered="false"
@@ -103,7 +105,7 @@
   <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirections/Composition/1.0"
       nsPrefix="org.palladiosimulator.indirections.composition">
     <eClassifiers xsi:type="ecore:EClass" name="DataChannelSourceConnector" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="sourceRole" ordered="false"
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceRole" ordered="false"
           lowerBound="1" eType="#//repository/DataSourceRole"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" ordered="false"
           lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>

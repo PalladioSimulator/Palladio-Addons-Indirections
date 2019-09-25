@@ -17,4 +17,9 @@ Require-Bundle: org.palladiosimulator.simulizar;bundle-version="2.1.0",
  de.uka.ipd.sdq.simucomframework,
  de.uka.ipd.sdq.simulation.abstractsimengine;bundle-version="4.1.0",
  org.palladiosimulator.commons,
- org.palladiosimulator.indirections.util
+ org.palladiosimulator.indirections.util,
+ org.palladiosimulator.edp2,
+ org.palladiosimulator.pcm.edp2.measuringpoint,
+ org.palladiosimulator.probeframework,
+ org.palladiosimulator.edp2.util,
+ org.palladiosimulator.measurementframework

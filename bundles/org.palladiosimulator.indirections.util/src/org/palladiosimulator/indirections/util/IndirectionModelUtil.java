@@ -25,7 +25,7 @@ public final class IndirectionModelUtil {
                 .filter(DataChannelSourceConnector.class::isInstance).map(DataChannelSourceConnector.class::cast)
                 .collect(Collectors.toList());
 
-        return dataChannelSourceConnectors.stream().filter(it -> it.getSourceRole().equals(sourceRole)).findAny()
+        return dataChannelSourceConnectors.stream().filter(it -> it.getDataSourceRole().equals(sourceRole)).findAny()
                 .orElseThrow(
                         () -> new IllegalStateException("Could not find data channel for source role " + sourceRole))
                 .getDataChannel();
@@ -44,6 +44,21 @@ public final class IndirectionModelUtil {
                 .orElseThrow(() -> new IllegalStateException("Could not find data channel for sink role " + sinkRole));
 
         return sinkConnectorForRole;
+    }
+    
+    public static DataChannelSourceConnector getSourceConnectorForRole(final AssemblyContext assemblyContext,
+            final DataSourceRole sourceRole) {
+        final EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
+                .getConnectors__ComposedStructure();
+        final List<DataChannelSourceConnector> dataChannelSourceConnectors = connectors.stream()
+                .filter(DataChannelSourceConnector.class::isInstance).map(DataChannelSourceConnector.class::cast)
+                .collect(Collectors.toList());
+
+        final DataChannelSourceConnector sourceConnectorForRole = dataChannelSourceConnectors.stream()
+                .filter(it -> it.getDataSourceRole().equals(sourceRole)).findAny()
+                .orElseThrow(() -> new IllegalStateException("Could not find data channel for source role " + sourceRole));
+
+        return sourceConnectorForRole;
     }
 
     public static DataChannel getConnectedSourceDataChannel(final AssemblyContext assemblyContext,

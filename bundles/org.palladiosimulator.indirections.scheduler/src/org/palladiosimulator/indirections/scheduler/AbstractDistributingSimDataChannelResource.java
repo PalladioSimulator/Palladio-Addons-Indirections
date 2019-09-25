@@ -1,8 +1,6 @@
 package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -10,8 +8,10 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
@@ -27,10 +27,8 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public abstract class AbstractDistributingSimDataChannelResource implements IDataChannelResource {
-    protected final Queue<ProcessWaitingToEmit> waitingToPutQueue;
-    protected final List<IndirectionDate> incomingQueue;
-
-    protected Map<DataChannelSinkConnector, OutgoingQueue> outgoingQueues;
+    protected Map<DataChannelSinkConnector, IndirectionQueue<ProcessWaitingToConsume>> outgoingQueues;
+    protected Map<DataChannelSourceConnector, IndirectionQueue<ProcessWaitingToEmit>> incomingQueues;
     protected DataChannel dataChannel;
     protected SimuComModel model;
 
@@ -40,11 +38,11 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 
     private TimeProvider timeProvider;
 
-    protected class OutgoingQueue {
+    protected class IndirectionQueue<T extends SuspendableSchedulerEntity> {
         public final Queue<IndirectionDate> elements;
-        public final Queue<ProcessWaitingToConsume> processes;
+        public final Queue<T> processes;
 
-        public OutgoingQueue() {
+        public IndirectionQueue() {
             this.elements = new ArrayDeque<>();
             this.processes = new ArrayDeque<>();
         }
@@ -76,29 +74,30 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         this.model = (SimuComModel) model;
         this.timeProvider = (process, data) -> model.getSimulationControl().getCurrentSimulationTime();
 
-        this.waitingToPutQueue = new ArrayDeque<>();
-        this.incomingQueue = new ArrayList<>();
-
-        this.initializeOutgoingQueues();
+        this.initializeQueues();
     }
 
-    private void initializeOutgoingQueues() {
-        this.outgoingQueues = new HashMap<>();
-        this.dataChannel.getDataChannelSinkConnector().stream()
-                .forEach(it -> this.outgoingQueues.put(it, new OutgoingQueue()));
+    private void initializeQueues() {
+        this.outgoingQueues = this.dataChannel.getDataChannelSinkConnector().stream()
+                .collect(Collectors.toMap(Function.identity(), it -> new IndirectionQueue<ProcessWaitingToConsume>()));
+
+        this.incomingQueues = this.dataChannel.getDataChannelSourceConnector().stream()
+                .collect(Collectors.toMap(Function.identity(), it -> new IndirectionQueue<ProcessWaitingToEmit>()));
     }
 
-    private void notifyProcessesWaitingToGet() {
-        for (final OutgoingQueue queue : this.outgoingQueues.values()) {
+    protected void notifyProcessesWaitingToGet() {
+        for (final IndirectionQueue<ProcessWaitingToConsume> queue : this.outgoingQueues.values()) {
             this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet,
                     this::allowToGetAndActivate, this::notifyProcessesWaitingToPut);
         }
     }
 
-    private void notifyProcessesWaitingToPut() {
-        this.notifyProcesses(this.waitingToPutQueue, p -> p.schedulableProcess, this::canProceedToPut,
-                this::allowToPutAndActivate,
-                this::notifyProcessesWaitingToGet);
+    protected void notifyProcessesWaitingToPut() {
+        for (final IndirectionQueue<ProcessWaitingToEmit> queue : this.incomingQueues.values()) {
+            this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToPut,
+                    this::allowToPutAndActivate,
+                    this::notifyProcessesWaitingToGet);
+        }
     }
 
     // TODO: should remove unnecessary complexity introduced with this kind of reuse and just inline
@@ -116,7 +115,8 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     @Override
-    public boolean put(final ISchedulableProcess schedulableProcess, final Map<String, Object> eventStackframe) {
+    public boolean put(final ISchedulableProcess schedulableProcess, final DataChannelSourceConnector sourceConnector,
+            final Map<String, Object> eventStackframe) {
         IndirectionUtil.validateStackframeStructure(eventStackframe, this.getIncomingParameterName());
 
         if (!this.model.getSimulationControl().isRunning()) {
@@ -126,13 +126,14 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         double time = timeProvider.getTime(schedulableProcess, eventStackframe);
         IndirectionDate date = new ConcreteIndirectionDate(eventStackframe, time);
 
-        final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, date);
+        final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, sourceConnector,
+                date);
         if (this.canProceedToPut(process)) {
             this.allowToPutAndActivate(process);
             this.notifyProcessesWaitingToGet();
             return true;
         } else {
-            this.waitingToPutQueue.add(process);
+            this.incomingQueues.get(sourceConnector).processes.add(process);
             process.passivate();
             return false;
         }
@@ -170,8 +171,10 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     private boolean canProceedToPut(final ProcessWaitingToEmit process) {
-        final boolean isNextProcess = this.waitingToPutQueue.isEmpty()
-                || this.waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
+        final Queue<ProcessWaitingToEmit> waitingToPutQueue = this.incomingQueues
+                .get(process.sourceConnector).processes;
+        final boolean isNextProcess = waitingToPutQueue.isEmpty()
+                || waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 
         return isNextProcess && canAcceptDataFrom(process);
     }

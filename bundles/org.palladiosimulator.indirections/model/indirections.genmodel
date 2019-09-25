@@ -21,6 +21,7 @@
         ecorePackage="indirections.ecore#//actions">
       <genClasses ecoreClass="indirections.ecore#//actions/AnalyseStackAction">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//actions/AnalyseStackAction/key"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AnalyseStackAction/variableReference"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/ConsumeDataAction">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -108,7 +109,7 @@
         ecorePackage="indirections.ecore#//composition">
       <genClasses ecoreClass="indirections.ecore#//composition/DataChannelSourceConnector">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/sourceRole"/>
+            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/dataSourceRole"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/assemblyContext"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
