@@ -15,17 +15,14 @@ import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
-import org.palladiosimulator.indirections.repository.DataSinkRole;
-import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.simulizar.measurements.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.simulizar.measurements.TriggeredProxyProbe;
-import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.IndirectionUtil;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.indirections.util.MapUtil;
+import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.allocation.Allocation;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -79,9 +76,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseEmitDataAction(final EmitDataAction action) {
         LOGGER.trace("Emit event action: " + action.getEntityName());
 
-        this.getSourceConnector(action);
-        final DataChannelSourceConnector dataChannelSourceConnecoor = this.getSourceConnector(action);
-        final IDataChannelResource dataChannelResource = this.getDataChannelResource(action);
+        final DataChannelSourceConnector dataChannelSourceConnecoor = IndirectionModelUtil.getSourceConnector(context,
+                action);
+        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
 
         final SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
         final String parameterName = IterableUtil
@@ -102,8 +99,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseConsumeDataAction(final ConsumeDataAction action) {
         LOGGER.trace("Consume data action: " + action.getEntityName());
 
-        final DataChannelSinkConnector dataChannelSinkConnector = this.getSinkConnector(action);
-        final IDataChannelResource dataChannelResource = this.getDataChannelResource(action);
+        final DataChannelSinkConnector dataChannelSinkConnector = IndirectionModelUtil.getSinkConnector(context,
+                action);
+        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
 
         final String threadName = Thread.currentThread().getName();
 
@@ -164,34 +162,5 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));
 
         return true;
-    }
-
-    private IDataChannelResource getDataChannelResource(final EmitDataAction action) {
-        final DataChannel dataChannel = this.getSourceConnector(action).getDataChannel();
-
-        final IDataChannelResource dataChannelResource = this.dataChannelRegistry
-                .getOrCreateDataChannelResource(dataChannel);
-        return dataChannelResource;
-    }
-
-    private DataChannelSourceConnector getSourceConnector(final EmitDataAction action) {
-        final AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
-        final DataSourceRole sinkRole = action.getDataSourceRole();
-
-        return IndirectionModelUtil.getSourceConnectorForRole(assemblyContext, sinkRole);
-    }
-
-    private IDataChannelResource getDataChannelResource(final ConsumeDataAction action) {
-        final DataChannel dataChannel = this.getSinkConnector(action).getDataChannel();
-        final IDataChannelResource dataChannelResource = this.dataChannelRegistry
-                .getOrCreateDataChannelResource(dataChannel);
-        return dataChannelResource;
-    }
-
-    private DataChannelSinkConnector getSinkConnector(final ConsumeDataAction action) {
-        final AssemblyContext assemblyContext = this.context.getAssemblyContextStack().peek();
-        final DataSinkRole sinkRole = action.getDataSinkRole();
-
-        return IndirectionModelUtil.getSinkConnectorForRole(assemblyContext, sinkRole);
     }
 }

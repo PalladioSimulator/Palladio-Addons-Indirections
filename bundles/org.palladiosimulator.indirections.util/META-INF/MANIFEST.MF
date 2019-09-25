@@ -13,4 +13,6 @@ Require-Bundle: org.palladiosimulator.pcm,
  de.uka.ipd.sdq.simucomframework.variables,
  de.uka.ipd.sdq.stoex.analyser,
  org.apache.log4j
-Export-Package: org.palladiosimulator.indirections.util
+Export-Package: org.palladiosimulator.indirections.util,
+ org.palladiosimulator.indirections.util.simulizar
+Import-Package: org.palladiosimulator.commons.eclipseutils
