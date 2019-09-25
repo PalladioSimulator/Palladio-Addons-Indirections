@@ -9,6 +9,7 @@ import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
@@ -18,13 +19,12 @@ import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUt
 import org.palladiosimulator.indirections.simulizar.measurements.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.simulizar.measurements.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
-import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
-import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
@@ -74,17 +74,12 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 action);
         final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
 
-        final SimulatedStackframe<Object> eventStackframe = new SimulatedStackframe<Object>();
-        final String parameterName = IterableUtil
-                .claimOne(action.getDataSourceRole().getEventGroup().getEventTypes__EventGroup())
-                .getParameter__EventType().getParameterName();
-        IndirectionSimulationUtil.addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
-                action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
+        String referenceName = action.getVariableReference().getReferenceName();
+        IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
 
-        // TODO: check cases in which getContents does not work
-        LOGGER.trace("Trying to emit data to " + dataChannelResource.getName() + " - " + dataChannelResource.getId());
-        dataChannelResource.put(this.context.getThread(), dataChannelSourceConnector,
-                IterableUtil.toMap(eventStackframe.getContents()));
+        LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
+                + dataChannelResource.getId());
+        dataChannelResource.put(this.context.getThread(), dataChannelSourceConnector, date);
 
         return true;
     }
@@ -100,19 +95,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         final String threadName = Thread.currentThread().getName();
 
         LOGGER.trace("Trying to get (" + threadName + ")");
-        final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector,
-                (eventMap) -> {
-                    final SimulatedStackframe<Object> contextStackframe = SimulatedStackHelper
-                            .createFromMap(eventMap.getData());
-                    final String parameterName = IterableUtil
-                            .claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
-                            .getParameter__EventType().getParameterName();
-                    LOGGER.trace("Parameter name: " + parameterName + " (thread: " + threadName + ")");
-                    IndirectionSimulationUtil.addParameterToStackFrameWithCopying(contextStackframe,
-                            action.getReturnVariableUsage__CallReturnAction(), parameterName,
-                            this.context.getStack().currentStackFrame());
-                    LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
-                });
+        final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
+            context.getStack().currentStackFrame().addValue(action.getVariableReference().getReferenceName(), date);
+            LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
+        });
 
         LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
 
@@ -143,6 +129,15 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         measureDataAge(action, data.getTime());
 
         return true;
+    }
+
+    @Override
+    public Object casePutDataOnStackAction(PutDataOnStackAction action) {
+        LOGGER.trace("Putting data on stack: " + action.getEntityName());
+
+        throw new PCMModelInterpreterException("not yet supported: " + action);
+
+//        return true;
     }
 
     private void measureDataAge(AnalyseStackAction action, double value) {

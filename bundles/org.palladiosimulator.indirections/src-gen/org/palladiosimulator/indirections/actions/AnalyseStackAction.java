@@ -52,7 +52,7 @@ public interface AnalyseStackAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Variable Reference</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Variable Reference</em>' containment reference.
      * @see #setVariableReference(VariableReference)
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getAnalyseStackAction_VariableReference()

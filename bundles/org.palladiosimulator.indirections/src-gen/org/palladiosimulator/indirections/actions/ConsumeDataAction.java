@@ -5,7 +5,8 @@ package org.palladiosimulator.indirections.actions;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.pcm.repository.EventType;
 import org.palladiosimulator.pcm.seff.AbstractAction;
-import org.palladiosimulator.pcm.seff.CallReturnAction;
+
+import de.uka.ipd.sdq.stoex.VariableReference;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Consume Data
@@ -19,13 +20,15 @@ import org.palladiosimulator.pcm.seff.CallReturnAction;
  * Type</em>}</li>
  * <li>{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getDataSinkRole <em>Data
  * Sink Role</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getVariableReference
+ * <em>Variable Reference</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.actions.ActionsPackage#getConsumeDataAction()
  * @model
  * @generated
  */
-public interface ConsumeDataAction extends AbstractAction, CallReturnAction {
+public interface ConsumeDataAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Event Type</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -73,5 +76,30 @@ public interface ConsumeDataAction extends AbstractAction, CallReturnAction {
      * @generated
      */
     void setDataSinkRole(DataSinkRole value);
+
+    /**
+     * Returns the value of the '<em><b>Variable Reference</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the value of the '<em>Variable Reference</em>' containment reference.
+     * @see #setVariableReference(VariableReference)
+     * @see org.palladiosimulator.indirections.actions.ActionsPackage#getConsumeDataAction_VariableReference()
+     * @model containment="true" required="true"
+     * @generated
+     */
+    VariableReference getVariableReference();
+
+    /**
+     * Sets the value of the
+     * '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getVariableReference
+     * <em>Variable Reference</em>}' containment reference. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @param value
+     *            the new value of the '<em>Variable Reference</em>' containment reference.
+     * @see #getVariableReference()
+     * @generated
+     */
+    void setVariableReference(VariableReference value);
 
 } // ConsumeDataAction

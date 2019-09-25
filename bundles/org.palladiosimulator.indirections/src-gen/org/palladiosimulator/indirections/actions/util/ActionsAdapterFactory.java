@@ -11,11 +11,10 @@ import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.seff.AbstractAction;
-import org.palladiosimulator.pcm.seff.CallAction;
-import org.palladiosimulator.pcm.seff.CallReturnAction;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
@@ -92,6 +91,11 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
+        public Adapter casePutDataOnStackAction(final PutDataOnStackAction object) {
+            return ActionsAdapterFactory.this.createPutDataOnStackActionAdapter();
+        }
+
+        @Override
         public Adapter caseIdentifier(final Identifier object) {
             return ActionsAdapterFactory.this.createIdentifierAdapter();
         }
@@ -109,16 +113,6 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseAbstractAction(final AbstractAction object) {
             return ActionsAdapterFactory.this.createAbstractActionAdapter();
-        }
-
-        @Override
-        public Adapter caseCallAction(final CallAction object) {
-            return ActionsAdapterFactory.this.createCallActionAdapter();
-        }
-
-        @Override
-        public Adapter caseCallReturnAction(final CallReturnAction object) {
-            return ActionsAdapterFactory.this.createCallReturnActionAdapter();
         }
 
         @Override
@@ -201,6 +195,21 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class
+     * '{@link org.palladiosimulator.indirections.actions.PutDataOnStackAction <em>Put Data On Stack
+     * Action</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the
+     * cases anyway. <!-- end-user-doc -->
+     * 
+     * @return the new adapter.
+     * @see org.palladiosimulator.indirections.actions.PutDataOnStackAction
+     * @generated
+     */
+    public Adapter createPutDataOnStackActionAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link de.uka.ipd.sdq.identifier.Identifier
      * <em>Identifier</em>}'. <!-- begin-user-doc --> This default implementation returns null so
      * that we can easily ignore cases; it's useful to ignore a case when inheritance will catch all
@@ -220,7 +229,7 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
      * begin-user-doc --> This default implementation returns null so that we can easily ignore
      * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
+     *
      * @return the new adapter.
      * @see org.palladiosimulator.pcm.core.entity.NamedElement
      * @generated
@@ -249,41 +258,12 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
      * begin-user-doc --> This default implementation returns null so that we can easily ignore
      * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
      * end-user-doc -->
-     * 
+     *
      * @return the new adapter.
      * @see org.palladiosimulator.pcm.seff.AbstractAction
      * @generated
      */
     public Adapter createAbstractActionAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class
-     * '{@link org.palladiosimulator.pcm.seff.CallAction <em>Call Action</em>}'. <!-- begin-user-doc
-     * --> This default implementation returns null so that we can easily ignore cases; it's useful
-     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
-     * @return the new adapter.
-     * @see org.palladiosimulator.pcm.seff.CallAction
-     * @generated
-     */
-    public Adapter createCallActionAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class
-     * '{@link org.palladiosimulator.pcm.seff.CallReturnAction <em>Call Return Action</em>}'. <!--
-     * begin-user-doc --> This default implementation returns null so that we can easily ignore
-     * cases; it's useful to ignore a case when inheritance will catch all the cases anyway. <!--
-     * end-user-doc -->
-     * 
-     * @return the new adapter.
-     * @see org.palladiosimulator.pcm.seff.CallReturnAction
-     * @generated
-     */
-    public Adapter createCallReturnActionAdapter() {
         return null;
     }
 

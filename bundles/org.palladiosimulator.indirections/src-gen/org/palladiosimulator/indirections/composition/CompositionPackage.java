@@ -82,7 +82,7 @@ public interface CompositionPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -121,7 +121,7 @@ public interface CompositionPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Data Channel Source Connector</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -160,7 +160,7 @@ public interface CompositionPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -199,7 +199,7 @@ public interface CompositionPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Data Channel Sink Connector</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -238,7 +238,7 @@ public interface CompositionPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -267,7 +267,7 @@ public interface CompositionPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Data Channel Connector</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -430,7 +430,7 @@ public interface CompositionPackage extends EPackage {
          * '{@link org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl
          * <em>Data Channel Source Connector</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
          * -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl
          * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelSourceConnector()
          * @generated
@@ -458,7 +458,7 @@ public interface CompositionPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Data Channel</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference DATA_CHANNEL_SOURCE_CONNECTOR__DATA_CHANNEL = eINSTANCE.getDataChannelSourceConnector_DataChannel();
@@ -468,7 +468,7 @@ public interface CompositionPackage extends EPackage {
          * '{@link org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl
          * <em>Data Channel Sink Connector</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc
          * -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl
          * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelSinkConnector()
          * @generated
@@ -478,7 +478,7 @@ public interface CompositionPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Data Sink Role</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE = eINSTANCE.getDataChannelSinkConnector_DataSinkRole();
@@ -495,7 +495,7 @@ public interface CompositionPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Data Channel</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference DATA_CHANNEL_SINK_CONNECTOR__DATA_CHANNEL = eINSTANCE.getDataChannelSinkConnector_DataChannel();
@@ -514,7 +514,7 @@ public interface CompositionPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Source</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference DATA_CHANNEL_CONNECTOR__SOURCE = eINSTANCE.getDataChannelConnector_Source();
@@ -522,7 +522,7 @@ public interface CompositionPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Sink</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference DATA_CHANNEL_CONNECTOR__SINK = eINSTANCE.getDataChannelConnector_Sink();

@@ -56,6 +56,15 @@ public interface ActionsFactory extends EFactory {
     CreateDataAction createCreateDataAction();
 
     /**
+     * Returns a new object of class '<em>Put Data On Stack Action</em>'. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
+     * @return a new object of class '<em>Put Data On Stack Action</em>'.
+     * @generated
+     */
+    PutDataOnStackAction createPutDataOnStackAction();
+
+    /**
      * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @return the package supported by this factory.

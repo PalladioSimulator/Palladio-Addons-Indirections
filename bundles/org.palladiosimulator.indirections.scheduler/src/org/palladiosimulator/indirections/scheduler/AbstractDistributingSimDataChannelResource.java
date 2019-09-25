@@ -14,11 +14,9 @@ import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
-import org.palladiosimulator.indirections.scheduler.time.TimeProvider;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 
@@ -35,8 +33,6 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     protected final String name;
     protected final String id;
     protected final int capacity;
-
-    private TimeProvider timeProvider;
 
     protected class IndirectionQueue<T extends SuspendableSchedulerEntity> {
         public final Queue<IndirectionDate> elements;
@@ -72,7 +68,6 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         this.capacity = dataChannel.getCapacity();
 
         this.model = (SimuComModel) model;
-        this.timeProvider = (process, data) -> model.getSimulationControl().getCurrentSimulationTime();
 
         this.initializeQueues();
     }
@@ -115,15 +110,13 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
 
     @Override
     public boolean put(final ISchedulableProcess schedulableProcess, final DataChannelSourceConnector sourceConnector,
-            final Map<String, Object> eventStackframe) {
-        IndirectionSimulationUtil.validateStackframeStructure(eventStackframe, this.getIncomingParameterName());
+            final IndirectionDate date) {
+        IndirectionSimulationUtil.validateIndirectionDateStructure(date,
+                sourceConnector.getDataSourceRole().getEventGroup());
 
         if (!this.model.getSimulationControl().isRunning()) {
             return true;
         }
-
-        double time = timeProvider.getTime(schedulableProcess, eventStackframe);
-        IndirectionDate date = new ConcreteIndirectionDate(eventStackframe, time);
 
         final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, sourceConnector,
                 date);

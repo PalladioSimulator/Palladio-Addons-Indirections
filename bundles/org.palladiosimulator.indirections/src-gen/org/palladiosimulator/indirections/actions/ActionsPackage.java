@@ -84,7 +84,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Predecessor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -93,7 +93,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Successor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -120,7 +120,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -129,7 +129,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Analyse Stack Action</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -167,7 +167,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Predecessor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -176,7 +176,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Successor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -192,31 +192,13 @@ public interface ActionsPackage extends EPackage {
     int CONSUME_DATA_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION;
 
     /**
-     * The feature id for the '<em><b>Input Variable Usages Call Action</b></em>' containment
-     * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CONSUME_DATA_ACTION__INPUT_VARIABLE_USAGES_CALL_ACTION = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Return Variable Usage Call Return Action</b></em>' containment
-     * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CONSUME_DATA_ACTION__RETURN_VARIABLE_USAGE_CALL_RETURN_ACTION = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
-
-    /**
      * The feature id for the '<em><b>Event Type</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
      * @generated
      * @ordered
      */
-    int CONSUME_DATA_ACTION__EVENT_TYPE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
+    int CONSUME_DATA_ACTION__EVENT_TYPE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Data Sink Role</b></em>' reference. <!-- begin-user-doc -->
@@ -225,16 +207,25 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONSUME_DATA_ACTION__DATA_SINK_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 3;
+    int CONSUME_DATA_ACTION__DATA_SINK_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int CONSUME_DATA_ACTION__VARIABLE_REFERENCE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
 
     /**
      * The number of structural features of the '<em>Consume Data Action</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
-    int CONSUME_DATA_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 4;
+    int CONSUME_DATA_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the
@@ -268,7 +259,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Predecessor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -277,7 +268,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Successor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -293,22 +284,13 @@ public interface ActionsPackage extends EPackage {
     int EMIT_DATA_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION;
 
     /**
-     * The feature id for the '<em><b>Input Variable Usages Call Action</b></em>' containment
-     * reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int EMIT_DATA_ACTION__INPUT_VARIABLE_USAGES_CALL_ACTION = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
-
-    /**
      * The feature id for the '<em><b>Event Type</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
      * @generated
      * @ordered
      */
-    int EMIT_DATA_ACTION__EVENT_TYPE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
+    int EMIT_DATA_ACTION__EVENT_TYPE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Data Source Role</b></em>' reference. <!-- begin-user-doc -->
@@ -317,12 +299,21 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EMIT_DATA_ACTION__DATA_SOURCE_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
+    int EMIT_DATA_ACTION__DATA_SOURCE_ROLE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int EMIT_DATA_ACTION__VARIABLE_REFERENCE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
 
     /**
      * The number of structural features of the '<em>Emit Data Action</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -360,7 +351,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Predecessor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -369,7 +360,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Successor Abstract Action</b></em>' reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -387,7 +378,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -396,7 +387,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Variable Usages</b></em>' containment reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -405,11 +396,85 @@ public interface ActionsPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Create Data Action</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
     int CREATE_DATA_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
+
+    /**
+     * The meta object id for the
+     * '{@link org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl <em>Put Data
+     * On Stack Action</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl
+     * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getPutDataOnStackAction()
+     * @generated
+     */
+    int PUT_DATA_ON_STACK_ACTION = 4;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int PUT_DATA_ON_STACK_ACTION__ID = SeffPackage.ABSTRACT_ACTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Entity Name</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int PUT_DATA_ON_STACK_ACTION__ENTITY_NAME = SeffPackage.ABSTRACT_ACTION__ENTITY_NAME;
+
+    /**
+     * The feature id for the '<em><b>Predecessor Abstract Action</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int PUT_DATA_ON_STACK_ACTION__PREDECESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__PREDECESSOR_ABSTRACT_ACTION;
+
+    /**
+     * The feature id for the '<em><b>Successor Abstract Action</b></em>' reference. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int PUT_DATA_ON_STACK_ACTION__SUCCESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__SUCCESSOR_ABSTRACT_ACTION;
+
+    /**
+     * The feature id for the '<em><b>Resource Demanding Behaviour Abstract Action</b></em>'
+     * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int PUT_DATA_ON_STACK_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION;
+
+    /**
+     * The feature id for the '<em><b>Variable Usages</b></em>' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int PUT_DATA_ON_STACK_ACTION__VARIABLE_USAGES = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Put Data On Stack Action</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int PUT_DATA_ON_STACK_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
 
     /**
      * Returns the meta object for class
@@ -482,6 +547,18 @@ public interface ActionsPackage extends EPackage {
     EReference getConsumeDataAction_DataSinkRole();
 
     /**
+     * Returns the meta object for the containment reference
+     * '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getVariableReference
+     * <em>Variable Reference</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the containment reference '<em>Variable Reference</em>'.
+     * @see org.palladiosimulator.indirections.actions.ConsumeDataAction#getVariableReference()
+     * @see #getConsumeDataAction()
+     * @generated
+     */
+    EReference getConsumeDataAction_VariableReference();
+
+    /**
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.actions.EmitDataAction <em>Emit Data
      * Action</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -515,6 +592,18 @@ public interface ActionsPackage extends EPackage {
      * @generated
      */
     EReference getEmitDataAction_DataSourceRole();
+
+    /**
+     * Returns the meta object for the containment reference
+     * '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getVariableReference
+     * <em>Variable Reference</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the containment reference '<em>Variable Reference</em>'.
+     * @see org.palladiosimulator.indirections.actions.EmitDataAction#getVariableReference()
+     * @see #getEmitDataAction()
+     * @generated
+     */
+    EReference getEmitDataAction_VariableReference();
 
     /**
      * Returns the meta object for class
@@ -552,6 +641,29 @@ public interface ActionsPackage extends EPackage {
     EReference getCreateDataAction_VariableUsages();
 
     /**
+     * Returns the meta object for class
+     * '{@link org.palladiosimulator.indirections.actions.PutDataOnStackAction <em>Put Data On Stack
+     * Action</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for class '<em>Put Data On Stack Action</em>'.
+     * @see org.palladiosimulator.indirections.actions.PutDataOnStackAction
+     * @generated
+     */
+    EClass getPutDataOnStackAction();
+
+    /**
+     * Returns the meta object for the containment reference list
+     * '{@link org.palladiosimulator.indirections.actions.PutDataOnStackAction#getVariableUsages
+     * <em>Variable Usages</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the containment reference list '<em>Variable Usages</em>'.
+     * @see org.palladiosimulator.indirections.actions.PutDataOnStackAction#getVariableUsages()
+     * @see #getPutDataOnStackAction()
+     * @generated
+     */
+    EReference getPutDataOnStackAction_VariableUsages();
+
+    /**
      * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
@@ -587,7 +699,7 @@ public interface ActionsPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EAttribute ANALYSE_STACK_ACTION__KEY = eINSTANCE.getAnalyseStackAction_Key();
@@ -614,7 +726,7 @@ public interface ActionsPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Event Type</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference CONSUME_DATA_ACTION__EVENT_TYPE = eINSTANCE.getConsumeDataAction_EventType();
@@ -622,10 +734,18 @@ public interface ActionsPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Data Sink Role</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference CONSUME_DATA_ACTION__DATA_SINK_ROLE = eINSTANCE.getConsumeDataAction_DataSinkRole();
+
+        /**
+         * The meta object literal for the '<em><b>Variable Reference</b></em>' containment
+         * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @generated
+         */
+        EReference CONSUME_DATA_ACTION__VARIABLE_REFERENCE = eINSTANCE.getConsumeDataAction_VariableReference();
 
         /**
          * The meta object literal for the
@@ -641,7 +761,7 @@ public interface ActionsPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Event Type</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference EMIT_DATA_ACTION__EVENT_TYPE = eINSTANCE.getEmitDataAction_EventType();
@@ -653,6 +773,14 @@ public interface ActionsPackage extends EPackage {
          * @generated
          */
         EReference EMIT_DATA_ACTION__DATA_SOURCE_ROLE = eINSTANCE.getEmitDataAction_DataSourceRole();
+
+        /**
+         * The meta object literal for the '<em><b>Variable Reference</b></em>' containment
+         * reference feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @generated
+         */
+        EReference EMIT_DATA_ACTION__VARIABLE_REFERENCE = eINSTANCE.getEmitDataAction_VariableReference();
 
         /**
          * The meta object literal for the
@@ -680,6 +808,25 @@ public interface ActionsPackage extends EPackage {
          * @generated
          */
         EReference CREATE_DATA_ACTION__VARIABLE_USAGES = eINSTANCE.getCreateDataAction_VariableUsages();
+
+        /**
+         * The meta object literal for the
+         * '{@link org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl <em>Put
+         * Data On Stack Action</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @see org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl
+         * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getPutDataOnStackAction()
+         * @generated
+         */
+        EClass PUT_DATA_ON_STACK_ACTION = eINSTANCE.getPutDataOnStackAction();
+
+        /**
+         * The meta object literal for the '<em><b>Variable Usages</b></em>' containment reference
+         * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @generated
+         */
+        EReference PUT_DATA_ON_STACK_ACTION__VARIABLE_USAGES = eINSTANCE.getPutDataOnStackAction_VariableUsages();
 
     }
 

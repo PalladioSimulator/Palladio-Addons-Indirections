@@ -28,16 +28,21 @@
             ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/dataSinkRole"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/variableReference"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/EmitDataAction">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/dataSourceRole"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/variableReference"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/CreateDataAction">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDataAction/variableReference"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDataAction/variableUsages"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//actions/PutDataOnStackAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/PutDataOnStackAction/variableUsages"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" generateModelWizard="false"

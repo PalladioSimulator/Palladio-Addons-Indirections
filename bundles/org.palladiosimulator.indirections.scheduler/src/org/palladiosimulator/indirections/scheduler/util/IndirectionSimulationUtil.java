@@ -193,4 +193,9 @@ public final class IndirectionSimulationUtil {
 
         return result;
     }
+
+    public static void validateIndirectionDateStructure(IndirectionDate date, EventGroup eventGroup) {
+        // TODO implement validation
+        LOGGER.warn("Not validating indirection date structure");
+    }
 }

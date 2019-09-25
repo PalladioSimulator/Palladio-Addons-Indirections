@@ -13,6 +13,7 @@ import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
@@ -63,6 +64,8 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
             return this.createEmitDataAction();
         case ActionsPackage.CREATE_DATA_ACTION:
             return this.createCreateDataAction();
+        case ActionsPackage.PUT_DATA_ON_STACK_ACTION:
+            return this.createPutDataOnStackAction();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -110,6 +113,17 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
     public CreateDataAction createCreateDataAction() {
         final CreateDataActionImpl createDataAction = new CreateDataActionImpl();
         return createDataAction;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
+    public PutDataOnStackAction createPutDataOnStackAction() {
+        final PutDataOnStackActionImpl putDataOnStackAction = new PutDataOnStackActionImpl();
+        return putDataOnStackAction;
     }
 
     /**
