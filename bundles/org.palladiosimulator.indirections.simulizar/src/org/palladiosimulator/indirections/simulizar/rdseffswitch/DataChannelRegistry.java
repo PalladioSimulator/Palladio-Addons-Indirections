@@ -13,6 +13,9 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public class DataChannelRegistry {
+    private static final String DATA_CHANNEL_RESOURCE_FACTORY_EXTENSION_POINT_ID = "org.palladiosimulator.indirections.interfaces.datachannelresourcefactory";
+    private static final String DATA_CHANNEL_RESOURCE_FACTORY_ATTRIBUTE_NAME = "dataChannelResourceFactory";
+
     private final Map<DataChannel, IDataChannelResource> dataChannelToDataChannelResource = new HashMap<DataChannel, IDataChannelResource>();
     private IDataChannelResourceFactory dataChannelResourceFactory;
     private final SimuComModel myModel;
@@ -44,8 +47,7 @@ public class DataChannelRegistry {
 
     private void initializeDataChannelResourceFactory() {
         final List<Object> executableExtensions = ExtensionHelper.getExecutableExtensions(
-                "org.palladiosimulator.indirections.interfaces.datachannelresourcefactory",
-                "dataChannelResourceFactory");
+                DATA_CHANNEL_RESOURCE_FACTORY_EXTENSION_POINT_ID, DATA_CHANNEL_RESOURCE_FACTORY_ATTRIBUTE_NAME);
         this.dataChannelResourceFactory = executableExtensions.stream().map((it) -> (IDataChannelResourceFactory) it)
                 .findFirst().orElseThrow(() -> new IllegalStateException(
                         "No " + IDataChannelResourceFactory.class.getName() + " found."));
