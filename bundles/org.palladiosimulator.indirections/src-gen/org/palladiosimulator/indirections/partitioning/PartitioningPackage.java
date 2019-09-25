@@ -75,7 +75,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Specification</b></em>' containment reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -162,7 +162,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Consume All Available</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -200,7 +200,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Collect With Holdback</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -229,7 +229,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Can Contribute Multiple Times</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -291,7 +291,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.partitioning.Windowing <em>Windowing</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the meta object for class '<em>Windowing</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Windowing
      * @generated
@@ -372,7 +372,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.partitioning.Joining <em>Joining</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the meta object for class '<em>Joining</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Joining
      * @generated
@@ -407,7 +407,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the containment reference list
      * '{@link org.palladiosimulator.indirections.partitioning.Joining#getKey <em>Key</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the meta object for the containment reference list '<em>Key</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Joining#getKey()
      * @see #getJoining()
@@ -481,7 +481,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Size</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute WINDOWING__SIZE = eINSTANCE.getWindowing_Size();
@@ -489,7 +489,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Shift</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute WINDOWING__SHIFT = eINSTANCE.getWindowing_Shift();
@@ -519,7 +519,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Holdback</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute COLLECT_WITH_HOLDBACK__HOLDBACK = eINSTANCE.getCollectWithHoldback_Holdback();
@@ -527,7 +527,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Key</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute COLLECT_WITH_HOLDBACK__KEY = eINSTANCE.getCollectWithHoldback_Key();
@@ -546,7 +546,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Source</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EReference JOINING__SOURCE = eINSTANCE.getJoining_Source();

@@ -154,7 +154,7 @@ public class RepositorySwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Identifier</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     *
+     * 
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Identifier</em>'.
@@ -184,7 +184,7 @@ public class RepositorySwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Entity</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     *
+     * 
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Entity</em>'.
@@ -199,7 +199,7 @@ public class RepositorySwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Role</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     *
+     * 
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Role</em>'.
@@ -244,7 +244,7 @@ public class RepositorySwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>EObject</em>'. <!--
      * begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch, but this is the last case anyway. <!-- end-user-doc -->
-     *
+     * 
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>EObject</em>'.

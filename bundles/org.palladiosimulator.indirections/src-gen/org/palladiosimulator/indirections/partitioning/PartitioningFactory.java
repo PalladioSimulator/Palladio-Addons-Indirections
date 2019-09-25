@@ -31,7 +31,7 @@ public interface PartitioningFactory extends EFactory {
     /**
      * Returns a new object of class '<em>Windowing</em>'. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
-     *
+     * 
      * @return a new object of class '<em>Windowing</em>'.
      * @generated
      */
@@ -58,7 +58,7 @@ public interface PartitioningFactory extends EFactory {
     /**
      * Returns a new object of class '<em>Joining</em>'. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
-     *
+     * 
      * @return a new object of class '<em>Joining</em>'.
      * @generated
      */

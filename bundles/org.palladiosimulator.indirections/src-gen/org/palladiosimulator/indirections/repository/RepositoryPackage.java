@@ -170,7 +170,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Data Source Role</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -271,7 +271,7 @@ public interface RepositoryPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Event Group</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EReference DATA_SINK_ROLE__EVENT_GROUP = eINSTANCE.getDataSinkRole_EventGroup();
@@ -279,7 +279,7 @@ public interface RepositoryPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Is Pushing</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute DATA_SINK_ROLE__IS_PUSHING = eINSTANCE.getDataSinkRole_IsPushing();
@@ -298,7 +298,7 @@ public interface RepositoryPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Event Group</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EReference DATA_SOURCE_ROLE__EVENT_GROUP = eINSTANCE.getDataSourceRole_EventGroup();

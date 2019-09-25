@@ -19,8 +19,8 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToC
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
 import org.palladiosimulator.indirections.scheduler.time.TimeProvider;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.util.IndirectionSimulationUtil;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
@@ -95,8 +95,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     protected void notifyProcessesWaitingToPut() {
         for (final IndirectionQueue<ProcessWaitingToEmit> queue : this.incomingQueues.values()) {
             this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToPut,
-                    this::allowToPutAndActivate,
-                    this::notifyProcessesWaitingToGet);
+                    this::allowToPutAndActivate, this::notifyProcessesWaitingToGet);
         }
     }
 

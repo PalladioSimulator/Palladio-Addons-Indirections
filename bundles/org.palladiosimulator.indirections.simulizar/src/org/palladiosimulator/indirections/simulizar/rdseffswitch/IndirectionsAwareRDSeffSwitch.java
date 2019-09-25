@@ -14,12 +14,11 @@ import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.simulizar.measurements.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.simulizar.measurements.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
-import org.palladiosimulator.indirections.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IterableUtil;
-import org.palladiosimulator.indirections.util.MapUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
@@ -85,7 +84,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         // TODO: check cases in which getContents does not work
         LOGGER.trace("Trying to emit data to " + dataChannelResource.getName() + " - " + dataChannelResource.getId());
         dataChannelResource.put(this.context.getThread(), dataChannelSourceConnecoor,
-                MapUtil.toMap(eventStackframe.getContents()));
+                IterableUtil.toMap(eventStackframe.getContents()));
 
         return true;
     }
@@ -125,11 +124,11 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         LOGGER.trace("Creating birth date: " + action.getEntityName());
 
         String referenceName = action.getVariableReference().getReferenceName();
-
         double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
-        SimulatedStackframe<Object> currentStackFrame = this.context.getStack().currentStackFrame();
 
-        currentStackFrame.addValue(referenceName, currentSimulationTime);
+        IndirectionDate date = IndirectionSimulationUtil.createData(context.getStack(), action.getVariableUsages(),
+                currentSimulationTime);
+        IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), referenceName, date);
 
         return true;
     }

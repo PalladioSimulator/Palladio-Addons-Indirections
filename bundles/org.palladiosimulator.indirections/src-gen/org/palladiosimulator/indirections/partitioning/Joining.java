@@ -55,7 +55,7 @@ public interface Joining extends CDOObject {
     /**
      * Returns the value of the '<em><b>Can Contribute Multiple Times</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the value of the '<em>Can Contribute Multiple Times</em>' attribute.
      * @see #setCanContributeMultipleTimes(boolean)
      * @see org.palladiosimulator.indirections.partitioning.PartitioningPackage#getJoining_CanContributeMultipleTimes()
@@ -69,7 +69,7 @@ public interface Joining extends CDOObject {
      * '{@link org.palladiosimulator.indirections.partitioning.Joining#isCanContributeMultipleTimes
      * <em>Can Contribute Multiple Times</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
-     *
+     * 
      * @param value
      *            the new value of the '<em>Can Contribute Multiple Times</em>' attribute.
      * @see #isCanContributeMultipleTimes()

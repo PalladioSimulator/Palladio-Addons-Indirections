@@ -111,7 +111,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * A public read-only list of all the '<em><b>Put Policy</b></em>' enumerators. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      */
     public static final List<PutPolicy> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
@@ -119,7 +119,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * Returns the '<em><b>Put Policy</b></em>' literal with the specified literal value. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @param literal
      *            the literal.
      * @return the matching enumerator or <code>null</code>.
@@ -155,7 +155,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * Returns the '<em><b>Put Policy</b></em>' literal with the specified integer value. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @param value
      *            the integer value.
      * @return the matching enumerator or <code>null</code>.
@@ -240,7 +240,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * Returns the literal value of the enumerator, which is its string representation. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      */
     @Override

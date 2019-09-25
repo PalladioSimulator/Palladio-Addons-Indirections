@@ -84,7 +84,7 @@ public interface DatatypesPackage extends EPackage {
      * Returns the meta object for enum
      * '{@link org.palladiosimulator.indirections.datatypes.Scheduling <em>Scheduling</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the meta object for enum '<em>Scheduling</em>'.
      * @see org.palladiosimulator.indirections.datatypes.Scheduling
      * @generated
@@ -95,7 +95,7 @@ public interface DatatypesPackage extends EPackage {
      * Returns the meta object for enum
      * '{@link org.palladiosimulator.indirections.datatypes.PutPolicy <em>Put Policy</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the meta object for enum '<em>Put Policy</em>'.
      * @see org.palladiosimulator.indirections.datatypes.PutPolicy
      * @generated

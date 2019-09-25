@@ -24,6 +24,7 @@ import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 import org.palladiosimulator.indirections.system.SystemPackage;
 import org.palladiosimulator.indirections.system.impl.SystemPackageImpl;
 import org.palladiosimulator.pcm.PcmPackage;
+import org.palladiosimulator.pcm.parameter.ParameterPackage;
 import org.palladiosimulator.pcm.seff.SeffPackage;
 
 import de.uka.ipd.sdq.identifier.IdentifierPackage;
@@ -286,6 +287,16 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
      * @generated
      */
     @Override
+    public EReference getCreateDataAction_VariableUsages() {
+        return (EReference) this.createDataActionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
     public ActionsFactory getActionsFactory() {
         return (ActionsFactory) this.getEFactoryInstance();
     }
@@ -324,6 +335,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
         this.createDataActionEClass = this.createEClass(CREATE_DATA_ACTION);
         this.createEReference(this.createDataActionEClass, CREATE_DATA_ACTION__VARIABLE_REFERENCE);
+        this.createEReference(this.createDataActionEClass, CREATE_DATA_ACTION__VARIABLE_USAGES);
     }
 
     /**
@@ -358,6 +370,8 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
                 .getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
         final RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
                 .getEPackage(RepositoryPackage.eNS_URI);
+        final ParameterPackage theParameterPackage = (ParameterPackage) EPackage.Registry.INSTANCE
+                .getEPackage(ParameterPackage.eNS_URI);
 
         // Create type parameters
 
@@ -403,6 +417,9 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         this.initEReference(this.getCreateDataAction_VariableReference(), theStoexPackage.getVariableReference(), null,
                 "variableReference", null, 1, 1, CreateDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        this.initEReference(this.getCreateDataAction_VariableUsages(), theParameterPackage.getVariableUsage(), null,
+                "variableUsages", null, 0, -1, CreateDataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
                 IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource

@@ -18,8 +18,8 @@ import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionD
 import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
@@ -98,8 +98,7 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         public List<IndirectionDate> emittableIndirectionDates;
 
         public WindowingOperator(List<Consumer<WindowingIndirectionDate>> emitsTo, boolean emitEmptyWindows,
-                double size,
-                double shift) {
+                double size, double shift) {
             super(emitsTo);
             this.emitEmptyWindows = emitEmptyWindows;
             this.windowEmitter = new WindowEmitter(size, shift);
@@ -114,8 +113,7 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
         protected final void emitWindows(List<Window> windows) {
             for (Window w : windows) {
                 List<IndirectionDate> dataInWindow = emittableIndirectionDates.stream()
-                        .filter(it -> w.contains(it.getTime()))
-                        .collect(Collectors.toList());
+                        .filter(it -> w.contains(it.getTime())).collect(Collectors.toList());
                 if (emitEmptyWindows || !dataInWindow.isEmpty()) {
                     emit(new WindowingIndirectionDate(dataInWindow));
                 }

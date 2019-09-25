@@ -26,6 +26,9 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
           eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
           containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variableUsages" upperBound="-1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//parameter/VariableUsage"
+          containment="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirections/Datatypes/1.0"

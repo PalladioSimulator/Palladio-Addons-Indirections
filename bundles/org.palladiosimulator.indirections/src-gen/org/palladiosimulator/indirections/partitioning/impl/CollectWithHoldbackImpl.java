@@ -26,7 +26,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
     /**
      * The default value of the '{@link #getHoldback() <em>Holdback</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @see #getHoldback()
      * @generated
      * @ordered

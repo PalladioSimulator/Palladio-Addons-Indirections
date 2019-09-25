@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.util;
+package org.palladiosimulator.indirections.scheduler.util;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
+import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -159,5 +161,36 @@ public final class IndirectionSimulationUtil {
                     + ", but got " + value.toString() + "(" + value.getClass().getName() + ")");
         }
         return (IndirectionDate) value;
+    }
+
+    // TODO: it is not very good to do exception handling checks here. This should be functionality
+    // of the StackFrame, if it is really needed. Additionally, it is unclear, whether this should
+    // just
+    // shadow the variable.
+    public static void createNewDataOnStack(SimulatedStack<Object> stack, String id, IndirectionDate date) {
+        Object value = null;
+        try {
+            value = stack.currentStackFrame().getValue(id);
+        } catch (ValueNotInFrameException e) {
+        }
+
+        if (value != null) {
+            throw new PCMModelInterpreterException(
+                    "Did expect " + id + " to not be present on stack, but found: " + value);
+        }
+
+        stack.currentStackFrame().addValue(id, date);
+    }
+
+    public static IndirectionDate createData(SimulatedStack<Object> contextStack,
+            Iterable<VariableUsage> variableUsages, Double time) {
+        SimulatedStackframe<Object> newStackFrame = new SimulatedStackframe<Object>();
+        SimulatedStackHelper.addParameterToStackFrame(contextStack.currentStackFrame(),
+                IterableUtil.toEList(variableUsages), newStackFrame);
+
+        Map<String, Object> entries = IterableUtil.toMap(newStackFrame.getContents());
+        IndirectionDate result = new ConcreteIndirectionDate(entries, time);
+
+        return result;
     }
 }

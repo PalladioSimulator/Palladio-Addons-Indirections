@@ -30,7 +30,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * The '<em><b>Round Robin</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
-     *
+     * 
      * @see #ROUND_ROBIN_VALUE
      * @generated
      * @ordered
@@ -51,7 +51,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * The '<em><b>Round Robin</b></em>' literal value. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
-     *
+     * 
      * @see #ROUND_ROBIN
      * @model name="RoundRobin"
      * @generated
@@ -71,7 +71,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * A public read-only list of all the '<em><b>Outgoing Distribution</b></em>' enumerators. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      */
     public static final List<OutgoingDistribution> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
@@ -97,7 +97,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * Returns the '<em><b>Outgoing Distribution</b></em>' literal with the specified name. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @param name
      *            the name.
      * @return the matching enumerator or <code>null</code>.
@@ -196,7 +196,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * Returns the literal value of the enumerator, which is its string representation. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      */
     @Override

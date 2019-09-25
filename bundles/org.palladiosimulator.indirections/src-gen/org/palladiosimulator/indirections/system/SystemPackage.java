@@ -111,7 +111,7 @@ public interface SystemPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Data Channel Source Connector</b></em>' reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -120,7 +120,7 @@ public interface SystemPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Data Channel Sink Connector</b></em>' reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -129,7 +129,7 @@ public interface SystemPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Partitioning</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -138,7 +138,7 @@ public interface SystemPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Time Grouping</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @generated
      * @ordered
      */
@@ -193,7 +193,7 @@ public interface SystemPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.system.DataChannel <em>Data Channel</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the meta object for class '<em>Data Channel</em>'.
      * @see org.palladiosimulator.indirections.system.DataChannel
      * @generated
@@ -288,7 +288,7 @@ public interface SystemPackage extends EPackage {
      * Returns the meta object for the reference list
      * '{@link org.palladiosimulator.indirections.system.DataChannel#getJoins <em>Joins</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     *
+     * 
      * @return the meta object for the reference list '<em>Joins</em>'.
      * @see org.palladiosimulator.indirections.system.DataChannel#getJoins()
      * @see #getDataChannel()
@@ -368,7 +368,7 @@ public interface SystemPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Capacity</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute DATA_CHANNEL__CAPACITY = eINSTANCE.getDataChannel_Capacity();
@@ -424,7 +424,7 @@ public interface SystemPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Joins</b></em>' reference list feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EReference DATA_CHANNEL__JOINS = eINSTANCE.getDataChannel_Joins();
@@ -440,7 +440,7 @@ public interface SystemPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Scheduling</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute DATA_CHANNEL__SCHEDULING = eINSTANCE.getDataChannel_Scheduling();
@@ -448,7 +448,7 @@ public interface SystemPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Put Policy</b></em>' attribute feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         *
+         * 
          * @generated
          */
         EAttribute DATA_CHANNEL__PUT_POLICY = eINSTANCE.getDataChannel_PutPolicy();

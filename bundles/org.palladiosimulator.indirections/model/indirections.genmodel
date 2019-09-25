@@ -37,6 +37,7 @@
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/CreateDataAction">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDataAction/variableReference"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDataAction/variableUsages"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" generateModelWizard="false"
