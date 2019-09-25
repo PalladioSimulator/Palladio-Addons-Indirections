@@ -9,5 +9,8 @@ Require-Bundle: org.palladiosimulator.pcm,
  org.palladiosimulator.indirections,
  org.palladiosimulator.indirections.interfaces,
  de.uka.ipd.sdq.simucomframework,
- org.palladiosimulator.simulizar
+ org.palladiosimulator.simulizar,
+ de.uka.ipd.sdq.simucomframework.variables,
+ de.uka.ipd.sdq.stoex.analyser,
+ org.apache.log4j
 Export-Package: org.palladiosimulator.indirections.util
