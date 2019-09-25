@@ -1,7 +1,6 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +26,7 @@ import org.palladiosimulator.indirections.simulizar.measurements.TriggeredProxyP
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.IterableUtil;
+import org.palladiosimulator.indirections.util.MapUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -160,11 +160,6 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         }
     }
 
-    // TODO move to helper
-    private <K, V> Map<K, V> toMap(final List<Entry<K, V>> entryList) {
-        return entryList.stream().collect(Collectors.toMap(it -> it.getKey(), it -> it.getValue()));
-    }
-
     @Override
     public Object caseEmitDataAction(final EmitDataAction action) {
         LOGGER.trace("Emit event action: " + action.getEntityName());
@@ -183,7 +178,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         // TODO: check cases in which getContents does not work
         LOGGER.trace("Trying to emit data to " + dataChannelResource.getName() + " - " + dataChannelResource.getId());
         dataChannelResource.put(this.context.getThread(), dataChannelSourceConnecoor,
-                this.toMap(eventStackframe.getContents()));
+                MapUtil.toMap(eventStackframe.getContents()));
 
         return true;
     }
