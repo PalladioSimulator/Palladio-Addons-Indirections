@@ -139,7 +139,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
                 final String id = new StoExPrettyPrintVisitor().doSwitch(namedReference).toString() + "."
                         + variableCharacterisation.getType().getLiteral();
-                ;
+
                 if (SimulatedStackHelper.isInnerReference(namedReference)) {
                     targetStackFrame.addValue(id,
                             new EvaluationProxy(randomVariable.getSpecification(), contextStackFrame.copyFrame()));
