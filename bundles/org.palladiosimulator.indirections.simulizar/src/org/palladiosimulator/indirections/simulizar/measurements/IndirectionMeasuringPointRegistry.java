@@ -34,7 +34,7 @@ public class IndirectionMeasuringPointRegistry {
     private static final MeasuringPointRepository MEASURING_POINT_REPOSITORY = MEASURINGPOINT_FACTORY
             .createMeasuringPointRepository();
 
-    private static final NumericalBaseMetricDescription DATA_AGE_BASE_METRIC_DESCRIPTION = MeasurementHelper
+    private static final NumericalBaseMetricDescription DATA_AGE_BASE_METRIC_DESCRIPTION = MeasuringUtil
             .createBaseMetricDescription("Data age").build();
 
     private static final MetricSetDescription DATA_AGE_METRIC_SET_DESCRIPTION = MetricDescriptionUtil
@@ -91,7 +91,7 @@ public class IndirectionMeasuringPointRegistry {
     }
 
     private TriggeredProxyProbe<Double, Duration> createProbe(AllocatedAction allocatedAction) {
-        StringMeasuringPoint measuringPoint = MeasurementHelper.createStringMeasuringPoint(MEASURING_POINT_REPOSITORY,
+        StringMeasuringPoint measuringPoint = MeasuringUtil.createStringMeasuringPoint(MEASURING_POINT_REPOSITORY,
                 "Data age for " + allocatedAction.action.getEntityName() + " @ "
                         + allocatedAction.allocation.getEntityName());
 

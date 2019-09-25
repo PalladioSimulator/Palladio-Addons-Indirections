@@ -143,13 +143,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseAnalyseStackAction(AnalyseStackAction action) {
         LOGGER.trace("Analyzing data: " + action.getEntityName());
 
-        String referenceName = Optional.ofNullable(action.getVariableReference())
-                .map(it -> it.getReferenceName()).orElse(DEFAULT_BIRTH_DATE_REFERENCE_NAME);
+        String referenceName = Optional.ofNullable(action.getVariableReference()).map(it -> it.getReferenceName())
+                .orElse(DEFAULT_BIRTH_DATE_REFERENCE_NAME);
 
-        TriggeredProxyProbe<Double, Duration> probe = this.indirectionMeasuringPointRegistry.getProbe(action,
-                allocation);
-
-        double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
         SimulatedStackframe<Object> currentStackFrame = this.context.getStack().currentStackFrame();
 
         double value;
@@ -159,8 +155,17 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
             // TODO Auto-generated catch block
             throw new PCMModelInterpreterException("Stack analysis did not find value", e);
         }
-        probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));
+
+        measureDataAge(action, value);
 
         return true;
+    }
+
+    private void measureDataAge(AnalyseStackAction action, double value) {
+        TriggeredProxyProbe<Double, Duration> probe = this.indirectionMeasuringPointRegistry.getProbe(action,
+                allocation);
+
+        double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
+        probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));
     }
 }

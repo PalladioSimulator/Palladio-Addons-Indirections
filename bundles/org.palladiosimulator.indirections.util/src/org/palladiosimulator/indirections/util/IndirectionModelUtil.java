@@ -40,6 +40,7 @@ public final class IndirectionModelUtil {
             final DataSinkRole sinkRole) {
         final EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
                 .getConnectors__ComposedStructure();
+
         final List<DataChannelSinkConnector> dataChannelSinkConnectors = connectors.stream()
                 .filter(DataChannelSinkConnector.class::isInstance).map(DataChannelSinkConnector.class::cast)
                 .collect(Collectors.toList());
@@ -55,13 +56,13 @@ public final class IndirectionModelUtil {
             final DataSourceRole sourceRole) {
         final EList<Connector> connectors = assemblyContext.getParentStructure__AssemblyContext()
                 .getConnectors__ComposedStructure();
+
         final List<DataChannelSourceConnector> dataChannelSourceConnectors = connectors.stream()
                 .filter(DataChannelSourceConnector.class::isInstance).map(DataChannelSourceConnector.class::cast)
                 .collect(Collectors.toList());
 
         final DataChannelSourceConnector sourceConnectorForRole = dataChannelSourceConnectors.stream()
-                .filter(it -> it.getDataSourceRole().equals(sourceRole)).findAny()
-                .orElseThrow(
+                .filter(it -> it.getDataSourceRole().equals(sourceRole)).findAny().orElseThrow(
                         () -> new IllegalStateException("Could not find data channel for source role " + sourceRole));
 
         return sourceConnectorForRole;
