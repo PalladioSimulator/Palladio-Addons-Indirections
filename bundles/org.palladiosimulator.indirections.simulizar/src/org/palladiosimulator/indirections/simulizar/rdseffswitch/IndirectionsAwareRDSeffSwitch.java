@@ -1,7 +1,5 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
-import java.util.Optional;
-
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
@@ -9,33 +7,30 @@ import javax.measure.unit.SI;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
+import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.simulizar.measurements.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.simulizar.measurements.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
-import org.palladiosimulator.indirections.util.IndirectionUtil;
+import org.palladiosimulator.indirections.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.indirections.util.MapUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.allocation.Allocation;
-import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
-import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
-
-    public final static String DEFAULT_BIRTH_DATE_REFERENCE_NAME = "__BIRTH__";
 
     private final InterpreterDefaultContext context;
     private final SimulatedBasicComponentInstance basicComponentInstance;
@@ -84,7 +79,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         final String parameterName = IterableUtil
                 .claimOne(action.getDataSourceRole().getEventGroup().getEventTypes__EventGroup())
                 .getParameter__EventType().getParameterName();
-        IndirectionUtil.addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
+        IndirectionSimulationUtil.addParameterToStackFrameWithCopying(this.context.getStack().currentStackFrame(),
                 action.getInputVariableUsages__CallAction(), parameterName, eventStackframe);
 
         // TODO: check cases in which getContents does not work
@@ -114,7 +109,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                             .claimOne(action.getDataSinkRole().getEventGroup().getEventTypes__EventGroup())
                             .getParameter__EventType().getParameterName();
                     LOGGER.trace("Parameter name: " + parameterName + " (thread: " + threadName + ")");
-                    IndirectionUtil.addParameterToStackFrameWithCopying(contextStackframe,
+                    IndirectionSimulationUtil.addParameterToStackFrameWithCopying(contextStackframe,
                             action.getReturnVariableUsage__CallReturnAction(), parameterName,
                             this.context.getStack().currentStackFrame());
                     LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
@@ -126,7 +121,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     }
 
     @Override
-    public Object caseCreateBirthDateAction(CreateBirthDateAction action) {
+    public Object caseCreateDataAction(CreateDataAction action) {
         LOGGER.trace("Creating birth date: " + action.getEntityName());
 
         String referenceName = action.getVariableReference().getReferenceName();
@@ -143,20 +138,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseAnalyseStackAction(AnalyseStackAction action) {
         LOGGER.trace("Analyzing data: " + action.getEntityName());
 
-        String referenceName = Optional.ofNullable(action.getVariableReference()).map(it -> it.getReferenceName())
-                .orElse(DEFAULT_BIRTH_DATE_REFERENCE_NAME);
+        String referenceName = action.getVariableReference().getReferenceName();
 
-        SimulatedStackframe<Object> currentStackFrame = this.context.getStack().currentStackFrame();
-
-        double value;
-        try {
-            value = (double) currentStackFrame.getValue(referenceName);
-        } catch (ValueNotInFrameException e) {
-            // TODO Auto-generated catch block
-            throw new PCMModelInterpreterException("Stack analysis did not find value", e);
-        }
-
-        measureDataAge(action, value);
+        IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
+        measureDataAge(action, data.getTime());
 
         return true;
     }

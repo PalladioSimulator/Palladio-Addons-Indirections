@@ -35,8 +35,8 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/dataSourceRole"/>
       </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//actions/CreateBirthDateAction">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateBirthDateAction/variableReference"/>
+      <genClasses ecoreClass="indirections.ecore#//actions/CreateDataAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDataAction/variableReference"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" generateModelWizard="false"

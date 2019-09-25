@@ -105,12 +105,8 @@ public enum PutPolicy implements Enumerator {
      * 
      * @generated
      */
-    private static final PutPolicy[] VALUES_ARRAY = new PutPolicy[] {
-            BLOCKING,
-            DISCARD_FIRST_IN,
-            DISCARD_LAST_IN,
-            DISCARD_INCOMING,
-    };
+    private static final PutPolicy[] VALUES_ARRAY = new PutPolicy[] { BLOCKING, DISCARD_FIRST_IN, DISCARD_LAST_IN,
+            DISCARD_INCOMING, };
 
     /**
      * A public read-only list of all the '<em><b>Put Policy</b></em>' enumerators. <!--

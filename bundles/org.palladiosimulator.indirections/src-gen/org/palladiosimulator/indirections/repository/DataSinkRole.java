@@ -24,7 +24,6 @@ import org.palladiosimulator.pcm.repository.ProvidedRole;
  * @generated
  */
 public interface DataSinkRole extends ProvidedRole {
-
     /**
      * Returns the value of the '<em><b>Event Group</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -72,4 +71,5 @@ public interface DataSinkRole extends ProvidedRole {
      * @generated
      */
     void setIsPushing(boolean value);
+
 } // DataSinkRole

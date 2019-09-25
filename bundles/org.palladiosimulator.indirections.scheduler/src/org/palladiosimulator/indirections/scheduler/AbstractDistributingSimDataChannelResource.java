@@ -20,7 +20,7 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToE
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
 import org.palladiosimulator.indirections.scheduler.time.TimeProvider;
 import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.util.IndirectionUtil;
+import org.palladiosimulator.indirections.util.IndirectionSimulationUtil;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
@@ -117,7 +117,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     @Override
     public boolean put(final ISchedulableProcess schedulableProcess, final DataChannelSourceConnector sourceConnector,
             final Map<String, Object> eventStackframe) {
-        IndirectionUtil.validateStackframeStructure(eventStackframe, this.getIncomingParameterName());
+        IndirectionSimulationUtil.validateStackframeStructure(eventStackframe, this.getIncomingParameterName());
 
         if (!this.model.getSimulationControl().isRunning()) {
             return true;
@@ -207,10 +207,10 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     protected String getOutgoingParameterName() {
-        return IndirectionUtil.getOneParameter(this.dataChannel.getSourceEventGroup()).getParameterName();
+        return IndirectionSimulationUtil.getOneParameter(this.dataChannel.getSourceEventGroup()).getParameterName();
     }
 
     protected String getIncomingParameterName() {
-        return IndirectionUtil.getOneParameter(this.dataChannel.getSinkEventGroup()).getParameterName();
+        return IndirectionSimulationUtil.getOneParameter(this.dataChannel.getSinkEventGroup()).getParameterName();
     }
 }

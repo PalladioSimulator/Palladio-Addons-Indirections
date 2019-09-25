@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
+import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
@@ -140,20 +140,20 @@ public class ActionsSwitch<T> extends Switch<T> {
             }
             return result;
         }
-        case ActionsPackage.CREATE_BIRTH_DATE_ACTION: {
-            final CreateBirthDateAction createBirthDateAction = (CreateBirthDateAction) theEObject;
-            T result = this.caseCreateBirthDateAction(createBirthDateAction);
+        case ActionsPackage.CREATE_DATA_ACTION: {
+            final CreateDataAction createDataAction = (CreateDataAction) theEObject;
+            T result = this.caseCreateDataAction(createDataAction);
             if (result == null) {
-                result = this.caseAbstractAction(createBirthDateAction);
+                result = this.caseAbstractAction(createDataAction);
             }
             if (result == null) {
-                result = this.caseEntity(createBirthDateAction);
+                result = this.caseEntity(createDataAction);
             }
             if (result == null) {
-                result = this.caseIdentifier(createBirthDateAction);
+                result = this.caseIdentifier(createDataAction);
             }
             if (result == null) {
-                result = this.caseNamedElement(createBirthDateAction);
+                result = this.caseNamedElement(createDataAction);
             }
             if (result == null) {
                 result = this.defaultCase(theEObject);
@@ -213,18 +213,18 @@ public class ActionsSwitch<T> extends Switch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Create Birth Date
+     * Returns the result of interpreting the object as an instance of '<em>Create Data
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
      * 
      * @param object
      *            the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Create Birth Date
+     * @return the result of interpreting the object as an instance of '<em>Create Data
      *         Action</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseCreateBirthDateAction(final CreateBirthDateAction object) {
+    public T caseCreateDataAction(final CreateDataAction object) {
         return null;
     }
 

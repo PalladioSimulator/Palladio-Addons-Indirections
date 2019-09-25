@@ -97,8 +97,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
     @Override
     public void setEventType(final EventType newEventType) {
         this.eDynamicSet(ActionsPackage.EMIT_DATA_ACTION__EVENT_TYPE,
-                ActionsPackage.Literals.EMIT_DATA_ACTION__EVENT_TYPE,
-                newEventType);
+                ActionsPackage.Literals.EMIT_DATA_ACTION__EVENT_TYPE, newEventType);
     }
 
     /**

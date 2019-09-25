@@ -65,10 +65,8 @@ public enum OutgoingDistribution implements Enumerator {
      * 
      * @generated
      */
-    private static final OutgoingDistribution[] VALUES_ARRAY = new OutgoingDistribution[] {
-            DISTRIBUTE_TO_ALL,
-            ROUND_ROBIN,
-    };
+    private static final OutgoingDistribution[] VALUES_ARRAY = new OutgoingDistribution[] { DISTRIBUTE_TO_ALL,
+            ROUND_ROBIN, };
 
     /**
      * A public read-only list of all the '<em><b>Outgoing Distribution</b></em>' enumerators. <!--

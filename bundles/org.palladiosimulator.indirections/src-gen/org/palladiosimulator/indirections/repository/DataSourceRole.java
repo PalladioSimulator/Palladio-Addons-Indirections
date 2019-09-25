@@ -22,7 +22,6 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
  * @generated
  */
 public interface DataSourceRole extends RequiredRole {
-
     /**
      * Returns the value of the '<em><b>Event Group</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -46,4 +45,5 @@ public interface DataSourceRole extends RequiredRole {
      * @generated
      */
     void setEventGroup(EventGroup value);
+
 } // DataSourceRole

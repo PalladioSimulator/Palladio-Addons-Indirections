@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
@@ -20,14 +21,15 @@ import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.EvaluationProxy;
 import de.uka.ipd.sdq.simucomframework.variables.StackContext;
 import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
+import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
-public final class IndirectionUtil {
-    private final static Logger LOGGER = Logger.getLogger(IndirectionUtil.class);
-    
-    private IndirectionUtil() {
+public final class IndirectionSimulationUtil {
+    private final static Logger LOGGER = Logger.getLogger(IndirectionSimulationUtil.class);
+
+    private IndirectionSimulationUtil() {
     }
 
     public static void validateStackframeStructure(final Map<String, Object> dataMap, final String parameterName) {
@@ -134,8 +136,7 @@ public final class IndirectionUtil {
     }
 
     public static PeriodicallyTriggeredSimulationEntity triggerPeriodically(SimuComModel model, double firstOccurrence,
-            double delay,
-            Runnable taskToRun) {
+            double delay, Runnable taskToRun) {
 
         return new PeriodicallyTriggeredSimulationEntity(model, firstOccurrence, delay) {
             @Override
@@ -143,5 +144,20 @@ public final class IndirectionUtil {
                 taskToRun.run();
             }
         };
+    }
+
+    public static IndirectionDate claimDataFromStack(SimulatedStack<Object> stack, String id) {
+        SimulatedStackframe<Object> currentStackFrame = stack.currentStackFrame();
+        Object value;
+        try {
+            value = currentStackFrame.getValue(id);
+        } catch (ValueNotInFrameException e) {
+            throw new PCMModelInterpreterException("Expected id " + id + " on stack, but not found.", e);
+        }
+        if (!(value instanceof IndirectionDate)) {
+            throw new PCMModelInterpreterException("Expected " + IndirectionDate.class.getName() + " for id " + id
+                    + ", but got " + value.toString() + "(" + value.getClass().getName() + ")");
+        }
+        return (IndirectionDate) value;
     }
 }

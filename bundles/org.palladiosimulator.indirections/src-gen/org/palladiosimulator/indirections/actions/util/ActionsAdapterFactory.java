@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
+import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
@@ -87,8 +87,8 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseCreateBirthDateAction(final CreateBirthDateAction object) {
-            return ActionsAdapterFactory.this.createCreateBirthDateActionAdapter();
+        public Adapter caseCreateDataAction(final CreateDataAction object) {
+            return ActionsAdapterFactory.this.createCreateDataActionAdapter();
         }
 
         @Override
@@ -187,16 +187,16 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
 
     /**
      * Creates a new adapter for an object of class
-     * '{@link org.palladiosimulator.indirections.actions.CreateBirthDateAction <em>Create Birth
-     * Date Action</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
-     * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the
+     * '{@link org.palladiosimulator.indirections.actions.CreateDataAction <em>Create Data
+     * Action</em>}'. <!-- begin-user-doc --> This default implementation returns null so that we
+     * can easily ignore cases; it's useful to ignore a case when inheritance will catch all the
      * cases anyway. <!-- end-user-doc -->
      * 
      * @return the new adapter.
-     * @see org.palladiosimulator.indirections.actions.CreateBirthDateAction
+     * @see org.palladiosimulator.indirections.actions.CreateDataAction
      * @generated
      */
-    public Adapter createCreateBirthDateActionAdapter() {
+    public Adapter createCreateDataActionAdapter() {
         return null;
     }
 

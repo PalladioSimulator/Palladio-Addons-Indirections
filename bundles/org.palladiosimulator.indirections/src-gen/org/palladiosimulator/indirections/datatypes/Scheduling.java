@@ -103,12 +103,8 @@ public enum Scheduling implements Enumerator {
      * 
      * @generated
      */
-    private static final Scheduling[] VALUES_ARRAY = new Scheduling[] {
-            FIRST_IN_FIRST_OUT,
-            LAST_IN_FIRST_OUT,
-            PRIORITY,
-            RANDOM,
-    };
+    private static final Scheduling[] VALUES_ARRAY = new Scheduling[] { FIRST_IN_FIRST_OUT, LAST_IN_FIRST_OUT, PRIORITY,
+            RANDOM, };
 
     /**
      * A public read-only list of all the '<em><b>Scheduling</b></em>' enumerators. <!--

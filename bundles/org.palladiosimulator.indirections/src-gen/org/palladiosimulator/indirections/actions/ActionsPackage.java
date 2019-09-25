@@ -120,7 +120,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -330,14 +330,14 @@ public interface ActionsPackage extends EPackage {
 
     /**
      * The meta object id for the
-     * '{@link org.palladiosimulator.indirections.actions.impl.CreateBirthDateActionImpl <em>Create
-     * Birth Date Action</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.palladiosimulator.indirections.actions.impl.CreateDataActionImpl <em>Create Data
+     * Action</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @see org.palladiosimulator.indirections.actions.impl.CreateBirthDateActionImpl
-     * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getCreateBirthDateAction()
+     * @see org.palladiosimulator.indirections.actions.impl.CreateDataActionImpl
+     * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getCreateDataAction()
      * @generated
      */
-    int CREATE_BIRTH_DATE_ACTION = 3;
+    int CREATE_DATA_ACTION = 3;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -346,7 +346,7 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CREATE_BIRTH_DATE_ACTION__ID = SeffPackage.ABSTRACT_ACTION__ID;
+    int CREATE_DATA_ACTION__ID = SeffPackage.ABSTRACT_ACTION__ID;
 
     /**
      * The feature id for the '<em><b>Entity Name</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -355,7 +355,7 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CREATE_BIRTH_DATE_ACTION__ENTITY_NAME = SeffPackage.ABSTRACT_ACTION__ENTITY_NAME;
+    int CREATE_DATA_ACTION__ENTITY_NAME = SeffPackage.ABSTRACT_ACTION__ENTITY_NAME;
 
     /**
      * The feature id for the '<em><b>Predecessor Abstract Action</b></em>' reference. <!--
@@ -364,7 +364,7 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CREATE_BIRTH_DATE_ACTION__PREDECESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__PREDECESSOR_ABSTRACT_ACTION;
+    int CREATE_DATA_ACTION__PREDECESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__PREDECESSOR_ABSTRACT_ACTION;
 
     /**
      * The feature id for the '<em><b>Successor Abstract Action</b></em>' reference. <!--
@@ -373,7 +373,7 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CREATE_BIRTH_DATE_ACTION__SUCCESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__SUCCESSOR_ABSTRACT_ACTION;
+    int CREATE_DATA_ACTION__SUCCESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__SUCCESSOR_ABSTRACT_ACTION;
 
     /**
      * The feature id for the '<em><b>Resource Demanding Behaviour Abstract Action</b></em>'
@@ -382,7 +382,7 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CREATE_BIRTH_DATE_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION;
+    int CREATE_DATA_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION;
 
     /**
      * The feature id for the '<em><b>Variable Reference</b></em>' containment reference. <!--
@@ -391,16 +391,16 @@ public interface ActionsPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CREATE_BIRTH_DATE_ACTION__VARIABLE_REFERENCE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
+    int CREATE_DATA_ACTION__VARIABLE_REFERENCE = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>Create Birth Date Action</em>' class. <!--
+     * The number of structural features of the '<em>Create Data Action</em>' class. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int CREATE_BIRTH_DATE_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
+    int CREATE_DATA_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
 
     /**
      * Returns the meta object for class
@@ -509,26 +509,26 @@ public interface ActionsPackage extends EPackage {
 
     /**
      * Returns the meta object for class
-     * '{@link org.palladiosimulator.indirections.actions.CreateBirthDateAction <em>Create Birth
-     * Date Action</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.palladiosimulator.indirections.actions.CreateDataAction <em>Create Data
+     * Action</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @return the meta object for class '<em>Create Birth Date Action</em>'.
-     * @see org.palladiosimulator.indirections.actions.CreateBirthDateAction
+     * @return the meta object for class '<em>Create Data Action</em>'.
+     * @see org.palladiosimulator.indirections.actions.CreateDataAction
      * @generated
      */
-    EClass getCreateBirthDateAction();
+    EClass getCreateDataAction();
 
     /**
      * Returns the meta object for the containment reference
-     * '{@link org.palladiosimulator.indirections.actions.CreateBirthDateAction#getVariableReference
+     * '{@link org.palladiosimulator.indirections.actions.CreateDataAction#getVariableReference
      * <em>Variable Reference</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @return the meta object for the containment reference '<em>Variable Reference</em>'.
-     * @see org.palladiosimulator.indirections.actions.CreateBirthDateAction#getVariableReference()
-     * @see #getCreateBirthDateAction()
+     * @see org.palladiosimulator.indirections.actions.CreateDataAction#getVariableReference()
+     * @see #getCreateDataAction()
      * @generated
      */
-    EReference getCreateBirthDateAction_VariableReference();
+    EReference getCreateDataAction_VariableReference();
 
     /**
      * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!--
@@ -635,14 +635,14 @@ public interface ActionsPackage extends EPackage {
 
         /**
          * The meta object literal for the
-         * '{@link org.palladiosimulator.indirections.actions.impl.CreateBirthDateActionImpl
-         * <em>Create Birth Date Action</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * '{@link org.palladiosimulator.indirections.actions.impl.CreateDataActionImpl <em>Create
+         * Data Action</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
          * 
-         * @see org.palladiosimulator.indirections.actions.impl.CreateBirthDateActionImpl
-         * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getCreateBirthDateAction()
+         * @see org.palladiosimulator.indirections.actions.impl.CreateDataActionImpl
+         * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getCreateDataAction()
          * @generated
          */
-        EClass CREATE_BIRTH_DATE_ACTION = eINSTANCE.getCreateBirthDateAction();
+        EClass CREATE_DATA_ACTION = eINSTANCE.getCreateDataAction();
 
         /**
          * The meta object literal for the '<em><b>Variable Reference</b></em>' containment
@@ -650,8 +650,7 @@ public interface ActionsPackage extends EPackage {
          * 
          * @generated
          */
-        EReference CREATE_BIRTH_DATE_ACTION__VARIABLE_REFERENCE = eINSTANCE
-                .getCreateBirthDateAction_VariableReference();
+        EReference CREATE_DATA_ACTION__VARIABLE_REFERENCE = eINSTANCE.getCreateDataAction_VariableReference();
 
     }
 

@@ -80,8 +80,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
     @Override
     public double getSize() {
         return (Double) this.eDynamicGet(PartitioningPackage.WINDOWING__SIZE,
-                PartitioningPackage.Literals.WINDOWING__SIZE,
-                true, true);
+                PartitioningPackage.Literals.WINDOWING__SIZE, true, true);
     }
 
     /**
@@ -102,8 +101,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
     @Override
     public double getShift() {
         return (Double) this.eDynamicGet(PartitioningPackage.WINDOWING__SHIFT,
-                PartitioningPackage.Literals.WINDOWING__SHIFT,
-                true, true);
+                PartitioningPackage.Literals.WINDOWING__SHIFT, true, true);
     }
 
     /**

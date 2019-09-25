@@ -104,8 +104,7 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
     @Override
     public void setIsPushing(final boolean newIsPushing) {
         this.eDynamicSet(RepositoryPackage.DATA_SINK_ROLE__IS_PUSHING,
-                RepositoryPackage.Literals.DATA_SINK_ROLE__IS_PUSHING,
-                newIsPushing);
+                RepositoryPackage.Literals.DATA_SINK_ROLE__IS_PUSHING, newIsPushing);
     }
 
     /**

@@ -198,8 +198,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
     @Override
     public void setSinkEventGroup(final EventGroup newSinkEventGroup) {
         this.eDynamicSet(SystemPackage.DATA_CHANNEL__SINK_EVENT_GROUP,
-                SystemPackage.Literals.DATA_CHANNEL__SINK_EVENT_GROUP,
-                newSinkEventGroup);
+                SystemPackage.Literals.DATA_CHANNEL__SINK_EVENT_GROUP, newSinkEventGroup);
     }
 
     /**

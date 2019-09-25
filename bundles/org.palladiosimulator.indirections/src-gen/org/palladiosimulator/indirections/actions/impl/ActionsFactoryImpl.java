@@ -11,7 +11,7 @@ import org.palladiosimulator.indirections.actions.ActionsFactory;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
+import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 
 /**
@@ -61,8 +61,8 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
             return this.createConsumeDataAction();
         case ActionsPackage.EMIT_DATA_ACTION:
             return this.createEmitDataAction();
-        case ActionsPackage.CREATE_BIRTH_DATE_ACTION:
-            return this.createCreateBirthDateAction();
+        case ActionsPackage.CREATE_DATA_ACTION:
+            return this.createCreateDataAction();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -107,9 +107,9 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
      * @generated
      */
     @Override
-    public CreateBirthDateAction createCreateBirthDateAction() {
-        final CreateBirthDateActionImpl createBirthDateAction = new CreateBirthDateActionImpl();
-        return createBirthDateAction;
+    public CreateDataAction createCreateDataAction() {
+        final CreateDataActionImpl createDataAction = new CreateDataActionImpl();
+        return createDataAction;
     }
 
     /**

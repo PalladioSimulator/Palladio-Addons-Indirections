@@ -19,7 +19,7 @@ import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDat
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.util.IndirectionUtil;
+import org.palladiosimulator.indirections.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
@@ -146,7 +146,7 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
                 double size, double shift, SimuComModel model) {
             super(emitsTo, emitEmptyWindows, size, shift);
 
-            this.windowingTrigger = IndirectionUtil.triggerPeriodically(model, 0, shift, () -> {
+            this.windowingTrigger = IndirectionSimulationUtil.triggerPeriodically(model, 0, shift, () -> {
                 Optional<List<Window>> windowsToEmit = windowEmitter.accept(null);
                 windowsToEmit.ifPresent(this::emitWindows);
             });
