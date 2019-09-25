@@ -3,10 +3,16 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.measure.Measure;
+import javax.measure.quantity.Duration;
+import javax.measure.unit.SI;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
+import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
@@ -16,6 +22,8 @@ import org.palladiosimulator.indirections.composition.DataChannelSourceConnector
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
+import org.palladiosimulator.indirections.simulizar.measurements.IndirectionMeasuringPointRegistry;
+import org.palladiosimulator.indirections.simulizar.measurements.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.IterableUtil;
@@ -40,6 +48,8 @@ import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
 
+    public final static String DEFAULT_BIRTH_DATE_REFERENCE_NAME = "__BIRTH__";
+
     private final InterpreterDefaultContext context;
     private final SimulatedBasicComponentInstance basicComponentInstance;
     private ExplicitDispatchComposedSwitch<Object> parentSwitch;
@@ -47,6 +57,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     private final SimulatedStackframe<Object> resultStackFrame;
 
     private final DataChannelRegistry dataChannelRegistry;
+    private final IndirectionMeasuringPointRegistry indirectionMeasuringPointRegistry;
 
     /**
      * copied from
@@ -64,6 +75,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         this.basicComponentInstance = basicComponentInstance;
 
         this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context);
+        this.indirectionMeasuringPointRegistry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
     }
 
     public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
@@ -215,6 +227,31 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         SimulatedStackframe<Object> currentStackFrame = this.context.getStack().currentStackFrame();
 
         currentStackFrame.addValue(referenceName, currentSimulationTime);
+
+        return true;
+    }
+
+    @Override
+    public Object caseAnalyseStackAction(AnalyseStackAction action) {
+        LOGGER.trace("Analyzing data: " + action.getEntityName());
+
+        String referenceName = Optional.ofNullable(action.getVariableReference())
+                .map(it -> it.getReferenceName()).orElse(DEFAULT_BIRTH_DATE_REFERENCE_NAME);
+
+        TriggeredProxyProbe<Double, Duration> probe = this.indirectionMeasuringPointRegistry.getProbe(action,
+                allocation);
+
+        double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
+        SimulatedStackframe<Object> currentStackFrame = this.context.getStack().currentStackFrame();
+
+        double value;
+        try {
+            value = (double) currentStackFrame.getValue(referenceName);
+        } catch (ValueNotInFrameException e) {
+            // TODO Auto-generated catch block
+            throw new PCMModelInterpreterException("Stack analysis did not find value", e);
+        }
+        probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));
 
         return true;
     }
