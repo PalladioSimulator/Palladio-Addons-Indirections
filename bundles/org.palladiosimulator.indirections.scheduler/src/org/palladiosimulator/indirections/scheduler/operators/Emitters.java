@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.scheduler;
+package org.palladiosimulator.indirections.scheduler.operators;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

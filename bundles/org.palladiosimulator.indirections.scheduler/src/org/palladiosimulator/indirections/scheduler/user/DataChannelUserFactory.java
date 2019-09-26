@@ -11,9 +11,10 @@ public class DataChannelUserFactory {
         this.context = context;
     }
 
-    public DataChannelConsumerUser createUser(DataChannelSinkConnector sinkConnector) {
+    public DataChannelConsumerUser createPassivatedUser(DataChannelSinkConnector sinkConnector) {
         DataChannelConsumerUser user = new DataChannelConsumerUser(context, "Test-User", new RequestContext("TEST!"),
                 sinkConnector);
+        user.passivate();
 
         return user;
     }

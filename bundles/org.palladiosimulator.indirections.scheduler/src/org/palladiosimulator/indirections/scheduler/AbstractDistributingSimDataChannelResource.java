@@ -102,8 +102,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     }
 
     private void spawnNewProcessThatTakesFromConnector(DataChannelSinkConnector sinkConnector) {
-        DataChannelConsumerUser dataChannelConsumerUser = dataChannelUserFactory.createUser(sinkConnector);
-        dataChannelConsumerUser.passivate();
+        DataChannelConsumerUser dataChannelConsumerUser = dataChannelUserFactory.createPassivatedUser(sinkConnector);
 
         ProcessWaitingToConsume consumerProcess = new ProcessWaitingToConsume(model, dataChannelConsumerUser,
                 sinkConnector, dataChannelConsumerUser::setData);
