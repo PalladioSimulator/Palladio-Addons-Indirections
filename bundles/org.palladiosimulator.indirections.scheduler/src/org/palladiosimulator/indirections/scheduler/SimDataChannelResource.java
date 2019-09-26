@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Queue;
 import java.util.function.Consumer;
 
+import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.DirectTransferOperator;
-import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
-import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
@@ -31,23 +31,23 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
     }
 
     @Override
-    protected boolean canAcceptDataFrom(ProcessWaitingToEmit process) {
-        return true;
-    }
-
-    @Override
-    protected boolean canProvideDataFor(ProcessWaitingToConsume process) {
+    protected boolean canProvideDataFor(DataChannelSinkConnector sinkConnector) {
         return !dataQueue.isEmpty();
     }
 
     @Override
-    protected List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process) {
+    protected List<IndirectionDate> provideDataFor(DataChannelSinkConnector sinkConnector) {
         return Collections.singletonList(dataQueue.remove());
     }
 
     @Override
-    protected void acceptDataFrom(ProcessWaitingToEmit process) {
-        processor.accept(process.frame);
+    protected boolean canAcceptDataFrom(DataChannelSourceConnector sourceConnector) {
+        return true;
+    }
+
+    @Override
+    protected void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date) {
+        processor.accept(date);
         processDataAvailableToGet();
     }
 }

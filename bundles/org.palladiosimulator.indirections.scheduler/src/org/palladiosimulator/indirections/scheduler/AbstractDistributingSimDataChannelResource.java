@@ -196,12 +196,12 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         final boolean isNextProcess = waitingToPutQueue.isEmpty()
                 || waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 
-        return isNextProcess && canAcceptDataFrom(process);
+        return isNextProcess && canAcceptDataFrom(process.sourceConnector);
     }
 
-    protected abstract boolean canAcceptDataFrom(ProcessWaitingToEmit process);
+    protected abstract boolean canAcceptDataFrom(DataChannelSourceConnector sourceConnector);
 
-    protected abstract boolean canProvideDataFor(ProcessWaitingToConsume process);
+    protected abstract boolean canProvideDataFor(DataChannelSinkConnector sinkConnector);
 
     private boolean canProceedToGet(final ProcessWaitingToConsume process) {
         final Queue<ProcessWaitingToConsume> waitingToGetQueue = this.outgoingQueues
@@ -209,20 +209,20 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         final boolean isNextProcess = waitingToGetQueue.isEmpty()
                 || waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 
-        return isNextProcess && canProvideDataFor(process);
+        return isNextProcess && canProvideDataFor(process.sinkConnector);
     }
 
-    protected abstract List<IndirectionDate> provideDataFor(ProcessWaitingToConsume process);
+    protected abstract List<IndirectionDate> provideDataFor(DataChannelSinkConnector sinkConnector);
+
+    protected abstract void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date);
 
     private void allowToGetAndActivate(ProcessWaitingToConsume process) {
-        this.provideDataFor(process).forEach(process.callback::accept);
+        this.provideDataFor(process.sinkConnector).forEach(process.callback::accept);
         activateIfWaiting(process);
     }
 
-    protected abstract void acceptDataFrom(ProcessWaitingToEmit process);
-
     private void allowToPutAndActivate(ProcessWaitingToEmit process) {
-        acceptDataFrom(process);
+        acceptDataFrom(process.sourceConnector, process.date);
         activateIfWaiting(process);
     }
 
