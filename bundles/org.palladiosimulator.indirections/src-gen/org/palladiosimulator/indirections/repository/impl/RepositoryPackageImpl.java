@@ -179,8 +179,18 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
      * @generated
      */
     @Override
-    public EAttribute getDataSinkRole_IsPushing() {
-        return (EAttribute) this.dataSinkRoleEClass.getEStructuralFeatures().get(1);
+    public EReference getDataSinkRole_PushesTo() {
+        return (EReference) this.dataSinkRoleEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    @Override
+    public EAttribute getDataSinkRole_Pushing() {
+        return (EAttribute) this.dataSinkRoleEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -235,7 +245,8 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
         // Create classes and their features
         this.dataSinkRoleEClass = this.createEClass(DATA_SINK_ROLE);
         this.createEReference(this.dataSinkRoleEClass, DATA_SINK_ROLE__EVENT_GROUP);
-        this.createEAttribute(this.dataSinkRoleEClass, DATA_SINK_ROLE__IS_PUSHING);
+        this.createEReference(this.dataSinkRoleEClass, DATA_SINK_ROLE__PUSHES_TO);
+        this.createEAttribute(this.dataSinkRoleEClass, DATA_SINK_ROLE__PUSHING);
 
         this.dataSourceRoleEClass = this.createEClass(DATA_SOURCE_ROLE);
         this.createEReference(this.dataSourceRoleEClass, DATA_SOURCE_ROLE__EVENT_GROUP);
@@ -283,9 +294,12 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
         this.initEReference(this.getDataSinkRole_EventGroup(), theRepositoryPackage_1.getEventGroup(), null,
                 "eventGroup", null, 0, 1, DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
                 IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        this.initEAttribute(this.getDataSinkRole_IsPushing(), this.ecorePackage.getEBoolean(), "isPushing", null, 0, 1,
-                DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
+        this.initEReference(this.getDataSinkRole_PushesTo(), theRepositoryPackage_1.getSignature(), null, "pushesTo",
+                null, 0, 1, DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+                IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        this.initEAttribute(this.getDataSinkRole_Pushing(), this.ecorePackage.getEBoolean(), "pushing", null, 0, 1,
+                DataSinkRole.class, !IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+                IS_DERIVED, IS_ORDERED);
 
         this.initEClass(this.dataSourceRoleEClass, DataSourceRole.class, "DataSourceRole", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);

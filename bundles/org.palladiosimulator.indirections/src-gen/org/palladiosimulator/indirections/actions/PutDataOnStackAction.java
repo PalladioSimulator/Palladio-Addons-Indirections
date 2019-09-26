@@ -23,16 +23,16 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
  * @generated
  */
 public interface PutDataOnStackAction extends AbstractAction {
-
     /**
      * Returns the value of the '<em><b>Variable Usages</b></em>' containment reference list. The
      * list contents are of type {@link org.palladiosimulator.pcm.parameter.VariableUsage}. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Variable Usages</em>' containment reference list.
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getPutDataOnStackAction_VariableUsages()
      * @model containment="true" required="true"
      * @generated
      */
     EList<VariableUsage> getVariableUsages();
+
 } // PutDataOnStackAction

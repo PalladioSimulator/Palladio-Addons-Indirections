@@ -8,5 +8,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.palladiosimulator.pcm,
  de.uka.ipd.sdq.scheduler,
  de.uka.ipd.sdq.simucomframework.variables,
- org.palladiosimulator.indirections
+ org.palladiosimulator.indirections,
+ org.palladiosimulator.simulizar
 Export-Package: org.palladiosimulator.indirections.interfaces

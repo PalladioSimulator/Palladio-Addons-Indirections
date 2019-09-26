@@ -146,7 +146,13 @@
       nsPrefix="org.palladiosimulator.indirections.repository">
     <eClassifiers xsi:type="ecore:EClass" name="DataSinkRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/ProvidedRole">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventGroup" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="isPushing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="pushesTo" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Signature"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pushing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+          changeable="false" volatile="true" derived="true">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="get" value="return (this.getPushesTo() != null);"/>
+        </eAnnotations>
+      </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataSourceRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/RequiredRole">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventGroup" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>

@@ -21,6 +21,7 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToE
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
+import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
@@ -33,15 +34,15 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
     private Queue<IndirectionDate> dataQueue = new ArrayDeque<>();
     private Consumer<IndirectionDate> processor;
 
-    public SimDataChannelResource(DataChannel dataChannel, SchedulerModel model) {
-        super(dataChannel, model);
+    public SimDataChannelResource(DataChannel dataChannel, InterpreterDefaultContext context, SchedulerModel model) {
+        super(dataChannel, context, model);
 
         this.processor = new DirectTransferOperator<IndirectionDate>(List.of(this::emit));
     }
 
     private void emit(IndirectionDate date) {
         dataQueue.add(date);
-        notifyProcessesWaitingToGet();
+        processDataAvailableToGet();
     }
 
     @Override
@@ -62,7 +63,7 @@ public class SimDataChannelResource extends AbstractDistributingSimDataChannelRe
     @Override
     protected void acceptDataFrom(ProcessWaitingToEmit process) {
         processor.accept(process.frame);
-        notifyProcessesWaitingToGet();
+        processDataAvailableToGet();
     }
 
     public abstract class SimStatefulOperator<T extends IndirectionDate, U extends IndirectionDate>

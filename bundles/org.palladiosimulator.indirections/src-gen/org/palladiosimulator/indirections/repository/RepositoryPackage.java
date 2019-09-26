@@ -100,14 +100,24 @@ public interface RepositoryPackage extends EPackage {
             + 0;
 
     /**
-     * The feature id for the '<em><b>Is Pushing</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * The feature id for the '<em><b>Pushes To</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
      * @generated
      * @ordered
      */
-    int DATA_SINK_ROLE__IS_PUSHING = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
+    int DATA_SINK_ROLE__PUSHES_TO = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
             + 1;
+
+    /**
+     * The feature id for the '<em><b>Pushing</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int DATA_SINK_ROLE__PUSHING = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
+            + 2;
 
     /**
      * The number of structural features of the '<em>Data Sink Role</em>' class. <!-- begin-user-doc
@@ -117,7 +127,7 @@ public interface RepositoryPackage extends EPackage {
      * @ordered
      */
     int DATA_SINK_ROLE_FEATURE_COUNT = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
-            + 2;
+            + 3;
 
     /**
      * The meta object id for the
@@ -201,16 +211,28 @@ public interface RepositoryPackage extends EPackage {
     EReference getDataSinkRole_EventGroup();
 
     /**
-     * Returns the meta object for the attribute
-     * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#isIsPushing <em>Is
-     * Pushing</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Returns the meta object for the reference
+     * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes
+     * To</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @return the meta object for the attribute '<em>Is Pushing</em>'.
-     * @see org.palladiosimulator.indirections.repository.DataSinkRole#isIsPushing()
+     * @return the meta object for the reference '<em>Pushes To</em>'.
+     * @see org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo()
      * @see #getDataSinkRole()
      * @generated
      */
-    EAttribute getDataSinkRole_IsPushing();
+    EReference getDataSinkRole_PushesTo();
+
+    /**
+     * Returns the meta object for the attribute
+     * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#isPushing
+     * <em>Pushing</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the attribute '<em>Pushing</em>'.
+     * @see org.palladiosimulator.indirections.repository.DataSinkRole#isPushing()
+     * @see #getDataSinkRole()
+     * @generated
+     */
+    EAttribute getDataSinkRole_Pushing();
 
     /**
      * Returns the meta object for class
@@ -277,12 +299,20 @@ public interface RepositoryPackage extends EPackage {
         EReference DATA_SINK_ROLE__EVENT_GROUP = eINSTANCE.getDataSinkRole_EventGroup();
 
         /**
-         * The meta object literal for the '<em><b>Is Pushing</b></em>' attribute feature. <!--
+         * The meta object literal for the '<em><b>Pushes To</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
          *
          * @generated
          */
-        EAttribute DATA_SINK_ROLE__IS_PUSHING = eINSTANCE.getDataSinkRole_IsPushing();
+        EReference DATA_SINK_ROLE__PUSHES_TO = eINSTANCE.getDataSinkRole_PushesTo();
+
+        /**
+         * The meta object literal for the '<em><b>Pushing</b></em>' attribute feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute DATA_SINK_ROLE__PUSHING = eINSTANCE.getDataSinkRole_Pushing();
 
         /**
          * The meta object literal for the

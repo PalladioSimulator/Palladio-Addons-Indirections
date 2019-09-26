@@ -461,7 +461,7 @@ public interface ActionsPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Variable Usages</b></em>' containment reference list. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */

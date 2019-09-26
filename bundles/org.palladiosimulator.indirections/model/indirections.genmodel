@@ -142,7 +142,10 @@
       <genClasses ecoreClass="indirections.ecore#//repository/DataSinkRole">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/eventGroup"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//repository/DataSinkRole/isPushing"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/pushesTo"/>
+        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//repository/DataSinkRole/pushing"
+            get="return (this.getPushesTo() != null);"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//repository/DataSourceRole">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

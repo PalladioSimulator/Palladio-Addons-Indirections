@@ -4,6 +4,7 @@ package org.palladiosimulator.indirections.repository;
 
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
+import org.palladiosimulator.pcm.repository.Signature;
 
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Data Sink Role</b></em>'.
@@ -15,8 +16,10 @@ import org.palladiosimulator.pcm.repository.ProvidedRole;
  * <ul>
  * <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#getEventGroup <em>Event
  * Group</em>}</li>
- * <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#isIsPushing <em>Is
- * Pushing</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes
+ * To</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#isPushing
+ * <em>Pushing</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole()
@@ -49,27 +52,38 @@ public interface DataSinkRole extends ProvidedRole {
     void setEventGroup(EventGroup value);
 
     /**
-     * Returns the value of the '<em><b>Is Pushing</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * Returns the value of the '<em><b>Pushes To</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
-     * @return the value of the '<em>Is Pushing</em>' attribute.
-     * @see #setIsPushing(boolean)
-     * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_IsPushing()
+     * @return the value of the '<em>Pushes To</em>' reference.
+     * @see #setPushesTo(Signature)
+     * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_PushesTo()
      * @model
      * @generated
      */
-    boolean isIsPushing();
+    Signature getPushesTo();
 
     /**
      * Sets the value of the
-     * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#isIsPushing <em>Is
-     * Pushing</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes
+     * To</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @param value
-     *            the new value of the '<em>Is Pushing</em>' attribute.
-     * @see #isIsPushing()
+     *            the new value of the '<em>Pushes To</em>' reference.
+     * @see #getPushesTo()
      * @generated
      */
-    void setIsPushing(boolean value);
+    void setPushesTo(Signature value);
+
+    /**
+     * Returns the value of the '<em><b>Pushing</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @return the value of the '<em>Pushing</em>' attribute.
+     * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_Pushing()
+     * @model changeable="false" volatile="true" derived="true"
+     * @generated
+     */
+    boolean isPushing();
 
 } // DataSinkRole

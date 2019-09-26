@@ -17,8 +17,11 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
+import org.palladiosimulator.indirections.scheduler.user.DataChannelConsumerUser;
+import org.palladiosimulator.indirections.scheduler.user.DataChannelUserFactory;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
@@ -28,11 +31,14 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
     protected Map<DataChannelSinkConnector, IndirectionQueue<ProcessWaitingToConsume>> outgoingQueues;
     protected Map<DataChannelSourceConnector, IndirectionQueue<ProcessWaitingToEmit>> incomingQueues;
     protected DataChannel dataChannel;
+
+    protected final InterpreterDefaultContext context;
     protected SimuComModel model;
 
     protected final String name;
     protected final String id;
     protected final int capacity;
+    protected final DataChannelUserFactory dataChannelUserFactory;
 
     protected class IndirectionQueue<T extends SuspendableSchedulerEntity> {
         public final Queue<IndirectionDate> elements;
@@ -54,7 +60,8 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         return this.id;
     }
 
-    public AbstractDistributingSimDataChannelResource(final DataChannel dataChannel, final SchedulerModel model) {
+    public AbstractDistributingSimDataChannelResource(final DataChannel dataChannel, InterpreterDefaultContext context,
+            final SchedulerModel model) {
         if (!(model instanceof SimuComModel)) {
             throw new IllegalArgumentException("Currently only works with " + SimuComModel.class.getName() + ", got "
                     + model.getClass().getName());
@@ -68,29 +75,51 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         this.capacity = dataChannel.getCapacity();
 
         this.model = (SimuComModel) model;
+        this.context = context;
+
+        this.dataChannelUserFactory = new DataChannelUserFactory(context);
 
         this.initializeQueues();
     }
 
     private void initializeQueues() {
         this.outgoingQueues = this.dataChannel.getDataChannelSinkConnector().stream()
+                .filter(it -> !it.getDataSinkRole().isPushing())
                 .collect(Collectors.toMap(Function.identity(), it -> new IndirectionQueue<ProcessWaitingToConsume>()));
 
         this.incomingQueues = this.dataChannel.getDataChannelSourceConnector().stream()
                 .collect(Collectors.toMap(Function.identity(), it -> new IndirectionQueue<ProcessWaitingToEmit>()));
     }
 
-    protected void notifyProcessesWaitingToGet() {
-        for (final IndirectionQueue<ProcessWaitingToConsume> queue : this.outgoingQueues.values()) {
-            this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet,
-                    this::allowToGetAndActivate, this::notifyProcessesWaitingToPut);
+    protected void processDataAvailableToGet() {
+        for (DataChannelSinkConnector sinkConnector : dataChannel.getDataChannelSinkConnector()) {
+            if (sinkConnector.getDataSinkRole().isPushing()) {
+                spawnNewProcessThatTakesFromConnector(sinkConnector);
+            } else {
+                notifyProcessesWaitingToGetFromQueue(outgoingQueues.get(sinkConnector));
+            }
         }
+    }
+
+    private void spawnNewProcessThatTakesFromConnector(DataChannelSinkConnector sinkConnector) {
+        DataChannelConsumerUser dataChannelConsumerUser = dataChannelUserFactory.createUser(sinkConnector);
+        dataChannelConsumerUser.passivate();
+
+        ProcessWaitingToConsume consumerProcess = new ProcessWaitingToConsume(model, dataChannelConsumerUser,
+                sinkConnector, dataChannelConsumerUser::setData);
+
+        allowToGetAndActivate(consumerProcess);
+    }
+
+    private void notifyProcessesWaitingToGetFromQueue(IndirectionQueue<ProcessWaitingToConsume> queue) {
+        this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet,
+                this::allowToGetAndActivate, this::notifyProcessesWaitingToPut);
     }
 
     protected void notifyProcessesWaitingToPut() {
         for (final IndirectionQueue<ProcessWaitingToEmit> queue : this.incomingQueues.values()) {
             this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToPut,
-                    this::allowToPutAndActivate, this::notifyProcessesWaitingToGet);
+                    this::allowToPutAndActivate, this::processDataAvailableToGet);
         }
     }
 
@@ -122,7 +151,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
                 date);
         if (this.canProceedToPut(process)) {
             this.allowToPutAndActivate(process);
-            this.notifyProcessesWaitingToGet();
+            this.processDataAvailableToGet();
             return true;
         } else {
             this.incomingQueues.get(sourceConnector).processes.add(process);
@@ -138,7 +167,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
             return true;
         }
 
-        if (sinkConnector.getDataSinkRole().isIsPushing()) {
+        if (sinkConnector.getDataSinkRole().isPushing()) {
             throw new IllegalStateException("Cannot pull data over pushing connector " + sinkConnector.toString()
                     + ", SinkRole: " + sinkConnector.getDataSinkRole().toString());
         }

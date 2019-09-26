@@ -18,18 +18,21 @@ public class DataChannelRegistry {
 
     private final Map<DataChannel, IDataChannelResource> dataChannelToDataChannelResource = new HashMap<DataChannel, IDataChannelResource>();
     private IDataChannelResourceFactory dataChannelResourceFactory;
-    private final SimuComModel myModel;
+
+    private final SimuComModel model;
+    private final InterpreterDefaultContext context;
 
     private static Map<InterpreterDefaultContext, DataChannelRegistry> registries = new HashMap<>();
 
     public static DataChannelRegistry getInstanceFor(final InterpreterDefaultContext context) {
-        registries.computeIfAbsent(context, (ctx) -> new DataChannelRegistry(ctx.getModel()));
+        registries.computeIfAbsent(context, (ctx) -> new DataChannelRegistry(ctx, ctx.getModel()));
 
         return registries.get(context);
     }
 
-    private DataChannelRegistry(final SimuComModel myModel) {
-        this.myModel = myModel;
+    private DataChannelRegistry(InterpreterDefaultContext ctx, final SimuComModel myModel) {
+        this.context = ctx;
+        this.model = myModel;
     }
 
     public IDataChannelResource getOrCreateDataChannelResource(final DataChannel dataChannel) {
@@ -39,7 +42,7 @@ public class DataChannelRegistry {
 
         if (!this.dataChannelToDataChannelResource.containsKey(dataChannel)) {
             this.dataChannelToDataChannelResource.put(dataChannel,
-                    this.dataChannelResourceFactory.createDataChannelResource(dataChannel, this.myModel));
+                    this.dataChannelResourceFactory.createDataChannelResource(dataChannel, context, model));
         }
         return this.dataChannelToDataChannelResource.get(dataChannel);
     }
