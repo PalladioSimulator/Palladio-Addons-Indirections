@@ -1,7 +1,6 @@
 package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.UUID;
@@ -27,7 +26,7 @@ import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
-public abstract class AbstractDistributingSimDataChannelResource implements IDataChannelResource {
+public abstract class AbstractSimDataChannelResource implements IDataChannelResource {
     protected Map<DataChannelSinkConnector, IndirectionQueue<ProcessWaitingToConsume>> outgoingQueues;
     protected Map<DataChannelSourceConnector, IndirectionQueue<ProcessWaitingToEmit>> incomingQueues;
     protected DataChannel dataChannel;
@@ -60,7 +59,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         return this.id;
     }
 
-    public AbstractDistributingSimDataChannelResource(final DataChannel dataChannel, InterpreterDefaultContext context,
+    public AbstractSimDataChannelResource(final DataChannel dataChannel, InterpreterDefaultContext context,
             final SchedulerModel model) {
         if (!(model instanceof SimuComModel)) {
             throw new IllegalArgumentException("Currently only works with " + SimuComModel.class.getName() + ", got "
@@ -212,7 +211,7 @@ public abstract class AbstractDistributingSimDataChannelResource implements IDat
         return isNextProcess && canProvideDataFor(process.sinkConnector);
     }
 
-    protected abstract List<IndirectionDate> provideDataFor(DataChannelSinkConnector sinkConnector);
+    protected abstract Iterable<IndirectionDate> provideDataFor(DataChannelSinkConnector sinkConnector);
 
     protected abstract void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date);
 

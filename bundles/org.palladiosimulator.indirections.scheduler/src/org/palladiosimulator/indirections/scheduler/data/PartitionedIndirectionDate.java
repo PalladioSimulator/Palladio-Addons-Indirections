@@ -5,10 +5,10 @@ import java.util.Map;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
-public class PartitionedIndirectionDate<T> implements GroupingIndirectionDate {
-    private Map<T, List<IndirectionDate>> partitions;
+public class PartitionedIndirectionDate<P, T extends IndirectionDate> implements GroupingIndirectionDate<T> {
+    private Map<P, List<IndirectionDate>> partitions;
 
-    public PartitionedIndirectionDate(Map<T, List<IndirectionDate>> partitions) {
+    public PartitionedIndirectionDate(Map<P, List<IndirectionDate>> partitions) {
         this.partitions = partitions;
     }
 
@@ -23,7 +23,7 @@ public class PartitionedIndirectionDate<T> implements GroupingIndirectionDate {
     }
 
     @Override
-    public List<IndirectionDate> getDataInGroup() {
+    public List<T> getDataInGroup() {
         throw new UnsupportedOperationException();
     }
 

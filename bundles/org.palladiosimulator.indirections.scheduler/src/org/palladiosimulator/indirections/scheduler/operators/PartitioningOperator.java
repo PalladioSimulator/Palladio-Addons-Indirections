@@ -2,26 +2,22 @@ package org.palladiosimulator.indirections.scheduler.operators;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 
-public abstract class PartitioningOperator<T>
-        extends SimStatefulOperator<GroupingIndirectionDate, PartitionedIndirectionDate<T>> {
-    public PartitioningOperator(List<Consumer<PartitionedIndirectionDate<T>>> emitsTo) {
-        super(emitsTo);
-    }
+public abstract class PartitioningOperator<P, T extends IndirectionDate>
+        extends SimStatefulOperator<GroupingIndirectionDate<T>, PartitionedIndirectionDate<P, T>> {
 
     @Override
-    public void accept(GroupingIndirectionDate group) {
-        Map<T, List<IndirectionDate>> collect = group.getDataInGroup().stream()
+    public void accept(GroupingIndirectionDate<T> group) {
+        Map<P, List<IndirectionDate>> collect = group.getDataInGroup().stream()
                 .collect(Collectors.groupingBy(this::getPartition));
 
-        emit(new PartitionedIndirectionDate<T>(collect));
+        emit(new PartitionedIndirectionDate<P, T>(collect));
     }
 
-    protected abstract T getPartition(IndirectionDate date);
+    protected abstract P getPartition(IndirectionDate date);
 }

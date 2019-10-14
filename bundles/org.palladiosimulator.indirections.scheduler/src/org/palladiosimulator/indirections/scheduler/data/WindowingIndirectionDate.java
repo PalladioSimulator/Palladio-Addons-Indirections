@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
-public class WindowingIndirectionDate extends ConcreteGroupingIndirectionDate {
-    public WindowingIndirectionDate(List<IndirectionDate> dataInGroup) {
+public class WindowingIndirectionDate<T extends IndirectionDate> extends ConcreteGroupingIndirectionDate<T> {
+    public WindowingIndirectionDate(List<T> dataInGroup) {
         super(dataInGroup);
     }
 

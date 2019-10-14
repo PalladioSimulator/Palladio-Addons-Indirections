@@ -2,21 +2,19 @@ package org.palladiosimulator.indirections.scheduler.operators;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
-import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
-public class TimeBasedWindowingOperator extends WindowingOperator {
+public class TimeBasedWindowingOperator<T extends IndirectionDate> extends WindowingOperator<T> {
     private PeriodicallyTriggeredSimulationEntity windowingTrigger;
 
-    public TimeBasedWindowingOperator(List<Consumer<WindowingIndirectionDate>> emitsTo, boolean emitEmptyWindows,
-            double size, double shift, SimuComModel model) {
-        super(emitsTo, emitEmptyWindows, size, shift);
+    public TimeBasedWindowingOperator(boolean emitEmptyWindows, double size, double shift, SimuComModel model) {
+        super(emitEmptyWindows, size, shift);
 
         this.windowingTrigger = IndirectionSimulationUtil.triggerPeriodically(model, 0, shift, () -> {
             Optional<List<Window>> windowsToEmit = windowEmitter.accept(null);

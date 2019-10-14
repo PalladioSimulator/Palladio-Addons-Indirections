@@ -6,17 +6,18 @@ import java.util.Map;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
-public class ConcreteGroupingIndirectionDate implements GroupingIndirectionDate {
-    private final List<IndirectionDate> dataInGroup;
+public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implements GroupingIndirectionDate<T> {
+    private final List<T> dataInGroup;
 
-    public ConcreteGroupingIndirectionDate(List<IndirectionDate> dataInGroup) {
+    public ConcreteGroupingIndirectionDate(List<T> dataInGroup) {
         this.dataInGroup = dataInGroup;
     }
 
-    public List<IndirectionDate> getDataInGroup() {
+    @Override
+    public List<T> getDataInGroup() {
         return Collections.unmodifiableList(dataInGroup);
     }
-    
+
     @Override
     public Map<String, Object> getData() {
         throw new UnsupportedOperationException();

@@ -9,11 +9,15 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 public abstract class SimStatefulOperator<T extends IndirectionDate, U extends IndirectionDate> implements Consumer<T> {
     private final List<Consumer<U>> emitsTo;
 
-    public SimStatefulOperator(List<Consumer<U>> emitsTo) {
-        this.emitsTo = new ArrayList<>(emitsTo);
+    public SimStatefulOperator() {
+        this.emitsTo = new ArrayList<>();
     }
 
     protected final void emit(U date) {
         emitsTo.forEach(it -> it.accept(date));
+    }
+
+    public void addConsumer(Consumer<U> emitTo) {
+        this.emitsTo.add(emitTo);
     }
 }
