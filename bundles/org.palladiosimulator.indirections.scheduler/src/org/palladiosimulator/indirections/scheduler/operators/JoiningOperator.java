@@ -10,14 +10,15 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
 import org.palladiosimulator.indirections.scheduler.data.JoinedDate;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.indirections.util.StreamUtil;
 
-public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOperator<T, JoinedDate<T>> {
-    private final Iterable<JoiningOperator.Channel<T>> channels;
+public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOperator<DataWithSource<T>, JoinedDate<T>> {
+    private final Iterable<JoiningOperator.Channel<DataWithSource<T>>> channels;
 
-    public static abstract class Channel<U extends IndirectionDate> {
+    public static abstract class Channel<U> {
         public final Queue<U> data;
         public final boolean retainData;
 
@@ -43,7 +44,7 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
         public abstract boolean isResponsibleFor(U date);
     }
 
-    public static class StrategyChannel<U extends IndirectionDate> extends Channel<U> {
+    public static class StrategyChannel<U> extends Channel<U> {
         private final Predicate<U> isResponsibleFor;
 
         public StrategyChannel(boolean retainData, Predicate<U> isResponsibleFor) {
@@ -58,36 +59,37 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
 
     }
 
-    public JoiningOperator(Iterable<Channel<T>> channels) {
+    public JoiningOperator(Iterable<Channel<DataWithSource<T>>> channels) {
         this.channels = channels;
     }
 
-    public static <U extends IndirectionDate> JoiningOperator<U> createWithIndices(Function<U, Integer> dateToClass,
-            boolean... retainDataArray) {
+    public static <U extends IndirectionDate> JoiningOperator<U> createWithIndices(
+            Function<DataWithSource<U>, Integer> dateToClass, List<Boolean> retainDataArray) {
 
-        List<Channel<U>> channels = new ArrayList<>();
-        for (int i = 0; i < retainDataArray.length; i++) {
-            boolean retainData = retainDataArray[i];
+        List<Channel<DataWithSource<U>>> channels = new ArrayList<>();
+        for (int i = 0; i < retainDataArray.size(); i++) {
+            boolean retainData = retainDataArray.get(i);
             final int indexToCheck = i;
-            channels.add(new StrategyChannel<>(retainData, (date) -> dateToClass.apply(date) == indexToCheck));
+            channels.add(new StrategyChannel<DataWithSource<U>>(retainData,
+                    (date) -> dateToClass.apply(date) == indexToCheck));
         }
 
         return new JoiningOperator<>(channels);
     }
 
     @Override
-    public void accept(T date) {
-        Channel<T> channelToAddTo = IterableUtil.stream(channels).filter(it -> it.isResponsibleFor(date))
-                .reduce(StreamUtil.reduceToMaximumOne()).get();
+    public void accept(DataWithSource<T> date) {
+        Channel<DataWithSource<T>> channelToAddTo = IterableUtil.stream(channels)
+                .filter(it -> it.isResponsibleFor(date)).reduce(StreamUtil.reduceToMaximumOne()).get();
         channelToAddTo.data.add(date);
 
         // if all retain, we do not iterate until one cannot provide anymore
         boolean allRetain = IterableUtil.stream(channels).allMatch(it -> it.retainData);
 
         while (IterableUtil.stream(channels).allMatch(Channel::canProvide)) {
-            Map<Channel<T>, T> dataMap = new HashMap<>();
-            for (Channel<T> channel : channels) {
-                dataMap.put(channel, channel.get());
+            Map<Channel<DataWithSource<T>>, T> dataMap = new HashMap<>();
+            for (Channel<DataWithSource<T>> channel : channels) {
+                dataMap.put(channel, channel.get().date);
             }
             emit(new JoinedDate<T>(dataMap));
 

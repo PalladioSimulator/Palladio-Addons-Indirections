@@ -1,10 +1,16 @@
 package org.palladiosimulator.indirections.scheduler;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
@@ -12,14 +18,26 @@ import org.palladiosimulator.indirections.datatypes.OutgoingDistribution;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
+import org.palladiosimulator.indirections.partitioning.Joining;
 import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
 import org.palladiosimulator.indirections.partitioning.Windowing;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
+import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.operators.Emitters.EqualityCollectorWithHoldback;
+import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator;
+import org.palladiosimulator.indirections.scheduler.operators.PartitioningOperator;
+import org.palladiosimulator.indirections.scheduler.operators.SpecificationPartitioningOperator;
+import org.palladiosimulator.indirections.scheduler.operators.TimeBasedWindowingOperator;
+import org.palladiosimulator.indirections.scheduler.operators.WindowingOperator;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
+import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
+import de.uka.ipd.sdq.simucomframework.Context;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 /**
@@ -48,6 +66,17 @@ import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
  */
 public class SimDataChannelResource extends AbstractSimDataChannelResource {
     private Map<DataChannelSinkConnector, Queue<IndirectionDate>> outQueues = new HashMap<>();
+    private Deque<DataWithSource<IndirectionDate>> dataBeforeJoiningQueue = new ArrayDeque<>();
+    private Deque<IndirectionDate> dataAfterJoiningQueue = new ArrayDeque<>();
+
+    private final Partitioning partitioning;
+    private final TimeGrouping timeGrouping;
+    private final List<Joining> joins;
+
+    private PartitioningOperator<Object, IndirectionDate> partitioningOperator;
+    private WindowingOperator<IndirectionDate> windowingOperator;
+    private EqualityCollectorWithHoldback<IndirectionDate, Object> holdbackOperator;
+    private JoiningOperator<IndirectionDate> joinOperator;
 
     public SimDataChannelResource(DataChannel dataChannel, InterpreterDefaultContext context, SchedulerModel model) {
         super(dataChannel, context, model);
@@ -59,29 +88,42 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 
         SimuComModel simuComModel = (SimuComModel) model;
 
-        Partitioning partitioning = dataChannel.getPartitioning();
+        partitioning = dataChannel.getPartitioning();
         if (partitioning != null) {
+            partitioningOperator = new SpecificationPartitioningOperator<>(partitioning.getSpecification());
+            partitioningOperator.addConsumer(this::emit);
         }
 
-        TimeGrouping timeGrouping = dataChannel.getTimeGrouping();
+        timeGrouping = dataChannel.getTimeGrouping();
         if (timeGrouping != null) {
             if (timeGrouping instanceof Windowing) {
                 Windowing windowing = (Windowing) timeGrouping;
-                // ...
-            } else if (timeGrouping instanceof ConsumeAllAvailable) {
-                ConsumeAllAvailable consumeAllAvailable = (ConsumeAllAvailable) timeGrouping;
-                // ...
+                windowingOperator = new TimeBasedWindowingOperator<>(false, windowing.getSize(), windowing.getShift(),
+                        simuComModel);
+                windowingOperator.addConsumer(this::postprocessAndEmit);
             } else if (timeGrouping instanceof CollectWithHoldback) {
-                CollectWithHoldback collectWithHoldback = (CollectWithHoldback) timeGrouping;
-                // ...
+                final CollectWithHoldback collectWithHoldback = (CollectWithHoldback) timeGrouping;
+                holdbackOperator = new EqualityCollectorWithHoldback<IndirectionDate, Object>(it -> Context
+                        .evaluateStatic(collectWithHoldback.getKey(), SimulatedStackHelper.createFromMap(it.getData())),
+                        collectWithHoldback.getHoldback());
             }
         }
 
-        if (!dataChannel.getJoins().isEmpty()) {
-            // TODO move to model validation
-            if (dataChannel.getJoins().size() == 1) {
-                throw new PCMModelInterpreterException("Unexpected number of joins: " + dataChannel.getJoins().size());
-            }
+        joins = dataChannel.getJoins();
+        final List<DataChannelSourceConnector> joinSources = joins.stream().map(Joining::getSource)
+                .collect(Collectors.toList());
+        final List<Boolean> retainDataArray = joins.stream().map(Joining::isCanContributeMultipleTimes)
+                .collect(Collectors.toList());
+        if (joins != null) {
+            joinOperator = JoiningOperator.createWithIndices(it -> {
+                int index = joinSources.indexOf(it.source);
+                if (index == -1) {
+                    throw new PCMModelInterpreterException("Unexpected source: " + it.source + ", sources to join: "
+                            + joinSources.stream().map(js -> js.getEntityName()).collect(Collectors.joining(", ")));
+                }
+                return 0;
+            }, retainDataArray);
+            joinOperator.addConsumer(it -> dataAfterJoiningQueue.add(it));
         }
     }
 
@@ -112,6 +154,20 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
         return outQueues.get(sinkConnector);
     }
 
+    private void postprocessAndEmit(IndirectionDate date) {
+        if (partitioning != null) {
+            if (!(date instanceof GroupingIndirectionDate<?>)) {
+                throw new PCMModelInterpreterException("Unexpected type for data for partitioning: "
+                        + date.getClass().getName() + ". Expected " + GroupingIndirectionDate.class);
+            }
+
+            GroupingIndirectionDate<IndirectionDate> groupingDate = (GroupingIndirectionDate<IndirectionDate>) date;
+            partitioningOperator.accept(groupingDate); // also emits via emit(date)
+        } else {
+            emit(date);
+        }
+    }
+
     private void emit(IndirectionDate date) {
         getQueuesToSendTo(date).forEach(it -> it.add(date));
         processDataAvailableToGet();
@@ -124,7 +180,37 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 
     @Override
     protected Iterable<IndirectionDate> provideDataFor(DataChannelSinkConnector sinkConnector) {
-        return Collections.singletonList(getQueueToReadFrom(sinkConnector).remove());
+        if (timeGrouping instanceof ConsumeAllAvailable) {
+            List<IndirectionDate> dataInGroup = new ArrayList<>(getQueueToReadFrom(sinkConnector));
+            getQueueToReadFrom(sinkConnector).clear();
+            GroupingIndirectionDate<IndirectionDate> result = new ConcreteGroupingIndirectionDate<>(dataInGroup);
+            return Collections.singleton(result);
+        } else {
+            return Collections.singleton(getQueueToReadFrom(sinkConnector).remove());
+        }
+    }
+
+    private void processDataQueue() {
+        if (joinOperator != null) {
+            // also emits to dataAfterJoiningQueue. should be reworked
+            dataBeforeJoiningQueue.forEach(it -> joinOperator.accept(it));
+        } else {
+            dataBeforeJoiningQueue.forEach(it -> dataAfterJoiningQueue.add(it.date));
+        }
+        dataBeforeJoiningQueue.clear();
+
+        if (windowingOperator != null) {
+            dataAfterJoiningQueue.forEach(it -> windowingOperator.accept(it));
+            dataAfterJoiningQueue.clear();
+        }
+
+        if (holdbackOperator != null) {
+            for (IndirectionDate it : dataAfterJoiningQueue) {
+                Optional<List<IndirectionDate>> result = holdbackOperator.accept(it);
+                result.map(ConcreteGroupingIndirectionDate::new).ifPresent(this::postprocessAndEmit);
+            }
+            dataAfterJoiningQueue.clear();
+        }
     }
 
     @Override
@@ -134,6 +220,10 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 
     @Override
     protected void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date) {
+        dataBeforeJoiningQueue.add(new DataWithSource<>(sourceConnector, date));
+
+        processDataQueue();
+
         processDataAvailableToGet();
     }
 }

@@ -17,7 +17,8 @@ public class TimeBasedWindowingOperator<T extends IndirectionDate> extends Windo
         super(emitEmptyWindows, size, shift);
 
         this.windowingTrigger = IndirectionSimulationUtil.triggerPeriodically(model, 0, shift, () -> {
-            Optional<List<Window>> windowsToEmit = windowEmitter.accept(null);
+            Optional<List<Window>> windowsToEmit = windowEmitter
+                    .accept(model.getSimulationControl().getCurrentSimulationTime());
             windowsToEmit.ifPresent(this::emitWindows);
         });
     }

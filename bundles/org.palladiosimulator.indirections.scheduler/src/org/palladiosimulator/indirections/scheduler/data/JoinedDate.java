@@ -7,7 +7,7 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator.Channel;
 
 public class JoinedDate<T extends IndirectionDate> implements GroupingIndirectionDate<T> {
-    public JoinedDate(Map<Channel<T>, T> dataMap) {
+    public JoinedDate(Map<Channel<DataWithSource<T>>, T> dataMap) {
         super();
     }
 

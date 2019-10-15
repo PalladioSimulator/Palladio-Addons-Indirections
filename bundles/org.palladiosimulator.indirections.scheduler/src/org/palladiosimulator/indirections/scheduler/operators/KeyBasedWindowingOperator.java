@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 
 public class KeyBasedWindowingOperator<T extends IndirectionDate> extends WindowingOperator<T> {
@@ -13,7 +12,7 @@ public class KeyBasedWindowingOperator<T extends IndirectionDate> extends Window
     }
 
     @Override
-    public void accept(GroupingIndirectionDate<T> indirectionDate) {
+    public void accept(T indirectionDate) {
         super.accept(indirectionDate);
 
         Double time = indirectionDate.getTime();

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-
-public abstract class SimStatefulOperator<T extends IndirectionDate, U extends IndirectionDate> implements Consumer<T> {
+public abstract class SimStatefulOperator<T, U> implements Consumer<T> {
     private final List<Consumer<U>> emitsTo;
 
     public SimStatefulOperator() {
