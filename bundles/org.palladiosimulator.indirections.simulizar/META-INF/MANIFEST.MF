@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.palladiosimulator.indirections.simulizar
 Bundle-SymbolicName: org.palladiosimulator.indirections.simulizar;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 4.2.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.indirections.simulizar
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.palladiosimulator.simulizar;bundle-version="2.1.0",
