@@ -22,12 +22,12 @@ public class DataChannelRegistry {
     private final SimuComModel model;
     private final InterpreterDefaultContext context;
 
-    private static Map<InterpreterDefaultContext, DataChannelRegistry> registries = new HashMap<>();
+    private static Map<SimuComModel, DataChannelRegistry> registries = new HashMap<>();
 
     public static DataChannelRegistry getInstanceFor(final InterpreterDefaultContext context) {
-        registries.computeIfAbsent(context, (ctx) -> new DataChannelRegistry(ctx, ctx.getModel()));
+        registries.computeIfAbsent(context.getModel(), (model) -> new DataChannelRegistry(context, model));
 
-        return registries.get(context);
+        return registries.get(context.getModel());
     }
 
     private DataChannelRegistry(InterpreterDefaultContext ctx, final SimuComModel myModel) {
