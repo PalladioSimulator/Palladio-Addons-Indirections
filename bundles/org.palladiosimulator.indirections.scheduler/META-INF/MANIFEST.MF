@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.palladiosimulator.indirections.scheduler
 Bundle-SymbolicName: org.palladiosimulator.indirections.scheduler;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 4.2.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.indirections.scheduler
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.palladiosimulator.pcm,
  org.palladiosimulator.indirections,
