@@ -30,7 +30,7 @@ import org.palladiosimulator.pcm.seff.impl.AbstractActionImpl;
 public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutDataOnStackAction {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected PutDataOnStackActionImpl() {
@@ -39,7 +39,7 @@ public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutD
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -49,7 +49,7 @@ public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutD
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -61,7 +61,7 @@ public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutD
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -76,7 +76,7 @@ public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutD
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -90,7 +90,7 @@ public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutD
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -107,7 +107,7 @@ public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutD
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -122,7 +122,7 @@ public class PutDataOnStackActionImpl extends AbstractActionImpl implements PutD
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

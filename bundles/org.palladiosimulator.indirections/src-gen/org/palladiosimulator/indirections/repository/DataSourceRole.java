@@ -25,7 +25,7 @@ public interface DataSourceRole extends RequiredRole {
     /**
      * Returns the value of the '<em><b>Event Group</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Event Group</em>' reference.
      * @see #setEventGroup(EventGroup)
      * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSourceRole_EventGroup()
@@ -38,7 +38,7 @@ public interface DataSourceRole extends RequiredRole {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.repository.DataSourceRole#getEventGroup <em>Event
      * Group</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Event Group</em>' reference.
      * @see #getEventGroup()

@@ -32,7 +32,7 @@ public interface EmitDataAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Event Type</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Event Type</em>' reference.
      * @see #setEventType(EventType)
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getEmitDataAction_EventType()
@@ -45,7 +45,7 @@ public interface EmitDataAction extends AbstractAction {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getEventType <em>Event
      * Type</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Event Type</em>' reference.
      * @see #getEventType()
@@ -56,7 +56,7 @@ public interface EmitDataAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Data Source Role</b></em>' reference. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Data Source Role</em>' reference.
      * @see #setDataSourceRole(DataSourceRole)
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getEmitDataAction_DataSourceRole()
@@ -69,7 +69,7 @@ public interface EmitDataAction extends AbstractAction {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getDataSourceRole <em>Data
      * Source Role</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Data Source Role</em>' reference.
      * @see #getDataSourceRole()
@@ -94,7 +94,7 @@ public interface EmitDataAction extends AbstractAction {
      * '{@link org.palladiosimulator.indirections.actions.EmitDataAction#getVariableReference
      * <em>Variable Reference</em>}' containment reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Variable Reference</em>' containment reference.
      * @see #getVariableReference()

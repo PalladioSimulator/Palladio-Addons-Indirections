@@ -18,7 +18,7 @@ import org.palladiosimulator.pcm.core.entity.EntityPackage;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * 
+ *
  * @see org.palladiosimulator.indirections.partitioning.PartitioningFactory
  * @model kind="package"
  * @generated
@@ -26,28 +26,28 @@ import org.palladiosimulator.pcm.core.entity.EntityPackage;
 public interface PartitioningPackage extends EPackage {
     /**
      * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     String eNAME = "partitioning";
 
     /**
      * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     String eNS_URI = "http://palladiosimulator.org/Indirections/Partitioning/1.0";
 
     /**
      * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     String eNS_PREFIX = "org.palladiosimulator.indirections.partitioning";
 
     /**
      * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     PartitioningPackage eINSTANCE = org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl.init();
@@ -56,7 +56,7 @@ public interface PartitioningPackage extends EPackage {
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.partitioning.impl.PartitioningImpl
      * <em>Partitioning</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningImpl
      * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getPartitioning()
      * @generated
@@ -66,7 +66,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Entity Name</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -84,7 +84,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Partitioning</em>' class. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -94,7 +94,7 @@ public interface PartitioningPackage extends EPackage {
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.partitioning.TimeGrouping <em>Time Grouping</em>}'
      * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.partitioning.TimeGrouping
      * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getTimeGrouping()
      * @generated
@@ -104,7 +104,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Time Grouping</em>' class. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -114,7 +114,7 @@ public interface PartitioningPackage extends EPackage {
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.partitioning.impl.WindowingImpl
      * <em>Windowing</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.partitioning.impl.WindowingImpl
      * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getWindowing()
      * @generated
@@ -124,7 +124,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Size</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -133,7 +133,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Shift</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -142,7 +142,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Windowing</em>' class. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -152,7 +152,7 @@ public interface PartitioningPackage extends EPackage {
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.partitioning.impl.ConsumeAllAvailableImpl
      * <em>Consume All Available</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.partitioning.impl.ConsumeAllAvailableImpl
      * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getConsumeAllAvailable()
      * @generated
@@ -172,7 +172,7 @@ public interface PartitioningPackage extends EPackage {
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.partitioning.impl.CollectWithHoldbackImpl
      * <em>Collect With Holdback</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.partitioning.impl.CollectWithHoldbackImpl
      * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getCollectWithHoldback()
      * @generated
@@ -182,7 +182,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Holdback</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -191,11 +191,20 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
     int COLLECT_WITH_HOLDBACK__KEY = TIME_GROUPING_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Partition Data Name</b></em>' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME = TIME_GROUPING_FEATURE_COUNT + 2;
 
     /**
      * The number of structural features of the '<em>Collect With Holdback</em>' class. <!--
@@ -204,13 +213,13 @@ public interface PartitioningPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLLECT_WITH_HOLDBACK_FEATURE_COUNT = TIME_GROUPING_FEATURE_COUNT + 2;
+    int COLLECT_WITH_HOLDBACK_FEATURE_COUNT = TIME_GROUPING_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.partitioning.impl.JoiningImpl <em>Joining</em>}'
      * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.partitioning.impl.JoiningImpl
      * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getJoining()
      * @generated
@@ -220,7 +229,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Source</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -238,7 +247,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Key</b></em>' containment reference list. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -247,7 +256,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Joining</em>' class. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -257,7 +266,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.partitioning.Partitioning <em>Partitioning</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for class '<em>Partitioning</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Partitioning
      * @generated
@@ -268,7 +277,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the containment reference list
      * '{@link org.palladiosimulator.indirections.partitioning.Partitioning#getSpecification
      * <em>Specification</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the containment reference list '<em>Specification</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Partitioning#getSpecification()
      * @see #getPartitioning()
@@ -280,7 +289,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.partitioning.TimeGrouping <em>Time
      * Grouping</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for class '<em>Time Grouping</em>'.
      * @see org.palladiosimulator.indirections.partitioning.TimeGrouping
      * @generated
@@ -302,7 +311,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the attribute
      * '{@link org.palladiosimulator.indirections.partitioning.Windowing#getSize <em>Size</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the attribute '<em>Size</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Windowing#getSize()
      * @see #getWindowing()
@@ -314,7 +323,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the attribute
      * '{@link org.palladiosimulator.indirections.partitioning.Windowing#getShift <em>Shift</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the attribute '<em>Shift</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Windowing#getShift()
      * @see #getWindowing()
@@ -326,7 +335,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable <em>Consume All
      * Available</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for class '<em>Consume All Available</em>'.
      * @see org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable
      * @generated
@@ -337,7 +346,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.partitioning.CollectWithHoldback <em>Collect With
      * Holdback</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for class '<em>Collect With Holdback</em>'.
      * @see org.palladiosimulator.indirections.partitioning.CollectWithHoldback
      * @generated
@@ -348,7 +357,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the attribute
      * '{@link org.palladiosimulator.indirections.partitioning.CollectWithHoldback#getHoldback
      * <em>Holdback</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the attribute '<em>Holdback</em>'.
      * @see org.palladiosimulator.indirections.partitioning.CollectWithHoldback#getHoldback()
      * @see #getCollectWithHoldback()
@@ -360,13 +369,25 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the attribute
      * '{@link org.palladiosimulator.indirections.partitioning.CollectWithHoldback#getKey
      * <em>Key</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the attribute '<em>Key</em>'.
      * @see org.palladiosimulator.indirections.partitioning.CollectWithHoldback#getKey()
      * @see #getCollectWithHoldback()
      * @generated
      */
     EAttribute getCollectWithHoldback_Key();
+
+    /**
+     * Returns the meta object for the attribute
+     * '{@link org.palladiosimulator.indirections.partitioning.CollectWithHoldback#getPartitionDataName
+     * <em>Partition Data Name</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Partition Data Name</em>'.
+     * @see org.palladiosimulator.indirections.partitioning.CollectWithHoldback#getPartitionDataName()
+     * @see #getCollectWithHoldback()
+     * @generated
+     */
+    EAttribute getCollectWithHoldback_PartitionDataName();
 
     /**
      * Returns the meta object for class
@@ -383,7 +404,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the reference
      * '{@link org.palladiosimulator.indirections.partitioning.Joining#getSource <em>Source</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the reference '<em>Source</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Joining#getSource()
      * @see #getJoining()
@@ -395,7 +416,7 @@ public interface PartitioningPackage extends EPackage {
      * Returns the meta object for the attribute
      * '{@link org.palladiosimulator.indirections.partitioning.Joining#isCanContributeMultipleTimes
      * <em>Can Contribute Multiple Times</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the attribute '<em>Can Contribute Multiple Times</em>'.
      * @see org.palladiosimulator.indirections.partitioning.Joining#isCanContributeMultipleTimes()
      * @see #getJoining()
@@ -418,7 +439,7 @@ public interface PartitioningPackage extends EPackage {
     /**
      * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the factory that creates the instances of the model.
      * @generated
      */
@@ -433,7 +454,7 @@ public interface PartitioningPackage extends EPackage {
      * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     interface Literals {
@@ -441,7 +462,7 @@ public interface PartitioningPackage extends EPackage {
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.partitioning.impl.PartitioningImpl
          * <em>Partitioning</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningImpl
          * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getPartitioning()
          * @generated
@@ -451,7 +472,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Specification</b></em>' containment reference
          * list feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference PARTITIONING__SPECIFICATION = eINSTANCE.getPartitioning_Specification();
@@ -460,7 +481,7 @@ public interface PartitioningPackage extends EPackage {
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.partitioning.TimeGrouping <em>Time
          * Grouping</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.partitioning.TimeGrouping
          * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getTimeGrouping()
          * @generated
@@ -471,7 +492,7 @@ public interface PartitioningPackage extends EPackage {
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.partitioning.impl.WindowingImpl
          * <em>Windowing</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.partitioning.impl.WindowingImpl
          * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getWindowing()
          * @generated
@@ -498,7 +519,7 @@ public interface PartitioningPackage extends EPackage {
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.partitioning.impl.ConsumeAllAvailableImpl
          * <em>Consume All Available</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.partitioning.impl.ConsumeAllAvailableImpl
          * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getConsumeAllAvailable()
          * @generated
@@ -509,7 +530,7 @@ public interface PartitioningPackage extends EPackage {
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.partitioning.impl.CollectWithHoldbackImpl
          * <em>Collect With Holdback</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.partitioning.impl.CollectWithHoldbackImpl
          * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getCollectWithHoldback()
          * @generated
@@ -533,10 +554,18 @@ public interface PartitioningPackage extends EPackage {
         EAttribute COLLECT_WITH_HOLDBACK__KEY = eINSTANCE.getCollectWithHoldback_Key();
 
         /**
+         * The meta object literal for the '<em><b>Partition Data Name</b></em>' attribute feature.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME = eINSTANCE.getCollectWithHoldback_PartitionDataName();
+
+        /**
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.partitioning.impl.JoiningImpl
          * <em>Joining</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.partitioning.impl.JoiningImpl
          * @see org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl#getJoining()
          * @generated
@@ -554,7 +583,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Can Contribute Multiple Times</b></em>' attribute
          * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EAttribute JOINING__CAN_CONTRIBUTE_MULTIPLE_TIMES = eINSTANCE.getJoining_CanContributeMultipleTimes();
@@ -562,7 +591,7 @@ public interface PartitioningPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Key</b></em>' containment reference list feature.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference JOINING__KEY = eINSTANCE.getJoining_Key();

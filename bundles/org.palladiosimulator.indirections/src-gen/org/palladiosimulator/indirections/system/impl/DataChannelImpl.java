@@ -19,7 +19,7 @@ import org.palladiosimulator.indirections.partitioning.Partitioning;
 import org.palladiosimulator.indirections.partitioning.TimeGrouping;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
-import org.palladiosimulator.pcm.core.entity.impl.EntityImpl;
+import org.palladiosimulator.pcm.core.composition.impl.EventChannelImpl;
 import org.palladiosimulator.pcm.repository.EventGroup;
 
 /**
@@ -55,7 +55,7 @@ import org.palladiosimulator.pcm.repository.EventGroup;
  *
  * @generated
  */
-public class DataChannelImpl extends EntityImpl implements DataChannel {
+public class DataChannelImpl extends EventChannelImpl implements DataChannel {
     /**
      * The default value of the '{@link #getCapacity() <em>Capacity</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
@@ -69,7 +69,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
     /**
      * The default value of the '{@link #getOutgoingDistribution() <em>Outgoing Distribution</em>}'
      * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getOutgoingDistribution()
      * @generated
      * @ordered
@@ -98,7 +98,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected DataChannelImpl() {
@@ -107,7 +107,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -117,7 +117,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -128,7 +128,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -139,7 +139,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -150,7 +150,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EventGroup basicGetSourceEventGroup() {
@@ -160,7 +160,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -171,7 +171,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -182,7 +182,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EventGroup basicGetSinkEventGroup() {
@@ -192,7 +192,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -203,7 +203,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -216,7 +216,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -229,7 +229,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -240,7 +240,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public NotificationChain basicSetPartitioning(final Partitioning newPartitioning, NotificationChain msgs) {
@@ -251,7 +251,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -262,7 +262,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -273,7 +273,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public NotificationChain basicSetTimeGrouping(final TimeGrouping newTimeGrouping, NotificationChain msgs) {
@@ -284,7 +284,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -295,7 +295,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -307,7 +307,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -318,7 +318,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -329,7 +329,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -340,7 +340,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -351,7 +351,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -362,7 +362,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -373,7 +373,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -393,7 +393,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -408,13 +408,15 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
             return this.basicSetPartitioning(null, msgs);
         case SystemPackage.DATA_CHANNEL__TIME_GROUPING:
             return this.basicSetTimeGrouping(null, msgs);
+        case SystemPackage.DATA_CHANNEL__JOINS:
+            return ((InternalEList<?>) this.getJoins()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -454,7 +456,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -503,7 +505,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -548,7 +550,7 @@ public class DataChannelImpl extends EntityImpl implements DataChannel {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

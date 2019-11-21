@@ -30,7 +30,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
     /**
      * The default value of the '{@link #getKey() <em>Key</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @see #getKey()
      * @generated
      * @ordered
@@ -39,7 +39,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected AnalyseStackActionImpl() {
@@ -48,7 +48,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -58,7 +58,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -69,7 +69,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -80,7 +80,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -91,7 +91,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public NotificationChain basicSetVariableReference(final VariableReference newVariableReference,
@@ -103,7 +103,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -114,7 +114,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -129,7 +129,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -145,7 +145,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -163,7 +163,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -181,7 +181,7 @@ public class AnalyseStackActionImpl extends AbstractActionImpl implements Analys
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

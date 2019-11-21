@@ -21,7 +21,6 @@ import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemFactory;
 import org.palladiosimulator.indirections.system.SystemPackage;
 import org.palladiosimulator.pcm.PcmPackage;
-import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 import de.uka.ipd.sdq.identifier.IdentifierPackage;
 import de.uka.ipd.sdq.probfunction.ProbfunctionPackage;
@@ -30,13 +29,13 @@ import de.uka.ipd.sdq.units.UnitsPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
- * 
+ *
  * @generated
  */
 public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private EClass dataChannelEClass = null;
@@ -49,7 +48,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * Note: the correct way to create the package is via the static factory method {@link #init
      * init()}, which also performs initialization of the package, or returns the registered
      * package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.eclipse.emf.ecore.EPackage.Registry
      * @see org.palladiosimulator.indirections.system.SystemPackage#eNS_URI
      * @see #init()
@@ -61,7 +60,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private static boolean isInited = false;
@@ -74,7 +73,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * This method is used to initialize {@link SystemPackage#eINSTANCE} when that field is
      * accessed. Clients should not invoke it directly. Instead, they should simply access that
      * field to obtain the package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #eNS_URI
      * @see #createPackageContents()
      * @see #initializePackageContents()
@@ -148,7 +147,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -158,7 +157,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -168,7 +167,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -178,7 +177,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -188,7 +187,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -198,7 +197,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -208,7 +207,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -218,7 +217,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -228,7 +227,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -238,7 +237,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -248,7 +247,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -258,7 +257,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -268,7 +267,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -278,7 +277,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private boolean isCreated = false;
@@ -286,7 +285,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
     /**
      * Creates the meta-model objects for the package. This method is guarded to have no affect on
      * any invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public void createPackageContents() {
@@ -312,7 +311,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private boolean isInitialized = false;
@@ -320,7 +319,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
     /**
      * Complete the initialization of the package and its meta-model. This method is guarded to have
      * no affect on any invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public void initializePackageContents() {
@@ -335,8 +334,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
         this.setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        final EntityPackage theEntityPackage = (EntityPackage) EPackage.Registry.INSTANCE
-                .getEPackage(EntityPackage.eNS_URI);
+        final org.palladiosimulator.pcm.core.composition.CompositionPackage theCompositionPackage_1 = (org.palladiosimulator.pcm.core.composition.CompositionPackage) EPackage.Registry.INSTANCE
+                .getEPackage(org.palladiosimulator.pcm.core.composition.CompositionPackage.eNS_URI);
         final org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
                 .getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
         final CompositionPackage theCompositionPackage = (CompositionPackage) EPackage.Registry.INSTANCE
@@ -351,7 +350,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        this.dataChannelEClass.getESuperTypes().add(theEntityPackage.getEntity());
+        this.dataChannelEClass.getESuperTypes().add(theCompositionPackage_1.getEventChannel());
 
         // Initialize classes and features; add operations and parameters
         this.initEClass(this.dataChannelEClass, DataChannel.class, "DataChannel", !IS_ABSTRACT, !IS_INTERFACE,
@@ -382,7 +381,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
                 "timeGrouping", null, 0, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
                 !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         this.initEReference(this.getDataChannel_Joins(), thePartitioningPackage.getJoining(), null, "joins", null, 0,
-                -1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                -1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         this.initEAttribute(this.getDataChannel_OutgoingDistribution(), theDatatypesPackage.getOutgoingDistribution(),
                 "outgoingDistribution", null, 0, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,

@@ -26,7 +26,7 @@ import org.palladiosimulator.pcm.core.composition.impl.ConnectorImpl;
 public class DataChannelConnectorImpl extends ConnectorImpl implements DataChannelConnector {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected DataChannelConnectorImpl() {
@@ -35,7 +35,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -45,7 +45,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -56,7 +56,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public DataChannel basicGetSource() {
@@ -66,7 +66,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -77,7 +77,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -88,7 +88,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public DataChannel basicGetSink() {
@@ -98,7 +98,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -109,7 +109,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -131,7 +131,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -149,7 +149,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -167,7 +167,7 @@ public class DataChannelConnectorImpl extends ConnectorImpl implements DataChann
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

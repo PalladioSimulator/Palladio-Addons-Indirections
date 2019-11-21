@@ -16,9 +16,12 @@ import org.palladiosimulator.pcm.repository.impl.ProvidedRoleImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#getEventGroup <em>Event Group</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#getPushesTo <em>Pushes To</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#isPushing <em>Pushing</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#getEventGroup
+ * <em>Event Group</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#getPushesTo
+ * <em>Pushes To</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#isPushing
+ * <em>Pushing</em>}</li>
  * </ul>
  *
  * @generated
@@ -27,7 +30,7 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
     /**
      * The default value of the '{@link #isPushing() <em>Pushing</em>}' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #isPushing()
      * @generated
      * @ordered
@@ -36,6 +39,7 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     protected DataSinkRoleImpl() {
@@ -44,6 +48,7 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
@@ -53,64 +58,71 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
     public EventGroup getEventGroup() {
-        return (EventGroup) eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP,
+        return (EventGroup) this.eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP,
                 RepositoryPackage.Literals.DATA_SINK_ROLE__EVENT_GROUP, true, true);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     public EventGroup basicGetEventGroup() {
-        return (EventGroup) eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP,
+        return (EventGroup) this.eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP,
                 RepositoryPackage.Literals.DATA_SINK_ROLE__EVENT_GROUP, false, true);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
-    public void setEventGroup(EventGroup newEventGroup) {
-        eDynamicSet(RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP,
+    public void setEventGroup(final EventGroup newEventGroup) {
+        this.eDynamicSet(RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP,
                 RepositoryPackage.Literals.DATA_SINK_ROLE__EVENT_GROUP, newEventGroup);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
     public Signature getPushesTo() {
-        return (Signature) eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO,
+        return (Signature) this.eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO,
                 RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO, true, true);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     public Signature basicGetPushesTo() {
-        return (Signature) eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO,
+        return (Signature) this.eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO,
                 RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO, false, true);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
-    public void setPushesTo(Signature newPushesTo) {
-        eDynamicSet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO, RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO,
-                newPushesTo);
+    public void setPushesTo(final Signature newPushesTo) {
+        this.eDynamicSet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO,
+                RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO, newPushesTo);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
@@ -120,37 +132,41 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
-    public Object eGet(int featureID, boolean resolve, boolean coreType) {
+    public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
         switch (featureID) {
         case RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP:
-            if (resolve)
-                return getEventGroup();
-            return basicGetEventGroup();
+            if (resolve) {
+                return this.getEventGroup();
+            }
+            return this.basicGetEventGroup();
         case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-            if (resolve)
-                return getPushesTo();
-            return basicGetPushesTo();
+            if (resolve) {
+                return this.getPushesTo();
+            }
+            return this.basicGetPushesTo();
         case RepositoryPackage.DATA_SINK_ROLE__PUSHING:
-            return isPushing();
+            return this.isPushing();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
-    public void eSet(int featureID, Object newValue) {
+    public void eSet(final int featureID, final Object newValue) {
         switch (featureID) {
         case RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP:
-            setEventGroup((EventGroup) newValue);
+            this.setEventGroup((EventGroup) newValue);
             return;
         case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-            setPushesTo((Signature) newValue);
+            this.setPushesTo((Signature) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -158,16 +174,17 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
-    public void eUnset(int featureID) {
+    public void eUnset(final int featureID) {
         switch (featureID) {
         case RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP:
-            setEventGroup((EventGroup) null);
+            this.setEventGroup((EventGroup) null);
             return;
         case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-            setPushesTo((Signature) null);
+            this.setPushesTo((Signature) null);
             return;
         }
         super.eUnset(featureID);
@@ -175,17 +192,18 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
-    public boolean eIsSet(int featureID) {
+    public boolean eIsSet(final int featureID) {
         switch (featureID) {
         case RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP:
-            return basicGetEventGroup() != null;
+            return this.basicGetEventGroup() != null;
         case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-            return basicGetPushesTo() != null;
+            return this.basicGetPushesTo() != null;
         case RepositoryPackage.DATA_SINK_ROLE__PUSHING:
-            return isPushing() != PUSHING_EDEFAULT;
+            return this.isPushing() != PUSHING_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }

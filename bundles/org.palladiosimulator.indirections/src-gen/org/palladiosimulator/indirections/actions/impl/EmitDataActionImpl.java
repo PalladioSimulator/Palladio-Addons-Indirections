@@ -33,7 +33,7 @@ import de.uka.ipd.sdq.stoex.VariableReference;
 public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAction {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected EmitDataActionImpl() {
@@ -42,7 +42,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -52,7 +52,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -63,7 +63,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EventType basicGetEventType() {
@@ -73,7 +73,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -84,7 +84,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -95,7 +95,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public DataSourceRole basicGetDataSourceRole() {
@@ -105,7 +105,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -116,7 +116,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -127,7 +127,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public NotificationChain basicSetVariableReference(final VariableReference newVariableReference,
@@ -139,7 +139,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -150,7 +150,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -165,7 +165,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -189,7 +189,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -210,7 +210,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -231,7 +231,7 @@ public class EmitDataActionImpl extends AbstractActionImpl implements EmitDataAc
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

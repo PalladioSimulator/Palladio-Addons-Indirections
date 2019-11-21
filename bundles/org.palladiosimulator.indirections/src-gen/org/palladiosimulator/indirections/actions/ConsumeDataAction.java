@@ -32,7 +32,7 @@ public interface ConsumeDataAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Event Type</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Event Type</em>' reference.
      * @see #setEventType(EventType)
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getConsumeDataAction_EventType()
@@ -45,7 +45,7 @@ public interface ConsumeDataAction extends AbstractAction {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getEventType <em>Event
      * Type</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Event Type</em>' reference.
      * @see #getEventType()
@@ -56,7 +56,7 @@ public interface ConsumeDataAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Data Sink Role</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Data Sink Role</em>' reference.
      * @see #setDataSinkRole(DataSinkRole)
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getConsumeDataAction_DataSinkRole()
@@ -69,7 +69,7 @@ public interface ConsumeDataAction extends AbstractAction {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getDataSinkRole <em>Data
      * Sink Role</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Data Sink Role</em>' reference.
      * @see #getDataSinkRole()
@@ -94,7 +94,7 @@ public interface ConsumeDataAction extends AbstractAction {
      * '{@link org.palladiosimulator.indirections.actions.ConsumeDataAction#getVariableReference
      * <em>Variable Reference</em>}' containment reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Variable Reference</em>' containment reference.
      * @see #getVariableReference()

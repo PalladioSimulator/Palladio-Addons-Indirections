@@ -30,7 +30,7 @@ import org.palladiosimulator.pcm.core.entity.impl.NamedElementImpl;
 public class PartitioningImpl extends NamedElementImpl implements Partitioning {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected PartitioningImpl() {
@@ -39,7 +39,7 @@ public class PartitioningImpl extends NamedElementImpl implements Partitioning {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -49,7 +49,7 @@ public class PartitioningImpl extends NamedElementImpl implements Partitioning {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -61,7 +61,7 @@ public class PartitioningImpl extends NamedElementImpl implements Partitioning {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -76,7 +76,7 @@ public class PartitioningImpl extends NamedElementImpl implements Partitioning {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -90,7 +90,7 @@ public class PartitioningImpl extends NamedElementImpl implements Partitioning {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -107,7 +107,7 @@ public class PartitioningImpl extends NamedElementImpl implements Partitioning {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -122,7 +122,7 @@ public class PartitioningImpl extends NamedElementImpl implements Partitioning {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

@@ -80,6 +80,7 @@
       <genClasses ecoreClass="indirections.ecore#//partitioning/CollectWithHoldback">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/holdback"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/partitionDataName"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//partitioning/Joining">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -103,8 +104,7 @@
             ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataChannelSinkConnector"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/partitioning"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/timeGrouping"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/joins"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/joins"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/outgoingDistribution"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/scheduling"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/putPolicy"/>

@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EReference;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * 
+ *
  * @see org.palladiosimulator.indirections.repository.RepositoryFactory
  * @model kind="package"
  * @generated
@@ -25,28 +25,28 @@ import org.eclipse.emf.ecore.EReference;
 public interface RepositoryPackage extends EPackage {
     /**
      * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     String eNAME = "repository";
 
     /**
      * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     String eNS_URI = "http://palladiosimulator.org/Indirections/Repository/1.0";
 
     /**
      * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     String eNS_PREFIX = "org.palladiosimulator.indirections.repository";
 
     /**
      * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     RepositoryPackage eINSTANCE = org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl.init();
@@ -55,7 +55,7 @@ public interface RepositoryPackage extends EPackage {
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl <em>Data Sink
      * Role</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl
      * @see org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl#getDataSinkRole()
      * @generated
@@ -65,7 +65,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -74,7 +74,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Entity Name</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -83,7 +83,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Providing Entity Provided Role</b></em>' container reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -92,7 +92,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Event Group</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -102,7 +102,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Pushes To</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -112,7 +112,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Pushing</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -122,7 +122,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Data Sink Role</em>' class. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -133,7 +133,7 @@ public interface RepositoryPackage extends EPackage {
      * The meta object id for the
      * '{@link org.palladiosimulator.indirections.repository.impl.DataSourceRoleImpl <em>Data Source
      * Role</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirections.repository.impl.DataSourceRoleImpl
      * @see org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl#getDataSourceRole()
      * @generated
@@ -143,7 +143,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -152,7 +152,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Entity Name</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -161,7 +161,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Requiring Entity Required Role</b></em>' container reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -170,7 +170,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Event Group</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -191,7 +191,7 @@ public interface RepositoryPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.repository.DataSinkRole <em>Data Sink Role</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for class '<em>Data Sink Role</em>'.
      * @see org.palladiosimulator.indirections.repository.DataSinkRole
      * @generated
@@ -202,7 +202,7 @@ public interface RepositoryPackage extends EPackage {
      * Returns the meta object for the reference
      * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getEventGroup <em>Event
      * Group</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the reference '<em>Event Group</em>'.
      * @see org.palladiosimulator.indirections.repository.DataSinkRole#getEventGroup()
      * @see #getDataSinkRole()
@@ -214,7 +214,7 @@ public interface RepositoryPackage extends EPackage {
      * Returns the meta object for the reference
      * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes
      * To</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the reference '<em>Pushes To</em>'.
      * @see org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo()
      * @see #getDataSinkRole()
@@ -226,7 +226,7 @@ public interface RepositoryPackage extends EPackage {
      * Returns the meta object for the attribute
      * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#isPushing
      * <em>Pushing</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the attribute '<em>Pushing</em>'.
      * @see org.palladiosimulator.indirections.repository.DataSinkRole#isPushing()
      * @see #getDataSinkRole()
@@ -238,7 +238,7 @@ public interface RepositoryPackage extends EPackage {
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.repository.DataSourceRole <em>Data Source
      * Role</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for class '<em>Data Source Role</em>'.
      * @see org.palladiosimulator.indirections.repository.DataSourceRole
      * @generated
@@ -249,7 +249,7 @@ public interface RepositoryPackage extends EPackage {
      * Returns the meta object for the reference
      * '{@link org.palladiosimulator.indirections.repository.DataSourceRole#getEventGroup <em>Event
      * Group</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the reference '<em>Event Group</em>'.
      * @see org.palladiosimulator.indirections.repository.DataSourceRole#getEventGroup()
      * @see #getDataSourceRole()
@@ -260,7 +260,7 @@ public interface RepositoryPackage extends EPackage {
     /**
      * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the factory that creates the instances of the model.
      * @generated
      */
@@ -275,7 +275,7 @@ public interface RepositoryPackage extends EPackage {
      * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     interface Literals {
@@ -283,7 +283,7 @@ public interface RepositoryPackage extends EPackage {
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl <em>Data Sink
          * Role</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl
          * @see org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl#getDataSinkRole()
          * @generated
@@ -318,7 +318,7 @@ public interface RepositoryPackage extends EPackage {
          * The meta object literal for the
          * '{@link org.palladiosimulator.indirections.repository.impl.DataSourceRoleImpl <em>Data
          * Source Role</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirections.repository.impl.DataSourceRoleImpl
          * @see org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl#getDataSourceRole()
          * @generated

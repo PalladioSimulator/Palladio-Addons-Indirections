@@ -31,7 +31,7 @@ public interface DataChannelSinkConnector extends Connector {
     /**
      * Returns the value of the '<em><b>Data Sink Role</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Data Sink Role</em>' reference.
      * @see #setDataSinkRole(DataSinkRole)
      * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSinkConnector_DataSinkRole()
@@ -44,7 +44,7 @@ public interface DataChannelSinkConnector extends Connector {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataSinkRole
      * <em>Data Sink Role</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Data Sink Role</em>' reference.
      * @see #getDataSinkRole()
@@ -55,7 +55,7 @@ public interface DataChannelSinkConnector extends Connector {
     /**
      * Returns the value of the '<em><b>Assembly Context</b></em>' reference. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Assembly Context</em>' reference.
      * @see #setAssemblyContext(AssemblyContext)
      * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSinkConnector_AssemblyContext()
@@ -68,7 +68,7 @@ public interface DataChannelSinkConnector extends Connector {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getAssemblyContext
      * <em>Assembly Context</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Assembly Context</em>' reference.
      * @see #getAssemblyContext()
@@ -81,7 +81,7 @@ public interface DataChannelSinkConnector extends Connector {
      * its opposite is
      * '{@link org.palladiosimulator.indirections.system.DataChannel#getDataChannelSinkConnector
      * <em>Data Channel Sink Connector</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Data Channel</em>' reference.
      * @see #setDataChannel(DataChannel)
      * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelSinkConnector_DataChannel()
@@ -95,7 +95,7 @@ public interface DataChannelSinkConnector extends Connector {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataChannel
      * <em>Data Channel</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Data Channel</em>' reference.
      * @see #getDataChannel()

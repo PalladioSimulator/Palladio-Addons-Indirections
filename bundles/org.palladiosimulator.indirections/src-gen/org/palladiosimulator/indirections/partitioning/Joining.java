@@ -31,7 +31,7 @@ public interface Joining extends CDOObject {
     /**
      * Returns the value of the '<em><b>Source</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Source</em>' reference.
      * @see #setSource(DataChannelSourceConnector)
      * @see org.palladiosimulator.indirections.partitioning.PartitioningPackage#getJoining_Source()
@@ -44,7 +44,7 @@ public interface Joining extends CDOObject {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.partitioning.Joining#getSource <em>Source</em>}'
      * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Source</em>' reference.
      * @see #getSource()
@@ -81,7 +81,7 @@ public interface Joining extends CDOObject {
      * Returns the value of the '<em><b>Key</b></em>' containment reference list. The list contents
      * are of type {@link org.palladiosimulator.pcm.core.PCMRandomVariable}. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Key</em>' containment reference list.
      * @see org.palladiosimulator.indirections.partitioning.PartitioningPackage#getJoining_Key()
      * @model containment="true" required="true"

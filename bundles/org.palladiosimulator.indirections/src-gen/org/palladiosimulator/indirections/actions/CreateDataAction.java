@@ -44,7 +44,7 @@ public interface CreateDataAction extends AbstractAction {
      * '{@link org.palladiosimulator.indirections.actions.CreateDataAction#getVariableReference
      * <em>Variable Reference</em>}' containment reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Variable Reference</em>' containment reference.
      * @see #getVariableReference()

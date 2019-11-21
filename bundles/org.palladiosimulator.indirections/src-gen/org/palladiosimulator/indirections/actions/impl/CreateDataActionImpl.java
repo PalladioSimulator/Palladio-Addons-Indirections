@@ -34,7 +34,7 @@ import de.uka.ipd.sdq.stoex.VariableReference;
 public class CreateDataActionImpl extends AbstractActionImpl implements CreateDataAction {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected CreateDataActionImpl() {
@@ -43,7 +43,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -53,7 +53,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -64,7 +64,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public NotificationChain basicSetVariableReference(final VariableReference newVariableReference,
@@ -76,7 +76,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -87,7 +87,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -99,7 +99,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -116,7 +116,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -132,7 +132,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -152,7 +152,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -170,7 +170,7 @@ public class CreateDataActionImpl extends AbstractActionImpl implements CreateDa
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

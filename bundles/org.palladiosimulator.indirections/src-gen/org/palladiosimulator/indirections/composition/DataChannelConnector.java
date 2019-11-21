@@ -27,7 +27,7 @@ public interface DataChannelConnector extends Connector {
     /**
      * Returns the value of the '<em><b>Source</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Source</em>' reference.
      * @see #setSource(DataChannel)
      * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelConnector_Source()
@@ -40,7 +40,7 @@ public interface DataChannelConnector extends Connector {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.composition.DataChannelConnector#getSource
      * <em>Source</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Source</em>' reference.
      * @see #getSource()
@@ -51,7 +51,7 @@ public interface DataChannelConnector extends Connector {
     /**
      * Returns the value of the '<em><b>Sink</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Sink</em>' reference.
      * @see #setSink(DataChannel)
      * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelConnector_Sink()
@@ -64,7 +64,7 @@ public interface DataChannelConnector extends Connector {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.composition.DataChannelConnector#getSink
      * <em>Sink</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Sink</em>' reference.
      * @see #getSink()

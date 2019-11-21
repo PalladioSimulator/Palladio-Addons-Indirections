@@ -24,7 +24,7 @@ import org.palladiosimulator.pcm.repository.impl.RequiredRoleImpl;
 public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRole {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected DataSourceRoleImpl() {
@@ -33,7 +33,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -43,7 +43,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -54,7 +54,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public EventGroup basicGetEventGroup() {
@@ -64,7 +64,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -75,7 +75,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -92,7 +92,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -107,7 +107,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -122,7 +122,7 @@ public class DataSourceRoleImpl extends RequiredRoleImpl implements DataSourceRo
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

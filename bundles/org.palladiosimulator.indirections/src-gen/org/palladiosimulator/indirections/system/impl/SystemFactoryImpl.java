@@ -13,13 +13,13 @@ import org.palladiosimulator.indirections.system.SystemPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
- * 
+ *
  * @generated
  */
 public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
     /**
      * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public static SystemFactory init() {
@@ -37,7 +37,7 @@ public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
 
     /**
      * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public SystemFactoryImpl() {
@@ -46,7 +46,7 @@ public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -61,7 +61,7 @@ public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -72,7 +72,7 @@ public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -82,7 +82,7 @@ public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @deprecated
      * @generated
      */

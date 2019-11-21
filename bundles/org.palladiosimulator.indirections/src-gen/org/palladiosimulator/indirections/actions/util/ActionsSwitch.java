@@ -23,21 +23,21 @@ import de.uka.ipd.sdq.identifier.Identifier;
  * each class of the model, starting with the actual class of the object and proceeding up the
  * inheritance hierarchy until a non-null result is returned, which is the result of the switch.
  * <!-- end-user-doc -->
- * 
+ *
  * @see org.palladiosimulator.indirections.actions.ActionsPackage
  * @generated
  */
 public class ActionsSwitch<T> extends Switch<T> {
     /**
      * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected static ActionsPackage modelPackage;
 
     /**
      * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public ActionsSwitch() {
@@ -49,7 +49,7 @@ public class ActionsSwitch<T> extends Switch<T> {
     /**
      * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @param ePackage
      *            the package in question.
      * @return whether this is a switch for the given package.
@@ -63,7 +63,7 @@ public class ActionsSwitch<T> extends Switch<T> {
     /**
      * Calls <code>caseXXX</code> for each class of the model until one returns a non null result;
      * it yields that result. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
@@ -179,7 +179,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Analyse Stack
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Analyse Stack
@@ -195,7 +195,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Consume Data
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Consume Data
@@ -211,7 +211,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Emit Data Action</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Emit Data Action</em>'.
@@ -226,7 +226,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Create Data
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Create Data
@@ -242,7 +242,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Put Data On Stack
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Put Data On Stack
@@ -273,7 +273,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
@@ -303,7 +303,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Abstract Action</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Abstract Action</em>'.

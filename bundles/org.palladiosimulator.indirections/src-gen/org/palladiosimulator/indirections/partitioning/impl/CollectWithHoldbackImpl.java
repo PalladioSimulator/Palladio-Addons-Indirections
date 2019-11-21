@@ -18,6 +18,8 @@ import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
  * <em>Holdback</em>}</li>
  * <li>{@link org.palladiosimulator.indirections.partitioning.impl.CollectWithHoldbackImpl#getKey
  * <em>Key</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.partitioning.impl.CollectWithHoldbackImpl#getPartitionDataName
+ * <em>Partition Data Name</em>}</li>
  * </ul>
  *
  * @generated
@@ -36,7 +38,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
     /**
      * The default value of the '{@link #getKey() <em>Key</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @see #getKey()
      * @generated
      * @ordered
@@ -44,8 +46,18 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
     protected static final String KEY_EDEFAULT = null;
 
     /**
+     * The default value of the '{@link #getPartitionDataName() <em>Partition Data Name</em>}'
+     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see #getPartitionDataName()
+     * @generated
+     * @ordered
+     */
+    protected static final String PARTITION_DATA_NAME_EDEFAULT = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected CollectWithHoldbackImpl() {
@@ -54,7 +66,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -64,7 +76,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -74,7 +86,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -85,7 +97,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -96,7 +108,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -107,7 +119,7 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -118,7 +130,29 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
+     * @generated
+     */
+    @Override
+    public String getPartitionDataName() {
+        return (String) this.eDynamicGet(PartitioningPackage.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME,
+                PartitioningPackage.Literals.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME, true, true);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setPartitionDataName(final String newPartitionDataName) {
+        this.eDynamicSet(PartitioningPackage.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME,
+                PartitioningPackage.Literals.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME, newPartitionDataName);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
@@ -128,13 +162,15 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
             return this.getHoldback();
         case PartitioningPackage.COLLECT_WITH_HOLDBACK__KEY:
             return this.getKey();
+        case PartitioningPackage.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME:
+            return this.getPartitionDataName();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -146,13 +182,16 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
         case PartitioningPackage.COLLECT_WITH_HOLDBACK__KEY:
             this.setKey((String) newValue);
             return;
+        case PartitioningPackage.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME:
+            this.setPartitionDataName((String) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -164,13 +203,16 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
         case PartitioningPackage.COLLECT_WITH_HOLDBACK__KEY:
             this.setKey(KEY_EDEFAULT);
             return;
+        case PartitioningPackage.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME:
+            this.setPartitionDataName(PARTITION_DATA_NAME_EDEFAULT);
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -180,6 +222,9 @@ public class CollectWithHoldbackImpl extends CDOObjectImpl implements CollectWit
             return this.getHoldback() != HOLDBACK_EDEFAULT;
         case PartitioningPackage.COLLECT_WITH_HOLDBACK__KEY:
             return KEY_EDEFAULT == null ? this.getKey() != null : !KEY_EDEFAULT.equals(this.getKey());
+        case PartitioningPackage.COLLECT_WITH_HOLDBACK__PARTITION_DATA_NAME:
+            return PARTITION_DATA_NAME_EDEFAULT == null ? this.getPartitionDataName() != null
+                    : !PARTITION_DATA_NAME_EDEFAULT.equals(this.getPartitionDataName());
         }
         return super.eIsSet(featureID);
     }

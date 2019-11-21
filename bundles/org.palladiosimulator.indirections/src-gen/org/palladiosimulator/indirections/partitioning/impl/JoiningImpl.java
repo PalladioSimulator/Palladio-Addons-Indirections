@@ -36,7 +36,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
     /**
      * The default value of the '{@link #isCanContributeMultipleTimes() <em>Can Contribute Multiple
      * Times</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #isCanContributeMultipleTimes()
      * @generated
      * @ordered
@@ -45,7 +45,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected JoiningImpl() {
@@ -54,7 +54,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -64,7 +64,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -74,7 +74,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -85,7 +85,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public DataChannelSourceConnector basicGetSource() {
@@ -95,7 +95,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -105,7 +105,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -116,7 +116,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -127,7 +127,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -139,7 +139,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -154,7 +154,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -175,7 +175,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @SuppressWarnings("unchecked")
@@ -198,7 +198,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -219,7 +219,7 @@ public class JoiningImpl extends CDOObjectImpl implements Joining {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

@@ -17,13 +17,13 @@ import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
- * 
+ *
  * @generated
  */
 public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
     /**
      * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public static ActionsFactory init() {
@@ -41,7 +41,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public ActionsFactoryImpl() {
@@ -50,7 +50,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -73,7 +73,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -84,7 +84,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -95,7 +95,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -106,7 +106,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -117,7 +117,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -128,7 +128,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -138,7 +138,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @deprecated
      * @generated
      */

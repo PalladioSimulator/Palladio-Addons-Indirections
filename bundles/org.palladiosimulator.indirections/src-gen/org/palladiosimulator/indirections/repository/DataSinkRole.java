@@ -30,7 +30,7 @@ public interface DataSinkRole extends ProvidedRole {
     /**
      * Returns the value of the '<em><b>Event Group</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Event Group</em>' reference.
      * @see #setEventGroup(EventGroup)
      * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_EventGroup()
@@ -43,7 +43,7 @@ public interface DataSinkRole extends ProvidedRole {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getEventGroup <em>Event
      * Group</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Event Group</em>' reference.
      * @see #getEventGroup()
@@ -54,7 +54,7 @@ public interface DataSinkRole extends ProvidedRole {
     /**
      * Returns the value of the '<em><b>Pushes To</b></em>' reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Pushes To</em>' reference.
      * @see #setPushesTo(Signature)
      * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_PushesTo()
@@ -67,7 +67,7 @@ public interface DataSinkRole extends ProvidedRole {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes
      * To</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Pushes To</em>' reference.
      * @see #getPushesTo()
@@ -78,7 +78,7 @@ public interface DataSinkRole extends ProvidedRole {
     /**
      * Returns the value of the '<em><b>Pushing</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Pushing</em>' attribute.
      * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_Pushing()
      * @model changeable="false" volatile="true" derived="true"
