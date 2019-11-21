@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="de.upb.pcm.interpreter.SimuLizarLaunching">
-    <stringAttribute key="EDP2RepositoryID" value="_RjYKMPY_Eem6zKzgHWGcEw"/>
+    <stringAttribute key="EDP2RepositoryID" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/X" />
     <stringAttribute key="accuracyQualityAnnotationFile" value=""/>
     <stringAttribute key="actionModelFile" value="platform:/plugin/org.palladiosimulator.simulizar.action.repository/model/repository.actions"/>
-    <stringAttribute key="allocationFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/100_events/smarthomedata.allocation"/>
+    <stringAttribute key="allocationFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/101_events/101_events.allocation"/>
     <booleanAttribute key="clear" value="true"/>
     <stringAttribute key="confidenceBatchSize" value="200"/>
     <stringAttribute key="confidenceHalfWidth" value="10"/>
@@ -13,7 +13,7 @@
     <stringAttribute key="confidenceModelElementURI" value=""/>
     <booleanAttribute key="confidenceUseAutomaticBatches" value="true"/>
     <intAttribute key="datasourceID" value="-1"/>
-    <intAttribute key="de.uka.ipd.sdq.workflowengine.debuglevel" value="2"/>
+    <intAttribute key="de.uka.ipd.sdq.workflowengine.debuglevel" value="3"/>
     <stringAttribute key="eventMiddleware" value="pathmap://PCM_MODELS/default_event_middleware.repository"/>
     <stringAttribute key="experimentRun" value="MyRun"/>
     <stringAttribute key="featureConfig" value="pathmap://PCM_MODELS/ConnectorConfig.featureconfig"/>
@@ -31,7 +31,7 @@
     <stringAttribute key="persistenceFramework" value="Experiment Data Persistency &amp; Presentation (EDP2)"/>
     <stringAttribute key="reconfigurationRulesFolder" value=""/>
     <stringAttribute key="serviceLevelObjectiveRepositoryFile" value=""/>
-    <stringAttribute key="simTime" value="5000"/>
+    <stringAttribute key="simTime" value="150000"/>
     <booleanAttribute key="simulateAccuracy" value="false"/>
     <booleanAttribute key="simulateEvents" value="false"/>
     <booleanAttribute key="simulateFailures" value="false"/>
@@ -42,7 +42,7 @@
     <stringAttribute key="storageProject" value="org.palladiosimulator.temporary"/>
     <booleanAttribute key="storeTransformedModels" value="true"/>
     <stringAttribute key="usageEvolutionFile" value=""/>
-    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/100_events/smarthomedata.usagemodel"/>
+    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/101_events/101_events.usagemodel"/>
     <booleanAttribute key="useConfidenceStopCondition" value="false"/>
     <booleanAttribute key="useFixedSeed" value="false"/>
     <stringAttribute key="variable" value=""/>
