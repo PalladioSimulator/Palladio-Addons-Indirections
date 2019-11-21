@@ -127,9 +127,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                                 String csvLine = context.getModel().getSimulationControl().getCurrentSimulationTime()
                                         + "," + concreteDate.uuid.toString() + "," + concreteDate.getTime();
 
-                                ModelObserver.measure(
-                                        context.getModel().getSimulationControl().getCurrentSimulationTime(),
-                                        concreteDate.uuid.toString(), concreteDate.getTime());
+//                                ModelObserver.measure(
+//                                        context.getModel().getSimulationControl().getCurrentSimulationTime(),
+//                                        concreteDate.uuid.toString(), concreteDate.getTime());
                                 System.out.println(csvLine);
                             }
                             System.out.println();

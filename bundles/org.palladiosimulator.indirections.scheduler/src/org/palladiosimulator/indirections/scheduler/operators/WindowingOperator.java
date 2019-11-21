@@ -8,7 +8,6 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.WindowEmitter;
-import org.palladiosimulator.indirections.scheduler.util.ModelObserver;
 
 public abstract class WindowingOperator<T extends IndirectionDate>
         extends SimStatefulOperator<T, WindowingIndirectionDate<T>> {
@@ -33,7 +32,6 @@ public abstract class WindowingOperator<T extends IndirectionDate>
             List<T> dataInWindow = emittableIndirectionDates.stream().filter(it -> w.contains(it.getTime()))
                     .collect(Collectors.toList());
             if (emitEmptyWindows || !dataInWindow.isEmpty()) {
-                ModelObserver.measureWindowSize(dataInWindow.size());
                 emit(new WindowingIndirectionDate<T>(dataInWindow, w));
             }
         }
