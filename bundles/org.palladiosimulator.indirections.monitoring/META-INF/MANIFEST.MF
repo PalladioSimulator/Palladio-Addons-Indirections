@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: org.palladiosimulator.indirections.monitoring
 Bundle-SymbolicName: org.palladiosimulator.indirections.monitoring;singleton:=true
 Bundle-Version: 4.2.0.qualifier
-Bundle-Localization: plugin
 Automatic-Module-Name: org.palladiosimulator.indirections.monitoring
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: indirectionsmeasuringpoint,
