@@ -20,4 +20,5 @@ Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.palladiosimulator.analyzer.workflow
 Export-Package: org.palladiosimulator.indirections.scheduler,
  org.palladiosimulator.indirections.scheduler.data,
+ org.palladiosimulator.indirections.scheduler.operators,
  org.palladiosimulator.indirections.scheduler.util
