@@ -26,6 +26,7 @@ import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirec
 import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.EqualityCollectorWithHoldback;
+import org.palladiosimulator.indirections.scheduler.operators.Emitters.EqualityCollectorWithHoldback.HeldBackList;
 import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator;
 import org.palladiosimulator.indirections.scheduler.operators.PartitioningOperator;
 import org.palladiosimulator.indirections.scheduler.operators.SpecificationPartitioningOperator;
@@ -100,12 +101,14 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
                 Windowing windowing = (Windowing) timeGrouping;
                 windowingOperator = new TimeBasedWindowingOperator<>(false, windowing.getSize(), windowing.getShift(),
                         simuComModel);
+                windowingOperator.addConsumer((it) -> System.out.println("Created window: " + it));
                 windowingOperator.addConsumer(this::postprocessAndEmit);
             } else if (timeGrouping instanceof CollectWithHoldback) {
-                final CollectWithHoldback collectWithHoldback = (CollectWithHoldback) timeGrouping;
-                holdbackOperator = new EqualityCollectorWithHoldback<IndirectionDate, Object>(it -> Context
-                        .evaluateStatic(collectWithHoldback.getKey(), SimulatedStackHelper.createFromMap(it.getData())),
-                        collectWithHoldback.getHoldback());
+                collectWithHoldback = (CollectWithHoldback) timeGrouping;
+                holdbackOperator = new EqualityCollectorWithHoldback<IndirectionDate, Object>(it -> {
+                    return Context.evaluateStatic(collectWithHoldback.getKey(),
+                            SimulatedStackHelper.createFromMap(it.getData()));
+                }, collectWithHoldback.getHoldback());
             }
         }
 
@@ -114,20 +117,25 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
                 .collect(Collectors.toList());
         final List<Boolean> retainDataArray = joins.stream().map(Joining::isCanContributeMultipleTimes)
                 .collect(Collectors.toList());
-        if (joins != null) {
+        if (!joins.isEmpty()) {
             joinOperator = JoiningOperator.createWithIndices(it -> {
                 int index = joinSources.indexOf(it.source);
                 if (index == -1) {
                     throw new PCMModelInterpreterException("Unexpected source: " + it.source + ", sources to join: "
                             + joinSources.stream().map(js -> js.getEntityName()).collect(Collectors.joining(", ")));
                 }
-                return 0;
+                return index;
             }, retainDataArray);
             joinOperator.addConsumer(it -> dataAfterJoiningQueue.add(it));
+        }
+
+        for (DataChannelSinkConnector dcsc : dataChannel.getDataChannelSinkConnector()) {
+            outQueues.put(dcsc, new ArrayDeque<IndirectionDate>());
         }
     }
 
     private Iterator<Queue<IndirectionDate>> queueIterator;
+    private CollectWithHoldback collectWithHoldback;
 
     private Queue<IndirectionDate> getNextQueue() {
         if (dataChannel.getOutgoingDistribution().equals(OutgoingDistribution.ROUND_ROBIN))
@@ -194,21 +202,32 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
         if (joinOperator != null) {
             // also emits to dataAfterJoiningQueue. should be reworked
             dataBeforeJoiningQueue.forEach(it -> joinOperator.accept(it));
+            System.out.println("Joining, joint all in queue.");
         } else {
             dataBeforeJoiningQueue.forEach(it -> dataAfterJoiningQueue.add(it.date));
+            System.out.println("Not joining, passing data.");
         }
         dataBeforeJoiningQueue.clear();
 
         if (windowingOperator != null) {
+            System.out.println("Windowing, creating windows.");
             dataAfterJoiningQueue.forEach(it -> windowingOperator.accept(it));
             dataAfterJoiningQueue.clear();
-        }
-
-        if (holdbackOperator != null) {
+        } else if (holdbackOperator != null) {
+            System.out.println("Applying holdback.");
             for (IndirectionDate it : dataAfterJoiningQueue) {
-                Optional<List<IndirectionDate>> result = holdbackOperator.accept(it);
-                result.map(ConcreteGroupingIndirectionDate::new).ifPresent(this::postprocessAndEmit);
+                Optional<HeldBackList<Object, IndirectionDate>> result = holdbackOperator.accept(it);
+                if (result.isPresent()) {
+                    HeldBackList<Object, IndirectionDate> heldBackList = result.get();
+                    ConcreteGroupingIndirectionDate<IndirectionDate> date = new ConcreteGroupingIndirectionDate<>(
+                            heldBackList.list, new HashMap<>(
+                                    Map.of(collectWithHoldback.getPartitionDataName() + ".VALUE", heldBackList.key)));
+                    postprocessAndEmit(date);
+                }
             }
+            dataAfterJoiningQueue.clear();
+        } else {
+            dataAfterJoiningQueue.forEach(it -> postprocessAndEmit(it));
             dataAfterJoiningQueue.clear();
         }
     }
@@ -220,10 +239,11 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 
     @Override
     protected void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date) {
-        dataBeforeJoiningQueue.add(new DataWithSource<>(sourceConnector, date));
+        DataWithSource<IndirectionDate> createdDate = new DataWithSource<>(sourceConnector, date);
+        dataBeforeJoiningQueue.add(createdDate);
+        System.out
+                .println("Added date to queue: " + createdDate + " from connector " + sourceConnector.getEntityName());
 
         processDataQueue();
-
-        processDataAvailableToGet();
     }
 }

@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Function;
 
+import org.palladiosimulator.indirections.scheduler.operators.Emitters.EqualityCollectorWithHoldback.HeldBackList;
 import org.palladiosimulator.indirections.util.IterableUtil;
 
 public final class Emitters {
@@ -15,13 +16,23 @@ public final class Emitters {
     }
 
     // R: type of the key to check equality with
-    public static class EqualityCollectorWithHoldback<T, R> implements StatefulEmitter<T, List<T>> {
+    public static class EqualityCollectorWithHoldback<T, R> implements StatefulEmitter<T, HeldBackList<R, T>> {
         // length of this collection is always <= n. holdback 1 means that if a new element arrives
         // the old collection is emitted. for holdback 2, a collection is only emitted, after 2 new
         // (distinct)
         // elements have been seen.
 
-        public Queue<List<T>> currentCollections = new ArrayDeque<List<T>>();
+        public static class HeldBackList<R, T> {
+            public R key;
+            public List<T> list;
+
+            public HeldBackList(R key, List<T> list) {
+                this.key = key;
+                this.list = list;
+            }
+        }
+
+        public Queue<HeldBackList<R, T>> currentCollections = new ArrayDeque<HeldBackList<R, T>>();
         private final int holdback;
         private final Function<T, R> keyFunction;
 
@@ -31,18 +42,19 @@ public final class Emitters {
         }
 
         @Override
-        public Optional<List<T>> accept(final T t) {
-            for (final List<T> collection : this.currentCollections) {
-                final R collectionKey = IterableUtil.claimEqualKey(collection, this.keyFunction);
-                if (collectionKey.equals(this.keyFunction.apply(t))) {
-                    collection.add(t);
+        public Optional<HeldBackList<R, T>> accept(final T t) {
+            R key = this.keyFunction.apply(t);
+            for (final HeldBackList<R, T> collection : this.currentCollections) {
+                final R collectionKey = IterableUtil.claimEqualKey(collection.list, this.keyFunction);
+                if (collectionKey.equals(key)) {
+                    collection.list.add(t);
                     return Optional.empty();
                 }
             }
 
-            final List<T> newCollection = new ArrayList<T>();
-            newCollection.add(t);
-            this.currentCollections.add(newCollection);
+            final HeldBackList<R, T> newList = new HeldBackList<>(key, new ArrayList<>());
+            newList.list.add(t);
+            this.currentCollections.add(newList);
 
             if (this.currentCollections.size() > this.holdback) {
                 return Optional.of(this.currentCollections.remove());
@@ -78,7 +90,7 @@ public final class Emitters {
                         this.currentWindow.start + this.shift + this.size);
             }
         }
-        
+
         public boolean isInCurrentWindow(final double time) {
             return currentWindow.contains(time);
         }

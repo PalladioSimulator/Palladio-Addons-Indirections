@@ -1,6 +1,7 @@
 package org.palladiosimulator.indirections.scheduler.operators;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
@@ -21,8 +22,13 @@ public class SpecificationPartitioningOperator<T extends IndirectionDate> extend
     protected Object getPartition(IndirectionDate date) {
         final SimulatedStackframe<Object> stack = SimulatedStackHelper.createFromMap(date.getData());
 
-        return specification.stream().collect(Collectors.toMap(it -> it.getSpecification(),
-                it -> StackContext.evaluateStatic(it.getSpecification(), stack)));
+        Map<String, Object> partition = specification.stream().collect(Collectors.toMap(it -> {
+            return it.getSpecification();
+        }, it -> {
+            return StackContext.evaluateStatic(it.getSpecification(), stack);
+        }));
+
+        return partition;
 
     }
 

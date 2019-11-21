@@ -13,10 +13,12 @@ public abstract class PartitioningOperator<P, T extends IndirectionDate>
 
     @Override
     public void accept(GroupingIndirectionDate<T> group) {
-        Map<P, List<IndirectionDate>> collect = group.getDataInGroup().stream()
-                .collect(Collectors.groupingBy(this::getPartition));
+        Map<P, List<T>> collect = group.getDataInGroup().stream().collect(Collectors.groupingBy(this::getPartition));
 
-        emit(new PartitionedIndirectionDate<P, T>(collect));
+        for (Map.Entry<P, List<T>> mapEntry : collect.entrySet()) {
+            PartitionedIndirectionDate<P, T> partitionedDateToEmit = new PartitionedIndirectionDate<P, T>(mapEntry.getKey(), mapEntry.getValue(), group.getData());
+            emit(partitionedDateToEmit);
+        }
     }
 
     protected abstract P getPartition(IndirectionDate date);

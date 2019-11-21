@@ -16,8 +16,6 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
-import org.palladiosimulator.indirections.scheduler.user.DataChannelConsumerUser;
-import org.palladiosimulator.indirections.scheduler.user.DataChannelUserFactory;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -37,7 +35,6 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     protected final String name;
     protected final String id;
     protected final int capacity;
-    protected final DataChannelUserFactory dataChannelUserFactory;
 
     protected class IndirectionQueue<T extends SuspendableSchedulerEntity> {
         public final Queue<IndirectionDate> elements;
@@ -76,8 +73,6 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.model = (SimuComModel) model;
         this.context = context;
 
-        this.dataChannelUserFactory = new DataChannelUserFactory(context);
-
         this.initializeQueues();
     }
 
@@ -101,12 +96,13 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     private void spawnNewProcessThatTakesFromConnector(DataChannelSinkConnector sinkConnector) {
-        DataChannelConsumerUser dataChannelConsumerUser = dataChannelUserFactory.createPassivatedUser(sinkConnector);
+        throw new UnsupportedOperationException();
+//        DataChannelConsumerUser dataChannelConsumerUser = dataChannelUserFactory.createPassivatedUser(sinkConnector);
 
-        ProcessWaitingToConsume consumerProcess = new ProcessWaitingToConsume(model, dataChannelConsumerUser,
-                sinkConnector, dataChannelConsumerUser::setData);
+//        ProcessWaitingToConsume consumerProcess = new ProcessWaitingToConsume(model, dataChannelConsumerUser,
+//                sinkConnector, dataChannelConsumerUser::setData);
 
-        allowToGetAndActivate(consumerProcess);
+//        allowToGetAndActivate(consumerProcess);
     }
 
     private void notifyProcessesWaitingToGetFromQueue(IndirectionQueue<ProcessWaitingToConsume> queue) {

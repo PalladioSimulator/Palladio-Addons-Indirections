@@ -4,15 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 
 public class WindowingIndirectionDate<T extends IndirectionDate> extends ConcreteGroupingIndirectionDate<T> {
-    public WindowingIndirectionDate(List<T> dataInGroup) {
-        super(dataInGroup);
-    }
+    private final Window window;
 
-    @Override
-    public Map<String, Object> getData() {
-        throw new UnsupportedOperationException();
+    public WindowingIndirectionDate(List<T> dataInGroup, Window window) {
+        super(dataInGroup, Map.of("WINDOW.VALUE", window));
+        this.window = window;
     }
 
     @Override

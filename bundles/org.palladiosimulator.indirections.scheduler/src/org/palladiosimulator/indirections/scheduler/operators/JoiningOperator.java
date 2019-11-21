@@ -9,6 +9,7 @@ import java.util.Queue;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
 import org.palladiosimulator.indirections.scheduler.data.JoinedDate;
@@ -28,7 +29,7 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
         }
 
         public void put(U date) {
-            if (!retainData)
+            if (retainData)
                 data.clear();
             data.add(date);
         }
@@ -38,7 +39,7 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
         }
 
         public U get() {
-            return retainData ? data.remove() : data.element();
+            return retainData ? data.element() : data.remove();
         }
 
         public abstract boolean isResponsibleFor(U date);
@@ -81,7 +82,11 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
     public void accept(DataWithSource<T> date) {
         Channel<DataWithSource<T>> channelToAddTo = IterableUtil.stream(channels)
                 .filter(it -> it.isResponsibleFor(date)).reduce(StreamUtil.reduceToMaximumOne()).get();
-        channelToAddTo.data.add(date);
+        channelToAddTo.put(date);
+        DataChannelSourceConnector source = date.source;
+        String sourceName = source.getEntityName();
+
+        System.out.println(sourceName);
 
         // if all retain, we do not iterate until one cannot provide anymore
         boolean allRetain = IterableUtil.stream(channels).allMatch(it -> it.retainData);

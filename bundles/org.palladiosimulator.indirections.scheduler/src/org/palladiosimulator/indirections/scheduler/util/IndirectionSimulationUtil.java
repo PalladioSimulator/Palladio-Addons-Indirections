@@ -143,6 +143,8 @@ public final class IndirectionSimulationUtil {
         return new PeriodicallyTriggeredSimulationEntity(model, firstOccurrence, delay) {
             @Override
             protected void triggerInternal() {
+                System.out.println(
+                        "Triggering periodic process at " + model.getSimulationControl().getCurrentSimulationTime());
                 taskToRun.run();
             }
         };
