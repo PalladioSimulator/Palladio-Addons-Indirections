@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.indirections.actions="http://palladiosimulator.org/Indirections/Actions/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_zcn0kAyQEeqpH6X1G0Hn0g" entityName="MinimumRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_2RLm4AyQEeqpH6X1G0Hn0g" entityName="MinimumComponent">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_B2tfkQyREeqpH6X1G0Hn0g" entityName="MinimumComponent.provides.IMinimumInterface" providedInterface__OperationProvidedRole="_5v4iZwyQEeqpH6X1G0Hn0g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GcFINwyREeqpH6X1G0Hn0g" describedService__SEFF="_7n7CEAyQEeqpH6X1G0Hn0g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_H0cpUgyREeqpH6X1G0Hn0g" entityName="MinimumSignature.Start" successor_AbstractAction="_LWjeMgyREeqpH6X1G0Hn0g"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDataAction" id="_LWjeMgyREeqpH6X1G0Hn0g" entityName="MinimumSignature.CreateDataAction" predecessor_AbstractAction="_H0cpUgyREeqpH6X1G0Hn0g" successor_AbstractAction="_MOrY_AyREeqpH6X1G0Hn0g">
+        <variableReference referenceName="test"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_MOrY_AyREeqpH6X1G0Hn0g" entityName="MinimumSignature.InternalAction" predecessor_AbstractAction="_LWjeMgyREeqpH6X1G0Hn0g" successor_AbstractAction="_gH0bvwyTEeqpH6X1G0Hn0g">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="100"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="_gH0bvwyTEeqpH6X1G0Hn0g" entityName="MinimumSignature.AnalyseStack" predecessor_AbstractAction="_MOrY_AyREeqpH6X1G0Hn0g" successor_AbstractAction="_QEiQMAyREeqpH6X1G0Hn0g">
+        <variableReference referenceName="test"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_QEiQMAyREeqpH6X1G0Hn0g" entityName="MinimumSignature.Stop" predecessor_AbstractAction="_gH0bvwyTEeqpH6X1G0Hn0g"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_5v4iZwyQEeqpH6X1G0Hn0g" entityName="IMinimumInterface">
+    <signatures__OperationInterface id="_7n7CEAyQEeqpH6X1G0Hn0g" entityName="MinimumSignature">
+      <returnType__OperationSignature xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+</repository:Repository>
