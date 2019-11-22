@@ -20,6 +20,7 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
+import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.JoinedDate;
 import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator;
@@ -29,6 +30,7 @@ import org.palladiosimulator.indirections.simulizar.measurements.TriggeredProxyP
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -45,6 +47,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     private final SimulatedBasicComponentInstance basicComponentInstance;
     private ExplicitDispatchComposedSwitch<Object> parentSwitch;
     private final Allocation allocation;
+    private final AssemblyContext assemblyContext;
     private final SimulatedStackframe<Object> resultStackFrame;
 
     private final DataChannelRegistry dataChannelRegistry;
@@ -63,6 +66,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
         this.context = context;
         this.allocation = context.getLocalPCMModelAtContextCreation().getAllocation();
+        this.assemblyContext = context.getAssemblyContextStack().lastElement();
         this.resultStackFrame = new SimulatedStackframe<Object>();
         this.basicComponentInstance = basicComponentInstance;
 
@@ -165,7 +169,13 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         String referenceName = action.getVariableReference().getReferenceName();
 
         IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
-        measureDataAge(action, data.getTime());
+        if (data instanceof GroupingIndirectionDate<?>) {
+            for (IndirectionDate id : ((GroupingIndirectionDate<IndirectionDate>) data).getDataInGroup()) {
+                measureDataAge(action, id.getTime());
+            }
+        } else {
+            measureDataAge(action, data.getTime());
+        }
 
         return true;
     }
@@ -247,7 +257,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
     private void measureDataAge(AnalyseStackAction action, double value) {
         TriggeredProxyProbe<Double, Duration> probe = this.indirectionMeasuringPointRegistry.getProbe(action,
-                allocation);
+                assemblyContext);
 
         double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
         probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));

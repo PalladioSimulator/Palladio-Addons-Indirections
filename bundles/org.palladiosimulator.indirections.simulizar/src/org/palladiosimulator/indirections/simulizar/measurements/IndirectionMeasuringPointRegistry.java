@@ -13,7 +13,7 @@ import org.palladiosimulator.edp2.models.measuringpoint.StringMeasuringPoint;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
 import org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointFactory;
-import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.probeframework.calculator.ICalculatorFactory;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -47,16 +47,16 @@ public class IndirectionMeasuringPointRegistry {
 
     private static class AllocatedAction {
         public final AbstractAction action;
-        public final Allocation allocation;
+        public final AssemblyContext assemblyContext;
 
-        public AllocatedAction(AbstractAction action, Allocation allocation) {
+        public AllocatedAction(AbstractAction action, AssemblyContext assemblyContext) {
             this.action = action;
-            this.allocation = allocation;
+            this.assemblyContext = assemblyContext;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(action, allocation);
+            return Objects.hash(action, assemblyContext);
         }
 
         @Override
@@ -68,7 +68,7 @@ public class IndirectionMeasuringPointRegistry {
             if (getClass() != obj.getClass())
                 return false;
             AllocatedAction other = (AllocatedAction) obj;
-            return Objects.equals(action, other.action) && Objects.equals(allocation, other.allocation);
+            return Objects.equals(action, other.action) && Objects.equals(assemblyContext, other.assemblyContext);
         }
 
     }
@@ -86,7 +86,7 @@ public class IndirectionMeasuringPointRegistry {
     private TriggeredProxyProbe<Double, Duration> createProbe(AllocatedAction allocatedAction) {
         StringMeasuringPoint measuringPoint = MeasuringUtil.createStringMeasuringPoint(MEASURING_POINT_REPOSITORY,
                 "Data age for " + allocatedAction.action.getEntityName() + " @ "
-                        + allocatedAction.allocation.getEntityName());
+                        + allocatedAction.assemblyContext.getEntityName());
 
         TriggeredProxyProbe<Double, Duration> dataAgeProxyProbe = new TriggeredProxyProbe<Double, Duration>(
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC);
@@ -98,7 +98,7 @@ public class IndirectionMeasuringPointRegistry {
         return dataAgeProxyProbe;
     }
 
-    public TriggeredProxyProbe<Double, Duration> getProbe(AnalyseStackAction action, Allocation allocation) {
-        return actionToProbe.computeIfAbsent(new AllocatedAction(action, allocation), this::createProbe);
+    public TriggeredProxyProbe<Double, Duration> getProbe(AnalyseStackAction action, AssemblyContext assemblyContext) {
+        return actionToProbe.computeIfAbsent(new AllocatedAction(action, assemblyContext), this::createProbe);
     }
 }
