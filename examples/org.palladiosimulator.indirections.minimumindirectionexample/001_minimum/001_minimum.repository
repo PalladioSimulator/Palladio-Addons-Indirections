@@ -5,7 +5,7 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_GcFINwyREeqpH6X1G0Hn0g" describedService__SEFF="_7n7CEAyQEeqpH6X1G0Hn0g">
       <steps_Behaviour xsi:type="seff:StartAction" id="_H0cpUgyREeqpH6X1G0Hn0g" entityName="MinimumSignature.Start" successor_AbstractAction="_LWjeMgyREeqpH6X1G0Hn0g"/>
       <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDataAction" id="_LWjeMgyREeqpH6X1G0Hn0g" entityName="MinimumSignature.CreateDataAction" predecessor_AbstractAction="_H0cpUgyREeqpH6X1G0Hn0g" successor_AbstractAction="_MOrY_AyREeqpH6X1G0Hn0g">
-        <variableReference referenceName="test"/>
+        <variableReference referenceName="theDate"/>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:InternalAction" id="_MOrY_AyREeqpH6X1G0Hn0g" entityName="MinimumSignature.InternalAction" predecessor_AbstractAction="_LWjeMgyREeqpH6X1G0Hn0g" successor_AbstractAction="_gH0bvwyTEeqpH6X1G0Hn0g">
         <resourceDemand_Action>
@@ -14,7 +14,7 @@
         </resourceDemand_Action>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="_gH0bvwyTEeqpH6X1G0Hn0g" entityName="MinimumSignature.AnalyseStack" predecessor_AbstractAction="_MOrY_AyREeqpH6X1G0Hn0g" successor_AbstractAction="_QEiQMAyREeqpH6X1G0Hn0g">
-        <variableReference referenceName="test"/>
+        <variableReference referenceName="theDate"/>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:StopAction" id="_QEiQMAyREeqpH6X1G0Hn0g" entityName="MinimumSignature.Stop" predecessor_AbstractAction="_gH0bvwyTEeqpH6X1G0Hn0g"/>
     </serviceEffectSpecifications__BasicComponent>
