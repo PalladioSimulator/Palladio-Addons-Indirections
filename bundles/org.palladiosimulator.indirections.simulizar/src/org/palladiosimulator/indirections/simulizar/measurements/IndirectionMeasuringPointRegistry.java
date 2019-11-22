@@ -12,6 +12,7 @@ import org.palladiosimulator.edp2.models.measuringpoint.MeasuringpointFactory;
 import org.palladiosimulator.edp2.models.measuringpoint.StringMeasuringPoint;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
+import org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointFactory;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.probeframework.calculator.ICalculatorFactory;
@@ -20,7 +21,6 @@ import org.palladiosimulator.simulizar.runtimestate.AbstractSimuLizarRuntimeStat
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.probes.TakeCurrentSimulationTimeProbe;
-import indirectionsmeasuringpoint.IndirectionsmeasuringpointFactory;
 
 public class IndirectionMeasuringPointRegistry {
     /** Default EMF factory for measuring points. */
