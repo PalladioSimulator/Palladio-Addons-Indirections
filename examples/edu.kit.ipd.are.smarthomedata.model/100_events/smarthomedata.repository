@@ -6,7 +6,7 @@
     <requiredRoles_InterfaceRequiringEntity xsi:type="repository:SourceRole" id="_sABE8H2JEemK8fW_yW8fjQ" entityName="MedianEachPlug.MedianGroup.SourceRole1" eventGroup__SourceRole="_l8re9n2IEemK8fW_yW8fjQ"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_J36hQHxXEemZXNdNTD6P-Q" describedService__SEFF="_9RvD4HxWEemZXNdNTD6P-Q">
       <steps_Behaviour xsi:type="seff:StartAction" id="_J37IUHxXEemZXNdNTD6P-Q" entityName="medianStart" successor_AbstractAction="_07NoQK6zEemTf8MABW0Htw"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="_07NoQK6zEemTf8MABW0Htw" entityName="ConsumePlugReadingWindowAction" predecessor_AbstractAction="_J37IUHxXEemZXNdNTD6P-Q" successor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" eventType="_QkgLAH2JEemK8fW_yW8fjQ" sinkRole="_botfUH2JEemK8fW_yW8fjQ">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="_07NoQK6zEemTf8MABW0Htw" entityName="ConsumePlugReadingWindowAction" predecessor_AbstractAction="_J37IUHxXEemZXNdNTD6P-Q" successor_AbstractAction="_TKAVvHxtEemX4qnXnBNY2A" eventType="_QkgLAH2JEemK8fW_yW8fjQ" dataSinkRole="_botfUH2JEemK8fW_yW8fjQ">
         <returnVariableUsage__CallReturnAction>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugReadings->plugReadings"/>
         </returnVariableUsage__CallReturnAction>

@@ -1,6 +1,5 @@
 package org.palladiosimulator.indirections.interfaces;
 
-import java.util.Map;
 import java.util.function.Consumer;
 
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
@@ -10,7 +9,7 @@ import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 
 public interface IDataChannelResource {
     public abstract boolean put(ISchedulableProcess process, DataChannelSourceConnector sourceConnector,
-            Map<String, Object> frame);
+            IndirectionDate date);
 
     public abstract boolean get(ISchedulableProcess process, DataChannelSinkConnector sinkConnector,
             Consumer<IndirectionDate> callback);

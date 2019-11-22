@@ -8,13 +8,12 @@ import org.eclipse.emf.ecore.util.Switch;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
+import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
 import org.palladiosimulator.pcm.seff.AbstractAction;
-import org.palladiosimulator.pcm.seff.CallAction;
-import org.palladiosimulator.pcm.seff.CallReturnAction;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
@@ -24,21 +23,21 @@ import de.uka.ipd.sdq.identifier.Identifier;
  * each class of the model, starting with the actual class of the object and proceeding up the
  * inheritance hierarchy until a non-null result is returned, which is the result of the switch.
  * <!-- end-user-doc -->
- * 
+ *
  * @see org.palladiosimulator.indirections.actions.ActionsPackage
  * @generated
  */
 public class ActionsSwitch<T> extends Switch<T> {
     /**
      * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected static ActionsPackage modelPackage;
 
     /**
      * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public ActionsSwitch() {
@@ -50,7 +49,7 @@ public class ActionsSwitch<T> extends Switch<T> {
     /**
      * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @param ePackage
      *            the package in question.
      * @return whether this is a switch for the given package.
@@ -64,7 +63,7 @@ public class ActionsSwitch<T> extends Switch<T> {
     /**
      * Calls <code>caseXXX</code> for each class of the model until one returns a non null result;
      * it yields that result. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
@@ -98,12 +97,6 @@ public class ActionsSwitch<T> extends Switch<T> {
                 result = this.caseAbstractAction(consumeDataAction);
             }
             if (result == null) {
-                result = this.caseCallReturnAction(consumeDataAction);
-            }
-            if (result == null) {
-                result = this.caseCallAction(consumeDataAction);
-            }
-            if (result == null) {
                 result = this.caseEntity(consumeDataAction);
             }
             if (result == null) {
@@ -124,9 +117,6 @@ public class ActionsSwitch<T> extends Switch<T> {
                 result = this.caseAbstractAction(emitDataAction);
             }
             if (result == null) {
-                result = this.caseCallAction(emitDataAction);
-            }
-            if (result == null) {
                 result = this.caseEntity(emitDataAction);
             }
             if (result == null) {
@@ -140,20 +130,40 @@ public class ActionsSwitch<T> extends Switch<T> {
             }
             return result;
         }
-        case ActionsPackage.CREATE_BIRTH_DATE_ACTION: {
-            final CreateBirthDateAction createBirthDateAction = (CreateBirthDateAction) theEObject;
-            T result = this.caseCreateBirthDateAction(createBirthDateAction);
+        case ActionsPackage.CREATE_DATA_ACTION: {
+            final CreateDataAction createDataAction = (CreateDataAction) theEObject;
+            T result = this.caseCreateDataAction(createDataAction);
             if (result == null) {
-                result = this.caseAbstractAction(createBirthDateAction);
+                result = this.caseAbstractAction(createDataAction);
             }
             if (result == null) {
-                result = this.caseEntity(createBirthDateAction);
+                result = this.caseEntity(createDataAction);
             }
             if (result == null) {
-                result = this.caseIdentifier(createBirthDateAction);
+                result = this.caseIdentifier(createDataAction);
             }
             if (result == null) {
-                result = this.caseNamedElement(createBirthDateAction);
+                result = this.caseNamedElement(createDataAction);
+            }
+            if (result == null) {
+                result = this.defaultCase(theEObject);
+            }
+            return result;
+        }
+        case ActionsPackage.PUT_DATA_ON_STACK_ACTION: {
+            final PutDataOnStackAction putDataOnStackAction = (PutDataOnStackAction) theEObject;
+            T result = this.casePutDataOnStackAction(putDataOnStackAction);
+            if (result == null) {
+                result = this.caseAbstractAction(putDataOnStackAction);
+            }
+            if (result == null) {
+                result = this.caseEntity(putDataOnStackAction);
+            }
+            if (result == null) {
+                result = this.caseIdentifier(putDataOnStackAction);
+            }
+            if (result == null) {
+                result = this.caseNamedElement(putDataOnStackAction);
             }
             if (result == null) {
                 result = this.defaultCase(theEObject);
@@ -169,7 +179,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Analyse Stack
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Analyse Stack
@@ -185,7 +195,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Consume Data
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Consume Data
@@ -201,7 +211,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Emit Data Action</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Emit Data Action</em>'.
@@ -213,18 +223,34 @@ public class ActionsSwitch<T> extends Switch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Create Birth Date
+     * Returns the result of interpreting the object as an instance of '<em>Create Data
      * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
      * result will terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Create Birth Date
+     * @return the result of interpreting the object as an instance of '<em>Create Data
      *         Action</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseCreateBirthDateAction(final CreateBirthDateAction object) {
+    public T caseCreateDataAction(final CreateDataAction object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Put Data On Stack
+     * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
+     * result will terminate the switch. <!-- end-user-doc -->
+     *
+     * @param object
+     *            the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Put Data On Stack
+     *         Action</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T casePutDataOnStackAction(final PutDataOnStackAction object) {
         return null;
     }
 
@@ -247,7 +273,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
@@ -277,7 +303,7 @@ public class ActionsSwitch<T> extends Switch<T> {
      * Returns the result of interpreting the object as an instance of '<em>Abstract Action</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will
      * terminate the switch. <!-- end-user-doc -->
-     * 
+     *
      * @param object
      *            the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Abstract Action</em>'.
@@ -285,37 +311,6 @@ public class ActionsSwitch<T> extends Switch<T> {
      * @generated
      */
     public T caseAbstractAction(final AbstractAction object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Call Action</em>'. <!--
-     * begin-user-doc --> This implementation returns null; returning a non-null result will
-     * terminate the switch. <!-- end-user-doc -->
-     *
-     * @param object
-     *            the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Call Action</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseCallAction(final CallAction object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Call Return
-     * Action</em>'. <!-- begin-user-doc --> This implementation returns null; returning a non-null
-     * result will terminate the switch. <!-- end-user-doc -->
-     * 
-     * @param object
-     *            the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Call Return
-     *         Action</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseCallReturnAction(final CallReturnAction object) {
         return null;
     }
 

@@ -1,9 +1,6 @@
 package org.palladiosimulator.indirections.simulizar.measurements;
 
 import org.apache.log4j.Logger;
-import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPointRepository;
-import org.palladiosimulator.edp2.models.measuringpoint.MeasuringpointFactory;
-import org.palladiosimulator.pcmmeasuringpoint.PcmmeasuringpointFactory;
 import org.palladiosimulator.simulizar.modelobserver.IModelObserver;
 import org.palladiosimulator.simulizar.runtimestate.AbstractSimuLizarRuntimeState;
 

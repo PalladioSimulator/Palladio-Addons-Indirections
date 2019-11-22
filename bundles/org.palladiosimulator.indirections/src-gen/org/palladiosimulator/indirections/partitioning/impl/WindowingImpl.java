@@ -26,7 +26,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
     /**
      * The default value of the '{@link #getSize() <em>Size</em>}' attribute. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getSize()
      * @generated
      * @ordered
@@ -36,7 +36,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
     /**
      * The default value of the '{@link #getShift() <em>Shift</em>}' attribute. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getShift()
      * @generated
      * @ordered
@@ -45,7 +45,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected WindowingImpl() {
@@ -54,7 +54,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -64,7 +64,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -74,19 +74,18 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
     public double getSize() {
         return (Double) this.eDynamicGet(PartitioningPackage.WINDOWING__SIZE,
-                PartitioningPackage.Literals.WINDOWING__SIZE,
-                true, true);
+                PartitioningPackage.Literals.WINDOWING__SIZE, true, true);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -96,19 +95,18 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
     public double getShift() {
         return (Double) this.eDynamicGet(PartitioningPackage.WINDOWING__SHIFT,
-                PartitioningPackage.Literals.WINDOWING__SHIFT,
-                true, true);
+                PartitioningPackage.Literals.WINDOWING__SHIFT, true, true);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -118,7 +116,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -134,7 +132,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -152,7 +150,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -170,7 +168,7 @@ public class WindowingImpl extends CDOObjectImpl implements Windowing {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

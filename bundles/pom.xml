@@ -16,6 +16,7 @@
 		<module>org.palladiosimulator.indirections.scheduler</module>
 		<module>org.palladiosimulator.indirections.simulizar</module>
 		<module>org.palladiosimulator.indirections.util</module>
+		<module>org.palladiosimulator.indirections.monitoring</module>
 	</modules>
 	
 </project>

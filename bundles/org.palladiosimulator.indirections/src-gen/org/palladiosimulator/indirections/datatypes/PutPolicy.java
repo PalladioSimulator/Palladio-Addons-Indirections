@@ -11,7 +11,7 @@ import org.eclipse.emf.common.util.Enumerator;
 /**
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Put
  * Policy</b></em>', and utility methods for working with them. <!-- end-user-doc -->
- * 
+ *
  * @see org.palladiosimulator.indirections.datatypes.DatatypesPackage#getPutPolicy()
  * @model
  * @generated
@@ -19,7 +19,7 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum PutPolicy implements Enumerator {
     /**
      * The '<em><b>Blocking</b></em>' literal object. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #BLOCKING_VALUE
      * @generated
      * @ordered
@@ -29,7 +29,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * The '<em><b>Discard First In</b></em>' literal object. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISCARD_FIRST_IN_VALUE
      * @generated
      * @ordered
@@ -39,7 +39,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * The '<em><b>Discard Last In</b></em>' literal object. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISCARD_LAST_IN_VALUE
      * @generated
      * @ordered
@@ -49,7 +49,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * The '<em><b>Discard Incoming</b></em>' literal object. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISCARD_INCOMING_VALUE
      * @generated
      * @ordered
@@ -58,7 +58,7 @@ public enum PutPolicy implements Enumerator {
 
     /**
      * The '<em><b>Blocking</b></em>' literal value. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #BLOCKING
      * @model name="Blocking" literal=""
      * @generated
@@ -69,7 +69,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * The '<em><b>Discard First In</b></em>' literal value. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISCARD_FIRST_IN
      * @model name="DiscardFirstIn"
      * @generated
@@ -80,7 +80,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * The '<em><b>Discard Last In</b></em>' literal value. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISCARD_LAST_IN
      * @model name="DiscardLastIn"
      * @generated
@@ -91,7 +91,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * The '<em><b>Discard Incoming</b></em>' literal value. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISCARD_INCOMING
      * @model name="DiscardIncoming"
      * @generated
@@ -102,15 +102,11 @@ public enum PutPolicy implements Enumerator {
     /**
      * An array of all the '<em><b>Put Policy</b></em>' enumerators. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @generated
      */
-    private static final PutPolicy[] VALUES_ARRAY = new PutPolicy[] {
-            BLOCKING,
-            DISCARD_FIRST_IN,
-            DISCARD_LAST_IN,
-            DISCARD_INCOMING,
-    };
+    private static final PutPolicy[] VALUES_ARRAY = new PutPolicy[] { BLOCKING, DISCARD_FIRST_IN, DISCARD_LAST_IN,
+            DISCARD_INCOMING, };
 
     /**
      * A public read-only list of all the '<em><b>Put Policy</b></em>' enumerators. <!--
@@ -141,7 +137,7 @@ public enum PutPolicy implements Enumerator {
     /**
      * Returns the '<em><b>Put Policy</b></em>' literal with the specified name. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @param name
      *            the name.
      * @return the matching enumerator or <code>null</code>.
@@ -181,28 +177,28 @@ public enum PutPolicy implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private final int value;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private final String name;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private PutPolicy(final int value, final String name, final String literal) {
@@ -213,7 +209,7 @@ public enum PutPolicy implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -223,7 +219,7 @@ public enum PutPolicy implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -233,7 +229,7 @@ public enum PutPolicy implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

@@ -22,4 +22,6 @@ Require-Bundle: org.palladiosimulator.simulizar;bundle-version="2.1.0",
  org.palladiosimulator.pcm.edp2.measuringpoint,
  org.palladiosimulator.probeframework,
  org.palladiosimulator.edp2.util,
- org.palladiosimulator.measurementframework
+ org.palladiosimulator.measurementframework,
+ org.palladiosimulator.indirections.monitoring
+Export-Package: org.palladiosimulator.indirections.simulizar.rdseffswitch

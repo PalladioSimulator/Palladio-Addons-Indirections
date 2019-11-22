@@ -11,18 +11,19 @@ import org.palladiosimulator.indirections.actions.ActionsFactory;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.CreateBirthDateAction;
+import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
- * 
+ *
  * @generated
  */
 public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
     /**
      * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public static ActionsFactory init() {
@@ -40,7 +41,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public ActionsFactoryImpl() {
@@ -49,7 +50,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -61,8 +62,10 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
             return this.createConsumeDataAction();
         case ActionsPackage.EMIT_DATA_ACTION:
             return this.createEmitDataAction();
-        case ActionsPackage.CREATE_BIRTH_DATE_ACTION:
-            return this.createCreateBirthDateAction();
+        case ActionsPackage.CREATE_DATA_ACTION:
+            return this.createCreateDataAction();
+        case ActionsPackage.PUT_DATA_ON_STACK_ACTION:
+            return this.createPutDataOnStackAction();
         default:
             throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -70,7 +73,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -81,7 +84,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -92,7 +95,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -103,18 +106,29 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
-    public CreateBirthDateAction createCreateBirthDateAction() {
-        final CreateBirthDateActionImpl createBirthDateAction = new CreateBirthDateActionImpl();
-        return createBirthDateAction;
+    public CreateDataAction createCreateDataAction() {
+        final CreateDataActionImpl createDataAction = new CreateDataActionImpl();
+        return createDataAction;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
+     * @generated
+     */
+    @Override
+    public PutDataOnStackAction createPutDataOnStackAction() {
+        final PutDataOnStackActionImpl putDataOnStackAction = new PutDataOnStackActionImpl();
+        return putDataOnStackAction;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
      * @generated
      */
     @Override
@@ -124,7 +138,7 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @deprecated
      * @generated
      */

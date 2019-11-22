@@ -16,7 +16,7 @@ import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
 public class ConsumeAllAvailableImpl extends CDOObjectImpl implements ConsumeAllAvailable {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected ConsumeAllAvailableImpl() {
@@ -25,7 +25,7 @@ public class ConsumeAllAvailableImpl extends CDOObjectImpl implements ConsumeAll
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -35,7 +35,7 @@ public class ConsumeAllAvailableImpl extends CDOObjectImpl implements ConsumeAll
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

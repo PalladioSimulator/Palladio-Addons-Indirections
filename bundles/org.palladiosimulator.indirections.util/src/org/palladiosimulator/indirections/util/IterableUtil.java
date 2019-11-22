@@ -1,8 +1,16 @@
 package org.palladiosimulator.indirections.util;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
+import org.eclipse.emf.common.util.ECollections;
+import org.eclipse.emf.common.util.EList;
 
 public final class IterableUtil {
     private IterableUtil() {
@@ -42,5 +50,17 @@ public final class IterableUtil {
             }
         }
         return keyFunction.apply(first);
+    }
+
+    public static <T> EList<T> toEList(Iterable<T> iterable) {
+        return ECollections.asEList(stream(iterable).collect(Collectors.toList()));
+    }
+
+    public static <T> Stream<T> stream(Iterable<T> iterable) {
+        return StreamSupport.stream(iterable.spliterator(), false);
+    }
+
+    public static <K, V> Map<K, V> toMap(Iterable<Entry<K, V>> entries) {
+        return IterableUtil.stream(entries).collect(Collectors.toMap(it -> it.getKey(), it -> it.getValue()));
     }
 }

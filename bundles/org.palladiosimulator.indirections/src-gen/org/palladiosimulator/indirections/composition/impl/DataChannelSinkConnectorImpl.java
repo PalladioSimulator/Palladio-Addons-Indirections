@@ -33,7 +33,7 @@ import org.palladiosimulator.pcm.core.composition.impl.ConnectorImpl;
 public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataChannelSinkConnector {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected DataChannelSinkConnectorImpl() {
@@ -42,7 +42,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -52,7 +52,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -63,7 +63,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public DataSinkRole basicGetDataSinkRole() {
@@ -73,7 +73,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -84,7 +84,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -95,7 +95,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public AssemblyContext basicGetAssemblyContext() {
@@ -105,7 +105,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -116,7 +116,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -127,7 +127,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public DataChannel basicGetDataChannel() {
@@ -137,7 +137,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public NotificationChain basicSetDataChannel(final DataChannel newDataChannel, NotificationChain msgs) {
@@ -148,7 +148,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -159,7 +159,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -178,7 +178,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -193,7 +193,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -220,7 +220,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -241,7 +241,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -262,7 +262,7 @@ public class DataChannelSinkConnectorImpl extends ConnectorImpl implements DataC
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

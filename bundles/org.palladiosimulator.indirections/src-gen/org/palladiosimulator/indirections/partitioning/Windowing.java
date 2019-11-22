@@ -23,7 +23,7 @@ public interface Windowing extends TimeGrouping {
     /**
      * Returns the value of the '<em><b>Size</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Size</em>' attribute.
      * @see #setSize(double)
      * @see org.palladiosimulator.indirections.partitioning.PartitioningPackage#getWindowing_Size()
@@ -36,7 +36,7 @@ public interface Windowing extends TimeGrouping {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.partitioning.Windowing#getSize <em>Size</em>}'
      * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Size</em>' attribute.
      * @see #getSize()
@@ -47,7 +47,7 @@ public interface Windowing extends TimeGrouping {
     /**
      * Returns the value of the '<em><b>Shift</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Shift</em>' attribute.
      * @see #setShift(double)
      * @see org.palladiosimulator.indirections.partitioning.PartitioningPackage#getWindowing_Shift()
@@ -60,7 +60,7 @@ public interface Windowing extends TimeGrouping {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.partitioning.Windowing#getShift <em>Shift</em>}'
      * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Shift</em>' attribute.
      * @see #getShift()

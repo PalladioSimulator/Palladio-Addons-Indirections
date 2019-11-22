@@ -28,7 +28,7 @@ public interface AnalyseStackAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Key</b></em>' attribute. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Key</em>' attribute.
      * @see #setKey(String)
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getAnalyseStackAction_Key()
@@ -41,7 +41,7 @@ public interface AnalyseStackAction extends AbstractAction {
      * Sets the value of the
      * '{@link org.palladiosimulator.indirections.actions.AnalyseStackAction#getKey <em>Key</em>}'
      * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Key</em>' attribute.
      * @see #getKey()
@@ -52,11 +52,11 @@ public interface AnalyseStackAction extends AbstractAction {
     /**
      * Returns the value of the '<em><b>Variable Reference</b></em>' containment reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Variable Reference</em>' containment reference.
      * @see #setVariableReference(VariableReference)
      * @see org.palladiosimulator.indirections.actions.ActionsPackage#getAnalyseStackAction_VariableReference()
-     * @model containment="true"
+     * @model containment="true" required="true"
      * @generated
      */
     VariableReference getVariableReference();
@@ -66,7 +66,7 @@ public interface AnalyseStackAction extends AbstractAction {
      * '{@link org.palladiosimulator.indirections.actions.AnalyseStackAction#getVariableReference
      * <em>Variable Reference</em>}' containment reference. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Variable Reference</em>' containment reference.
      * @see #getVariableReference()

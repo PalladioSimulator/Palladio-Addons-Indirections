@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.palladiosimulator.indirections.monitoring/src-gen"
+    modelPluginID="org.palladiosimulator.indirections.monitoring" modelName="Indirectionsmeasuringpoint"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="../../org.palladiosimulator.edp2/model/EDP2.genmodel#//models ../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.metricspec/model/metricspec.genmodel#//metricspec ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
+    importOrganizing="true" cleanup="true">
+  <foreignModel>indirectionsmeasuringpoint.ecore</foreignModel>
+  <genPackages prefix="Indirectionsmeasuringpoint" basePackage="org.palladiosimulator"
+      disposableProviderFactory="true" childCreationExtenders="true" ecorePackage="indirectionsmeasuringpoint.ecore#/">
+    <genClasses ecoreClass="indirectionsmeasuringpoint.ecore#//AbstractActionDataMeasuringPoint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference indirectionsmeasuringpoint.ecore#//AbstractActionDataMeasuringPoint/abstractAction"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

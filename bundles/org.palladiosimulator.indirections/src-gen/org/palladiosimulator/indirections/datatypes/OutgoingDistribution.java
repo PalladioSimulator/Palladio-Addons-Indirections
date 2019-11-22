@@ -11,7 +11,7 @@ import org.eclipse.emf.common.util.Enumerator;
 /**
  * <!-- begin-user-doc --> A representation of the literals of the enumeration '<em><b>Outgoing
  * Distribution</b></em>', and utility methods for working with them. <!-- end-user-doc -->
- * 
+ *
  * @see org.palladiosimulator.indirections.datatypes.DatatypesPackage#getOutgoingDistribution()
  * @model
  * @generated
@@ -20,7 +20,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * The '<em><b>Distribute To All</b></em>' literal object. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISTRIBUTE_TO_ALL_VALUE
      * @generated
      * @ordered
@@ -40,7 +40,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * The '<em><b>Distribute To All</b></em>' literal value. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see #DISTRIBUTE_TO_ALL
      * @model name="DistributeToAll"
      * @generated
@@ -62,13 +62,11 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * An array of all the '<em><b>Outgoing Distribution</b></em>' enumerators. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
-    private static final OutgoingDistribution[] VALUES_ARRAY = new OutgoingDistribution[] {
-            DISTRIBUTE_TO_ALL,
-            ROUND_ROBIN,
-    };
+    private static final OutgoingDistribution[] VALUES_ARRAY = new OutgoingDistribution[] { DISTRIBUTE_TO_ALL,
+            ROUND_ROBIN, };
 
     /**
      * A public read-only list of all the '<em><b>Outgoing Distribution</b></em>' enumerators. <!--
@@ -81,7 +79,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * Returns the '<em><b>Outgoing Distribution</b></em>' literal with the specified literal value.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param literal
      *            the literal.
      * @return the matching enumerator or <code>null</code>.
@@ -117,7 +115,7 @@ public enum OutgoingDistribution implements Enumerator {
     /**
      * Returns the '<em><b>Outgoing Distribution</b></em>' literal with the specified integer value.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the integer value.
      * @return the matching enumerator or <code>null</code>.
@@ -135,28 +133,28 @@ public enum OutgoingDistribution implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private final int value;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private final String name;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private final String literal;
 
     /**
      * Only this class can construct instances. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     private OutgoingDistribution(final int value, final String name, final String literal) {
@@ -167,7 +165,7 @@ public enum OutgoingDistribution implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -177,7 +175,7 @@ public enum OutgoingDistribution implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -187,7 +185,7 @@ public enum OutgoingDistribution implements Enumerator {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

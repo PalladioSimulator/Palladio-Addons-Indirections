@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.palladiosimulator.edp2.models:MeasuringPointRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.edp2.models="http://palladiosimulator.org/EDP2/MeasuringPoint/1.0" xmlns:pcmmeasuringpoint="http://palladiosimulator.org/PCM/MeasuringPoint/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="_tE-3oPdIEemeMr-6x8RfMQ">
+  <measuringPoints xsi:type="pcmmeasuringpoint:AssemblyOperationMeasuringPoint" stringRepresentation="Operation: Median.AssemblyContext.Median.provides.ICalculateMedians.calculateMedians" resourceURIRepresentation="platform:/resource/edu.kit.ipd.are.smarthomedata.model/102_baseline/102_baseline.repository#calculateMedians.ID">
+    <role xsi:type="repository:OperationProvidedRole" href="102_baseline.repository#Median.provides.ICalculateMedians.ID"/>
+    <operationSignature href="102_baseline.repository#calculateMedians.ID"/>
+    <assembly href="102_baseline.system#Median.AssemblyContext.ID"/>
+  </measuringPoints>
+</org.palladiosimulator.edp2.models:MeasuringPointRepository>

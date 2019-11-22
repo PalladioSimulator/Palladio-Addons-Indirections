@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.indirections.actions="http://palladiosimulator.org/Indirections/Actions/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_EauPsPYwEemBLpoEr4OAkg">
+  <components__Repository xsi:type="repository:BasicComponent" id="IngressComponent.ID" entityName="Ingress">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Ingress.provides.IAcceptPlugReading.ID" entityName="Ingress.provides.IAcceptPlugReading" providedInterface__OperationProvidedRole="IAcceptPlugReading.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Ingress.provides.PlugReading.ID" entityName="Ingress.provides.PlugReading" eventGroup="_PmhUlfZCEem6zKzgHWGcEw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_A72lB_ZEEem6zKzgHWGcEw" describedService__SEFF="acceptPlugReading.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="acceptPlugReading.start.ID" entityName="acceptPlugReading.start" successor_AbstractAction="acceptPlugReading.createPlugReadingDate.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDataAction" id="acceptPlugReading.createPlugReadingDate.ID" entityName="acceptPlugReading.createPlugReadingDate" predecessor_AbstractAction="acceptPlugReading.start.ID" successor_AbstractAction="acceptPlugReading.emitReading.ID">
+        <variableReference referenceName="plugReading"/>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="plugId.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugId"/>
+        </variableUsages>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="householdId.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="householdId"/>
+        </variableUsages>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="acceptPlugReading.emitReading.ID" entityName="acceptPlugReading.emitReading" predecessor_AbstractAction="acceptPlugReading.createPlugReadingDate.ID" successor_AbstractAction="acceptPlugReading.stop.ID" eventType="_UsrWEPZCEem6zKzgHWGcEw" dataSourceRole="Ingress.provides.PlugReading.ID">
+        <variableReference referenceName="plugReading"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="acceptPlugReading.stop.ID" entityName="acceptPlugReading.stop" predecessor_AbstractAction="acceptPlugReading.emitReading.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="MedianComponent.ID" entityName="Median">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Median.provides.ICalculateMedians.ID" entityName="Median.provides.ICalculateMedians" providedInterface__OperationProvidedRole="ICalculateMedians.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Median.consumes.PlugReadingWindowGroup.ID" entityName="Median.consumes.PlugReadingWindowGroup" eventGroup="_p2OitfZCEem6zKzgHWGcEw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Median.provides.MedianGroup.ID" entityName="Median.provides.MedianGroup" eventGroup="_FND4VfZAEem6zKzgHWGcEw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Median.provides.MedianGroup2.ID" entityName="Median.provides.MedianGroup2" eventGroup="_FND4VfZAEem6zKzgHWGcEw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_aoffJ_ZAEem6zKzgHWGcEw" describedService__SEFF="calculateMedians.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="calculateMedians.start.ID" entityName="calculateMedians.start" successor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateMedians.consumePlugReadingWindow.ID" entityName="calculateMedians.consumePlugReadingWindow" predecessor_AbstractAction="calculateMedians.start.ID" successor_AbstractAction="calculateMedians.putDataOnStack.ID" eventType="_r2ApIPZCEem6zKzgHWGcEw" dataSinkRole="Median.consumes.PlugReadingWindowGroup.ID">
+        <variableReference referenceName="median"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateMedians.putDataOnStack.ID" entityName="calculateMedians.putDataOnStack" predecessor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID" successor_AbstractAction="calculateMedians.RD.ID">
+        <variableUsages>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_0"/>
+        </variableUsages>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateMedians.RD.ID" entityName="calculateMedians.RD" predecessor_AbstractAction="calculateMedians.putDataOnStack.ID" successor_AbstractAction="calculateMedians.emitMedian.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="100 + 100 * median.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateMedians.emitMedian.ID" entityName="calculateMedians.emitMedian" predecessor_AbstractAction="calculateMedians.RD.ID" successor_AbstractAction="calculateMedians.emitMedian2.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Median.provides.MedianGroup.ID">
+        <variableReference referenceName="median"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateMedians.emitMedian2.ID" entityName="calculateMedians.emitMedian2" predecessor_AbstractAction="calculateMedians.emitMedian.ID" successor_AbstractAction="calculateMedians.stop.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Median.provides.MedianGroup2.ID">
+        <variableReference referenceName="median"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="calculateMedians.stop.ID" entityName="calculateMedians.stop" predecessor_AbstractAction="calculateMedians.emitMedian2.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="Group.ID" entityName="Group">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Group.provides.ICalculateGroups.ID" entityName="Group.provides.ICalculateGroups" providedInterface__OperationProvidedRole="ICalculateGroups.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Group.consumes.MedianGroup.ID" entityName="Group.consumes.MedianGroup" eventGroup="_FND4VfZAEem6zKzgHWGcEw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Group.provides.MedianPerHousehold.ID" entityName="Group.provides.MedianPerHousehold" eventGroup="_4asmBfZ0Eem7QslU7p6JMQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="calculateGroups.SEFF.ID" describedService__SEFF="calculateGroups.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="calculateGroups.start.ID" entityName="calculateGroups.start" successor_AbstractAction="calculateGroups.consumeMedianGroup.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateGroups.consumeMedianGroup.ID" entityName="calculateGroups.consumeMedianGroup" predecessor_AbstractAction="calculateGroups.start.ID" successor_AbstractAction="calculateGroups.putDataOnStack.ID" eventType="_WICYoPZ1Eem7QslU7p6JMQ" dataSinkRole="Group.consumes.MedianGroup.ID">
+        <variableReference referenceName="mediansPerHousehold"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateGroups.putDataOnStack.ID" entityName="calculateGroups.putDataOnStack" predecessor_AbstractAction="calculateGroups.consumeMedianGroup.ID" successor_AbstractAction="calculateGroups.RD.ID">
+        <variableUsages>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_1"/>
+        </variableUsages>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateGroups.RD.ID" entityName="calculateGroups.RD" predecessor_AbstractAction="calculateGroups.putDataOnStack.ID" successor_AbstractAction="calculateGroups.emitMediansPerHousehold.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="100 + 100 * mediansPerHousehold.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateGroups.emitMediansPerHousehold.ID" entityName="calculateGroups.emitMediansPerHousehold" predecessor_AbstractAction="calculateGroups.RD.ID" successor_AbstractAction="calculateGroups.stop.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Group.provides.MedianPerHousehold.ID">
+        <variableReference referenceName="mediansPerHousehold"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="calculateGroups.stop.ID" entityName="calculateGroups.stop" predecessor_AbstractAction="calculateGroups.emitMediansPerHousehold.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="Average.ID" entityName="Average">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Average.provides.ICalculateAverage.ID" entityName="Average.provides.ICalculateAverage" providedInterface__OperationProvidedRole="ICalculateAverage.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Average.consumes.MedianGroup.ID" entityName="Average.consumes.MedianGroup" eventGroup="_FND4VfZAEem6zKzgHWGcEw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Average.provides.AverageAllPlugs.ID" entityName="Average.provides.AverageAllPlugs" eventGroup="_oOzXdvZ6EemfGcBfgycP9g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xpTGh_Z7EemfGcBfgycP9g" describedService__SEFF="calculateAverage.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="calculateAverage.start.ID" entityName="calculateAverage.start" successor_AbstractAction="calculateAverage.consumeMedianGroup.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateAverage.consumeMedianGroup.ID" entityName="calculateAverage.consumeMedianGroup" predecessor_AbstractAction="calculateAverage.start.ID" successor_AbstractAction="calculateAverage.putDataOnStack.ID" eventType="_WICYoPZ1Eem7QslU7p6JMQ" dataSinkRole="Average.consumes.MedianGroup.ID">
+        <variableReference referenceName="averageAll"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateAverage.putDataOnStack.ID" entityName="calculateAverage.putDataOnStack" predecessor_AbstractAction="calculateAverage.consumeMedianGroup.ID" successor_AbstractAction="calculateAverage.RD.ID">
+        <variableUsages>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_2"/>
+        </variableUsages>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateAverage.RD.ID" entityName="calculateAverage.RD" predecessor_AbstractAction="calculateAverage.putDataOnStack.ID" successor_AbstractAction="calculateAverage.emitAverageAll.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="100 + 100 * averageAll.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateAverage.emitAverageAll.ID" entityName="calculateAverage.emitAverageAll" predecessor_AbstractAction="calculateAverage.RD.ID" successor_AbstractAction="calculateAverage.stop.ID" eventType="_q33EYPZ6EemfGcBfgycP9g" dataSourceRole="Average.provides.AverageAllPlugs.ID">
+        <variableReference referenceName="averageAll"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="calculateAverage.stop.ID" entityName="calculateAverage.stop" predecessor_AbstractAction="calculateAverage.emitAverageAll.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="Outlier.ID" entityName="Outlier">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Outlier.provides.ICalculateOutlier.ID" entityName="Outlier.provides.ICalculateOutlier" providedInterface__OperationProvidedRole="ICalculateOutlier.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Outlier.consumes.GroupAndAverage.ID" entityName="Outlier.consumes.GroupAndAverage" eventGroup="_u2rqZvZ6EemfGcBfgycP9g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xpTGh_Z7EemfGcBfgycP9g" describedService__SEFF="calculateOutlier.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="calculateOutlier.start.ID" entityName="calculateOutlier.start" successor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateOutlier.consumeGroupAndAverage.ID" entityName="calculateOutlier.consumeGroupAndAverage" predecessor_AbstractAction="calculateOutlier.start.ID" successor_AbstractAction="calculateOutlier.stop.ID" eventType="_xLIZQPZ6EemfGcBfgycP9g" dataSinkRole="Outlier.consumes.GroupAndAverage.ID">
+        <variableReference referenceName="groupAndAverage"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="calculateOutlier.stop.ID" entityName="calculateOutlier.stop" predecessor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptPlugReading.ID" entityName="IAcceptPlugReading">
+    <signatures__OperationInterface id="acceptPlugReading.ID" entityName="acceptPlugReading">
+      <parameters__OperationSignature dataType__Parameter="_XeYovfZCEem6zKzgHWGcEw" parameterName="plugReading"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="ICalculateMedians.ID" entityName="ICalculateMedians">
+    <signatures__OperationInterface id="calculateMedians.ID" entityName="calculateMedians"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="ICalculateGroups.ID" entityName="ICalculateGroups">
+    <signatures__OperationInterface id="calculateGroups.ID" entityName="calculateGroups"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="ICalculateAverage.ID" entityName="ICalculateAverage">
+    <signatures__OperationInterface id="calculateAverage.ID" entityName="calculateAverage"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="ICalculateOutlier.ID" entityName="ICalculateOutlier">
+    <signatures__OperationInterface id="calculateOutlier.ID" entityName="calculateOutlier"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_FND4VfZAEem6zKzgHWGcEw" entityName="MedianGroup">
+    <eventTypes__EventGroup id="_HX70cPZAEem6zKzgHWGcEw" entityName="MedianEventType">
+      <parameter__EventType dataType__Parameter="_KfpzXfZAEem6zKzgHWGcEw" parameterName="median"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_PmhUlfZCEem6zKzgHWGcEw" entityName="PlugReadingGroup">
+    <eventTypes__EventGroup id="_UsrWEPZCEem6zKzgHWGcEw" entityName="PlugReadingEventType">
+      <parameter__EventType dataType__Parameter="_XeYovfZCEem6zKzgHWGcEw" parameterName="plugReading"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_p2OitfZCEem6zKzgHWGcEw" entityName="PlugReadingWindowGroup">
+    <eventTypes__EventGroup id="_r2ApIPZCEem6zKzgHWGcEw" entityName="PlugReadingWindowEventType">
+      <parameter__EventType dataType__Parameter="_l7krDPZCEem6zKzgHWGcEw" parameterName="plugReadings"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_4asmBfZ0Eem7QslU7p6JMQ" entityName="MedianPerHousehold">
+    <eventTypes__EventGroup id="_89Nu8PZ0Eem7QslU7p6JMQ" entityName="MedianPerHouseholdEventType">
+      <parameter__EventType parameterName="medianPerHousehold"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_UbjotfZ1Eem7QslU7p6JMQ" entityName="MedianCollectionGroup">
+    <eventTypes__EventGroup id="_WICYoPZ1Eem7QslU7p6JMQ" entityName="MedianCollectionEventType">
+      <parameter__EventType dataType__Parameter="_OUwCjPZ1Eem7QslU7p6JMQ" parameterName="medianCollection"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_oOzXdvZ6EemfGcBfgycP9g" entityName="AverageAllPlugsGroup">
+    <eventTypes__EventGroup id="_q33EYPZ6EemfGcBfgycP9g" entityName="AverageAllPlugsEventType">
+      <parameter__EventType dataType__Parameter="_fTRm7fZ6EemfGcBfgycP9g" parameterName="averageAllPlugs"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="_u2rqZvZ6EemfGcBfgycP9g" entityName="GroupAndAverageGroup">
+    <eventTypes__EventGroup id="_xLIZQPZ6EemfGcBfgycP9g" entityName="GroupAndAverageEventType">
+      <parameter__EventType dataType__Parameter="_Qx8EbfZ6EemfGcBfgycP9g" parameterName="groupAndAverage"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_KfpzXfZAEem6zKzgHWGcEw" entityName="MedianDataType">
+    <innerDeclaration_CompositeDataType entityName="median">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_XeYovfZCEem6zKzgHWGcEw" entityName="PlugReadingDataType">
+    <innerDeclaration_CompositeDataType entityName="plugReading">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_l7krDPZCEem6zKzgHWGcEw" entityName="PlugReadingWindowDataType" innerType_CollectionDataType="_XeYovfZCEem6zKzgHWGcEw"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_AzHpjfZ1Eem7QslU7p6JMQ" entityName="MedianPerHouseholdDataType">
+    <innerDeclaration_CompositeDataType entityName="median" datatype_InnerDeclaration="_KfpzXfZAEem6zKzgHWGcEw"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_OUwCjPZ1Eem7QslU7p6JMQ" entityName="MedianCollectionDataType" innerType_CollectionDataType="_KfpzXfZAEem6zKzgHWGcEw"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_Qx8EbfZ6EemfGcBfgycP9g" entityName="GroupAndAverageDataType">
+    <innerDeclaration_CompositeDataType entityName="medianPerHouseholdGroup" datatype_InnerDeclaration="_AzHpjfZ1Eem7QslU7p6JMQ"/>
+    <innerDeclaration_CompositeDataType entityName="averageAllPlugs" datatype_InnerDeclaration="_fTRm7fZ6EemfGcBfgycP9g"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_fTRm7fZ6EemfGcBfgycP9g" entityName="AverageAllPlugsDataType">
+    <innerDeclaration_CompositeDataType entityName="averageAllPlugs">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+</repository:Repository>

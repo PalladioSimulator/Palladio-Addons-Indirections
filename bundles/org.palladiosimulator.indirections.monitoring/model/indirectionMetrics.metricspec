@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metricspec:MetricDescriptionRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metricspec="http://palladiosimulator.org/MetricSpec/1.0" id="_w_Tk8AyNEeqfSKC3_n36pA">
+  <metricDescriptions xsi:type="metricspec:NumericalBaseMetricDescription" id="_3OsfYQyNEeqfSKC3_n36pA" name="Data Age" textualDescription="This measure specifies the age of data at the time of measuring." captureType="RealNumber" scale="Ratio" defaultUnit="ACED00057372001B6A617661782E6D6561737572652E756E69742E42617365556E697400000000000000010200014C00075F73796D626F6C7400124C6A6176612F6C616E672F537472696E673B787200176A617661782E6D6561737572652E756E69742E556E6974CDC8DE1678CD5267020000787074000173"/>
+  <metricDescriptions xsi:type="metricspec:MetricSetDescription" id="_EM6pUQyOEeqfSKC3_n36pA" name="Data Age Tuple" textualDescription="Specifies a (point in time, data age)-tuple.">
+    <subsumedMetrics xsi:type="metricspec:NumericalBaseMetricDescription" href="../../org.palladiosimulator.metricspec.resources/models/commonMetrics.metricspec#_NCRBos7pEeOX_4BzImuHbA"/>
+    <subsumedMetrics xsi:type="metricspec:NumericalBaseMetricDescription" href="#_3OsfYQyNEeqfSKC3_n36pA"/>
+  </metricDescriptions>
+</metricspec:MetricDescriptionRepository>

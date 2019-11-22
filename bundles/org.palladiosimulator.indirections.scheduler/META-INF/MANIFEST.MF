@@ -14,5 +14,11 @@ Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.apache.log4j,
  de.uka.ipd.sdq.simucomframework,
  org.palladiosimulator.simulizar,
- org.palladiosimulator.indirections.util
-Export-Package: org.palladiosimulator.indirections.scheduler
+ org.palladiosimulator.indirections.util,
+ de.uka.ipd.sdq.stoex.analyser,
+ org.palladiosimulator.probeframework,
+ org.palladiosimulator.analyzer.workflow
+Export-Package: org.palladiosimulator.indirections.scheduler,
+ org.palladiosimulator.indirections.scheduler.data,
+ org.palladiosimulator.indirections.scheduler.operators,
+ org.palladiosimulator.indirections.scheduler.util
