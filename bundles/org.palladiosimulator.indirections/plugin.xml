@@ -5,37 +5,12 @@
 -->
 
 <plugin>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirections/Actions/1.0"
             class="org.palladiosimulator.indirections.actions.ActionsPackage"
             genModel="model/indirections.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated indirection -->
-      <parser
-            type=""
-            class="org.palladiosimulator.indirections.actions.util.ActionsResourceFactoryImpl"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -46,13 +21,6 @@
             genModel="model/indirections.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated indirection -->
-      <parser
-            type=""
-            class="org.palladiosimulator.indirections.datatypes.util.DatatypesResourceFactoryImpl"/>
-   </extension>
-
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
@@ -61,26 +29,12 @@
             genModel="model/indirections.genmodel"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated indirection -->
-      <parser
-            type=""
-            class="org.palladiosimulator.indirections.partitioning.util.PartitioningResourceFactoryImpl"/>
-   </extension>
-
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirections/System/1.0"
             class="org.palladiosimulator.indirections.system.SystemPackage"
             genModel="model/indirections.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated indirection -->
-      <parser
-            type=""
-            class="org.palladiosimulator.indirections.system.util.SystemResourceFactoryImpl"/>
    </extension>
 
    <extension point="org.eclipse.emf.ecore.generated_package">
@@ -97,12 +51,5 @@
             uri="http://palladiosimulator.org/Indirections/Repository/1.0"
             class="org.palladiosimulator.indirections.repository.RepositoryPackage"
             genModel="model/indirections.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.extension_parser">
-      <!-- @generated indirection -->
-      <parser
-            type=""
-            class="org.palladiosimulator.indirections.composition.util.CompositionResourceFactoryImpl"/>
    </extension>
 </plugin>
