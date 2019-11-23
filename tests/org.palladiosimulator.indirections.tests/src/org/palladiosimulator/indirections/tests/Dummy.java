@@ -1,18 +1,18 @@
 package org.palladiosimulator.indirections.tests;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.Assert.fail;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
-class Dummy {
+public class Dummy {
 
-    @BeforeAll
-    static void setUpBeforeClass() throws Exception {
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
     }
 
     @Test
-    void testDummy() {
+    public void test() {
         fail("Not yet implemented");
     }
 
