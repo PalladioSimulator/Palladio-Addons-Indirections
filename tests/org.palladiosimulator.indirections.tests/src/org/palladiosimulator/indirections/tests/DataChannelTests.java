@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class SimuLizarRunConfig extends SimuLizarRunConfigTestBase {
+public class DataChannelTests extends SimuLizarRunConfigTestBase {
 
     @Test
     public void testMinimumDataMeasurements() {
