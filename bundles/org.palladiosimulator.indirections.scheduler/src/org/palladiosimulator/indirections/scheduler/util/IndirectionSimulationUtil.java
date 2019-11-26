@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
@@ -199,5 +201,20 @@ public final class IndirectionSimulationUtil {
     public static void validateIndirectionDateStructure(IndirectionDate date, EventGroup eventGroup) {
         // TODO implement validation
         LOGGER.warn("Not validating indirection date structure");
+    }
+
+    public static List<Double> getDataAgeRecursive(IndirectionDate data) {
+        return getDataAgeRecursive(data, new ArrayList<>());
+    }
+
+    public static List<Double> getDataAgeRecursive(IndirectionDate data, List<Double> measurements) {
+        if (data instanceof GroupingIndirectionDate<?>) {
+            for (IndirectionDate id : ((GroupingIndirectionDate<IndirectionDate>) data).getDataInGroup()) {
+                getDataAgeRecursive(id, measurements);
+            }
+        } else {
+            measurements.add(data.getTime());
+        }
+        return measurements;
     }
 }

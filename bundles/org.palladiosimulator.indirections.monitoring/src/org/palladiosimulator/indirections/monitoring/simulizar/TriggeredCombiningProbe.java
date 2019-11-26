@@ -19,7 +19,7 @@ public class TriggeredCombiningProbe<V, Q extends Quantity> extends Probe implem
     private final List<TriggeredProbe> subsumedProbes;
     private TriggeredProbe triggerProbe;
 
-    protected TriggeredCombiningProbe(MetricDescription metricDesciption, List<TriggeredProbe> subsumedProbes,
+    public TriggeredCombiningProbe(MetricDescription metricDesciption, List<TriggeredProbe> subsumedProbes,
             TriggeredProbe triggerProbe) {
         super(metricDesciption);
         this.subsumedProbes = subsumedProbes;

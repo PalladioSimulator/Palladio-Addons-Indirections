@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.measure.Measure;
@@ -22,7 +23,6 @@ import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyPro
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
-import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.JoinedDate;
 import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator;
@@ -169,13 +169,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         String referenceName = action.getVariableReference().getReferenceName();
 
         IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
-        if (data instanceof GroupingIndirectionDate<?>) {
-            for (IndirectionDate id : ((GroupingIndirectionDate<IndirectionDate>) data).getDataInGroup()) {
-                measureDataAge(action, id.getTime());
-            }
-        } else {
-            measureDataAge(action, data.getTime());
-        }
+        List<Double> ages = IndirectionSimulationUtil.getDataAgeRecursive(data);
+
+        ages.forEach(it -> measureDataAge(action, it));
 
         return true;
     }

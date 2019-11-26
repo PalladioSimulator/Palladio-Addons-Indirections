@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_DzTSoAySEeqpH6X1G0Hn0g" entityName="MinimumAllocation">
+  <targetResourceEnvironment_Allocation href="004_datachannel_waitingtime.resourceenvironment#/"/>
+  <system_Allocation href="004_datachannel_waitingtime.system#_oUxg8AyREeqpH6X1G0Hn0g"/>
+  <allocationContexts_Allocation id="_EFzX4AySEeqpH6X1G0Hn0g" entityName="ProducerAndEmitter.AssemblyContext.is-allocated-to.MinimumResourceContainer">
+    <resourceContainer_AllocationContext href="004_datachannel_waitingtime.resourceenvironment#_8A9-wQyREeqpH6X1G0Hn0g"/>
+    <assemblyContext_AllocationContext href="004_datachannel_waitingtime.system#_rO-BMAyREeqpH6X1G0Hn0g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_wDXh4A0hEeqPcZ95XtoIFw" entityName="Consumer.AssemblyContext.is-allocated-to.MinimumResourceContainer">
+    <resourceContainer_AllocationContext href="004_datachannel_waitingtime.resourceenvironment#_8A9-wQyREeqpH6X1G0Hn0g"/>
+    <assemblyContext_AllocationContext href="004_datachannel_waitingtime.system#_0LQkUA0hEeqPcZ95XtoIFw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_mHjdYA0_EeqQKpwM2l65hw" entityName="NeutralDataChannel.is-allocated-to.MinimumResourceContainer">
+    <resourceContainer_AllocationContext href="004_datachannel_waitingtime.resourceenvironment#_8A9-wQyREeqpH6X1G0Hn0g"/>
+    <eventChannel__AllocationContext href="004_datachannel_waitingtime.system#_EN8k3Q0iEeqPcZ95XtoIFw"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>
