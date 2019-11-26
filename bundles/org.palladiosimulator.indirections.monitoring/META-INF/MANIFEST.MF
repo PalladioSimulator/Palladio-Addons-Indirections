@@ -9,6 +9,7 @@ Bundle-Localization: plugin
 Automatic-Module-Name: org.palladiosimulator.indirections.monitoring
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.palladiosimulator.indirections.monitoring,
+ org.palladiosimulator.indirections.monitoring.simulizar,
  org.palladiosimulator.indirectionsmeasuringpoint,
  org.palladiosimulator.indirectionsmeasuringpoint.impl,
  org.palladiosimulator.indirectionsmeasuringpoint.util
@@ -20,5 +21,15 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm;visibility:=reexport,
  de.uka.ipd.sdq.probfunction;visibility:=reexport,
  de.uka.ipd.sdq.stoex;visibility:=reexport,
- de.uka.ipd.sdq.units;visibility:=reexport
+ de.uka.ipd.sdq.units;visibility:=reexport,
+ org.apache.log4j,
+ org.palladiosimulator.simulizar,
+ de.uka.ipd.sdq.simucomframework,
+ org.palladiosimulator.probeframework,
+ org.palladiosimulator.indirections,
+ de.uka.ipd.sdq.simulation,
+ de.uka.ipd.sdq.simulation.abstractsimengine,
+ org.palladiosimulator.edp2.util,
+ org.palladiosimulator.indirections.util,
+ org.palladiosimulator.measurementframework
 Bundle-ActivationPolicy: lazy

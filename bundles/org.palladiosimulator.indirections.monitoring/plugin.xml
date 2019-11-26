@@ -5,7 +5,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirectionsmeasuringpoint -->
       <package
-            uri="http://palladiosimulator.org/Indirections/Measuringpoints/1.0"
+            uri="http://palladiosimulator.org/Indirections/Monitoring/Measuringpoints/1.0"
             class="org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointPackage"
             genModel="model/indirectionsmeasuringpoint.genmodel"/>
    </extension>

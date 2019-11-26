@@ -30,7 +30,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
     /**
      * The cached value of the '{@link #getAbstractAction() <em>Abstract Action</em>}' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @see #getAbstractAction()
      * @generated
      * @ordered
@@ -39,7 +39,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     protected AbstractActionDataMeasuringPointImpl() {
@@ -48,7 +48,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -58,7 +58,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -79,7 +79,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public AbstractAction basicGetAbstractAction() {
@@ -88,7 +88,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -104,7 +104,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -121,7 +121,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -136,7 +136,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -151,7 +151,7 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override

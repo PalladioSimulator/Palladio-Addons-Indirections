@@ -78,12 +78,22 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.setupCalculators();
     }
 
+    private ContextAwareTimeSpanCalculator<ProcessWaitingToConsume> waitingToGetTimeCalculator;
+    private ContextAwareTimeSpanCalculator<ProcessWaitingToEmit> waitingToPutTimeCalculator;
+    private ContextAwareTimeSpanCalculator<SuspendableSchedulerEntity> holdingTimeCalculator;
+
     private void setupCalculators() {
         this.setupWaitingTimeCalculator();
         this.setupHoldingTimeCalculator();
     }
 
-    public class ContextAwareTimeSpanCalculator {
+    public class ContextAwareTimeSpanCalculator<C> {
+
+        public void startMeasurement(C process) {
+        }
+
+        public void endMeasurement(C process) {
+        }
 
     }
 
@@ -161,6 +171,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         final ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, sourceConnector,
                 date);
+
+        this.waitingToPutTimeCalculator.startMeasurement(process);
+
         if (this.canProceedToPut(process)) {
             this.allowToPutAndActivate(process);
             this.processDataAvailableToGet();
@@ -186,6 +199,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         final ProcessWaitingToConsume process = new ProcessWaitingToConsume(this.model, schedulableProcess,
                 sinkConnector, callback);
+
+        this.waitingToGetTimeCalculator.startMeasurement(process);
+
         if (this.canProceedToGet(process)) {
             this.allowToGetAndActivate(process);
             this.notifyProcessesWaitingToPut();
@@ -230,11 +246,15 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     protected abstract void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date);
 
     private void allowToGetAndActivate(ProcessWaitingToConsume process) {
+        this.waitingToGetTimeCalculator.endMeasurement(process);
+
         this.provideDataFor(process.sinkConnector).forEach(process.callback::accept);
         activateIfWaiting(process);
     }
 
     private void allowToPutAndActivate(ProcessWaitingToEmit process) {
+        this.waitingToPutTimeCalculator.endMeasurement(process);
+
         acceptDataFrom(process.sourceConnector, process.date);
         activateIfWaiting(process);
     }

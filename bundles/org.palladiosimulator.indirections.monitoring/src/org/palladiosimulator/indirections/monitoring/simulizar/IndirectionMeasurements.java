@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.simulizar.measurements;
+package org.palladiosimulator.indirections.monitoring.simulizar;
 
 import org.apache.log4j.Logger;
 import org.palladiosimulator.simulizar.modelobserver.IModelObserver;
