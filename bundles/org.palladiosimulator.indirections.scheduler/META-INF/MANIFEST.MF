@@ -17,8 +17,12 @@ Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.palladiosimulator.indirections.util,
  de.uka.ipd.sdq.stoex.analyser,
  org.palladiosimulator.probeframework,
- org.palladiosimulator.analyzer.workflow
+ org.palladiosimulator.analyzer.workflow,
+ org.palladiosimulator.indirections.monitoring,
+ org.palladiosimulator.edp2.util,
+ org.palladiosimulator.measurementframework
 Export-Package: org.palladiosimulator.indirections.scheduler,
  org.palladiosimulator.indirections.scheduler.data,
  org.palladiosimulator.indirections.scheduler.operators,
- org.palladiosimulator.indirections.scheduler.util
+ org.palladiosimulator.indirections.scheduler.util,
+ org.palladiosimulator.indirections.simulizar.measurements

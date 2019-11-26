@@ -74,6 +74,24 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.context = context;
 
         this.initializeQueues();
+
+        this.setupCalculators();
+    }
+
+    private void setupCalculators() {
+        this.setupWaitingTimeCalculator();
+        this.setupHoldingTimeCalculator();
+    }
+
+    public class ContextAwareTimeSpanCalculator {
+
+    }
+
+    private void setupWaitingTimeCalculator() {
+    }
+
+    private void setupHoldingTimeCalculator() {
+
     }
 
     private void initializeQueues() {
