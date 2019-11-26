@@ -21,7 +21,6 @@ import org.palladiosimulator.simulizar.runtimestate.AbstractSimuLizarRuntimeStat
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.probes.TakeCurrentSimulationTimeProbe;
-import de.uka.ipd.sdq.simulation.ISimulationControl;
 
 public class IndirectionMeasuringPointRegistry {
     /** Default EMF factory for measuring points. */
@@ -30,7 +29,7 @@ public class IndirectionMeasuringPointRegistry {
     private static final IndirectionsmeasuringpointFactory INDIRECTIONS_MEASURINGPOINT_FACTORY = IndirectionsmeasuringpointFactory.eINSTANCE;
 
     /** Default repository where measuring points are attached to. */
-    private static final MeasuringPointRepository MEASURING_POINT_REPOSITORY = MEASURINGPOINT_FACTORY
+    public static final MeasuringPointRepository MEASURING_POINT_REPOSITORY = MEASURINGPOINT_FACTORY
             .createMeasuringPointRepository();
 
     private final SimuComModel myModel;
@@ -76,7 +75,7 @@ public class IndirectionMeasuringPointRegistry {
 
     private Map<AllocatedAction, TriggeredProxyProbe<Double, Duration>> actionToProbe = new HashMap<>();
 
-    private TakeCurrentSimulationTimeProbe timeProbe;
+    public final TakeCurrentSimulationTimeProbe timeProbe;
 
     private IndirectionMeasuringPointRegistry(final SimuComModel myModel) {
         this.myModel = myModel;

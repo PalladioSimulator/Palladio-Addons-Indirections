@@ -1,6 +1,8 @@
 package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.UUID;
@@ -9,15 +11,29 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.measure.Measure;
+import javax.measure.quantity.Duration;
+import javax.measure.unit.SI;
+
+import org.palladiosimulator.edp2.models.measuringpoint.StringMeasuringPoint;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
+import org.palladiosimulator.indirections.monitoring.simulizar.MeasuringUtil;
+import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredCombiningProbe;
+import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.metricspec.BaseMetricDescription;
+import org.palladiosimulator.metricspec.MetricSetDescription;
+import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
+import org.palladiosimulator.probeframework.calculator.ICalculatorFactory;
+import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
@@ -80,28 +96,71 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     private ContextAwareTimeSpanCalculator<ProcessWaitingToConsume> waitingToGetTimeCalculator;
     private ContextAwareTimeSpanCalculator<ProcessWaitingToEmit> waitingToPutTimeCalculator;
-    private ContextAwareTimeSpanCalculator<SuspendableSchedulerEntity> holdingTimeCalculator;
 
     private void setupCalculators() {
-        this.setupWaitingTimeCalculator();
-        this.setupHoldingTimeCalculator();
+        this.waitingToGetTimeCalculator = new ContextAwareTimeSpanCalculator<>("Waiting time to get from " + name,
+                MetricDescriptionConstants.WAITING_TIME_METRIC, MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE);
+        this.waitingToPutTimeCalculator = new ContextAwareTimeSpanCalculator<>("Waiting time to put to " + name,
+                MetricDescriptionConstants.WAITING_TIME_METRIC, MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE);
     }
 
-    public class ContextAwareTimeSpanCalculator<C> {
+    public class TriggerableTimeSpanCalculator {
+        protected final TriggeredProxyProbe<Double, Duration> proxyProbe;
+        protected final TriggeredCombiningProbe<Double, Duration> probeList;
+        protected final IndirectionMeasuringPointRegistry registry;
 
-        public void startMeasurement(C process) {
+        public TriggerableTimeSpanCalculator(String name, BaseMetricDescription baseMetric,
+                MetricSetDescription metricSet) {
+
+            registry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
+
+            StringMeasuringPoint measuringPoint = MeasuringUtil
+                    .createStringMeasuringPoint(IndirectionMeasuringPointRegistry.MEASURING_POINT_REPOSITORY, name);
+
+            proxyProbe = new TriggeredProxyProbe<Double, Duration>(baseMetric);
+            probeList = new TriggeredCombiningProbe<Double, Duration>(metricSet,
+                    List.of(registry.timeProbe, proxyProbe), proxyProbe);
+
+            ICalculatorFactory calculatorFactory = model.getProbeFrameworkContext().getCalculatorFactory();
+            calculatorFactory.buildExecutionResultCalculator(measuringPoint, probeList);
         }
 
-        public void endMeasurement(C process) {
+        public void doMeasure(double timeSpan) {
+            proxyProbe.doMeasure(Measure.valueOf(timeSpan, SI.SECOND));
         }
 
+        public void doMeasureUntilNow(double time) {
+            doMeasure(model.getSimulationControl().getCurrentSimulationTime() - time);
+        }
     }
 
-    private void setupWaitingTimeCalculator() {
-    }
+    public class ContextAwareTimeSpanCalculator<C> extends TriggerableTimeSpanCalculator {
 
-    private void setupHoldingTimeCalculator() {
+        public ContextAwareTimeSpanCalculator(String name, BaseMetricDescription baseMetric,
+                MetricSetDescription metricSet) {
+            super(name, baseMetric, metricSet);
+        }
 
+        private Map<C, Double> activeMeasurements = new HashMap<>();
+
+        public void startMeasurement(C c) {
+            if (activeMeasurements.containsKey(c)) {
+                throw new PCMModelInterpreterException("Cannot start measurement for " + c.toString()
+                        + ", already started at " + activeMeasurements.get(c));
+            }
+
+            activeMeasurements.put(c, model.getSimulationControl().getCurrentSimulationTime());
+        }
+
+        public void endMeasurement(C c) {
+            if (!activeMeasurements.containsKey(c)) {
+                throw new PCMModelInterpreterException(
+                        "Cannot end measurement for " + c.toString() + ", no measurement start present");
+            }
+
+            double timeSpan = model.getSimulationControl().getCurrentSimulationTime() - activeMeasurements.get(c);
+            doMeasure(timeSpan);
+        }
     }
 
     private void initializeQueues() {

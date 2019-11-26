@@ -10,7 +10,7 @@ import org.palladiosimulator.probeframework.probes.BasicTriggeredProbe;
 public class TriggeredProxyProbe<V, Q extends Quantity> extends BasicTriggeredProbe<V, Q> {
     Measure<V, Q> currentMeasure = null;
 
-    protected TriggeredProxyProbe(BaseMetricDescription metricDescription) {
+    public TriggeredProxyProbe(BaseMetricDescription metricDescription) {
         super(metricDescription);
     }
 
