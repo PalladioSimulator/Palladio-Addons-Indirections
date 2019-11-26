@@ -18,4 +18,9 @@ Require-Bundle: org.junit,
  de.uka.ipd.sdq.workflow.mdsd,
  de.uka.ipd.sdq.simucomframework,
  org.palladiosimulator.recorderframework.edp2,
- de.uka.ipd.sdq.codegen.simucontroller
+ de.uka.ipd.sdq.codegen.simucontroller,
+ org.palladiosimulator.indirections.minimumindirectionexample,
+ org.palladiosimulator.pcm.resources,
+ de.desmoj,
+ de.uka.ipd.sdq.simulation.abstractsimengine.desmoj
+
