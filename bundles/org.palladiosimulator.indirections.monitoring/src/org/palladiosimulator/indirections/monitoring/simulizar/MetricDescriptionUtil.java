@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.simulizar.measurements;
+package org.palladiosimulator.indirections.monitoring.simulizar;
 
 import java.util.Arrays;
 import java.util.HashMap;

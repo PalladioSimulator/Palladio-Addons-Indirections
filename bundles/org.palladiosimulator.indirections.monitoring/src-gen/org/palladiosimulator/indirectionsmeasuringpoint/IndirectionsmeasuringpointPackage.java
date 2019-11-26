@@ -17,7 +17,7 @@ import org.palladiosimulator.edp2.models.measuringpoint.MeasuringpointPackage;
  * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * 
+ *
  * @see org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointFactory
  * @model kind="package"
  * @generated
@@ -25,28 +25,28 @@ import org.palladiosimulator.edp2.models.measuringpoint.MeasuringpointPackage;
 public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
      * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     String eNAME = "indirectionsmeasuringpoint";
 
     /**
      * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
-    String eNS_URI = "http://palladiosimulator.org/Indirections/Measuringpoints/1.0";
+    String eNS_URI = "http://palladiosimulator.org/Indirections/Monitoring/Measuringpoints/1.0";
 
     /**
      * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
-    String eNS_PREFIX = "org.palladiosimulator.indirections.measuringpoints";
+    String eNS_PREFIX = "org.palladiosimulator.indirections.monitoring.measuringpoints";
 
     /**
      * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     IndirectionsmeasuringpointPackage eINSTANCE = org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointPackageImpl
@@ -57,7 +57,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
      * '{@link org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
      * <em>Abstract Action Data Measuring Point</em>}' class. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
      * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointPackageImpl#getAbstractActionDataMeasuringPoint()
      * @generated
@@ -67,7 +67,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Measuring Point Repository</b></em>' container reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -76,7 +76,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
      * The feature id for the '<em><b>String Representation</b></em>' attribute. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -85,7 +85,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Resource URI Representation</b></em>' attribute. <!--
      * begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -94,7 +94,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
      * The feature id for the '<em><b>Abstract Action</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -103,7 +103,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
      * The number of structural features of the '<em>Abstract Action Data Measuring Point</em>'
      * class. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      * @ordered
      */
@@ -114,7 +114,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
      * '{@link org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint
      * <em>Abstract Action Data Measuring Point</em>}'. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
-     * 
+     *
      * @return the meta object for class '<em>Abstract Action Data Measuring Point</em>'.
      * @see org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint
      * @generated
@@ -125,7 +125,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
      * Returns the meta object for the reference
      * '{@link org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint#getAbstractAction
      * <em>Abstract Action</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @return the meta object for the reference '<em>Abstract Action</em>'.
      * @see org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint#getAbstractAction()
      * @see #getAbstractActionDataMeasuringPoint()
@@ -136,7 +136,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
      * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
+     *
      * @return the factory that creates the instances of the model.
      * @generated
      */
@@ -151,7 +151,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
      * <li>and each data type</li>
      * </ul>
      * <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     interface Literals {
@@ -160,7 +160,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
          * '{@link org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
          * <em>Abstract Action Data Measuring Point</em>}' class. <!-- begin-user-doc --> <!--
          * end-user-doc -->
-         * 
+         *
          * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
          * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointPackageImpl#getAbstractActionDataMeasuringPoint()
          * @generated
@@ -170,7 +170,7 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
         /**
          * The meta object literal for the '<em><b>Abstract Action</b></em>' reference feature. <!--
          * begin-user-doc --> <!-- end-user-doc -->
-         * 
+         *
          * @generated
          */
         EReference ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION = eINSTANCE

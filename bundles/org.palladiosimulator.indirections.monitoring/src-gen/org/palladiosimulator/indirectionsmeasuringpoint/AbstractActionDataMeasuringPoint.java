@@ -26,7 +26,7 @@ public interface AbstractActionDataMeasuringPoint extends EObject, MeasuringPoin
     /**
      * Returns the value of the '<em><b>Abstract Action</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
+     *
      * @return the value of the '<em>Abstract Action</em>' reference.
      * @see #setAbstractAction(AbstractAction)
      * @see org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointPackage#getAbstractActionDataMeasuringPoint_AbstractAction()
@@ -39,7 +39,7 @@ public interface AbstractActionDataMeasuringPoint extends EObject, MeasuringPoin
      * Sets the value of the
      * '{@link org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint#getAbstractAction
      * <em>Abstract Action</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @param value
      *            the new value of the '<em>Abstract Action</em>' reference.
      * @see #getAbstractAction()

@@ -24,5 +24,4 @@ Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
 Export-Package: org.palladiosimulator.indirections.scheduler,
  org.palladiosimulator.indirections.scheduler.data,
  org.palladiosimulator.indirections.scheduler.operators,
- org.palladiosimulator.indirections.scheduler.util,
- org.palladiosimulator.indirections.simulizar.measurements
+ org.palladiosimulator.indirections.scheduler.util

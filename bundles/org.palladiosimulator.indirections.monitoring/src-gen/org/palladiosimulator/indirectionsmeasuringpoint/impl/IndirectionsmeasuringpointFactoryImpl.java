@@ -13,13 +13,13 @@ import org.palladiosimulator.indirectionsmeasuringpoint.Indirectionsmeasuringpoi
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
- * 
+ *
  * @generated
  */
 public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implements IndirectionsmeasuringpointFactory {
     /**
      * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public static IndirectionsmeasuringpointFactory init() {
@@ -37,7 +37,7 @@ public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implemen
 
     /**
      * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     public IndirectionsmeasuringpointFactoryImpl() {
@@ -46,7 +46,7 @@ public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implemen
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -61,7 +61,7 @@ public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implemen
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -72,7 +72,7 @@ public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implemen
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @generated
      */
     @Override
@@ -82,7 +82,7 @@ public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implemen
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     *
      * @deprecated
      * @generated
      */

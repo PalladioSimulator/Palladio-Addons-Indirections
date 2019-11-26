@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.simulizar.measurements;
+package org.palladiosimulator.indirections.monitoring.simulizar;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +21,7 @@ import org.palladiosimulator.simulizar.runtimestate.AbstractSimuLizarRuntimeStat
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.probes.TakeCurrentSimulationTimeProbe;
+import de.uka.ipd.sdq.simulation.ISimulationControl;
 
 public class IndirectionMeasuringPointRegistry {
     /** Default EMF factory for measuring points. */
