@@ -21,4 +21,5 @@ Require-Bundle: org.junit,
  de.uka.ipd.sdq.codegen.simucontroller,
  org.palladiosimulator.indirections.minimumindirectionexample,
  org.palladiosimulator.pcm.resources,
- de.desmoj
+ de.desmoj,
+ de.uka.ipd.sdq.simulation.abstractsimengine.desmoj
