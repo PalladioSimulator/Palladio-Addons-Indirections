@@ -113,10 +113,14 @@
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Outlier.consumes.GroupAndAverage.ID" entityName="Outlier.consumes.GroupAndAverage" eventGroup="_u2rqZvZ6EemfGcBfgycP9g"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xpTGh_Z7EemfGcBfgycP9g" describedService__SEFF="calculateOutlier.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="calculateOutlier.start.ID" entityName="calculateOutlier.start" successor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateOutlier.consumeGroupAndAverage.ID" entityName="calculateOutlier.consumeGroupAndAverage" predecessor_AbstractAction="calculateOutlier.start.ID" successor_AbstractAction="calculateOutlier.stop.ID" eventType="_xLIZQPZ6EemfGcBfgycP9g" dataSinkRole="Outlier.consumes.GroupAndAverage.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateOutlier.consumeGroupAndAverage.ID" entityName="calculateOutlier.consumeGroupAndAverage" predecessor_AbstractAction="calculateOutlier.start.ID" successor_AbstractAction="calculateOutlier.InternalAction.ID" eventType="_xLIZQPZ6EemfGcBfgycP9g" dataSinkRole="Outlier.consumes.GroupAndAverage.ID">
         <variableReference referenceName="groupAndAverage"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="calculateOutlier.stop.ID" entityName="calculateOutlier.stop" predecessor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateOutlier.InternalAction.ID" entityName="calculateOutlier.InternalAction" predecessor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID" successor_AbstractAction="calculateOutlier.AnalyseStack.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateOutlier.AnalyseStack.ID" entityName="calculateOutlier.AnalyseStack" predecessor_AbstractAction="calculateOutlier.InternalAction.ID" successor_AbstractAction="calculateOutlier.stop.ID">
+        <variableReference referenceName="groupAndAverage"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="calculateOutlier.stop.ID" entityName="calculateOutlier.stop" predecessor_AbstractAction="calculateOutlier.AnalyseStack.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptPlugReading.ID" entityName="IAcceptPlugReading">

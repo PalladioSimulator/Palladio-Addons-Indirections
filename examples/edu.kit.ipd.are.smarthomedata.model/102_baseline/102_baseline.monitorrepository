@@ -7,4 +7,11 @@
     </measurementSpecifications>
     <measuringPoint xsi:type="pcmmeasuringpoint:AssemblyOperationMeasuringPoint" href="102_baseline.measuringpoint#//@measuringPoints.0"/>
   </monitors>
+  <monitors id="_EHAlMBULEeqVx6tq59oYvA">
+    <measurementSpecifications id="_Ez5gYBULEeqVx6tq59oYvA">
+      <metricDescription xsi:type="metricspec:NumericalBaseMetricDescription" href="pathmap://METRIC_SPEC_MODELS/models/commonMetrics.metricspec#_6rYmYs7nEeOX_4BzImuHbA"/>
+      <processingType xsi:type="monitorrepository:FeedThrough" id="_HMehUBULEeqVx6tq59oYvA"/>
+    </measurementSpecifications>
+    <measuringPoint xsi:type="pcmmeasuringpoint:UsageScenarioMeasuringPoint" href="102_baseline.measuringpoint#//@measuringPoints.1"/>
+  </monitors>
 </monitorrepository:MonitorRepository>
