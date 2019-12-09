@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.palladiosimulator.indirections.scheduler;singleton:=tru
 Bundle-Version: 4.2.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.indirections.scheduler
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
+Require-Bundle: de.uka.ipd.sdq.scheduler,
  org.palladiosimulator.pcm,
  org.palladiosimulator.indirections,
  org.palladiosimulator.indirections.interfaces,
@@ -20,7 +20,8 @@ Require-Bundle: de.uka.ipd.sdq.scheduler;bundle-version="4.1.1",
  org.palladiosimulator.analyzer.workflow,
  org.palladiosimulator.indirections.monitoring,
  org.palladiosimulator.edp2.util,
- org.palladiosimulator.measurementframework
+ org.palladiosimulator.measurementframework,
+ org.palladiosimulator.edp2
 Export-Package: org.palladiosimulator.indirections.scheduler,
  org.palladiosimulator.indirections.scheduler.data,
  org.palladiosimulator.indirections.scheduler.operators,

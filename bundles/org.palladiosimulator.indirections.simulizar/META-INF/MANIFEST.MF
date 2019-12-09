@@ -5,21 +5,19 @@ Bundle-SymbolicName: org.palladiosimulator.indirections.simulizar;singleton:=tru
 Bundle-Version: 4.2.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.indirections.simulizar
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: org.palladiosimulator.simulizar;bundle-version="2.1.0",
- org.eclipse.emf.ecore,
- org.palladiosimulator.pcm,
+Require-Bundle: org.palladiosimulator.simulizar,
  org.palladiosimulator.indirections,
- org.palladiosimulator.analyzer.workflow,
  de.uka.ipd.sdq.simucomframework.variables,
  de.uka.ipd.sdq.stoex.analyser,
  org.palladiosimulator.indirections.interfaces,
  org.palladiosimulator.indirections.scheduler,
- de.uka.ipd.sdq.simucomframework,
- de.uka.ipd.sdq.simulation.abstractsimengine;bundle-version="4.1.0",
- org.palladiosimulator.commons,
  org.palladiosimulator.indirections.util,
- org.palladiosimulator.edp2,
  org.palladiosimulator.pcm.edp2.measuringpoint,
- org.palladiosimulator.probeframework,
- org.palladiosimulator.indirections.monitoring
+ org.palladiosimulator.indirections.monitoring,
+ org.apache.log4j,
+ de.uka.ipd.sdq.scheduler,
+ org.palladiosimulator.analyzer.workflow,
+ de.uka.ipd.sdq.simucomframework,
+ de.uka.ipd.sdq.simulation.abstractsimengine,
+ org.palladiosimulator.probeframework
 Export-Package: org.palladiosimulator.indirections.simulizar.rdseffswitch
