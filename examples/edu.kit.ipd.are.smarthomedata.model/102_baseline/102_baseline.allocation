@@ -14,7 +14,8 @@
     <resourceContainer_AllocationContext href="102_baseline.resourceenvironment#_DoiDIfZDEem6zKzgHWGcEw"/>
     <assemblyContext_AllocationContext href="102_baseline.system#Group.AssemblyContext.ID"/>
   </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="AverageAllocation.ID" entityName="AverageAllocation">
+  <allocationContexts_Allocation id="_tJB7oBUMEeqVx6tq59oYvA" entityName="Allocation_Average.AssemblyContext">
     <resourceContainer_AllocationContext href="102_baseline.resourceenvironment#_DoiDIfZDEem6zKzgHWGcEw"/>
+    <assemblyContext_AllocationContext href="102_baseline.system#_q6iyoPdDEemnfNjY-tUdkw"/>
   </allocationContexts_Allocation>
 </allocation:Allocation>

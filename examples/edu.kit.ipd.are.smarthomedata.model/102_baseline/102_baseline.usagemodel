@@ -4,8 +4,8 @@
     <scenarioBehaviour_UsageScenario id="UsageScenarioH0P0.Description.ID" entityName="UsageScenarioH0P0.Description">
       <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="H0P0.start.ID" entityName="H0P0.start" successor="H0P0.ELSC.ID"/>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="H0P0.ELSC.ID" entityName="H0P0.ELSC" successor="H0P0.stop.ID" predecessor="H0P0.start.ID">
-        <providedRole_EntryLevelSystemCall href="102_baseline.system#System.provides.IAcceptPlugReading.ID"/>
-        <operationSignature__EntryLevelSystemCall href="102_baseline.repository#acceptPlugReading.ID"/>
+        <providedRole_EntryLevelSystemCall href="102_baseline.system#_RzIpUPdDEemnfNjY-tUdkw"/>
+        <operationSignature__EntryLevelSystemCall href="102_baseline.repository#calculateMedians.ID"/>
         <inputParameterUsages_EntryLevelSystemCall>
           <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
             <specification_VariableCharacterisation specification="IntPMF[(49; 0.00584796)(51; 0.01169591)(52; 0.02923977)(53; 0.03508772)(54; 0.04093567)(55; 0.03508772)(56; 0.06432749)(57; 0.07602339)(58; 0.14035088)(59; 0.06432749)(60; 0.07602339)(61; 0.08187134)(62; 0.12280702)(63; 0.04678363)(64; 0.06432749)(65; 0.02339181)(66; 0.04678363)(67; 0.01754386)(68; 0.00584795)(69; 0.01169591)]"/>

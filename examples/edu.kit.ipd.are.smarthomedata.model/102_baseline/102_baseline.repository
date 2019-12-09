@@ -12,13 +12,28 @@
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_LivQAPdIEemeMr-6x8RfMQ" entityName="ExternalCallAction1" predecessor_AbstractAction="calculateMedians.RD.ID" successor_AbstractAction="calculateMedians.stop.ID" calledService_ExternalService="continueProcessingMedian.ID" role_ExternalService="_Ke078PdIEemeMr-6x8RfMQ">
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_LivQAPdIEemeMr-6x8RfMQ" entityName="calculateMedians.callAverage" predecessor_AbstractAction="calculateMedians.RD.ID" successor_AbstractAction="calculateMedians.stop.ID" calledService_ExternalService="continueProcessingMedian.ID" role_ExternalService="_Ke078PdIEemeMr-6x8RfMQ">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
             <specification_VariableCharacterisation specification="window.NUMBER_OF_ELEMENTS"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="window"/>
         </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="Average.ID" entityName="Average">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Average.provides.IContinueProcessingMedian.ID" entityName="Average.provides.IContinueProcessingMedian" providedInterface__OperationProvidedRole="IContinueProcessingMedian.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="Average.requires.IContinueProcessingJointValue.ID" entityName="Average.requires.IContinueProcessingJointValue" requiredInterface__OperationRequiredRole="IContinueProcessingJointValue.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_EYqoQPdDEemnfNjY-tUdkw" describedService__SEFF="continueProcessingMedian.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="Average.start.ID" entityName="Average.start" successor_AbstractAction="_mn80QBUMEeqVx6tq59oYvA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="Average.stop.ID" entityName="Average.stop" predecessor_AbstractAction="_dBkv4BUMEeqVx6tq59oYvA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_dBkv4BUMEeqVx6tq59oYvA" entityName="ExternalCallAction1" predecessor_AbstractAction="_mn80QBUMEeqVx6tq59oYvA" successor_AbstractAction="Average.stop.ID" calledService_ExternalService="continueProcessingJointValue.ID" role_ExternalService="Average.requires.IContinueProcessingJointValue.ID"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_mn80QBUMEeqVx6tq59oYvA" entityName="InternalAction1" predecessor_AbstractAction="Average.start.ID" successor_AbstractAction="_dBkv4BUMEeqVx6tq59oYvA">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="100 + 100 * window.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
       </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
@@ -37,19 +52,11 @@
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_8BjaEPdHEemeMr-6x8RfMQ" entityName="ExternalCallAction1" predecessor_AbstractAction="calculateGroups.RD.ID" successor_AbstractAction="calculateGroups.stop.ID" calledService_ExternalService="continueProcessingJointValue.ID" role_ExternalService="Group.requires.IContinueProcessingJointValue.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="Average.ID" entityName="Average">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Average.provides.IContinueProcessingMedian.ID" entityName="Average.provides.IContinueProcessingMedian" providedInterface__OperationProvidedRole="IContinueProcessingMedian.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="Average.requires.IContinueProcessingJointValue.ID" entityName="Average.requires.IContinueProcessingJointValue" requiredInterface__OperationRequiredRole="IContinueProcessingJointValue.ID"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_EYqoQPdDEemnfNjY-tUdkw" describedService__SEFF="continueProcessingMedian.ID">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_EYrPUPdDEemnfNjY-tUdkw" successor_AbstractAction="_EYsdcPdDEemnfNjY-tUdkw"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_EYsdcPdDEemnfNjY-tUdkw" predecessor_AbstractAction="_EYrPUPdDEemnfNjY-tUdkw"/>
-    </serviceEffectSpecifications__BasicComponent>
-  </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="Outlier.ID" entityName="Outlier">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Outlier.provides.IContinueProcessingJointValue.ID" entityName="Outlier.provides.IContinueProcessingJointValue" providedInterface__OperationProvidedRole="IContinueProcessingJointValue.ID"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xpTGh_Z7EemfGcBfgycP9g" describedService__SEFF="continueProcessingJointValue.ID">
-      <steps_Behaviour xsi:type="seff:StartAction" id="calculateOutlier.start.ID" entityName="calculateOutlier.start"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="calculateOutlier.stop.ID" entityName="calculateOutlier.stop"/>
+      <steps_Behaviour xsi:type="seff:StartAction" id="calculateOutlier.start.ID" entityName="calculateOutlier.start" successor_AbstractAction="calculateOutlier.stop.ID"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="calculateOutlier.stop.ID" entityName="calculateOutlier.stop" predecessor_AbstractAction="calculateOutlier.start.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IContinueProcessingJointValue.ID" entityName="IContinueProcessingJointValue">
