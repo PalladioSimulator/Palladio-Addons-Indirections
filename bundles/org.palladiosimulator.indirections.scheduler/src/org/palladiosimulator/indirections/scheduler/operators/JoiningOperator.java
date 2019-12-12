@@ -132,11 +132,8 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
                 .filter(it -> it.isResponsibleFor(date)).reduce(StreamUtil.reduceToMaximumOne()).get();
         channelToAddTo.put(date);
         DataChannelSourceConnector source = date.source;
-        String sourceName = source.getEntityName();
 
         Object key = channelToAddTo.keyFunction.apply(date);
-
-        System.out.println(sourceName);
 
         // if all retain, we do not iterate until one cannot provide anymore
         boolean allRetain = IterableUtil.stream(channels).allMatch(it -> it.retainData);

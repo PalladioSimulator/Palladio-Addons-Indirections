@@ -12,10 +12,15 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
+import javax.measure.Measure;
+import javax.measure.quantity.Dimensionless;
+import javax.measure.unit.Unit;
+
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.datatypes.OutgoingDistribution;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
 import org.palladiosimulator.indirections.partitioning.CollectWithHoldback;
 import org.palladiosimulator.indirections.partitioning.ConsumeAllAvailable;
 import org.palladiosimulator.indirections.partitioning.Joining;
@@ -103,6 +108,8 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
                 windowingOperator = new TimeBasedWindowingOperator<>(false, windowing.getSize(), windowing.getShift(),
                         simuComModel);
                 windowingOperator.addConsumer((it) -> System.out.println("Created window: " + it));
+                windowingOperator.addConsumer((it) -> windowSizeCalculator
+                        .doMeasure(Measure.valueOf(Long.valueOf(it.getDataInGroup().size()), Unit.ONE)));
                 windowingOperator.addConsumer(this::postprocessAndEmit);
             } else if (timeGrouping instanceof CollectWithHoldback) {
                 collectWithHoldback = (CollectWithHoldback) timeGrouping;
@@ -143,6 +150,18 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 
         for (DataChannelSinkConnector dcsc : dataChannel.getDataChannelSinkConnector()) {
             outQueues.put(dcsc, new ArrayDeque<IndirectionDate>());
+        }
+
+        setupCalculators();
+    }
+
+    private TriggerableCalculator<Long, Dimensionless> windowSizeCalculator;
+
+    private void setupCalculators() {
+        if (windowingOperator != null) {
+            this.windowSizeCalculator = new TriggerableCalculator<>("Window size for " + name,
+                    IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC,
+                    IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC_TUPLE);
         }
     }
 
