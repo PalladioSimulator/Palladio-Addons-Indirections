@@ -33,6 +33,7 @@ import org.palladiosimulator.indirections.scheduler.operators.SpecificationParti
 import org.palladiosimulator.indirections.scheduler.operators.TimeBasedWindowingOperator;
 import org.palladiosimulator.indirections.scheduler.operators.WindowingOperator;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
@@ -117,6 +118,17 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
                 .collect(Collectors.toList());
         final List<Boolean> retainDataArray = joins.stream().map(Joining::isCanContributeMultipleTimes)
                 .collect(Collectors.toList());
+
+        final List<PCMRandomVariable> joinKeys = new ArrayList<>();
+        for (Joining j : joins) {
+            if (j.getKey().size() > 1)
+                throw new PCMModelInterpreterException("Interpreter currently only supports maximum one key per join");
+            else if (j.getKey().size() == 1)
+                joinKeys.add(j.getKey().get(0));
+            else
+                joinKeys.add(null);
+        }
+
         if (!joins.isEmpty()) {
             joinOperator = JoiningOperator.createWithIndices(it -> {
                 int index = joinSources.indexOf(it.source);
@@ -125,7 +137,7 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
                             + joinSources.stream().map(js -> js.getEntityName()).collect(Collectors.joining(", ")));
                 }
                 return index;
-            }, retainDataArray);
+            }, joinKeys, retainDataArray);
             joinOperator.addConsumer(it -> dataAfterJoiningQueue.add(it));
         }
 

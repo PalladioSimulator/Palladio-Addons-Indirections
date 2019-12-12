@@ -84,7 +84,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     @Override
     public Object caseEmitDataAction(final EmitDataAction action) {
         LOGGER.trace("Emit event action: " + action.getEntityName());
-        System.out.println("Emit event action: " + action.getEntityName());
+        LOGGER.trace("Emit event action: " + action.getEntityName());
 
         final DataChannelSourceConnector dataChannelSourceConnector = IndirectionModelUtil.getSourceConnector(context,
                 action);
@@ -116,10 +116,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
             LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
 
             if (action.getEntityName().equals("calculateOutlier.consumeGroupAndAverage")) {
-                System.out.println(date);
+                LOGGER.trace(date);
                 JoinedDate<IndirectionDate> jdate = (JoinedDate<IndirectionDate>) date;
 
-                for (Map.Entry<JoiningOperator.Channel<DataWithSource<IndirectionDate>>, IndirectionDate> entry : jdate.data
+                for (Map.Entry<JoiningOperator.KeyedChannel<DataWithSource<IndirectionDate>, Object>, IndirectionDate> entry : jdate.data
                         .entrySet()) {
                     if (entry.getValue() instanceof ConcreteGroupingIndirectionDate) {
                         ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>> cgid = (ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>>) entry
@@ -134,9 +134,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 //                                ModelObserver.measure(
 //                                        context.getModel().getSimulationControl().getCurrentSimulationTime(),
 //                                        concreteDate.uuid.toString(), concreteDate.getTime());
-                                System.out.println(csvLine);
+                                LOGGER.trace(csvLine);
                             }
-                            System.out.println();
+                            LOGGER.trace("\n");
                         }
                     }
                 }
@@ -183,10 +183,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         VariableReference variableReference = (VariableReference) action.getVariableUsages().get(0)
                 .getNamedReference__VariableUsage();
 
-        System.out.println("Variable reference: " + variableReference.getReferenceName());
+        LOGGER.trace("Variable reference: " + variableReference.getReferenceName());
 
         if (variableReference.getReferenceName().equals("NUMBER_OF_ELEMENTS_0")) {
-            System.out.println("Putting number of elements on stack.");
+            LOGGER.trace("Putting number of elements on stack.");
 
             PartitionedIndirectionDate<Map<String, Object>, IndirectionDate> median = null;
             SimulatedStackframe<Object> currentStackFrame = context.getStack().currentStackFrame();
@@ -204,7 +204,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         }
 
         if (variableReference.getReferenceName().equals("NUMBER_OF_ELEMENTS_1")) {
-            System.out.println("Putting number of elements on stack.");
+            LOGGER.trace("Putting number of elements on stack.");
 
             PartitionedIndirectionDate<Map<String, Object>, PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>> medianGroup = null;
             SimulatedStackframe<Object> currentStackFrame = context.getStack().currentStackFrame();
@@ -215,7 +215,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            System.out.println("Partition: " + medianGroup.getPartition().toString() + ", "
+            LOGGER.trace("Partition: " + medianGroup.getPartition().toString() + ", "
                     + medianGroup.getDataInGroup().get(0).getPartition().toString());
 
             int noe = medianGroup.getDataInGroup().get(0).getDataInGroup().size();
@@ -226,7 +226,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         }
 
         if (variableReference.getReferenceName().equals("NUMBER_OF_ELEMENTS_2")) {
-            System.out.println("Putting number of elements on stack.");
+            LOGGER.trace("Putting number of elements on stack.");
 
             ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>> medianGroup = null;
             SimulatedStackframe<Object> currentStackFrame = context.getStack().currentStackFrame();
@@ -239,7 +239,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
             }
 
             int noe = medianGroup.getDataInGroup().stream().mapToInt(it -> it.getDataInGroup().size()).sum();
-            medianGroup.getDataInGroup().forEach(it -> System.out.println("NOE2, Partition: " + it.getPartition()));
+            medianGroup.getDataInGroup().forEach(it -> LOGGER.trace("NOE2, Partition: " + it.getPartition()));
 
             currentStackFrame.addValue("averageAll.NUMBER_OF_ELEMENTS", noe);
 
@@ -256,6 +256,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 assemblyContext);
 
         double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
+        LOGGER.trace("Measuring age " + (currentSimulationTime - value) + " at " + currentSimulationTime);
         probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));
     }
 }
