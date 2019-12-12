@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
+import javax.measure.quantity.Quantity;
 import javax.measure.unit.SI;
 
 import org.palladiosimulator.edp2.models.measuringpoint.StringMeasuringPoint;
@@ -104,29 +105,39 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
                 MetricDescriptionConstants.WAITING_TIME_METRIC, MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE);
     }
 
-    public class TriggerableTimeSpanCalculator {
-        protected final TriggeredProxyProbe<Double, Duration> proxyProbe;
-        protected final TriggeredCombiningProbe<Double, Duration> probeList;
+    public class TriggerableCalculator<V, Q extends Quantity> {
+        protected final TriggeredProxyProbe<V, Q> proxyProbe;
+        protected final TriggeredCombiningProbe<V, Q> probeList;
         protected final IndirectionMeasuringPointRegistry registry;
 
-        public TriggerableTimeSpanCalculator(String name, BaseMetricDescription baseMetric,
-                MetricSetDescription metricSet) {
+        public TriggerableCalculator(String name, BaseMetricDescription baseMetric, MetricSetDescription metricSet) {
 
             registry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
 
             StringMeasuringPoint measuringPoint = MeasuringUtil
                     .createStringMeasuringPoint(IndirectionMeasuringPointRegistry.MEASURING_POINT_REPOSITORY, name);
 
-            proxyProbe = new TriggeredProxyProbe<Double, Duration>(baseMetric);
-            probeList = new TriggeredCombiningProbe<Double, Duration>(metricSet,
-                    List.of(registry.timeProbe, proxyProbe), proxyProbe);
+            proxyProbe = new TriggeredProxyProbe<V, Q>(baseMetric);
+            probeList = new TriggeredCombiningProbe<V, Q>(metricSet, List.of(registry.timeProbe, proxyProbe),
+                    proxyProbe);
 
             ICalculatorFactory calculatorFactory = model.getProbeFrameworkContext().getCalculatorFactory();
             calculatorFactory.buildExecutionResultCalculator(measuringPoint, probeList);
         }
 
+        public void doMeasure(Measure<V, Q> measure) {
+            proxyProbe.doMeasure(measure);
+        }
+    }
+
+    public class TriggerableTimeSpanCalculator extends TriggerableCalculator<Double, Duration> {
+        public TriggerableTimeSpanCalculator(String name, BaseMetricDescription baseMetric,
+                MetricSetDescription metricSet) {
+            super(name, baseMetric, metricSet);
+        }
+
         public void doMeasure(double timeSpan) {
-            proxyProbe.doMeasure(Measure.valueOf(timeSpan, SI.SECOND));
+            super.doMeasure(Measure.valueOf(timeSpan, SI.SECOND));
         }
 
         public void doMeasureUntilNow(double time) {

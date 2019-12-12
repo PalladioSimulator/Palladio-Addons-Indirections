@@ -18,6 +18,9 @@ public class IndirectionsMetricDescriptionConstants {
     public final static BaseMetricDescription DATA_AGE_METRIC;
     public final static MetricSetDescription DATA_AGE_METRIC_TUPLE;
 
+    public final static BaseMetricDescription SIZE_OF_GROUPED_DATE_METRIC;
+    public final static MetricSetDescription SIZE_OF_GROUPED_DATE_METRIC_TUPLE;
+
     public final static BaseMetricDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC;
     public final static MetricSetDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC_TUPLE;
 
@@ -34,6 +37,9 @@ public class IndirectionsMetricDescriptionConstants {
 
         DATA_AGE_METRIC = (BaseMetricDescription) resource.getEObject("_3OsfYQyNEeqfSKC3_n36pA");
         DATA_AGE_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_EM6pUQyOEeqfSKC3_n36pA");
+
+        SIZE_OF_GROUPED_DATE_METRIC = (BaseMetricDescription) resource.getEObject("_NMOiMhzrEeqj8qwut4kBiw");
+        SIZE_OF_GROUPED_DATE_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_qVG84RzrEeqj8qwut4kBiw");
 
         DATA_CHANNEL_QUEUE_LENGTH_METRIC = (BaseMetricDescription) resource.getEObject("_ijKZchCIEeqqi6TqVNRPhw");
         DATA_CHANNEL_QUEUE_LENGTH_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_fapT4RCJEeqqi6TqVNRPhw");

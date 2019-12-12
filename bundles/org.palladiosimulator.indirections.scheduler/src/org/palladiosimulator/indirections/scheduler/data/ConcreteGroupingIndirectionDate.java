@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
+import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
+
+import de.uka.ipd.sdq.simucomframework.Context;
+import de.uka.ipd.sdq.simucomframework.variables.stoexvisitor.VariableMode;
 
 public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implements GroupingIndirectionDate<T> {
     private final List<T> dataInGroup;
@@ -55,6 +59,7 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
 
     @Override
     public Object evaluate(PCMRandomVariable expression) {
-        throw new UnsupportedOperationException();
+        return Context.evaluateStatic(expression.getSpecification(), SimulatedStackHelper.createFromMap(this.getData()),
+                VariableMode.EXCEPTION_ON_NOT_FOUND);
     }
 }
