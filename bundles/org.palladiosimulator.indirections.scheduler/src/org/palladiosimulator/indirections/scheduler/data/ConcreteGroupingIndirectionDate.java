@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 
 public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implements GroupingIndirectionDate<T> {
     private final List<T> dataInGroup;
@@ -52,4 +53,8 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
                 + extraDataString + ">";
     }
 
+    @Override
+    public Object evaluate(PCMRandomVariable expression) {
+        throw new UnsupportedOperationException();
+    }
 }

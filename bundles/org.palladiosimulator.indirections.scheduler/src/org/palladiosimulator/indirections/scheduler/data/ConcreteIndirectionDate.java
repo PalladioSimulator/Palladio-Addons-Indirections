@@ -7,6 +7,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 
 public class ConcreteIndirectionDate implements IndirectionDate {
     private final Map<String, Object> data;
@@ -35,4 +36,8 @@ public class ConcreteIndirectionDate implements IndirectionDate {
         return "<" + this.getClass().getSimpleName() + " (" + uuid + "): " + dataToString + ">";
     }
 
+    @Override
+    public Object evaluate(PCMRandomVariable expression) {
+        throw new UnsupportedOperationException();
+    }
 }

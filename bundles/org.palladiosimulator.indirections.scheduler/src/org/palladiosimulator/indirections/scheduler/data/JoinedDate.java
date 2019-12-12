@@ -5,12 +5,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator.Channel;
+import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator.KeyedChannel;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 
 public class JoinedDate<T extends IndirectionDate> implements GroupingIndirectionDate<T> {
-    public Map<Channel<DataWithSource<T>>, T> data;
+    public Map<KeyedChannel<DataWithSource<T>, Object>, T> data;
 
-    public JoinedDate(Map<Channel<DataWithSource<T>>, T> dataMap) {
+    public JoinedDate(Map<KeyedChannel<DataWithSource<T>, Object>, T> dataMap) {
         this.data = dataMap;
     }
 
@@ -30,4 +31,8 @@ public class JoinedDate<T extends IndirectionDate> implements GroupingIndirectio
         return data.values().stream().collect(Collectors.toList());
     }
 
+    @Override
+    public Object evaluate(PCMRandomVariable expression) {
+        throw new UnsupportedOperationException();
+    }
 }
