@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated indirections -->
+      <factory
+            uri="http://palladiosimulator.org/Indirections/Actions/1.0"
+            class="org.palladiosimulator.indirections.actions.provider.ActionsItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated indirections -->
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2"
+            class="org.palladiosimulator.indirections.actions.provider.ActionsItemProviderAdapterFactory$SeffChildCreationExtender"/>
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/SEFF/SEFF_Reliability/5.2"
+            class="org.palladiosimulator.indirections.actions.provider.ActionsItemProviderAdapterFactory$SeffReliabilityChildCreationExtender"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated indirections -->
+      <factory
+            uri="http://palladiosimulator.org/Indirections/Partitioning/1.0"
+            class="org.palladiosimulator.indirections.partitioning.provider.PartitioningItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated indirections -->
+      <factory
+            uri="http://palladiosimulator.org/Indirections/System/1.0"
+            class="org.palladiosimulator.indirections.system.provider.SystemItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated indirections -->
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2"
+            class="org.palladiosimulator.indirections.system.provider.SystemItemProviderAdapterFactory$CompositionChildCreationExtender"/>
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/System/5.2"
+            class="org.palladiosimulator.indirections.system.provider.SystemItemProviderAdapterFactory$SystemChildCreationExtender"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated indirections -->
+      <factory
+            uri="http://palladiosimulator.org/Indirections/Composition/1.0"
+            class="org.palladiosimulator.indirections.composition.provider.CompositionItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated indirections -->
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2"
+            class="org.palladiosimulator.indirections.composition.provider.CompositionItemProviderAdapterFactory$CompositionChildCreationExtender"/>
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/System/5.2"
+            class="org.palladiosimulator.indirections.composition.provider.CompositionItemProviderAdapterFactory$SystemChildCreationExtender"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated indirections -->
+      <factory
+            uri="http://palladiosimulator.org/Indirections/Repository/1.0"
+            class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.childCreationExtenders">
+      <!-- @generated indirections -->
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.2"
+            class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory$EntityChildCreationExtender"/>
+      <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/System/5.2"
+            class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory$SystemChildCreationExtender"/>
+   </extension>
+
+</plugin>
