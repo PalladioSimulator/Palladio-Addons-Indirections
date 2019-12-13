@@ -8,6 +8,10 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="calculateMedians.stop.ID" entityName="calculateMedians.stop" predecessor_AbstractAction="_LivQAPdIEemeMr-6x8RfMQ"/>
       <steps_Behaviour xsi:type="seff:InternalAction" id="calculateMedians.RD.ID" entityName="calculateMedians.RD" predecessor_AbstractAction="calculateMedians.start.ID" successor_AbstractAction="_LivQAPdIEemeMr-6x8RfMQ">
         <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="55000"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+        <resourceDemand_Action>
           <specification_ParametericResourceDemand specification="100 + 100 * window.NUMBER_OF_ELEMENTS"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>

@@ -22,11 +22,11 @@
     <semanticResources>102_baseline/102_baseline.resourceenvironment</semanticResources>
     <semanticResources>102_baseline/102_baseline.system</semanticResources>
     <semanticResources>102_baseline/102_baseline.usagemodel</semanticResources>
-    <semanticResources>102_baseline/102_baseline2.usagemodel</semanticResources>
-    <semanticResources>102_baseline/102_baseline3.usagemodel</semanticResources>
     <semanticResources>102_baseline/102_baseline.measuringpoint</semanticResources>
     <semanticResources>102_baseline/102_baseline.monitorrepository</semanticResources>
     <semanticResources>pathmap://METRIC_SPEC_MODELS/models/commonMetrics.metricspec</semanticResources>
+    <semanticResources>101_events/101_events_no_random.usagemodel</semanticResources>
+    <semanticResources>102_baseline/102_baseline_no_random.usagemodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_qHZV8HxWEemZXNdNTD6P-Q">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_qLUMoHxWEemZXNdNTD6P-Q" name="Repository Diagram" repPath="#_qLLpwHxWEemZXNdNTD6P-Q">
