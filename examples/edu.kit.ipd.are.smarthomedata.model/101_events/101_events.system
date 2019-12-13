@@ -22,7 +22,7 @@
       <specification specification="plugId.VALUE"/>
       <specification specification="householdId.VALUE"/>
     </partitioning>
-    <timeGrouping xsi:type="org.palladiosimulator.indirections.partitioning:Windowing" size="30.0" shift="30.0"/>
+    <timeGrouping xsi:type="org.palladiosimulator.indirections.partitioning:Windowing" size="50.0" shift="50.0"/>
   </eventChannel__ComposedStructure>
   <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.indirections.system:DataChannel" id="MedianToAverageAllDataChannel.ID" entityName="MedianToAverageAllDataChannel" dataChannelSourceConnector="Median.provides-to.MedianToAverageAllDataChannel.ID" dataChannelSinkConnector="Average.consumes-from.MedianToAverageDataChannel.ID" putPolicy="DiscardLastIn">
     <sourceEventGroup href="101_events.repository#_UbjotfZ1Eem7QslU7p6JMQ"/>
@@ -39,8 +39,12 @@
   </eventChannel__ComposedStructure>
   <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.indirections.system:DataChannel" id="JoiningToOutlierChannel.ID" entityName="JoiningToOutlierChannel" dataChannelSourceConnector="Group.provides-to.JoiningToOutlierChannel.ID Average.provides-to.JoiningToOutlierChannel.ID" dataChannelSinkConnector="Outlier.consumes-from.JoiningToOutlierChannel.ID" putPolicy="DiscardLastIn">
     <sourceEventGroup href="101_events.repository#_u2rqZvZ6EemfGcBfgycP9g"/>
-    <joins source="Average.provides-to.JoiningToOutlierChannel.ID" canContributeMultipleTimes="true"/>
-    <joins source="Group.provides-to.JoiningToOutlierChannel.ID"/>
+    <joins source="Average.provides-to.JoiningToOutlierChannel.ID" canContributeMultipleTimes="true">
+      <key specification="WINDOW.VALUE"/>
+    </joins>
+    <joins source="Group.provides-to.JoiningToOutlierChannel.ID">
+      <key specification="WINDOW.VALUE"/>
+    </joins>
   </eventChannel__ComposedStructure>
   <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.IAcceptPlugReading.to.Ingress.ID" entityName="System.delegates.IAcceptPlugReading.to.Ingress" outerProvidedRole_ProvidedDelegationConnector="System.provides.IAcceptPlugReading.ID" assemblyContext_ProvidedDelegationConnector="Ingress.AssemblyContext.ID">
     <innerProvidedRole_ProvidedDelegationConnector href="101_events.repository#Ingress.provides.IAcceptPlugReading.ID"/>

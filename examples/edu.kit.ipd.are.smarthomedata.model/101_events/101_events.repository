@@ -33,10 +33,13 @@
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Median.provides.MedianGroup2.ID" entityName="Median.provides.MedianGroup2" eventGroup="_FND4VfZAEem6zKzgHWGcEw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_aoffJ_ZAEem6zKzgHWGcEw" describedService__SEFF="calculateMedians.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="calculateMedians.start.ID" entityName="calculateMedians.start" successor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateMedians.consumePlugReadingWindow.ID" entityName="calculateMedians.consumePlugReadingWindow" predecessor_AbstractAction="calculateMedians.start.ID" successor_AbstractAction="calculateMedians.putDataOnStack.ID" eventType="_r2ApIPZCEem6zKzgHWGcEw" dataSinkRole="Median.consumes.PlugReadingWindowGroup.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateMedians.consumePlugReadingWindow.ID" entityName="calculateMedians.consumePlugReadingWindow" predecessor_AbstractAction="calculateMedians.start.ID" successor_AbstractAction="calculateMedians.analyseStack.ID" eventType="_r2ApIPZCEem6zKzgHWGcEw" dataSinkRole="Median.consumes.PlugReadingWindowGroup.ID">
         <variableReference referenceName="median"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateMedians.putDataOnStack.ID" entityName="calculateMedians.putDataOnStack" predecessor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID" successor_AbstractAction="calculateMedians.RD.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateMedians.analyseStack.ID" entityName="calculateMedians.analyseStack" predecessor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID" successor_AbstractAction="calculateMedians.putDataOnStack.ID">
+        <variableReference referenceName="median"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateMedians.putDataOnStack.ID" entityName="calculateMedians.putDataOnStack" predecessor_AbstractAction="calculateMedians.analyseStack.ID" successor_AbstractAction="calculateMedians.RD.ID">
         <variableUsages>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_0"/>
         </variableUsages>
