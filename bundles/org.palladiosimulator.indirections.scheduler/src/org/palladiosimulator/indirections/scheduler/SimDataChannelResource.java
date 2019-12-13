@@ -99,6 +99,12 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
         if (partitioning != null) {
             partitioningOperator = new SpecificationPartitioningOperator<>(partitioning.getSpecification());
             partitioningOperator.addConsumer(this::emit);
+            partitioningOperator.addObserver(new PartitioningOperator.Observer() {
+                @Override
+                public void notifyNumberOfPartitions(int size) {
+                    partitionNumberCalculator.doMeasure(Measure.valueOf(Long.valueOf(size), Unit.ONE));
+                }
+            });
         }
 
         timeGrouping = dataChannel.getTimeGrouping();
@@ -156,10 +162,16 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
     }
 
     private TriggerableCalculator<Long, Dimensionless> windowSizeCalculator;
+    private TriggerableCalculator<Long, Dimensionless> partitionNumberCalculator;
 
     private void setupCalculators() {
         if (windowingOperator != null) {
             this.windowSizeCalculator = new TriggerableCalculator<>("Window size for " + name,
+                    IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC,
+                    IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC_TUPLE);
+        }
+        if (partitioningOperator != null) {
+            this.partitionNumberCalculator = new TriggerableCalculator<>("Partition numbers for " + name,
                     IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC,
                     IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC_TUPLE);
         }

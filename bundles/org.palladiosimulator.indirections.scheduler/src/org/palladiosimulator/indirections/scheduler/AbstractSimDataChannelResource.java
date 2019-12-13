@@ -21,6 +21,7 @@ import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.monitoring.simulizar.MeasuringUtil;
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredCombiningProbe;
@@ -97,12 +98,20 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     private ContextAwareTimeSpanCalculator<ProcessWaitingToConsume> waitingToGetTimeCalculator;
     private ContextAwareTimeSpanCalculator<ProcessWaitingToEmit> waitingToPutTimeCalculator;
+    private TriggerableTimeSpanCalculator afterAcceptingAgeCalculator;
+    private TriggerableTimeSpanCalculator beforeEmittingAgeCalculator;
 
     private void setupCalculators() {
         this.waitingToGetTimeCalculator = new ContextAwareTimeSpanCalculator<>("Waiting time to get from " + name,
                 MetricDescriptionConstants.WAITING_TIME_METRIC, MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE);
         this.waitingToPutTimeCalculator = new ContextAwareTimeSpanCalculator<>("Waiting time to put to " + name,
                 MetricDescriptionConstants.WAITING_TIME_METRIC, MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE);
+        this.afterAcceptingAgeCalculator = new TriggerableTimeSpanCalculator(
+                "Data age after accepting date (" + name + ")", IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE);
+        this.beforeEmittingAgeCalculator = new TriggerableTimeSpanCalculator("Data age before emitting (" + name + ")",
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE);
     }
 
     public class TriggerableCalculator<V, Q extends Quantity> {
@@ -318,7 +327,12 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     private void allowToGetAndActivate(ProcessWaitingToConsume process) {
         this.waitingToGetTimeCalculator.endMeasurement(process);
 
-        this.provideDataFor(process.sinkConnector).forEach(process.callback::accept);
+        Iterable<IndirectionDate> dataToEmit = this.provideDataFor(process.sinkConnector);
+        for (IndirectionDate dateToEmit : dataToEmit) {
+            IndirectionSimulationUtil.getDataAgeRecursive(dateToEmit)
+                    .forEach(beforeEmittingAgeCalculator::doMeasureUntilNow);
+            process.callback.accept(dateToEmit);
+        }
         activateIfWaiting(process);
     }
 
@@ -326,6 +340,10 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.waitingToPutTimeCalculator.endMeasurement(process);
 
         acceptDataFrom(process.sourceConnector, process.date);
+
+        IndirectionSimulationUtil.getDataAgeRecursive(process.date)
+                .forEach(afterAcceptingAgeCalculator::doMeasureUntilNow);
+
         activateIfWaiting(process);
     }
 
