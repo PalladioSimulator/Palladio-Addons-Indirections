@@ -13,7 +13,7 @@
     <stringAttribute key="confidenceModelElementURI" value=""/>
     <booleanAttribute key="confidenceUseAutomaticBatches" value="true"/>
     <intAttribute key="datasourceID" value="-1"/>
-    <intAttribute key="de.uka.ipd.sdq.workflowengine.debuglevel" value="5"/>
+    <intAttribute key="de.uka.ipd.sdq.workflowengine.debuglevel" value="3"/>
     <stringAttribute key="eventMiddleware" value="pathmap://PCM_MODELS/default_event_middleware.repository"/>
     <stringAttribute key="experimentRun" value="MyRun"/>
     <stringAttribute key="featureConfig" value="pathmap://PCM_MODELS/ConnectorConfig.featureconfig"/>
@@ -41,8 +41,8 @@
     <stringAttribute key="stepwidth" value=""/>
     <stringAttribute key="storageProject" value="org.palladiosimulator.temporary"/>
     <booleanAttribute key="storeTransformedModels" value="true"/>
-    <stringAttribute key="usageEvolutionFile" value=""/>
-    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/101_events/101_events.usagemodel"/>
+    <stringAttribute key="usageEvolutionFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/101_events/101_events_bursts.usageevolution"/>
+    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/101_events/101_events_4_plugs_2_households_1234.usagemodel"/>
     <booleanAttribute key="useConfidenceStopCondition" value="false"/>
     <booleanAttribute key="useFixedSeed" value="false"/>
     <stringAttribute key="variable" value=""/>
