@@ -200,7 +200,7 @@ public final class IndirectionSimulationUtil {
 
     public static void validateIndirectionDateStructure(IndirectionDate date, EventGroup eventGroup) {
         // TODO implement validation
-        LOGGER.warn("Not validating indirection date structure");
+        LOGGER.debug("Not validating indirection date structure");
     }
 
     public static List<Double> getDataAgeRecursive(IndirectionDate data) {

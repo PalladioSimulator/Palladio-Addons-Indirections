@@ -1,7 +1,9 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
@@ -17,7 +19,19 @@ public class JoinedDate<T extends IndirectionDate> implements GroupingIndirectio
 
     @Override
     public Map<String, Object> getData() {
-        throw new UnsupportedOperationException();
+        Map<String, Object> result = new HashMap<String, Object>();
+
+        for (Entry<KeyedChannel<DataWithSource<T>, Object>, T> t : data.entrySet()) {
+            for (String key : t.getValue().getData().keySet()) {
+                String newKey = t.getKey().toString() + "." + key;
+                if (result.containsKey(newKey)) {
+                    throw new IllegalStateException();
+                }
+                result.put(newKey, t.getValue().getData().get(key));
+            }
+        }
+
+        return result;
     }
 
     @Override

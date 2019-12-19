@@ -84,9 +84,13 @@ public class IndirectionMeasuringPointRegistry {
     }
 
     private TriggeredProxyProbe<Double, Duration> createProbe(AllocatedAction allocatedAction) {
+        String keyString = "";
+        if (allocatedAction.action instanceof AnalyseStackAction) {
+            keyString = " (key = " + ((AnalyseStackAction) allocatedAction.action).getKey() + ")";
+        }
         StringMeasuringPoint measuringPoint = MeasuringUtil.createStringMeasuringPoint(MEASURING_POINT_REPOSITORY,
                 "Data age for " + allocatedAction.action.getEntityName() + " @ "
-                        + allocatedAction.assemblyContext.getEntityName());
+                        + allocatedAction.assemblyContext.getEntityName() + keyString);
 
         TriggeredProxyProbe<Double, Duration> dataAgeProxyProbe = new TriggeredProxyProbe<Double, Duration>(
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC);

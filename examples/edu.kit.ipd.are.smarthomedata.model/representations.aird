@@ -4,19 +4,11 @@
     <semanticResources>pathmap://PCM_MODELS/Palladio.resourcetype</semanticResources>
     <semanticResources>pathmap://PCM_MODELS/PrimitiveTypes.repository</semanticResources>
     <semanticResources>pathmap://PCM_MODELS/FailureTypes.repository</semanticResources>
-    <semanticResources>100_events/smarthomedata.repository</semanticResources>
-    <semanticResources>100_events/smarthomedata.allocation</semanticResources>
-    <semanticResources>100_events/smarthomedata.resourceenvironment</semanticResources>
-    <semanticResources>100_events/smarthomedata.system</semanticResources>
-    <semanticResources>100_events/smarthomedata.usagemodel</semanticResources>
-    <semanticResources>100_events/smarthomedata_only_median.usagemodel</semanticResources>
     <semanticResources>101_events/101_events.allocation</semanticResources>
     <semanticResources>101_events/101_events.repository</semanticResources>
     <semanticResources>101_events/101_events.resourceenvironment</semanticResources>
     <semanticResources>101_events/101_events.system</semanticResources>
     <semanticResources>101_events/101_events.usagemodel</semanticResources>
-    <semanticResources>101_events/101_events2.usagemodel</semanticResources>
-    <semanticResources>101_events/101_events3.usagemodel</semanticResources>
     <semanticResources>102_baseline/102_baseline.allocation</semanticResources>
     <semanticResources>102_baseline/102_baseline.repository</semanticResources>
     <semanticResources>102_baseline/102_baseline.resourceenvironment</semanticResources>
@@ -27,6 +19,18 @@
     <semanticResources>pathmap://METRIC_SPEC_MODELS/models/commonMetrics.metricspec</semanticResources>
     <semanticResources>101_events/101_events_no_random.usagemodel</semanticResources>
     <semanticResources>102_baseline/102_baseline_no_random.usagemodel</semanticResources>
+    <semanticResources>101_events/101_events_no_random_3_plugs.usagemodel</semanticResources>
+    <semanticResources>103_events_no_rds/103_events_no_rds.allocation</semanticResources>
+    <semanticResources>103_events_no_rds/103_events_no_rds.resourceenvironment</semanticResources>
+    <semanticResources>103_events_no_rds/103_events_no_rds.system</semanticResources>
+    <semanticResources>103_events_no_rds/103_events_no_rds.repository</semanticResources>
+    <semanticResources>103_events_no_rds/103_events_no_rds.usagemodel</semanticResources>
+    <semanticResources>103_events_no_rds/103_events_no_rds_no_random.usagemodel</semanticResources>
+    <semanticResources>101_events/101_events_calibrated.usagemodel</semanticResources>
+    <semanticResources>103_events_no_rds/103_events_no_rds_calibrated.usagemodel</semanticResources>
+    <semanticResources>101_events/101_events_4_plugs_2_households_1234.usagemodel</semanticResources>
+    <semanticResources>101_events/101_events_bursts.usageevolution</semanticResources>
+    <semanticResources>101_events/101_events_bursts.dlim</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_qHZV8HxWEemZXNdNTD6P-Q">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_qLUMoHxWEemZXNdNTD6P-Q" name="Repository Diagram" repPath="#_qLLpwHxWEemZXNdNTD6P-Q">

@@ -16,6 +16,7 @@ import javax.measure.Measure;
 import javax.measure.quantity.Dimensionless;
 import javax.measure.unit.Unit;
 
+import org.apache.log4j.Logger;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.datatypes.OutgoingDistribution;
@@ -72,6 +73,8 @@ import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
  * 
  */
 public class SimDataChannelResource extends AbstractSimDataChannelResource {
+    private static final Logger LOGGER = Logger.getLogger(SimDataChannelResource.class);
+
     private Map<DataChannelSinkConnector, Queue<IndirectionDate>> outQueues = new HashMap<>();
     private Deque<DataWithSource<IndirectionDate>> dataBeforeJoiningQueue = new ArrayDeque<>();
     private Deque<IndirectionDate> dataAfterJoiningQueue = new ArrayDeque<>();
@@ -113,7 +116,7 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
                 Windowing windowing = (Windowing) timeGrouping;
                 windowingOperator = new TimeBasedWindowingOperator<>(false, windowing.getSize(), windowing.getShift(),
                         simuComModel);
-                windowingOperator.addConsumer((it) -> System.out.println("Created window: " + it));
+                windowingOperator.addConsumer((it) -> LOGGER.trace("Created window: " + it));
                 windowingOperator.addConsumer((it) -> windowSizeCalculator
                         .doMeasure(Measure.valueOf(Long.valueOf(it.getDataInGroup().size()), Unit.ONE)));
                 windowingOperator.addConsumer(this::postprocessAndEmit);
@@ -162,11 +165,17 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
     }
 
     private TriggerableCalculator<Long, Dimensionless> windowSizeCalculator;
+    private TriggerableCalculator<Long, Dimensionless> holdbackGroupSizeCalculator;
     private TriggerableCalculator<Long, Dimensionless> partitionNumberCalculator;
 
     private void setupCalculators() {
         if (windowingOperator != null) {
             this.windowSizeCalculator = new TriggerableCalculator<>("Window size for " + name,
+                    IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC,
+                    IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC_TUPLE);
+        }
+        if (holdbackOperator != null) {
+            this.holdbackGroupSizeCalculator = new TriggerableCalculator<>("Holdback window size for " + name,
                     IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC,
                     IndirectionsMetricDescriptionConstants.SIZE_OF_GROUPED_DATE_METRIC_TUPLE);
         }
@@ -245,23 +254,25 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
         if (joinOperator != null) {
             // also emits to dataAfterJoiningQueue. should be reworked
             dataBeforeJoiningQueue.forEach(it -> joinOperator.accept(it));
-            System.out.println("Joining, joint all in queue.");
+            LOGGER.trace("Joining, joint all in queue.");
         } else {
             dataBeforeJoiningQueue.forEach(it -> dataAfterJoiningQueue.add(it.date));
-            System.out.println("Not joining, passing data.");
+            LOGGER.trace("Not joining, passing data.");
         }
         dataBeforeJoiningQueue.clear();
 
         if (windowingOperator != null) {
-            System.out.println("Windowing, creating windows.");
+            LOGGER.trace("Windowing, creating windows.");
             dataAfterJoiningQueue.forEach(it -> windowingOperator.accept(it));
             dataAfterJoiningQueue.clear();
         } else if (holdbackOperator != null) {
-            System.out.println("Applying holdback.");
+            LOGGER.trace("Applying holdback.");
             for (IndirectionDate it : dataAfterJoiningQueue) {
                 Optional<HeldBackList<Object, IndirectionDate>> result = holdbackOperator.accept(it);
                 if (result.isPresent()) {
                     HeldBackList<Object, IndirectionDate> heldBackList = result.get();
+                    holdbackGroupSizeCalculator
+                            .doMeasure(Measure.valueOf(Long.valueOf(heldBackList.list.size()), Unit.ONE));
                     ConcreteGroupingIndirectionDate<IndirectionDate> date = new ConcreteGroupingIndirectionDate<>(
                             heldBackList.list, new HashMap<>(
                                     Map.of(collectWithHoldback.getPartitionDataName() + ".VALUE", heldBackList.key)));
@@ -284,8 +295,7 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
     protected void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date) {
         DataWithSource<IndirectionDate> createdDate = new DataWithSource<>(sourceConnector, date);
         dataBeforeJoiningQueue.add(createdDate);
-        System.out
-                .println("Added date to queue: " + createdDate + " from connector " + sourceConnector.getEntityName());
+        LOGGER.trace("Added date to queue: " + createdDate + " from connector " + sourceConnector.getEntityName());
 
         processDataQueue();
     }

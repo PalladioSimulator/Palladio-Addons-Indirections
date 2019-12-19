@@ -33,27 +33,18 @@
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Median.provides.MedianGroup2.ID" entityName="Median.provides.MedianGroup2" eventGroup="_FND4VfZAEem6zKzgHWGcEw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_aoffJ_ZAEem6zKzgHWGcEw" describedService__SEFF="calculateMedians.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="calculateMedians.start.ID" entityName="calculateMedians.start" successor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateMedians.consumePlugReadingWindow.ID" entityName="calculateMedians.consumePlugReadingWindow" predecessor_AbstractAction="calculateMedians.start.ID" successor_AbstractAction="calculateMedians.analyseStack.beforeRD.ID" eventType="_r2ApIPZCEem6zKzgHWGcEw" dataSinkRole="Median.consumes.PlugReadingWindowGroup.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateMedians.consumePlugReadingWindow.ID" entityName="calculateMedians.consumePlugReadingWindow" predecessor_AbstractAction="calculateMedians.start.ID" successor_AbstractAction="calculateMedians.analyseStack.ID" eventType="_r2ApIPZCEem6zKzgHWGcEw" dataSinkRole="Median.consumes.PlugReadingWindowGroup.ID">
         <variableReference referenceName="median"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateMedians.analyseStack.beforeRD.ID" entityName="calculateMedians.analyseStack.beforeRD" predecessor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID" successor_AbstractAction="calculateMedians.putDataOnStack.ID" key="beforeRD">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateMedians.analyseStack.ID" entityName="calculateMedians.analyseStack" predecessor_AbstractAction="calculateMedians.consumePlugReadingWindow.ID" successor_AbstractAction="calculateMedians.putDataOnStack.ID">
         <variableReference referenceName="median"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateMedians.putDataOnStack.ID" entityName="calculateMedians.putDataOnStack" predecessor_AbstractAction="calculateMedians.analyseStack.beforeRD.ID" successor_AbstractAction="calculateMedians.RD.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateMedians.putDataOnStack.ID" entityName="calculateMedians.putDataOnStack" predecessor_AbstractAction="calculateMedians.analyseStack.ID" successor_AbstractAction="calculateMedians.emitMedian.ID">
         <variableUsages>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_0"/>
         </variableUsages>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateMedians.RD.ID" entityName="calculateMedians.RD" predecessor_AbstractAction="calculateMedians.putDataOnStack.ID" successor_AbstractAction="calculateMedians.analyseStack.afterRD.ID">
-        <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="100 + 100 * median.NUMBER_OF_ELEMENTS"/>
-          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
-        </resourceDemand_Action>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateMedians.analyseStack.afterRD.ID" entityName="calculateMedians.analyseStack.afterRD" predecessor_AbstractAction="calculateMedians.RD.ID" successor_AbstractAction="calculateMedians.emitMedian.ID" key="afterRD">
-        <variableReference referenceName="median"/>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateMedians.emitMedian.ID" entityName="calculateMedians.emitMedian" predecessor_AbstractAction="calculateMedians.analyseStack.afterRD.ID" successor_AbstractAction="calculateMedians.emitMedian2.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Median.provides.MedianGroup.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateMedians.emitMedian.ID" entityName="calculateMedians.emitMedian" predecessor_AbstractAction="calculateMedians.putDataOnStack.ID" successor_AbstractAction="calculateMedians.emitMedian2.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Median.provides.MedianGroup.ID">
         <variableReference referenceName="median"/>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateMedians.emitMedian2.ID" entityName="calculateMedians.emitMedian2" predecessor_AbstractAction="calculateMedians.emitMedian.ID" successor_AbstractAction="calculateMedians.stop.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Median.provides.MedianGroup2.ID">
@@ -68,27 +59,15 @@
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Group.provides.MedianPerHousehold.ID" entityName="Group.provides.MedianPerHousehold" eventGroup="_4asmBfZ0Eem7QslU7p6JMQ"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="calculateGroups.SEFF.ID" describedService__SEFF="calculateGroups.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="calculateGroups.start.ID" entityName="calculateGroups.start" successor_AbstractAction="calculateGroups.consumeMedianGroup.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateGroups.consumeMedianGroup.ID" entityName="calculateGroups.consumeMedianGroup" predecessor_AbstractAction="calculateGroups.start.ID" successor_AbstractAction="calculateGroups.analyseStack.beforeRD.ID" eventType="_WICYoPZ1Eem7QslU7p6JMQ" dataSinkRole="Group.consumes.MedianGroup.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateGroups.consumeMedianGroup.ID" entityName="calculateGroups.consumeMedianGroup" predecessor_AbstractAction="calculateGroups.start.ID" successor_AbstractAction="calculateGroups.putDataOnStack.ID" eventType="_WICYoPZ1Eem7QslU7p6JMQ" dataSinkRole="Group.consumes.MedianGroup.ID">
         <variableReference referenceName="mediansPerHousehold"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateGroups.analyseStack.beforeRD.ID" entityName="calculateGroups.analyseStack.beforeRD" predecessor_AbstractAction="calculateGroups.consumeMedianGroup.ID" successor_AbstractAction="calculateGroups.putDataOnStack.ID" key="beforeRD">
-        <variableReference referenceName="mediansPerHousehold"/>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateGroups.putDataOnStack.ID" entityName="calculateGroups.putDataOnStack" predecessor_AbstractAction="calculateGroups.analyseStack.beforeRD.ID" successor_AbstractAction="calculateGroups.RD.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateGroups.putDataOnStack.ID" entityName="calculateGroups.putDataOnStack" predecessor_AbstractAction="calculateGroups.consumeMedianGroup.ID" successor_AbstractAction="calculateGroups.emitMediansPerHousehold.ID">
         <variableUsages>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_1"/>
         </variableUsages>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateGroups.RD.ID" entityName="calculateGroups.RD" predecessor_AbstractAction="calculateGroups.putDataOnStack.ID" successor_AbstractAction="_ISzowSFrEeqcxpr9cnK4CQ">
-        <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="100 + 100 * mediansPerHousehold.NUMBER_OF_ELEMENTS"/>
-          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
-        </resourceDemand_Action>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="_ISzowSFrEeqcxpr9cnK4CQ" entityName="calculateGroups.analyseStack.afterRD" predecessor_AbstractAction="calculateGroups.RD.ID" successor_AbstractAction="calculateGroups.emitMediansPerHousehold.ID" key="afterRD">
-        <variableReference referenceName="mediansPerHousehold"/>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateGroups.emitMediansPerHousehold.ID" entityName="calculateGroups.emitMediansPerHousehold" predecessor_AbstractAction="_ISzowSFrEeqcxpr9cnK4CQ" successor_AbstractAction="calculateGroups.stop.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Group.provides.MedianPerHousehold.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateGroups.emitMediansPerHousehold.ID" entityName="calculateGroups.emitMediansPerHousehold" predecessor_AbstractAction="calculateGroups.putDataOnStack.ID" successor_AbstractAction="calculateGroups.stop.ID" eventType="_HX70cPZAEem6zKzgHWGcEw" dataSourceRole="Group.provides.MedianPerHousehold.ID">
         <variableReference referenceName="mediansPerHousehold"/>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:StopAction" id="calculateGroups.stop.ID" entityName="calculateGroups.stop" predecessor_AbstractAction="calculateGroups.emitMediansPerHousehold.ID"/>
@@ -103,18 +82,12 @@
       <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateAverage.consumeMedianGroup.ID" entityName="calculateAverage.consumeMedianGroup" predecessor_AbstractAction="calculateAverage.start.ID" successor_AbstractAction="calculateAverage.putDataOnStack.ID" eventType="_WICYoPZ1Eem7QslU7p6JMQ" dataSinkRole="Average.consumes.MedianGroup.ID">
         <variableReference referenceName="averageAll"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateAverage.putDataOnStack.ID" entityName="calculateAverage.putDataOnStack" predecessor_AbstractAction="calculateAverage.consumeMedianGroup.ID" successor_AbstractAction="calculateAverage.RD.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateAverage.putDataOnStack.ID" entityName="calculateAverage.putDataOnStack" predecessor_AbstractAction="calculateAverage.consumeMedianGroup.ID" successor_AbstractAction="calculateAverage.emitAverageAll.ID">
         <variableUsages>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_2"/>
         </variableUsages>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateAverage.RD.ID" entityName="calculateAverage.RD" predecessor_AbstractAction="calculateAverage.putDataOnStack.ID" successor_AbstractAction="calculateAverage.emitAverageAll.ID">
-        <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="100 + 100 * averageAll.NUMBER_OF_ELEMENTS"/>
-          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
-        </resourceDemand_Action>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateAverage.emitAverageAll.ID" entityName="calculateAverage.emitAverageAll" predecessor_AbstractAction="calculateAverage.RD.ID" successor_AbstractAction="calculateAverage.stop.ID" eventType="_q33EYPZ6EemfGcBfgycP9g" dataSourceRole="Average.provides.AverageAllPlugs.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="calculateAverage.emitAverageAll.ID" entityName="calculateAverage.emitAverageAll" predecessor_AbstractAction="calculateAverage.putDataOnStack.ID" successor_AbstractAction="calculateAverage.stop.ID" eventType="_q33EYPZ6EemfGcBfgycP9g" dataSourceRole="Average.provides.AverageAllPlugs.ID">
         <variableReference referenceName="averageAll"/>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:StopAction" id="calculateAverage.stop.ID" entityName="calculateAverage.stop" predecessor_AbstractAction="calculateAverage.emitAverageAll.ID"/>
@@ -125,27 +98,13 @@
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Outlier.consumes.GroupAndAverage.ID" entityName="Outlier.consumes.GroupAndAverage" eventGroup="_u2rqZvZ6EemfGcBfgycP9g"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xpTGh_Z7EemfGcBfgycP9g" describedService__SEFF="calculateOutlier.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="calculateOutlier.start.ID" entityName="calculateOutlier.start" successor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateOutlier.consumeGroupAndAverage.ID" entityName="calculateOutlier.consumeGroupAndAverage" predecessor_AbstractAction="calculateOutlier.start.ID" successor_AbstractAction="calculateOutlier.AnalyseStack.beforeRD.ID" eventType="_xLIZQPZ6EemfGcBfgycP9g" dataSinkRole="Outlier.consumes.GroupAndAverage.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="calculateOutlier.consumeGroupAndAverage.ID" entityName="calculateOutlier.consumeGroupAndAverage" predecessor_AbstractAction="calculateOutlier.start.ID" successor_AbstractAction="calculateOutlier.AnalyseStack.ID" eventType="_xLIZQPZ6EemfGcBfgycP9g" dataSinkRole="Outlier.consumes.GroupAndAverage.ID">
         <variableReference referenceName="groupAndAverage"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateOutlier.AnalyseStack.beforeRD.ID" entityName="calculateOutlier.AnalyseStack.beforeRD" predecessor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID" successor_AbstractAction="calculateOutlier.putDataOnStack.ID" key="beforeRD">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateOutlier.AnalyseStack.ID" entityName="calculateOutlier.AnalyseStack" predecessor_AbstractAction="calculateOutlier.consumeGroupAndAverage.ID" successor_AbstractAction="calculateOutlier.stop.ID">
         <variableReference referenceName="groupAndAverage"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:PutDataOnStackAction" id="calculateOutlier.putDataOnStack.ID" entityName="calculateOutlier.putDataOnStack" predecessor_AbstractAction="calculateOutlier.AnalyseStack.beforeRD.ID" successor_AbstractAction="calculateOutlier.InternalAction.ID">
-        <variableUsages>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="NUMBER_OF_ELEMENTS_3"/>
-        </variableUsages>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="calculateOutlier.InternalAction.ID" entityName="calculateOutlier.InternalAction" predecessor_AbstractAction="calculateOutlier.putDataOnStack.ID" successor_AbstractAction="calculateOutlier.AnalyseStack.afterRD.ID">
-        <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="100 + 100 * groupAndAverage.NUMBER_OF_ELEMENTS"/>
-          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
-        </resourceDemand_Action>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="calculateOutlier.AnalyseStack.afterRD.ID" entityName="calculateOutlier.AnalyseStack.afterRD" predecessor_AbstractAction="calculateOutlier.InternalAction.ID" successor_AbstractAction="calculateOutlier.stop.ID" key="afterRD">
-        <variableReference referenceName="groupAndAverage"/>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="calculateOutlier.stop.ID" entityName="calculateOutlier.stop" predecessor_AbstractAction="calculateOutlier.AnalyseStack.afterRD.ID"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="calculateOutlier.stop.ID" entityName="calculateOutlier.stop" predecessor_AbstractAction="calculateOutlier.AnalyseStack.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptPlugReading.ID" entityName="IAcceptPlugReading">
