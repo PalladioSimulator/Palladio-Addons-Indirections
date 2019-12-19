@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:org.palladiosimulator.indirections.composition="http://palladiosimulator.org/Indirections/Composition/1.0" xmlns:org.palladiosimulator.indirections.partitioning="http://palladiosimulator.org/Indirections/Partitioning/1.0" xmlns:org.palladiosimulator.indirections.system="http://palladiosimulator.org/Indirections/System/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_ICyikPYwEemBLpoEr4OAkg">
+  <assemblyContexts__ComposedStructure id="Median.AssemblyContext.ID" entityName="Median.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="103_events_no_rds.repository#MedianComponent.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="Ingress.AssemblyContext.ID" entityName="Ingress.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="103_events_no_rds.repository#IngressComponent.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="Group.AssemblyContext.ID" entityName="Group.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="103_events_no_rds.repository#Group.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="Average.AssemblyContext.ID" entityName="Average.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="103_events_no_rds.repository#Average.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="Outlier.AssemblyContext.ID" entityName="Outlier.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="103_events_no_rds.repository#Outlier.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.indirections.system:DataChannel" id="PlugReadingDataChannel.ID" entityName="PlugReadingDataChannel" dataChannelSourceConnector="Ingress.provides-to.PlugReadingDataChannel.ID" dataChannelSinkConnector="Median.consumes-from.PlugReadingDataChannel.ID" putPolicy="DiscardLastIn">
+    <sourceEventGroup href="103_events_no_rds.repository#_p2OitfZCEem6zKzgHWGcEw"/>
+    <sinkEventGroup href="103_events_no_rds.repository#_PmhUlfZCEem6zKzgHWGcEw"/>
+    <partitioning entityName="PlugReadingDataChannel.Partitioning">
+      <specification specification="plugId.VALUE"/>
+      <specification specification="householdId.VALUE"/>
+    </partitioning>
+    <timeGrouping xsi:type="org.palladiosimulator.indirections.partitioning:Windowing" size="25.0" shift="50.0"/>
+  </eventChannel__ComposedStructure>
+  <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.indirections.system:DataChannel" id="MedianToAverageAllDataChannel.ID" entityName="MedianToAverageAllDataChannel" dataChannelSourceConnector="Median.provides-to.MedianToAverageAllDataChannel.ID" dataChannelSinkConnector="Average.consumes-from.MedianToAverageDataChannel.ID" putPolicy="DiscardLastIn">
+    <sourceEventGroup href="103_events_no_rds.repository#_UbjotfZ1Eem7QslU7p6JMQ"/>
+    <sinkEventGroup href="103_events_no_rds.repository#_FND4VfZAEem6zKzgHWGcEw"/>
+    <timeGrouping xsi:type="org.palladiosimulator.indirections.partitioning:CollectWithHoldback" key="WINDOW.VALUE" partitionDataName="WINDOW"/>
+  </eventChannel__ComposedStructure>
+  <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.indirections.system:DataChannel" id="MedianToGroupDataChannel.ID" entityName="MedianToGroupDataChannel" dataChannelSourceConnector="Median.provides-to.MedianToGroupDataChannel.ID" dataChannelSinkConnector="Group.consumes-from.MedianToGroupDataChannel.ID" putPolicy="DiscardLastIn">
+    <sourceEventGroup href="103_events_no_rds.repository#_UbjotfZ1Eem7QslU7p6JMQ"/>
+    <sinkEventGroup href="103_events_no_rds.repository#_FND4VfZAEem6zKzgHWGcEw"/>
+    <partitioning entityName="MedianToGroupDataChannel.Partitioning">
+      <specification specification="PARTITION.householdId.VALUE"/>
+    </partitioning>
+    <timeGrouping xsi:type="org.palladiosimulator.indirections.partitioning:CollectWithHoldback" key="WINDOW.VALUE" partitionDataName="WINDOW"/>
+  </eventChannel__ComposedStructure>
+  <eventChannel__ComposedStructure xsi:type="org.palladiosimulator.indirections.system:DataChannel" id="JoiningToOutlierChannel.ID" entityName="JoiningToOutlierChannel" dataChannelSourceConnector="Group.provides-to.JoiningToOutlierChannel.ID Average.provides-to.JoiningToOutlierChannel.ID" dataChannelSinkConnector="Outlier.consumes-from.JoiningToOutlierChannel.ID" putPolicy="DiscardLastIn">
+    <sourceEventGroup href="103_events_no_rds.repository#_u2rqZvZ6EemfGcBfgycP9g"/>
+    <joins source="Average.provides-to.JoiningToOutlierChannel.ID" canContributeMultipleTimes="true">
+      <key specification="WINDOW.VALUE"/>
+    </joins>
+    <joins source="Group.provides-to.JoiningToOutlierChannel.ID">
+      <key specification="WINDOW.VALUE"/>
+    </joins>
+  </eventChannel__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.IAcceptPlugReading.to.Ingress.ID" entityName="System.delegates.IAcceptPlugReading.to.Ingress" outerProvidedRole_ProvidedDelegationConnector="System.provides.IAcceptPlugReading.ID" assemblyContext_ProvidedDelegationConnector="Ingress.AssemblyContext.ID">
+    <innerProvidedRole_ProvidedDelegationConnector href="103_events_no_rds.repository#Ingress.provides.IAcceptPlugReading.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.ICalculateMedians.to.Median.ID" entityName="System.delegates.ICalculateMedians.to.Median" outerProvidedRole_ProvidedDelegationConnector="System.provides.ICalculateMedians.ID" assemblyContext_ProvidedDelegationConnector="Median.AssemblyContext.ID">
+    <innerProvidedRole_ProvidedDelegationConnector href="103_events_no_rds.repository#Median.provides.ICalculateMedians.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.ICalculateGroups.to.Group.ID" entityName="System.delegates.ICalculateGroups.to.Group" outerProvidedRole_ProvidedDelegationConnector="_kLCaj_aPEemQhZdJAPoPxA" assemblyContext_ProvidedDelegationConnector="Group.AssemblyContext.ID">
+    <innerProvidedRole_ProvidedDelegationConnector href="103_events_no_rds.repository#Group.provides.ICalculateGroups.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.ICalculateAverage.to.Average.ID" entityName="System.delegates.ICalculateAverage.to.Average" outerProvidedRole_ProvidedDelegationConnector="_lYGqkfaPEemQhZdJAPoPxA" assemblyContext_ProvidedDelegationConnector="Average.AssemblyContext.ID">
+    <innerProvidedRole_ProvidedDelegationConnector href="103_events_no_rds.repository#Average.provides.ICalculateAverage.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.ICalculateOutlier.to.Outlier.ID" entityName="System.delegates.ICalculateOutlier.to.Outlier" outerProvidedRole_ProvidedDelegationConnector="_tTM47_aPEemQhZdJAPoPxA" assemblyContext_ProvidedDelegationConnector="Outlier.AssemblyContext.ID">
+    <innerProvidedRole_ProvidedDelegationConnector href="103_events_no_rds.repository#Outlier.provides.ICalculateOutlier.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSourceConnector" id="Ingress.provides-to.PlugReadingDataChannel.ID" entityName="Ingress.provides-to.PlugReadingDataChannel" assemblyContext="Ingress.AssemblyContext.ID" dataChannel="PlugReadingDataChannel.ID">
+    <dataSourceRole href="103_events_no_rds.repository#Ingress.provides.PlugReading.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSourceConnector" id="Median.provides-to.MedianToGroupDataChannel.ID" entityName="Median.provides-to.MedianToGroupDataChannel" assemblyContext="Median.AssemblyContext.ID" dataChannel="MedianToGroupDataChannel.ID">
+    <dataSourceRole href="103_events_no_rds.repository#Median.provides.MedianGroup2.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSourceConnector" id="Median.provides-to.MedianToAverageAllDataChannel.ID" entityName="Median.provides-to.MedianToAverageAllDataChannel" assemblyContext="Median.AssemblyContext.ID" dataChannel="MedianToAverageAllDataChannel.ID">
+    <dataSourceRole href="103_events_no_rds.repository#Median.provides.MedianGroup.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSourceConnector" id="Group.provides-to.JoiningToOutlierChannel.ID" entityName="Group.provides-to.JoiningToOutlierChannel" assemblyContext="Group.AssemblyContext.ID" dataChannel="JoiningToOutlierChannel.ID">
+    <dataSourceRole href="103_events_no_rds.repository#Group.provides.MedianPerHousehold.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSourceConnector" id="Average.provides-to.JoiningToOutlierChannel.ID" entityName="Average.provides-to.JoiningToOutlierChannel" assemblyContext="Average.AssemblyContext.ID" dataChannel="JoiningToOutlierChannel.ID">
+    <dataSourceRole href="103_events_no_rds.repository#Average.provides.AverageAllPlugs.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSinkConnector" id="Median.consumes-from.PlugReadingDataChannel.ID" entityName="Median.consumes-from.PlugReadingDataChannel" assemblyContext="Median.AssemblyContext.ID" dataChannel="PlugReadingDataChannel.ID">
+    <dataSinkRole href="103_events_no_rds.repository#Median.consumes.PlugReadingWindowGroup.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSinkConnector" id="Group.consumes-from.MedianToGroupDataChannel.ID" entityName="Group.consumes-from.MedianToGroupDataChannel" assemblyContext="Group.AssemblyContext.ID" dataChannel="MedianToGroupDataChannel.ID">
+    <dataSinkRole href="103_events_no_rds.repository#Group.consumes.MedianGroup.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSinkConnector" id="Average.consumes-from.MedianToAverageDataChannel.ID" entityName="Average.consumes-from.MedianToAverageDataChannel" assemblyContext="Average.AssemblyContext.ID" dataChannel="MedianToAverageAllDataChannel.ID">
+    <dataSinkRole href="103_events_no_rds.repository#Average.consumes.MedianGroup.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelSinkConnector" id="Outlier.consumes-from.JoiningToOutlierChannel.ID" entityName="Outlier.consumes-from.JoiningToOutlierChannel" assemblyContext="Outlier.AssemblyContext.ID" dataChannel="JoiningToOutlierChannel.ID">
+    <dataSinkRole href="103_events_no_rds.repository#Outlier.consumes.GroupAndAverage.ID"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="System.provides.IAcceptPlugReading.ID" entityName="System.provides.IAcceptPlugReading">
+    <providedInterface__OperationProvidedRole href="103_events_no_rds.repository#IAcceptPlugReading.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="System.provides.ICalculateMedians.ID" entityName="System.provides.ICalculateMedians">
+    <providedInterface__OperationProvidedRole href="103_events_no_rds.repository#ICalculateMedians.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_kLCaj_aPEemQhZdJAPoPxA" entityName="System.provides.ICalculateGroups">
+    <providedInterface__OperationProvidedRole href="103_events_no_rds.repository#ICalculateGroups.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_lYGqkfaPEemQhZdJAPoPxA" entityName="System.provides.ICalculateAverage">
+    <providedInterface__OperationProvidedRole href="103_events_no_rds.repository#ICalculateAverage.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_tTM47_aPEemQhZdJAPoPxA" entityName="System.provides.ICalculateOutlier">
+    <providedInterface__OperationProvidedRole href="103_events_no_rds.repository#ICalculateOutlier.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

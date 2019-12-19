@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="de.upb.pcm.interpreter.SimuLizarLaunching">
-    <stringAttribute key="EDP2RepositoryID" value="_wN0B4CCqEeqkk_NI0wplcQ"/>
+    <stringAttribute key="EDP2RepositoryID" value="_Qed8ABUJEeqDTdYWlA72iw"/>
     <stringAttribute key="accuracyQualityAnnotationFile" value=""/>
     <stringAttribute key="actionModelFile" value="platform:/plugin/org.palladiosimulator.simulizar.action.repository/model/repository.actions"/>
-    <stringAttribute key="allocationFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/101_events/101_events.allocation"/>
+    <stringAttribute key="allocationFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/103_events_no_rds/103_events_no_rds.allocation"/>
     <booleanAttribute key="clear" value="true"/>
     <stringAttribute key="confidenceBatchSize" value="200"/>
     <stringAttribute key="confidenceHalfWidth" value="10"/>
@@ -13,7 +13,7 @@
     <stringAttribute key="confidenceModelElementURI" value=""/>
     <booleanAttribute key="confidenceUseAutomaticBatches" value="true"/>
     <intAttribute key="datasourceID" value="-1"/>
-    <intAttribute key="de.uka.ipd.sdq.workflowengine.debuglevel" value="3"/>
+    <intAttribute key="de.uka.ipd.sdq.workflowengine.debuglevel" value="5"/>
     <stringAttribute key="eventMiddleware" value="pathmap://PCM_MODELS/default_event_middleware.repository"/>
     <stringAttribute key="experimentRun" value="MyRun"/>
     <stringAttribute key="featureConfig" value="pathmap://PCM_MODELS/ConnectorConfig.featureconfig"/>
@@ -24,14 +24,14 @@
     <stringAttribute key="fixedSeed4" value="4"/>
     <stringAttribute key="fixedSeed5" value="5"/>
     <stringAttribute key="maximum" value=""/>
-    <stringAttribute key="maximumMeasurementCount" value="15000"/>
+    <stringAttribute key="maximumMeasurementCount" value="1000"/>
     <stringAttribute key="minimum" value=""/>
     <stringAttribute key="monitorRepositoryFile" value=""/>
     <stringAttribute key="outpath" value="org.palladiosimulator.temporary"/>
     <stringAttribute key="persistenceFramework" value="Experiment Data Persistency &amp; Presentation (EDP2)"/>
     <stringAttribute key="reconfigurationRulesFolder" value=""/>
     <stringAttribute key="serviceLevelObjectiveRepositoryFile" value=""/>
-    <stringAttribute key="simTime" value="200000"/>
+    <stringAttribute key="simTime" value="15000"/>
     <booleanAttribute key="simulateAccuracy" value="false"/>
     <booleanAttribute key="simulateEvents" value="false"/>
     <booleanAttribute key="simulateFailures" value="false"/>
@@ -42,10 +42,10 @@
     <stringAttribute key="storageProject" value="org.palladiosimulator.temporary"/>
     <booleanAttribute key="storeTransformedModels" value="true"/>
     <stringAttribute key="usageEvolutionFile" value=""/>
-    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/101_events/101_events_calibrated.usagemodel"/>
+    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/103_events_no_rds/103_events_no_rds_no_random_3_plugs.usagemodel"/>
     <booleanAttribute key="useConfidenceStopCondition" value="false"/>
     <booleanAttribute key="useFixedSeed" value="false"/>
     <stringAttribute key="variable" value=""/>
     <stringAttribute key="variationId" value="Default Variation"/>
-    <booleanAttribute key="verboseLogging" value="false"/>
+    <booleanAttribute key="verboseLogging" value="true"/>
 </launchConfiguration>

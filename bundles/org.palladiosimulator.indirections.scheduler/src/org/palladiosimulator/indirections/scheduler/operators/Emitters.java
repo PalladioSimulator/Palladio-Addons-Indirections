@@ -84,7 +84,7 @@ public final class Emitters {
 
         public Window createNextWindow() {
             if (this.currentWindow == null) {
-                return new Window(0, this.size);
+                return new Window(this.shift - this.size, this.shift);
             } else {
                 return new Window(this.currentWindow.start + this.shift,
                         this.currentWindow.start + this.shift + this.size);

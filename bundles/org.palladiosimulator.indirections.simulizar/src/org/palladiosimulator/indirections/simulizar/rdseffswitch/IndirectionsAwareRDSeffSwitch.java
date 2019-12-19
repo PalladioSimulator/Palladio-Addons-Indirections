@@ -2,6 +2,7 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
@@ -22,10 +23,8 @@ import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasur
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
-import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
 import org.palladiosimulator.indirections.scheduler.data.JoinedDate;
 import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
-import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
@@ -113,34 +112,33 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         LOGGER.trace("Trying to get (" + threadName + ")");
         final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
             context.getStack().currentStackFrame().addValue(action.getVariableReference().getReferenceName(), date);
-            LOGGER.trace("Got stack frame: " + this.context.getStack().currentStackFrame().toString());
-
-            if (action.getEntityName().equals("calculateOutlier.consumeGroupAndAverage")) {
-                LOGGER.trace(date);
-                JoinedDate<IndirectionDate> jdate = (JoinedDate<IndirectionDate>) date;
-
-                for (Map.Entry<JoiningOperator.KeyedChannel<DataWithSource<IndirectionDate>, Object>, IndirectionDate> entry : jdate.data
-                        .entrySet()) {
-                    if (entry.getValue() instanceof ConcreteGroupingIndirectionDate) {
-                        ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>> cgid = (ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>>) entry
-                                .getValue();
-
-                        for (PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate> pid : cgid
-                                .getDataInGroup()) {
-                            for (ConcreteIndirectionDate concreteDate : pid.getDataInGroup()) {
-                                String csvLine = context.getModel().getSimulationControl().getCurrentSimulationTime()
-                                        + "," + concreteDate.uuid.toString() + "," + concreteDate.getTime();
-
-//                                ModelObserver.measure(
-//                                        context.getModel().getSimulationControl().getCurrentSimulationTime(),
-//                                        concreteDate.uuid.toString(), concreteDate.getTime());
-                                LOGGER.trace(csvLine);
-                            }
-                            LOGGER.trace("\n");
-                        }
-                    }
-                }
-            }
+            /*
+             * LOGGER.trace("Got stack frame: " +
+             * this.context.getStack().currentStackFrame().toString());
+             * 
+             * if (action.getEntityName().equals("calculateOutlier.consumeGroupAndAverage")) {
+             * LOGGER.trace(date); JoinedDate<IndirectionDate> jdate = (JoinedDate<IndirectionDate>)
+             * date;
+             * 
+             * for (Map.Entry<JoiningOperator.KeyedChannel<DataWithSource<IndirectionDate>, Object>,
+             * IndirectionDate> entry : jdate.data .entrySet()) { if (entry.getValue() instanceof
+             * ConcreteGroupingIndirectionDate) {
+             * ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>,
+             * ConcreteIndirectionDate>> cgid =
+             * (ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>,
+             * ConcreteIndirectionDate>>) entry .getValue();
+             * 
+             * for (PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate> pid :
+             * cgid .getDataInGroup()) { for (ConcreteIndirectionDate concreteDate :
+             * pid.getDataInGroup()) { String csvLine =
+             * context.getModel().getSimulationControl().getCurrentSimulationTime() + "," +
+             * concreteDate.uuid.toString() + "," + concreteDate.getTime();
+             * 
+             * // ModelObserver.measure( //
+             * context.getModel().getSimulationControl().getCurrentSimulationTime(), //
+             * concreteDate.uuid.toString(), concreteDate.getTime()); LOGGER.trace(csvLine); }
+             * LOGGER.trace("\n"); } } } }
+             */
         });
 
         LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
@@ -219,7 +217,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                     + medianGroup.getDataInGroup().get(0).getPartition().toString());
 
             int noe = medianGroup.getDataInGroup().get(0).getDataInGroup().size();
-
+            System.out.println("Number of elements: " + noe);
             currentStackFrame.addValue("mediansPerHousehold.NUMBER_OF_ELEMENTS", noe);
 
             return true;
@@ -242,6 +240,31 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
             medianGroup.getDataInGroup().forEach(it -> LOGGER.trace("NOE2, Partition: " + it.getPartition()));
 
             currentStackFrame.addValue("averageAll.NUMBER_OF_ELEMENTS", noe);
+
+            return true;
+        }
+
+        if (variableReference.getReferenceName().equals("NUMBER_OF_ELEMENTS_3")) {
+            LOGGER.trace("Putting number of elements for joined date on stack.");
+
+            JoinedDate<IndirectionDate> groupAndAverage = null;
+            SimulatedStackframe<Object> currentStackFrame = context.getStack().currentStackFrame();
+
+            try {
+                groupAndAverage = (JoinedDate<IndirectionDate>) currentStackFrame.getValue("groupAndAverage");
+            } catch (ValueNotInFrameException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            int noe = 0;
+            for (Entry<String, Object> e : groupAndAverage.getData().entrySet()) {
+                if (e.getKey().endsWith("NUMBER_OF_ELEMENTS.VALUE")) {
+                    noe += (int) e.getValue();
+                }
+            }
+
+            currentStackFrame.addValue("groupAndAverage.NUMBER_OF_ELEMENTS", noe);
 
             return true;
         }
