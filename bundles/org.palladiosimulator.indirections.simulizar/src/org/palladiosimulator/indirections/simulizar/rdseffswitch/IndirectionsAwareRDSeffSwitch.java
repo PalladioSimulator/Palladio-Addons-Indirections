@@ -192,8 +192,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 median = (PartitionedIndirectionDate<Map<String, Object>, IndirectionDate>) currentStackFrame
                         .getValue("median");
             } catch (ValueNotInFrameException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+//                e.printStackTrace();
             }
 
             currentStackFrame.addValue("median.NUMBER_OF_ELEMENTS", median.getDataInGroup().size());
@@ -210,8 +209,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 medianGroup = (PartitionedIndirectionDate<Map<String, Object>, PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>>) currentStackFrame
                         .getValue("mediansPerHousehold");
             } catch (ValueNotInFrameException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+//                e.printStackTrace();
             }
             LOGGER.trace("Partition: " + medianGroup.getPartition().toString() + ", "
                     + medianGroup.getDataInGroup().get(0).getPartition().toString());
@@ -232,8 +230,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
                 medianGroup = (ConcreteGroupingIndirectionDate<PartitionedIndirectionDate<Map<String, Object>, ConcreteIndirectionDate>>) currentStackFrame
                         .getValue("averageAll");
             } catch (ValueNotInFrameException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+//                e.printStackTrace();
             }
 
             int noe = medianGroup.getDataInGroup().stream().mapToInt(it -> it.getDataInGroup().size()).sum();
@@ -253,8 +250,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
             try {
                 groupAndAverage = (JoinedDate<IndirectionDate>) currentStackFrame.getValue("groupAndAverage");
             } catch (ValueNotInFrameException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+//                e.printStackTrace();
             }
 
             int noe = 0;
