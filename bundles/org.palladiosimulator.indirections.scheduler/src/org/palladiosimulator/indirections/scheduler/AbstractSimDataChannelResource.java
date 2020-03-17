@@ -2,6 +2,7 @@ package org.palladiosimulator.indirections.scheduler;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.UUID;
@@ -24,6 +25,7 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToE
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
@@ -32,8 +34,8 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public abstract class AbstractSimDataChannelResource implements IDataChannelResource {
-	protected Map<DataChannelSinkConnector, IndirectionQueue<ProcessWaitingToConsume>> outgoingQueues;
-	protected Map<DataChannelSourceConnector, IndirectionQueue<ProcessWaitingToEmit>> incomingQueues;
+	protected Queue<ProcessWaitingToConsume> processesWaitingToConsume;
+	protected Queue<ProcessWaitingToEmit> processesWaitingToEmit;
 	protected DataChannel dataChannel;
 
 	protected final InterpreterDefaultContext context;
@@ -42,16 +44,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 	protected final String name;
 	protected final String id;
 	protected final int capacity;
-
-	protected class IndirectionQueue<T extends SuspendableSchedulerEntity> {
-		public final Queue<IndirectionDate> elements;
-		public final Queue<T> processes;
-
-		public IndirectionQueue() {
-			this.elements = new ArrayDeque<>();
-			this.processes = new ArrayDeque<>();
-		}
-	}
+	protected final boolean isPushing;
 
 	@Override
 	public String getName() {
@@ -79,6 +72,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
 		this.model = (SimuComModel) model;
 		this.context = context;
+		
+		List<Boolean> sinkRolePushingFlags = dataChannel.getDataChannelSinkConnector().stream().map(it -> it.getDataSinkRole().isPushing()).collect(Collectors.toList());
+		this.isPushing = IterableUtil.claimEqual(sinkRolePushingFlags);
 
 		this.initializeQueues();
 		this.createPushingUserFactories();
@@ -112,21 +108,15 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 	}
 
 	private void initializeQueues() {
-		this.outgoingQueues = this.dataChannel.getDataChannelSinkConnector().stream()
-				.filter(it -> !it.getDataSinkRole().isPushing())
-				.collect(Collectors.toMap(Function.identity(), it -> new IndirectionQueue<ProcessWaitingToConsume>()));
-
-		this.incomingQueues = this.dataChannel.getDataChannelSourceConnector().stream()
-				.collect(Collectors.toMap(Function.identity(), it -> new IndirectionQueue<ProcessWaitingToEmit>()));
+		processesWaitingToConsume = new ArrayDeque<ProcessWaitingToConsume>();
+		processesWaitingToEmit = new ArrayDeque<ProcessWaitingToEmit>();
 	}
 
 	protected void processDataAvailableToGet() {
-		for (DataChannelSinkConnector sinkConnector : dataChannel.getDataChannelSinkConnector()) {
-			if (sinkConnector.getDataSinkRole().isPushing()) {
-				spawnNewConsumerUsers();
-			} else {
-				notifyProcessesWaitingToGetFromQueue(outgoingQueues.get(sinkConnector));
-			}
+		if (isPushing) {
+			spawnNewConsumerUsers();
+		} else {
+			notifyProcessesWaitingToGet();
 		}
 	}
 
@@ -156,21 +146,16 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
 	}
 
-	private void notifyProcessesWaitingToGetFromQueue(IndirectionQueue<ProcessWaitingToConsume> queue) {
-		this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToGet,
+	private void notifyProcessesWaitingToGet() {
+		this.notifyProcesses(processesWaitingToConsume, p -> p.schedulableProcess, this::canProceedToGet,
 				this::allowToGetAndActivate, this::notifyProcessesWaitingToPut);
 	}
 
 	protected void notifyProcessesWaitingToPut() {
-		for (final IndirectionQueue<ProcessWaitingToEmit> queue : this.incomingQueues.values()) {
-			this.notifyProcesses(queue.processes, p -> p.schedulableProcess, this::canProceedToPut,
-					this::allowToPutAndActivate, this::processDataAvailableToGet);
-		}
+		this.notifyProcesses(processesWaitingToEmit, p -> p.schedulableProcess, this::canProceedToPut,
+				this::allowToPutAndActivate, this::processDataAvailableToGet);
 	}
 
-	// TODO: should remove unnecessary complexity introduced with this kind of reuse
-	// and just inline
-	// into two methods above
 	private <T> void notifyProcesses(final Queue<T> processes, final Function<T, ISchedulableProcess> processExtractor,
 			final Predicate<T> canProceed, final Consumer<T> allow, final Runnable callAfterAllowing) {
 
@@ -203,7 +188,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 			this.processDataAvailableToGet();
 			return true;
 		} else {
-			this.incomingQueues.get(sourceConnector).processes.add(process);
+			this.processesWaitingToEmit.add(process);
 			process.passivate();
 			return false;
 		}
@@ -231,7 +216,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 			this.notifyProcessesWaitingToPut();
 			return true;
 		} else {
-			this.outgoingQueues.get(sinkConnector).processes.add(process);
+			processesWaitingToConsume.add(process);
 			process.passivate();
 			return false;
 		}
@@ -244,10 +229,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 	}
 
 	private boolean canProceedToPut(final ProcessWaitingToEmit process) {
-		final Queue<ProcessWaitingToEmit> waitingToPutQueue = this.incomingQueues
-				.get(process.sourceConnector).processes;
-		final boolean isNextProcess = waitingToPutQueue.isEmpty()
-				|| waitingToPutQueue.peek().schedulableProcess.equals(process.schedulableProcess);
+		final boolean isNextProcess = processesWaitingToEmit.isEmpty()
+				|| processesWaitingToEmit.peek().schedulableProcess.equals(process.schedulableProcess);
 
 		return isNextProcess && canAcceptData();
 	}
@@ -257,10 +240,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 	protected abstract boolean canProvideData();
 
 	private boolean canProceedToGet(final ProcessWaitingToConsume process) {
-		final Queue<ProcessWaitingToConsume> waitingToGetQueue = this.outgoingQueues
-				.get(process.sinkConnector).processes;
-		final boolean isNextProcess = waitingToGetQueue.isEmpty()
-				|| waitingToGetQueue.peek().schedulableProcess.equals(process.schedulableProcess);
+		final boolean isNextProcess = processesWaitingToConsume.isEmpty()
+				|| processesWaitingToConsume.peek().schedulableProcess.equals(process.schedulableProcess);
 
 		return isNextProcess && canProvideData();
 	}
