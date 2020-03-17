@@ -11,7 +11,6 @@ import javax.measure.unit.SI;
 import org.apache.log4j.Logger;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.CreateDataAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
@@ -23,8 +22,6 @@ import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasur
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
-import org.palladiosimulator.indirections.scheduler.data.JoinedDate;
-import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;

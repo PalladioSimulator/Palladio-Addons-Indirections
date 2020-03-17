@@ -28,6 +28,15 @@ public final class IterableUtil {
         throw new IllegalStateException(
                 "It was claimed that the collection '" + iterable + "' contains exactly one element!");
     }
+    
+	public static final <A extends Iterable<?>> A claimAtLeastOne(final A iterable) {
+        final Iterator<?> iterator = iterable.iterator();
+        if (!iterator.hasNext()) {
+        	throw new IllegalStateException(
+                    "It was claimed that the collection '" + iterable + "' contains at least one element!");
+        }
+        return iterable;
+	}
 
     public static final <A extends Iterable<T>, T> T claimEqual(final A iterable) {
         final T first = iterable.iterator().next();
