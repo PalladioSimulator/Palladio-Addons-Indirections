@@ -37,12 +37,6 @@ public class SimBasicDataChannelResource extends AbstractSimDataChannelResource 
 
         SimuComModel simuComModel = (SimuComModel) model;
 
-        if (dataChannel.getPartitioning() != null)
-            throw new IllegalArgumentException("Data channel " + name + " is not basic (has partitioning).");
-        if (dataChannel.getTimeGrouping() != null)
-            throw new IllegalArgumentException("Data channel " + name + " is not basic (has time grouping).");
-        if (dataChannel.getJoins() != null && !dataChannel.getJoins().isEmpty())
-            throw new IllegalArgumentException("Data channel " + name + " is not basic (has joins).");
         if (dataChannel.getScheduling() != Scheduling.FIRST_IN_FIRST_OUT)
             throw new IllegalArgumentException("Data channel " + name + " is not basic (is not FIFO).");
 

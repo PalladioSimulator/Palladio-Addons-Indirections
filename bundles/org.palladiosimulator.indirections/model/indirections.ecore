@@ -28,7 +28,15 @@
           eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="CreateDataAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+    <eClassifiers xsi:type="ecore:EClass" name="CreateDateAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
+          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
+          containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variableUsages" upperBound="-1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//parameter/VariableUsage"
+          containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AddToDateAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
           eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
           containment="true"/>
@@ -41,53 +49,47 @@
           upperBound="-1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//parameter/VariableUsage"
           containment="true"/>
     </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataIteratorAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractLoopAction">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
+          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
+          containment="true"/>
+    </eClassifiers>
   </eSubpackages>
   <eSubpackages name="datatypes" nsURI="http://palladiosimulator.org/Indirections/Datatypes/1.0"
       nsPrefix="org.palladiosimulator.indirections.datatypes">
     <eClassifiers xsi:type="ecore:EEnum" name="Scheduling">
       <eLiterals name="FirstInFirstOut"/>
-      <eLiterals name="LastInFirstOut" value="1"/>
-      <eLiterals name="Priority" value="2"/>
-      <eLiterals name="Random" value="3"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="PutPolicy">
-      <eLiterals name="Blocking" literal=""/>
-      <eLiterals name="DiscardFirstIn" value="1"/>
-      <eLiterals name="DiscardLastIn" value="2"/>
-      <eLiterals name="DiscardIncoming" value="3"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="EmitToChannelPolicy">
+      <eLiterals name="BlockIfFull" literal=""/>
+      <eLiterals name="DiscardOldestIfFull" value="1"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="OutgoingDistribution">
-      <eLiterals name="DistributeToAll"/>
-      <eLiterals name="RoundRobin" value="1"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="ConsumeFromChannelPolicy">
+      <eLiterals name="Remove"/>
+      <eLiterals name="Peek" value="1"/>
+      <eLiterals name="Pushing" value="2"/>
     </eClassifiers>
-  </eSubpackages>
-  <eSubpackages name="partitioning" nsURI="http://palladiosimulator.org/Indirections/Partitioning/1.0"
-      nsPrefix="org.palladiosimulator.indirections.partitioning">
-    <eClassifiers xsi:type="ecore:EClass" name="Partitioning" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/NamedElement">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="specification" lowerBound="1"
-          upperBound="-1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/PCMRandomVariable"
-          containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="TimeGrouping" abstract="true" interface="true"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Windowing" eSuperTypes="#//partitioning/TimeGrouping">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="shift" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ConsumeAllAvailable" eSuperTypes="#//partitioning/TimeGrouping"/>
-    <eClassifiers xsi:type="ecore:EClass" name="CollectWithHoldback" eSuperTypes="#//partitioning/TimeGrouping">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="holdback" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="partitionDataName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Joining">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
-          eType="#//composition/DataChannelSourceConnector"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="canContributeMultipleTimes"
-          lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" upperBound="-1"
-          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/PCMRandomVariable"
-          containment="true"/>
+    <eClassifiers xsi:type="ecore:EEnum" name="NumberOfElements">
+      <eLiterals name="AnyNumber">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns a collection. Always returns immediately, if no element is available, returns an empty collection."/>
+        </eAnnotations>
+      </eLiterals>
+      <eLiterals name="AtLeastOne" value="1">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns a collection with all available elements. Blocks, if no elements are available. Never returns an empty collection."/>
+        </eAnnotations>
+      </eLiterals>
+      <eLiterals name="OneOrNone" value="2">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns a collection with one available element. Can return empty or with a collection with exactly one element."/>
+        </eAnnotations>
+      </eLiterals>
+      <eLiterals name="ExactlyOne" value="3">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="documentation" value="Returns one element. Blocks, if no elements are available."/>
+        </eAnnotations>
+      </eLiterals>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirections/System/1.0"
@@ -106,16 +108,13 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannelSinkConnector"
           ordered="false" upperBound="-1" eType="#//composition/DataChannelSinkConnector"
           eOpposite="#//composition/DataChannelSinkConnector/dataChannel"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="partitioning" eType="#//partitioning/Partitioning"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="timeGrouping" eType="#//partitioning/TimeGrouping"
-          containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="joins" upperBound="-1"
-          eType="#//partitioning/Joining" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoingDistribution"
-          eType="#//datatypes/OutgoingDistribution"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="scheduling" eType="#//datatypes/Scheduling"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="putPolicy" eType="#//datatypes/PutPolicy"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="emitToChannelPolicy"
+          lowerBound="1" eType="#//datatypes/EmitToChannelPolicy"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberOfElementsToEmit"
+          eType="#//datatypes/NumberOfElements"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="consumeFromChannelPolicy"
+          lowerBound="1" eType="#//datatypes/ConsumeFromChannelPolicy"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirections/Composition/1.0"

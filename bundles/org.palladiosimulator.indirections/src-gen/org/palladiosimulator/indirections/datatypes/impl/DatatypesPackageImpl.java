@@ -2,271 +2,297 @@
  */
 package org.palladiosimulator.indirections.datatypes.impl;
 
-import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.palladiosimulator.indirections.actions.ActionsPackage;
-import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
-import org.palladiosimulator.indirections.composition.CompositionPackage;
-import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
-import org.palladiosimulator.indirections.datatypes.DatatypesFactory;
-import org.palladiosimulator.indirections.datatypes.DatatypesPackage;
-import org.palladiosimulator.indirections.datatypes.OutgoingDistribution;
-import org.palladiosimulator.indirections.datatypes.PutPolicy;
-import org.palladiosimulator.indirections.datatypes.Scheduling;
-import org.palladiosimulator.indirections.partitioning.PartitioningPackage;
-import org.palladiosimulator.indirections.partitioning.impl.PartitioningPackageImpl;
-import org.palladiosimulator.indirections.repository.RepositoryPackage;
-import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
-import org.palladiosimulator.indirections.system.SystemPackage;
-import org.palladiosimulator.indirections.system.impl.SystemPackageImpl;
-import org.palladiosimulator.pcm.PcmPackage;
-
 import de.uka.ipd.sdq.identifier.IdentifierPackage;
+
 import de.uka.ipd.sdq.probfunction.ProbfunctionPackage;
+
 import de.uka.ipd.sdq.stoex.StoexPackage;
+
 import de.uka.ipd.sdq.units.UnitsPackage;
 
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import org.palladiosimulator.indirections.actions.ActionsPackage;
+
+import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
+
+import org.palladiosimulator.indirections.composition.CompositionPackage;
+
+import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
+
+import org.palladiosimulator.indirections.datatypes.ConsumeFromChannelPolicy;
+import org.palladiosimulator.indirections.datatypes.DatatypesFactory;
+import org.palladiosimulator.indirections.datatypes.DatatypesPackage;
+import org.palladiosimulator.indirections.datatypes.EmitToChannelPolicy;
+import org.palladiosimulator.indirections.datatypes.NumberOfElements;
+import org.palladiosimulator.indirections.datatypes.Scheduling;
+
+import org.palladiosimulator.indirections.repository.RepositoryPackage;
+
+import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
+
+import org.palladiosimulator.indirections.system.SystemPackage;
+
+import org.palladiosimulator.indirections.system.impl.SystemPackageImpl;
+
+import org.palladiosimulator.pcm.PcmPackage;
+
 /**
- * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
- *
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
  * @generated
  */
 public class DatatypesPackageImpl extends EPackageImpl implements DatatypesPackage {
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private EEnum schedulingEEnum = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum schedulingEEnum = null;
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private EEnum putPolicyEEnum = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum emitToChannelPolicyEEnum = null;
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private EEnum outgoingDistributionEEnum = null;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum consumeFromChannelPolicyEEnum = null;
 
-    /**
-     * Creates an instance of the model <b>Package</b>, registered with
-     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package package URI
-     * value.
-     * <p>
-     * Note: the correct way to create the package is via the static factory method {@link #init
-     * init()}, which also performs initialization of the package, or returns the registered
-     * package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see org.palladiosimulator.indirections.datatypes.DatatypesPackage#eNS_URI
-     * @see #init()
-     * @generated
-     */
-    private DatatypesPackageImpl() {
-        super(eNS_URI, DatatypesFactory.eINSTANCE);
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum numberOfElementsEEnum = null;
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private static boolean isInited = false;
+	/**
+	 * Creates an instance of the model <b>Package</b>, registered with
+	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+	 * package URI value.
+	 * <p>Note: the correct way to create the package is via the static
+	 * factory method {@link #init init()}, which also performs
+	 * initialization of the package, or returns the registered package,
+	 * if one already exists.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecore.EPackage.Registry
+	 * @see org.palladiosimulator.indirections.datatypes.DatatypesPackage#eNS_URI
+	 * @see #init()
+	 * @generated
+	 */
+	private DatatypesPackageImpl() {
+		super(eNS_URI, DatatypesFactory.eINSTANCE);
+	}
 
-    /**
-     * Creates, registers, and initializes the <b>Package</b> for this model, and for any others
-     * upon which it depends.
-     *
-     * <p>
-     * This method is used to initialize {@link DatatypesPackage#eINSTANCE} when that field is
-     * accessed. Clients should not invoke it directly. Instead, they should simply access that
-     * field to obtain the package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @see #eNS_URI
-     * @see #createPackageContents()
-     * @see #initializePackageContents()
-     * @generated
-     */
-    public static DatatypesPackage init() {
-        if (isInited) {
-            return (DatatypesPackage) EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
-        }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static boolean isInited = false;
 
-        // Obtain or create and register package
-        final Object registeredDatatypesPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-        final DatatypesPackageImpl theDatatypesPackage = registeredDatatypesPackage instanceof DatatypesPackageImpl
-                ? (DatatypesPackageImpl) registeredDatatypesPackage
-                : new DatatypesPackageImpl();
+	/**
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 *
+	 * <p>This method is used to initialize {@link DatatypesPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #eNS_URI
+	 * @see #createPackageContents()
+	 * @see #initializePackageContents()
+	 * @generated
+	 */
+	public static DatatypesPackage init() {
+		if (isInited)
+			return (DatatypesPackage) EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
 
-        isInited = true;
+		// Obtain or create and register package
+		Object registeredDatatypesPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		DatatypesPackageImpl theDatatypesPackage = registeredDatatypesPackage instanceof DatatypesPackageImpl
+				? (DatatypesPackageImpl) registeredDatatypesPackage
+				: new DatatypesPackageImpl();
 
-        // Initialize simple dependencies
-        IdentifierPackage.eINSTANCE.eClass();
-        PcmPackage.eINSTANCE.eClass();
-        ProbfunctionPackage.eINSTANCE.eClass();
-        StoexPackage.eINSTANCE.eClass();
-        UnitsPackage.eINSTANCE.eClass();
+		isInited = true;
 
-        // Obtain or create and register interdependencies
-        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
-        final ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
-                ? registeredPackage
-                : ActionsPackage.eINSTANCE);
-        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(PartitioningPackage.eNS_URI);
-        final PartitioningPackageImpl thePartitioningPackage = (PartitioningPackageImpl) (registeredPackage instanceof PartitioningPackageImpl
-                ? registeredPackage
-                : PartitioningPackage.eINSTANCE);
-        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
-        final SystemPackageImpl theSystemPackage = (SystemPackageImpl) (registeredPackage instanceof SystemPackageImpl
-                ? registeredPackage
-                : SystemPackage.eINSTANCE);
-        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CompositionPackage.eNS_URI);
-        final CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
-                ? registeredPackage
-                : CompositionPackage.eINSTANCE);
-        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
-        final RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
-                ? registeredPackage
-                : RepositoryPackage.eINSTANCE);
+		// Initialize simple dependencies
+		IdentifierPackage.eINSTANCE.eClass();
+		PcmPackage.eINSTANCE.eClass();
+		ProbfunctionPackage.eINSTANCE.eClass();
+		StoexPackage.eINSTANCE.eClass();
+		UnitsPackage.eINSTANCE.eClass();
 
-        // Create package meta-data objects
-        theDatatypesPackage.createPackageContents();
-        theActionsPackage.createPackageContents();
-        thePartitioningPackage.createPackageContents();
-        theSystemPackage.createPackageContents();
-        theCompositionPackage.createPackageContents();
-        theRepositoryPackage.createPackageContents();
+		// Obtain or create and register interdependencies
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
+		ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
+				? registeredPackage
+				: ActionsPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
+		SystemPackageImpl theSystemPackage = (SystemPackageImpl) (registeredPackage instanceof SystemPackageImpl
+				? registeredPackage
+				: SystemPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CompositionPackage.eNS_URI);
+		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
+				? registeredPackage
+				: CompositionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
+		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
+				? registeredPackage
+				: RepositoryPackage.eINSTANCE);
 
-        // Initialize created meta-data
-        theDatatypesPackage.initializePackageContents();
-        theActionsPackage.initializePackageContents();
-        thePartitioningPackage.initializePackageContents();
-        theSystemPackage.initializePackageContents();
-        theCompositionPackage.initializePackageContents();
-        theRepositoryPackage.initializePackageContents();
+		// Create package meta-data objects
+		theDatatypesPackage.createPackageContents();
+		theActionsPackage.createPackageContents();
+		theSystemPackage.createPackageContents();
+		theCompositionPackage.createPackageContents();
+		theRepositoryPackage.createPackageContents();
 
-        // Mark meta-data to indicate it can't be changed
-        theDatatypesPackage.freeze();
+		// Initialize created meta-data
+		theDatatypesPackage.initializePackageContents();
+		theActionsPackage.initializePackageContents();
+		theSystemPackage.initializePackageContents();
+		theCompositionPackage.initializePackageContents();
+		theRepositoryPackage.initializePackageContents();
 
-        // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(DatatypesPackage.eNS_URI, theDatatypesPackage);
-        return theDatatypesPackage;
-    }
+		// Mark meta-data to indicate it can't be changed
+		theDatatypesPackage.freeze();
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EEnum getScheduling() {
-        return this.schedulingEEnum;
-    }
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(DatatypesPackage.eNS_URI, theDatatypesPackage);
+		return theDatatypesPackage;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EEnum getPutPolicy() {
-        return this.putPolicyEEnum;
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getScheduling() {
+		return schedulingEEnum;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EEnum getOutgoingDistribution() {
-        return this.outgoingDistributionEEnum;
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getEmitToChannelPolicy() {
+		return emitToChannelPolicyEEnum;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public DatatypesFactory getDatatypesFactory() {
-        return (DatatypesFactory) this.getEFactoryInstance();
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getConsumeFromChannelPolicy() {
+		return consumeFromChannelPolicyEEnum;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private boolean isCreated = false;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getNumberOfElements() {
+		return numberOfElementsEEnum;
+	}
 
-    /**
-     * Creates the meta-model objects for the package. This method is guarded to have no affect on
-     * any invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    public void createPackageContents() {
-        if (this.isCreated) {
-            return;
-        }
-        this.isCreated = true;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DatatypesFactory getDatatypesFactory() {
+		return (DatatypesFactory) getEFactoryInstance();
+	}
 
-        // Create enums
-        this.schedulingEEnum = this.createEEnum(SCHEDULING);
-        this.putPolicyEEnum = this.createEEnum(PUT_POLICY);
-        this.outgoingDistributionEEnum = this.createEEnum(OUTGOING_DISTRIBUTION);
-    }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isCreated = false;
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private boolean isInitialized = false;
+	/**
+	 * Creates the meta-model objects for the package.  This method is
+	 * guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void createPackageContents() {
+		if (isCreated)
+			return;
+		isCreated = true;
 
-    /**
-     * Complete the initialization of the package and its meta-model. This method is guarded to have
-     * no affect on any invocation but its first. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    public void initializePackageContents() {
-        if (this.isInitialized) {
-            return;
-        }
-        this.isInitialized = true;
+		// Create enums
+		schedulingEEnum = createEEnum(SCHEDULING);
+		emitToChannelPolicyEEnum = createEEnum(EMIT_TO_CHANNEL_POLICY);
+		consumeFromChannelPolicyEEnum = createEEnum(CONSUME_FROM_CHANNEL_POLICY);
+		numberOfElementsEEnum = createEEnum(NUMBER_OF_ELEMENTS);
+	}
 
-        // Initialize package
-        this.setName(eNAME);
-        this.setNsPrefix(eNS_PREFIX);
-        this.setNsURI(eNS_URI);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isInitialized = false;
 
-        // Initialize enums and add enum literals
-        this.initEEnum(this.schedulingEEnum, Scheduling.class, "Scheduling");
-        this.addEEnumLiteral(this.schedulingEEnum, Scheduling.FIRST_IN_FIRST_OUT);
-        this.addEEnumLiteral(this.schedulingEEnum, Scheduling.LAST_IN_FIRST_OUT);
-        this.addEEnumLiteral(this.schedulingEEnum, Scheduling.PRIORITY);
-        this.addEEnumLiteral(this.schedulingEEnum, Scheduling.RANDOM);
+	/**
+	 * Complete the initialization of the package and its meta-model.  This
+	 * method is guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initializePackageContents() {
+		if (isInitialized)
+			return;
+		isInitialized = true;
 
-        this.initEEnum(this.putPolicyEEnum, PutPolicy.class, "PutPolicy");
-        this.addEEnumLiteral(this.putPolicyEEnum, PutPolicy.BLOCKING);
-        this.addEEnumLiteral(this.putPolicyEEnum, PutPolicy.DISCARD_FIRST_IN);
-        this.addEEnumLiteral(this.putPolicyEEnum, PutPolicy.DISCARD_LAST_IN);
-        this.addEEnumLiteral(this.putPolicyEEnum, PutPolicy.DISCARD_INCOMING);
+		// Initialize package
+		setName(eNAME);
+		setNsPrefix(eNS_PREFIX);
+		setNsURI(eNS_URI);
 
-        this.initEEnum(this.outgoingDistributionEEnum, OutgoingDistribution.class, "OutgoingDistribution");
-        this.addEEnumLiteral(this.outgoingDistributionEEnum, OutgoingDistribution.DISTRIBUTE_TO_ALL);
-        this.addEEnumLiteral(this.outgoingDistributionEEnum, OutgoingDistribution.ROUND_ROBIN);
+		// Initialize enums and add enum literals
+		initEEnum(schedulingEEnum, Scheduling.class, "Scheduling");
+		addEEnumLiteral(schedulingEEnum, Scheduling.FIRST_IN_FIRST_OUT);
 
-        // Create resource
-        this.createResource(eNS_URI);
-    }
+		initEEnum(emitToChannelPolicyEEnum, EmitToChannelPolicy.class, "EmitToChannelPolicy");
+		addEEnumLiteral(emitToChannelPolicyEEnum, EmitToChannelPolicy.BLOCK_IF_FULL);
+		addEEnumLiteral(emitToChannelPolicyEEnum, EmitToChannelPolicy.DISCARD_OLDEST_IF_FULL);
 
-} // DatatypesPackageImpl
+		initEEnum(consumeFromChannelPolicyEEnum, ConsumeFromChannelPolicy.class, "ConsumeFromChannelPolicy");
+		addEEnumLiteral(consumeFromChannelPolicyEEnum, ConsumeFromChannelPolicy.REMOVE);
+		addEEnumLiteral(consumeFromChannelPolicyEEnum, ConsumeFromChannelPolicy.PEEK);
+		addEEnumLiteral(consumeFromChannelPolicyEEnum, ConsumeFromChannelPolicy.PUSHING);
+
+		initEEnum(numberOfElementsEEnum, NumberOfElements.class, "NumberOfElements");
+		addEEnumLiteral(numberOfElementsEEnum, NumberOfElements.ANY_NUMBER);
+		addEEnumLiteral(numberOfElementsEEnum, NumberOfElements.AT_LEAST_ONE);
+		addEEnumLiteral(numberOfElementsEEnum, NumberOfElements.ONE_OR_NONE);
+		addEEnumLiteral(numberOfElementsEEnum, NumberOfElements.EXACTLY_ONE);
+
+		// Create resource
+		createResource(eNS_URI);
+	}
+
+} //DatatypesPackageImpl
