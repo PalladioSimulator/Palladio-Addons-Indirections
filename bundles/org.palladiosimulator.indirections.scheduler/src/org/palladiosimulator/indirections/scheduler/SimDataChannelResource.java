@@ -175,23 +175,35 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 
 	@Override
 	protected boolean canAcceptData() {
-		if (dataChannel.getEmitToChannelPolicy() == EmitToChannelPolicy.DISCARD_OLDEST_IF_FULL) {
-			return true;
-		} else if (dataChannel.getEmitToChannelPolicy() == EmitToChannelPolicy.BLOCK_IF_FULL) {
+		switch (dataChannel.getEmitToChannelPolicy()) {
+		case BLOCK_IF_FULL:
 			return (dataChannel.getCapacity() == -1 || (dataChannel.getCapacity() > dataQueue.size()));
-		} else {
+		case DISCARD_OLDEST_IF_FULL:
+			return true;
+		default:
 			throw new PCMModelInterpreterException(
-					"EmitToChannelPolicy cannot be " + dataChannel.getEmitToChannelPolicy());
+					EmitToChannelPolicy.class.getName() + " cannot be " + dataChannel.getEmitToChannelPolicy());
+
 		}
 	}
 
 	@Override
 	protected void acceptData(IndirectionDate date) {
+		if (!canAcceptData()) {
+			throw new PCMModelInterpreterException("Not possible to put " + date + " into channel.");
+		}
+		
+		if (dataChannel.getEmitToChannelPolicy() == EmitToChannelPolicy.DISCARD_OLDEST_IF_FULL) {
+			while ((dataChannel.getCapacity() != -1) && (dataQueue.size() >= dataChannel.getCapacity())) {
+				dataQueue.remove();
+			}
+		}
+
 		dataQueue.add(date);
 
 		if ((dataChannel.getCapacity() != -1) && (dataQueue.size() > dataChannel.getCapacity())) {
 			throw new PCMModelInterpreterException(
-					"Data channel size is larger than capacity. This should be possible.");
+					"Data channel size is larger than capacity. This should not be possible.");
 		}
 
 		LOGGER.trace("Added date to queue: " + date);
