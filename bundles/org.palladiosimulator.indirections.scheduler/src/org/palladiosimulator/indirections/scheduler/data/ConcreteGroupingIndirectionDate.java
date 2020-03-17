@@ -62,4 +62,9 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
         return Context.evaluateStatic(expression.getSpecification(), SimulatedStackHelper.createFromMap(this.getData()),
                 VariableMode.EXCEPTION_ON_NOT_FOUND);
     }
+
+	@Override
+	public void addDate(String key, Object value) {
+		extraData.put(key, value);
+	}
 }

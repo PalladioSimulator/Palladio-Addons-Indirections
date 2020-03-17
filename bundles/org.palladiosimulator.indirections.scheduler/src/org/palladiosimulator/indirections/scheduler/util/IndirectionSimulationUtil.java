@@ -187,14 +187,22 @@ public final class IndirectionSimulationUtil {
 
         stack.currentStackFrame().addValue(id, date);
     }
-
-    public static IndirectionDate createData(SimulatedStack<Object> contextStack,
-            Iterable<VariableUsage> variableUsages, Double time) {
-        SimulatedStackframe<Object> newStackFrame = new SimulatedStackframe<Object>();
+    
+    public static Map<String, Object> createDataEntries(SimulatedStack<Object> contextStack,
+            Iterable<VariableUsage> variableUsages) {
+    	SimulatedStackframe<Object> newStackFrame = new SimulatedStackframe<Object>();
         SimulatedStackHelper.addParameterToStackFrame(contextStack.currentStackFrame(),
                 IterableUtil.toEList(variableUsages), newStackFrame);
 
         Map<String, Object> entries = IterableUtil.toMap(newStackFrame.getContents());
+        
+        return entries;
+    }
+
+    public static IndirectionDate createData(SimulatedStack<Object> contextStack,
+            Iterable<VariableUsage> variableUsages, Double time) {
+        
+    	Map<String, Object> entries = createDataEntries(contextStack, variableUsages);
         IndirectionDate result = new ConcreteIndirectionDate(entries, time);
 
         return result;

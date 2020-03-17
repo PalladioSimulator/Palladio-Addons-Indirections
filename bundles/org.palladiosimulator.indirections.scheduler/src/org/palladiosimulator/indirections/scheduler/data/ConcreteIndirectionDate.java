@@ -40,4 +40,9 @@ public class ConcreteIndirectionDate implements IndirectionDate {
     public Object evaluate(PCMRandomVariable expression) {
         throw new UnsupportedOperationException();
     }
+
+	@Override
+	public void addDate(String key, Object value) {
+		data.put(key, value);
+	}
 }

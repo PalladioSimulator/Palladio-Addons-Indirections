@@ -37,12 +37,19 @@
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/dataSourceRole"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/variableReference"/>
       </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//actions/CreateDataAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDataAction/variableReference"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDataAction/variableUsages"/>
+      <genClasses ecoreClass="indirections.ecore#//actions/CreateDateAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDateAction/variableReference"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDateAction/variableUsages"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//actions/AddToDateAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AddToDateAction/variableReference"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AddToDateAction/variableUsages"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/PutDataOnStackAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/PutDataOnStackAction/variableUsages"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//actions/DataIteratorAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/DataIteratorAction/variableReference"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" generateModelWizard="false"
@@ -50,44 +57,22 @@
         ecorePackage="indirections.ecore#//datatypes">
       <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/Scheduling">
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Scheduling/FirstInFirstOut"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Scheduling/LastInFirstOut"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Scheduling/Priority"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Scheduling/Random"/>
       </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/PutPolicy">
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/PutPolicy/Blocking"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/PutPolicy/DiscardFirstIn"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/PutPolicy/DiscardLastIn"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/PutPolicy/DiscardIncoming"/>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/EmitToChannelPolicy">
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/EmitToChannelPolicy/BlockIfFull"/>
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/EmitToChannelPolicy/DiscardOldestIfFull"/>
       </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/OutgoingDistribution">
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/OutgoingDistribution/DistributeToAll"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/OutgoingDistribution/RoundRobin"/>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/ConsumeFromChannelPolicy">
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/ConsumeFromChannelPolicy/Remove"/>
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/ConsumeFromChannelPolicy/Peek"/>
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/ConsumeFromChannelPolicy/Pushing"/>
       </genEnums>
-    </nestedGenPackages>
-    <nestedGenPackages prefix="Partitioning" disposableProviderFactory="true" generateModelWizard="false"
-        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
-        ecorePackage="indirections.ecore#//partitioning">
-      <genClasses ecoreClass="indirections.ecore#//partitioning/Partitioning">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Partitioning/specification"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/TimeGrouping"/>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/Windowing">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/size"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/shift"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/ConsumeAllAvailable"/>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/CollectWithHoldback">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/holdback"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/key"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/partitionDataName"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/Joining">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/source"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Joining/canContributeMultipleTimes"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/key"/>
-      </genClasses>
+      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/NumberOfElements">
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/AnyNumber"/>
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/AtLeastOne"/>
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/OneOrNone"/>
+        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/ExactlyOne"/>
+      </genEnums>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"
         extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
@@ -102,12 +87,10 @@
             ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataChannelSourceConnector"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataChannelSinkConnector"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/partitioning"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/timeGrouping"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/joins"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/outgoingDistribution"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/scheduling"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/putPolicy"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/emitToChannelPolicy"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/numberOfElementsToEmit"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/consumeFromChannelPolicy"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Composition" disposableProviderFactory="true" generateModelWizard="false"
