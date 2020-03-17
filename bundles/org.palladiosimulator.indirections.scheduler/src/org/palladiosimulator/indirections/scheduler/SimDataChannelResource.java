@@ -117,6 +117,10 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 			case ONE_OR_NONE:
 				return new ConcreteGroupingIndirectionDate<>(removeOneOrNoneElements());
 			}
+		} else if (dataChannel.getConsumeFromChannelPolicy() == ConsumeFromChannelPolicy.PUSHING) {
+			if (dataChannel.getNumberOfElementsToEmit() != NumberOfElements.EXACTLY_ONE)
+				throw new PCMModelInterpreterException("If channel is pushing, number of elements must be exactly one (is: " + dataChannel.getNumberOfElementsToEmit() + ").");
+			return removeExactlyOneElement();
 		}
 
 		throw new PCMModelInterpreterException("Unknown consume policy (" + dataChannel.getConsumeFromChannelPolicy()

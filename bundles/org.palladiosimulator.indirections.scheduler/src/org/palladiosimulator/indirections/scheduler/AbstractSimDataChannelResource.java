@@ -16,6 +16,7 @@ import org.palladiosimulator.indirections.calculators.scheduler.TriggerableCount
 import org.palladiosimulator.indirections.calculators.scheduler.TriggerableTimeSpanCalculator;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.datatypes.ConsumeFromChannelPolicy;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
@@ -27,6 +28,7 @@ import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUt
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
+import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
@@ -75,6 +77,10 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 		
 		List<Boolean> sinkRolePushingFlags = dataChannel.getDataChannelSinkConnector().stream().map(it -> it.getDataSinkRole().isPushing()).collect(Collectors.toList());
 		this.isPushing = IterableUtil.claimEqual(sinkRolePushingFlags);
+		
+		if (this.isPushing != (this.dataChannel.getConsumeFromChannelPolicy() == ConsumeFromChannelPolicy.PUSHING)) {
+			throw new PCMModelInterpreterException("Data channel is pushing = " + this.isPushing + " is not reflected by consume policy = " + dataChannel.getConsumeFromChannelPolicy());
+		}
 
 		this.initializeQueues();
 		this.createPushingUserFactories();
