@@ -207,9 +207,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 			return true;
 		}
 
-		if (sinkConnector.getDataSinkRole().isPushing()) {
-			throw new IllegalStateException("Cannot pull data over pushing connector " + sinkConnector.toString()
-					+ ", SinkRole: " + sinkConnector.getDataSinkRole().toString());
+		if (isPushing) {
+			throw new IllegalStateException("Cannot pull data over pushing data channel.");
 		}
 
 		final ProcessWaitingToConsume process = new ProcessWaitingToConsume(this.model, schedulableProcess,
