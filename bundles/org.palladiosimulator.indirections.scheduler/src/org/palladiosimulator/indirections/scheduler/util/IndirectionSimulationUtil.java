@@ -13,6 +13,7 @@ import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.EventGroup;
@@ -21,6 +22,7 @@ import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
+import de.uka.ipd.sdq.identifier.Identifier;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.EvaluationProxy;
 import de.uka.ipd.sdq.simucomframework.variables.StackContext;
@@ -216,5 +218,17 @@ public final class IndirectionSimulationUtil {
             measurements.add(data.getTime());
         }
         return measurements;
+    }
+    
+    public static <T extends Entity> T initName(T entity, String name) {
+        entity.setEntityName(name);
+        entity.setId(name + ".ID");
+
+        return entity;
+    }
+
+    public static <T extends Identifier> T initName(T identifier, String name) {
+        identifier.setId(name + ".ID");
+        return identifier;
     }
 }

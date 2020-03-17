@@ -4,11 +4,15 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
+import org.palladiosimulator.indirections.calculators.scheduler.TriggerableCountingCalculator;
+import org.palladiosimulator.indirections.calculators.scheduler.TriggerableTimeSpanCalculator;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.datatypes.ConsumeFromChannelPolicy;
@@ -16,7 +20,10 @@ import org.palladiosimulator.indirections.datatypes.EmitToChannelPolicy;
 import org.palladiosimulator.indirections.datatypes.NumberOfElements;
 import org.palladiosimulator.indirections.datatypes.Scheduling;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
+import org.palladiosimulator.indirections.scheduler.CallbackUserFactory.CallbackUser;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
@@ -82,35 +89,33 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 	}
 
 	@Override
-	protected boolean canProvideDataFor(DataChannelSinkConnector sinkConnector) {
+	protected boolean canProvideData() {
 		return !needsElementToBePresent(dataChannel.getNumberOfElementsToEmit()) || !dataQueue.isEmpty();
 	}
 
 	@Override
-	protected Iterable<IndirectionDate> provideDataFor(DataChannelSinkConnector sinkConnector) {
+	protected IndirectionDate provideData() {
 		if (dataChannel.getConsumeFromChannelPolicy() == ConsumeFromChannelPolicy.PEEK) {
 			switch (dataChannel.getNumberOfElementsToEmit()) {
 			case ANY_NUMBER:
-				return Collections
-						.singleton(new ConcreteGroupingIndirectionDate<>(new ArrayList<>(peekAllElementsFromQueue())));
+				return new ConcreteGroupingIndirectionDate<>(new ArrayList<>(peekAllElementsFromQueue()));
 			case AT_LEAST_ONE:
-				return Collections.singleton(new ConcreteGroupingIndirectionDate<>(peekAtLeastOneElement()));
+				return new ConcreteGroupingIndirectionDate<>(peekAtLeastOneElement());
 			case EXACTLY_ONE:
-				return Collections.singleton(peekExactlyOneElement());
+				return peekExactlyOneElement();
 			case ONE_OR_NONE:
-				return Collections.singleton(new ConcreteGroupingIndirectionDate<>(peekOneOrNoneElements()));
+				return new ConcreteGroupingIndirectionDate<>(peekOneOrNoneElements());
 			}
 		} else if (dataChannel.getConsumeFromChannelPolicy() == ConsumeFromChannelPolicy.REMOVE) {
 			switch (dataChannel.getNumberOfElementsToEmit()) {
 			case ANY_NUMBER:
-				return Collections.singleton(
-						new ConcreteGroupingIndirectionDate<>(new ArrayList<>(removeAllElementsFromQueue())));
+				return new ConcreteGroupingIndirectionDate<>(new ArrayList<>(removeAllElementsFromQueue()));
 			case AT_LEAST_ONE:
-				return Collections.singleton(new ConcreteGroupingIndirectionDate<>(removeAtLeastOneElement()));
+				return new ConcreteGroupingIndirectionDate<>(removeAtLeastOneElement());
 			case EXACTLY_ONE:
-				return Collections.singleton(removeExactlyOneElement());
+				return removeExactlyOneElement();
 			case ONE_OR_NONE:
-				return Collections.singleton(new ConcreteGroupingIndirectionDate<>(removeOneOrNoneElements()));
+				return new ConcreteGroupingIndirectionDate<>(removeOneOrNoneElements());
 			}
 		}
 
@@ -169,7 +174,7 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 	}
 
 	@Override
-	protected boolean canAcceptDataFrom(DataChannelSourceConnector sourceConnector) {
+	protected boolean canAcceptData() {
 		if (dataChannel.getEmitToChannelPolicy() == EmitToChannelPolicy.DISCARD_OLDEST_IF_FULL) {
 			return true;
 		} else if (dataChannel.getEmitToChannelPolicy() == EmitToChannelPolicy.BLOCK_IF_FULL) {
@@ -181,7 +186,7 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 	}
 
 	@Override
-	protected void acceptDataFrom(DataChannelSourceConnector sourceConnector, IndirectionDate date) {
+	protected void acceptData(IndirectionDate date) {
 		dataQueue.add(date);
 
 		if ((dataChannel.getCapacity() != -1) && (dataQueue.size() > dataChannel.getCapacity())) {
@@ -189,6 +194,6 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
 					"Data channel size is larger than capacity. This should be possible.");
 		}
 
-		LOGGER.trace("Added date to queue: " + date + " from connector " + sourceConnector.getEntityName());
+		LOGGER.trace("Added date to queue: " + date);
 	}
 }

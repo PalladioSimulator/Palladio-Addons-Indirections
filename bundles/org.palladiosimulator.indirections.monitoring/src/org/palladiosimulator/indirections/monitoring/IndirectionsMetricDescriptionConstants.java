@@ -23,6 +23,10 @@ public class IndirectionsMetricDescriptionConstants {
 
     public final static BaseMetricDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC;
     public final static MetricSetDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC_TUPLE;
+    
+    public final static BaseMetricDescription NUMBER_OF_DISCARDED_ELEMENTS_METRIC;
+    public final static MetricSetDescription NUMBER_OF_DISCARDED_ELEMENTS_METRIC_TUPLE;
+    public final static MetricSetDescription TOTAL_NUMBER_OF_DISCARDED_ELEMENTS_METRIC_TUPLE;
 
     static {
         final ResourceSet resourceSet = new ResourceSetImpl();
@@ -43,6 +47,10 @@ public class IndirectionsMetricDescriptionConstants {
 
         DATA_CHANNEL_QUEUE_LENGTH_METRIC = (BaseMetricDescription) resource.getEObject("_ijKZchCIEeqqi6TqVNRPhw");
         DATA_CHANNEL_QUEUE_LENGTH_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_fapT4RCJEeqqi6TqVNRPhw");
+
+        NUMBER_OF_DISCARDED_ELEMENTS_METRIC = (BaseMetricDescription) resource.getEObject("_6zV-AloBEeqic-uc8rDY3Q");
+        NUMBER_OF_DISCARDED_ELEMENTS_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_jSXxkVoCEeqic-uc8rDY3Q");
+        TOTAL_NUMBER_OF_DISCARDED_ELEMENTS_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_rVWwkVoCEeqic-uc8rDY3Q");
     }
 
     /**
