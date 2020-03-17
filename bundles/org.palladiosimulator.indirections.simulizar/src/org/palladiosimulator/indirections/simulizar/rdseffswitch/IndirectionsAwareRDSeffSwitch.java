@@ -9,6 +9,7 @@ import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.util.Switch;
 import org.palladiosimulator.indirections.actions.AddToDateAction;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
@@ -23,6 +24,7 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
+import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
@@ -31,6 +33,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
+import org.palladiosimulator.simulizar.exceptions.SimulatedStackAccessException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
@@ -79,6 +82,14 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		this.parentSwitch = parentSwitch;
 	}
 
+	public Switch<Object> getParentSwitch() {
+		if (this.parentSwitch != null) {
+			return this.parentSwitch;
+		}
+
+		return this;
+	}
+
 	@Override
 	public Object caseEmitDataAction(final EmitDataAction action) {
 		LOGGER.trace("Emit event action: " + action.getEntityName());
@@ -92,7 +103,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 		LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
 				+ dataChannelResource.getId());
-		
+
 		// might block
 		dataChannelResource.put(this.context.getThread(), dataChannelSourceConnector, date);
 
@@ -110,7 +121,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		final String threadName = Thread.currentThread().getName();
 
 		LOGGER.trace("Trying to get (" + threadName + ")");
-		
+
 		// might block
 		final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
 			context.getStack().currentStackFrame().addValue(action.getVariableReference().getReferenceName(), date);
@@ -152,10 +163,45 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 	}
 
 	@Override
-	public Object caseDataIteratorAction(DataIteratorAction object) {
-		throw new UnsupportedOperationException();
+	public Object caseDataIteratorAction(DataIteratorAction action) {
+		LOGGER.trace("Iterating over data: " + action.getEntityName());
+
+		String referenceName = action.getVariableReference().getReferenceName();
+
+		IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
+
+		if (!(date instanceof GroupingIndirectionDate<?>))
+			throw new PCMModelInterpreterException(
+					"Date cannot be iterated over, because it is not a grouping date: (is " + date.getClass().getName()
+							+ "): " + date.toString());
+
+		GroupingIndirectionDate<IndirectionDate> groupingDate = (GroupingIndirectionDate<IndirectionDate>) date;
+		for (IndirectionDate iterationDate : groupingDate.getDataInGroup()) {
+
+			final SimulatedStackframe<Object> innerVariableStackFrame = this.context.getStack()
+					.createAndPushNewStackFrame(this.context.getStack().currentStackFrame());
+
+			innerVariableStackFrame.addValue(referenceName + ".INNER", iterationDate);
+
+			this.getParentSwitch().doSwitch(action.getBodyBehaviour_Loop());
+
+			if (this.context.getStack().currentStackFrame() != innerVariableStackFrame) {
+				throw new SimulatedStackAccessException(
+						"Inner value characterisations of inner collection variable expected");
+			}
+
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("Remove stack frame: " + innerVariableStackFrame);
+			}
+			this.context.getStack().removeStackFrame();
+			if (LOGGER.isDebugEnabled()) {
+				LOGGER.debug("Finished loop number " + i + ": " + object);
+			}
+		}
+
+		return true;
 	}
-	
+
 	@Override
 	public Object caseAnalyseStackAction(AnalyseStackAction action) {
 		LOGGER.trace("Analyzing data: " + action.getEntityName());
