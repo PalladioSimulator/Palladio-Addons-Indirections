@@ -2,6 +2,7 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 
 import javax.measure.Measure;
@@ -24,6 +25,7 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
@@ -38,6 +40,7 @@ import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitc
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 
+import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 import de.uka.ipd.sdq.stoex.VariableReference;
 
@@ -177,11 +180,13 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 		GroupingIndirectionDate<IndirectionDate> groupingDate = (GroupingIndirectionDate<IndirectionDate>) date;
 		for (IndirectionDate iterationDate : groupingDate.getDataInGroup()) {
+			LOGGER.debug("Iterating for " + iterationDate);
 
 			final SimulatedStackframe<Object> innerVariableStackFrame = this.context.getStack()
 					.createAndPushNewStackFrame(this.context.getStack().currentStackFrame());
 
 			innerVariableStackFrame.addValue(referenceName + ".INNER", iterationDate);
+			flattenData(this.context.getStack());
 
 			this.getParentSwitch().doSwitch(action.getBodyBehaviour_Loop());
 
@@ -195,7 +200,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 			}
 			this.context.getStack().removeStackFrame();
 			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Finished loop number " + i + ": " + object);
+				LOGGER.debug("Finished iteration on " + iterationDate + " (" + action + ")");
 			}
 		}
 
@@ -221,9 +226,10 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		LOGGER.trace("Putting data on stack: " + action.getEntityName());
 
 		SimulatedStackframe<Object> currentStackFrame = context.getStack().currentStackFrame();
-
+		
 		for (VariableUsage variableUsage : action.getVariableUsages()) {
-			if (!(variableUsage.getNamedReference__VariableUsage() instanceof VariableReference)) {
+			throw new UnsupportedOperationException("Currently only flattening the stack is supported.");
+			/*if (!(variableUsage.getNamedReference__VariableUsage() instanceof VariableReference)) {
 				throw new PCMModelInterpreterException("Unknown type of named reference: "
 						+ variableUsage.getNamedReference__VariableUsage().getClass().getName() + ", expected "
 						+ VariableReference.class.getName());
@@ -235,12 +241,30 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
 			for (VariableCharacterisation characterisation : variableUsage
 					.getVariableCharacterisation_VariableUsage()) {
+				String specification = characterisation.getSpecification_VariableCharacterisation().getSpecification();
+				String dateName = specification.split("\\.")[0];
+				IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), dateName);
+				
 				currentStackFrame.addValue(variableReference.getReferenceName() + "." + characterisation.getType(),
 						Objects.requireNonNull(null));
-			}
+			}*/
 		}
-
+		
+		flattenData(context.getStack());
+		
 		return true;
+	}
+	
+	private void flattenData(SimulatedStack<Object> stack) {
+		SimulatedStackframe<Object> currentStackframe = stack.currentStackFrame();
+		for (Entry<String, Object> entry : currentStackframe.getContents()) {
+			if (entry.getValue() instanceof ConcreteIndirectionDate) {
+				ConcreteIndirectionDate date = (ConcreteIndirectionDate) entry.getValue();
+				for (Entry<String, Object> dataEntry : date.getData().entrySet()) {
+					currentStackframe.addValue(entry.getKey() + "." + dataEntry.getKey() + ".VALUE", dataEntry.getValue());
+				}
+			}
+		}		
 	}
 
 	private void measureDataAge(AnalyseStackAction action, double value) {

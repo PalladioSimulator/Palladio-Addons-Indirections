@@ -36,11 +36,6 @@ public class ConcreteIndirectionDate implements IndirectionDate {
         return "<" + this.getClass().getSimpleName() + " (" + uuid + "): " + dataToString + ">";
     }
 
-    @Override
-    public Object evaluate(PCMRandomVariable expression) {
-        throw new UnsupportedOperationException();
-    }
-
 	@Override
 	public void addDate(String key, Object value) {
 		data.put(key, value);
