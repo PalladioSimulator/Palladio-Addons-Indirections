@@ -150,21 +150,6 @@ public class ActionsSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case ActionsPackage.PUT_DATA_ON_STACK_ACTION: {
-			PutDataOnStackAction putDataOnStackAction = (PutDataOnStackAction) theEObject;
-			T result = casePutDataOnStackAction(putDataOnStackAction);
-			if (result == null)
-				result = caseAbstractAction(putDataOnStackAction);
-			if (result == null)
-				result = caseEntity(putDataOnStackAction);
-			if (result == null)
-				result = caseIdentifier(putDataOnStackAction);
-			if (result == null)
-				result = caseNamedElement(putDataOnStackAction);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case ActionsPackage.DATA_ITERATOR_ACTION: {
 			DataIteratorAction dataIteratorAction = (DataIteratorAction) theEObject;
 			T result = caseDataIteratorAction(dataIteratorAction);
@@ -261,21 +246,6 @@ public class ActionsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAddToDateAction(AddToDateAction object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Put Data On Stack Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Put Data On Stack Action</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casePutDataOnStackAction(PutDataOnStackAction object) {
 		return null;
 	}
 

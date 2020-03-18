@@ -67,15 +67,6 @@ public interface ActionsFactory extends EFactory {
 	AddToDateAction createAddToDateAction();
 
 	/**
-	 * Returns a new object of class '<em>Put Data On Stack Action</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Put Data On Stack Action</em>'.
-	 * @generated
-	 */
-	PutDataOnStackAction createPutDataOnStackAction();
-
-	/**
 	 * Returns a new object of class '<em>Data Iterator Action</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

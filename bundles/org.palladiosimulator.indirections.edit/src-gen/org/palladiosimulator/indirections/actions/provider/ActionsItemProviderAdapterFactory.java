@@ -220,29 +220,6 @@ public class ActionsItemProviderAdapterFactory extends ActionsAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.actions.PutDataOnStackAction} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected PutDataOnStackActionItemProvider putDataOnStackActionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.palladiosimulator.indirections.actions.PutDataOnStackAction}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createPutDataOnStackActionAdapter() {
-		if (putDataOnStackActionItemProvider == null) {
-			putDataOnStackActionItemProvider = new PutDataOnStackActionItemProvider(this);
-		}
-
-		return putDataOnStackActionItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.actions.DataIteratorAction} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -409,8 +386,6 @@ public class ActionsItemProviderAdapterFactory extends ActionsAdapterFactory
 			createDateActionItemProvider.dispose();
 		if (addToDateActionItemProvider != null)
 			addToDateActionItemProvider.dispose();
-		if (putDataOnStackActionItemProvider != null)
-			putDataOnStackActionItemProvider.dispose();
 		if (dataIteratorActionItemProvider != null)
 			dataIteratorActionItemProvider.dispose();
 	}
@@ -482,10 +457,6 @@ public class ActionsItemProviderAdapterFactory extends ActionsAdapterFactory
 				newChildDescriptors
 						.add(createChildParameter(SeffPackage.Literals.RESOURCE_DEMANDING_BEHAVIOUR__STEPS_BEHAVIOUR,
 								ActionsFactory.eINSTANCE.createAddToDateAction()));
-
-				newChildDescriptors
-						.add(createChildParameter(SeffPackage.Literals.RESOURCE_DEMANDING_BEHAVIOUR__STEPS_BEHAVIOUR,
-								ActionsFactory.eINSTANCE.createPutDataOnStackAction()));
 
 				newChildDescriptors
 						.add(createChildParameter(SeffPackage.Literals.RESOURCE_DEMANDING_BEHAVIOUR__STEPS_BEHAVIOUR,
@@ -595,10 +566,6 @@ public class ActionsItemProviderAdapterFactory extends ActionsAdapterFactory
 				newChildDescriptors
 						.add(createChildParameter(SeffPackage.Literals.RESOURCE_DEMANDING_BEHAVIOUR__STEPS_BEHAVIOUR,
 								ActionsFactory.eINSTANCE.createAddToDateAction()));
-
-				newChildDescriptors
-						.add(createChildParameter(SeffPackage.Literals.RESOURCE_DEMANDING_BEHAVIOUR__STEPS_BEHAVIOUR,
-								ActionsFactory.eINSTANCE.createPutDataOnStackAction()));
 
 				newChildDescriptors
 						.add(createChildParameter(SeffPackage.Literals.RESOURCE_DEMANDING_BEHAVIOUR__STEPS_BEHAVIOUR,

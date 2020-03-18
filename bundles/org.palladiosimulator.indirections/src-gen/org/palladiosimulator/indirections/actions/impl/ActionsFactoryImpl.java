@@ -66,8 +66,6 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 			return createCreateDateAction();
 		case ActionsPackage.ADD_TO_DATE_ACTION:
 			return createAddToDateAction();
-		case ActionsPackage.PUT_DATA_ON_STACK_ACTION:
-			return createPutDataOnStackAction();
 		case ActionsPackage.DATA_ITERATOR_ACTION:
 			return createDataIteratorAction();
 		default:
@@ -128,17 +126,6 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 	public AddToDateAction createAddToDateAction() {
 		AddToDateActionImpl addToDateAction = new AddToDateActionImpl();
 		return addToDateAction;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public PutDataOnStackAction createPutDataOnStackAction() {
-		PutDataOnStackActionImpl putDataOnStackAction = new PutDataOnStackActionImpl();
-		return putDataOnStackAction;
 	}
 
 	/**

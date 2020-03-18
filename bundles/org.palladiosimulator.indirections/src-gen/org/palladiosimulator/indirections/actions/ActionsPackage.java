@@ -486,79 +486,6 @@ public interface ActionsPackage extends EPackage {
 	int ADD_TO_DATE_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl <em>Put Data On Stack Action</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl
-	 * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getPutDataOnStackAction()
-	 * @generated
-	 */
-	int PUT_DATA_ON_STACK_ACTION = 5;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUT_DATA_ON_STACK_ACTION__ID = SeffPackage.ABSTRACT_ACTION__ID;
-
-	/**
-	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUT_DATA_ON_STACK_ACTION__ENTITY_NAME = SeffPackage.ABSTRACT_ACTION__ENTITY_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Predecessor Abstract Action</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUT_DATA_ON_STACK_ACTION__PREDECESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__PREDECESSOR_ABSTRACT_ACTION;
-
-	/**
-	 * The feature id for the '<em><b>Successor Abstract Action</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUT_DATA_ON_STACK_ACTION__SUCCESSOR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__SUCCESSOR_ABSTRACT_ACTION;
-
-	/**
-	 * The feature id for the '<em><b>Resource Demanding Behaviour Abstract Action</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUT_DATA_ON_STACK_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION = SeffPackage.ABSTRACT_ACTION__RESOURCE_DEMANDING_BEHAVIOUR_ABSTRACT_ACTION;
-
-	/**
-	 * The feature id for the '<em><b>Variable Usages</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUT_DATA_ON_STACK_ACTION__VARIABLE_USAGES = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Put Data On Stack Action</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PUT_DATA_ON_STACK_ACTION_FEATURE_COUNT = SeffPackage.ABSTRACT_ACTION_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link org.palladiosimulator.indirections.actions.impl.DataIteratorActionImpl <em>Data Iterator Action</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -566,7 +493,7 @@ public interface ActionsPackage extends EPackage {
 	 * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getDataIteratorAction()
 	 * @generated
 	 */
-	int DATA_ITERATOR_ACTION = 6;
+	int DATA_ITERATOR_ACTION = 5;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -850,27 +777,6 @@ public interface ActionsPackage extends EPackage {
 	EReference getAddToDateAction_VariableUsages();
 
 	/**
-	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.actions.PutDataOnStackAction <em>Put Data On Stack Action</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Put Data On Stack Action</em>'.
-	 * @see org.palladiosimulator.indirections.actions.PutDataOnStackAction
-	 * @generated
-	 */
-	EClass getPutDataOnStackAction();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.palladiosimulator.indirections.actions.PutDataOnStackAction#getVariableUsages <em>Variable Usages</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Variable Usages</em>'.
-	 * @see org.palladiosimulator.indirections.actions.PutDataOnStackAction#getVariableUsages()
-	 * @see #getPutDataOnStackAction()
-	 * @generated
-	 */
-	EReference getPutDataOnStackAction_VariableUsages();
-
-	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.actions.DataIteratorAction <em>Data Iterator Action</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1058,24 +964,6 @@ public interface ActionsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ADD_TO_DATE_ACTION__VARIABLE_USAGES = eINSTANCE.getAddToDateAction_VariableUsages();
-
-		/**
-		 * The meta object literal for the '{@link org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl <em>Put Data On Stack Action</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.palladiosimulator.indirections.actions.impl.PutDataOnStackActionImpl
-		 * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getPutDataOnStackAction()
-		 * @generated
-		 */
-		EClass PUT_DATA_ON_STACK_ACTION = eINSTANCE.getPutDataOnStackAction();
-
-		/**
-		 * The meta object literal for the '<em><b>Variable Usages</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PUT_DATA_ON_STACK_ACTION__VARIABLE_USAGES = eINSTANCE.getPutDataOnStackAction_VariableUsages();
 
 		/**
 		 * The meta object literal for the '{@link org.palladiosimulator.indirections.actions.impl.DataIteratorActionImpl <em>Data Iterator Action</em>}' class.

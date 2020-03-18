@@ -101,11 +101,6 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter casePutDataOnStackAction(PutDataOnStackAction object) {
-			return createPutDataOnStackActionAdapter();
-		}
-
-		@Override
 		public Adapter caseDataIteratorAction(DataIteratorAction object) {
 			return createDataIteratorActionAdapter();
 		}
@@ -226,20 +221,6 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAddToDateActionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.actions.PutDataOnStackAction <em>Put Data On Stack Action</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.actions.PutDataOnStackAction
-	 * @generated
-	 */
-	public Adapter createPutDataOnStackActionAdapter() {
 		return null;
 	}
 

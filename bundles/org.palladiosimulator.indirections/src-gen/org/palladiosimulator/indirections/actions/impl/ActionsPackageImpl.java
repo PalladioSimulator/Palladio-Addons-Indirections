@@ -25,7 +25,6 @@ import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDateAction;
 import org.palladiosimulator.indirections.actions.DataIteratorAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
-import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 
@@ -90,13 +89,6 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 	 * @generated
 	 */
 	private EClass addToDateActionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass putDataOnStackActionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -378,26 +370,6 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getPutDataOnStackAction() {
-		return putDataOnStackActionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getPutDataOnStackAction_VariableUsages() {
-		return (EReference) putDataOnStackActionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public EClass getDataIteratorAction() {
 		return dataIteratorActionEClass;
 	}
@@ -464,9 +436,6 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		createEReference(addToDateActionEClass, ADD_TO_DATE_ACTION__VARIABLE_REFERENCE);
 		createEReference(addToDateActionEClass, ADD_TO_DATE_ACTION__VARIABLE_USAGES);
 
-		putDataOnStackActionEClass = createEClass(PUT_DATA_ON_STACK_ACTION);
-		createEReference(putDataOnStackActionEClass, PUT_DATA_ON_STACK_ACTION__VARIABLE_USAGES);
-
 		dataIteratorActionEClass = createEClass(DATA_ITERATOR_ACTION);
 		createEReference(dataIteratorActionEClass, DATA_ITERATOR_ACTION__VARIABLE_REFERENCE);
 	}
@@ -515,7 +484,6 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		emitDataActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
 		createDateActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
 		addToDateActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
-		putDataOnStackActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
 		dataIteratorActionEClass.getESuperTypes().add(theSeffPackage.getAbstractLoopAction());
 
 		// Initialize classes and features; add operations and parameters
@@ -568,12 +536,6 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAddToDateAction_VariableUsages(), theParameterPackage.getVariableUsage(), null,
 				"variableUsages", null, 0, -1, AddToDateAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(putDataOnStackActionEClass, PutDataOnStackAction.class, "PutDataOnStackAction", !IS_ABSTRACT,
-				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPutDataOnStackAction_VariableUsages(), theParameterPackage.getVariableUsage(), null,
-				"variableUsages", null, 1, -1, PutDataOnStackAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataIteratorActionEClass, DataIteratorAction.class, "DataIteratorAction", !IS_ABSTRACT,

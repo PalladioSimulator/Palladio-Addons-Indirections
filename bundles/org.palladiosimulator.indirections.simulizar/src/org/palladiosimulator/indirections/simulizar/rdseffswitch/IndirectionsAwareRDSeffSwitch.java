@@ -3,7 +3,6 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
@@ -17,7 +16,6 @@ import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDateAction;
 import org.palladiosimulator.indirections.actions.DataIteratorAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
-import org.palladiosimulator.indirections.actions.PutDataOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
@@ -25,6 +23,7 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
@@ -32,17 +31,15 @@ import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.exceptions.SimulatedStackAccessException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 
+import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
-import de.uka.ipd.sdq.stoex.VariableReference;
 
 public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 	private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
@@ -128,6 +125,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		// might block
 		final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
 			context.getStack().currentStackFrame().addValue(action.getVariableReference().getReferenceName(), date);
+			makeDateInformationAvailableOnStack(context.getStack(), action.getVariableReference().getReferenceName());
 		});
 
 		LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
@@ -186,7 +184,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 					.createAndPushNewStackFrame(this.context.getStack().currentStackFrame());
 
 			innerVariableStackFrame.addValue(referenceName + ".INNER", iterationDate);
-			flattenData(this.context.getStack());
+			makeDateInformationAvailableOnStack(this.context.getStack(), referenceName + ".INNER");
 
 			this.getParentSwitch().doSwitch(action.getBodyBehaviour_Loop());
 
@@ -221,50 +219,32 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		return true;
 	}
 
-	@Override
-	public Object casePutDataOnStackAction(PutDataOnStackAction action) {
-		LOGGER.trace("Putting data on stack: " + action.getEntityName());
+	private void makeDateInformationAvailableOnStack(SimulatedStack<Object> stack, String referenceName) {
+		SimulatedStackframe<Object> currentStackframe = stack.currentStackFrame();
 
-		SimulatedStackframe<Object> currentStackFrame = context.getStack().currentStackFrame();
-		
-		for (VariableUsage variableUsage : action.getVariableUsages()) {
-			throw new UnsupportedOperationException("Currently only flattening the stack is supported.");
-			/*if (!(variableUsage.getNamedReference__VariableUsage() instanceof VariableReference)) {
-				throw new PCMModelInterpreterException("Unknown type of named reference: "
-						+ variableUsage.getNamedReference__VariableUsage().getClass().getName() + ", expected "
-						+ VariableReference.class.getName());
-			}
-
-			VariableReference variableReference = (VariableReference) variableUsage.getNamedReference__VariableUsage();
-
-			LOGGER.trace("Variable reference: " + variableReference.getReferenceName());
-
-			for (VariableCharacterisation characterisation : variableUsage
-					.getVariableCharacterisation_VariableUsage()) {
-				String specification = characterisation.getSpecification_VariableCharacterisation().getSpecification();
-				String dateName = specification.split("\\.")[0];
-				IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), dateName);
-				
-				currentStackFrame.addValue(variableReference.getReferenceName() + "." + characterisation.getType(),
-						Objects.requireNonNull(null));
-			}*/
+		Object o;
+		try {
+			o = currentStackframe.getValue(referenceName);
+		} catch (ValueNotInFrameException e) {
+			e.printStackTrace();
+			throw new PCMModelInterpreterException(referenceName + " not found on stack.", e);
 		}
 		
-		flattenData(context.getStack());
-		
-		return true;
-	}
-	
-	private void flattenData(SimulatedStack<Object> stack) {
-		SimulatedStackframe<Object> currentStackframe = stack.currentStackFrame();
-		for (Entry<String, Object> entry : currentStackframe.getContents()) {
-			if (entry.getValue() instanceof ConcreteIndirectionDate) {
-				ConcreteIndirectionDate date = (ConcreteIndirectionDate) entry.getValue();
-				for (Entry<String, Object> dataEntry : date.getData().entrySet()) {
-					currentStackframe.addValue(entry.getKey() + "." + dataEntry.getKey() + ".VALUE", dataEntry.getValue());
-				}
+		if (o instanceof ConcreteIndirectionDate) {
+			ConcreteIndirectionDate indirectionDate = (ConcreteIndirectionDate) o;
+			
+			for (Entry<String, Object> dataEntry : indirectionDate.getData().entrySet()) {
+				currentStackframe.addValue(referenceName + "." + dataEntry.getKey() + ".VALUE", dataEntry.getValue());
 			}
-		}		
+		} else if (o instanceof ConcreteGroupingIndirectionDate<?>) {
+			ConcreteGroupingIndirectionDate<?> groupingIndirectionDate = (ConcreteGroupingIndirectionDate<?>) o;
+			
+			int numberOfElements = groupingIndirectionDate.getDataInGroup().size();
+			currentStackframe.addValue(referenceName + ".NUMBER_OF_ELEMENTS" , numberOfElements);
+		} else {
+			throw new PCMModelInterpreterException(referenceName + " is not a ConcreteIndirectionDate, but a " + o.getClass().getName());
+		}
+
 	}
 
 	private void measureDataAge(AnalyseStackAction action, double value) {
