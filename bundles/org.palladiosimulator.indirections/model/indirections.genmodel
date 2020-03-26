@@ -45,9 +45,6 @@
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AddToDateAction/variableReference"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AddToDateAction/variableUsages"/>
       </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//actions/PutDataOnStackAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/PutDataOnStackAction/variableUsages"/>
-      </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/DataIteratorAction">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/DataIteratorAction/variableReference"/>
       </genClasses>
