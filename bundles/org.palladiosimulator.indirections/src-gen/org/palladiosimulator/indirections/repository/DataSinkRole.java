@@ -75,7 +75,7 @@ public interface DataSinkRole extends ProvidedRole {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Pushing</em>' attribute.
 	 * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_Pushing()
-	 * @model changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	boolean isPushing();
