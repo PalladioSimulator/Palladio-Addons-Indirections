@@ -44,4 +44,5 @@
             class="org.palladiosimulator.indirections.repository.RepositoryPackage"
             genModel="model/indirections.genmodel"/>
    </extension>
+
 </plugin>

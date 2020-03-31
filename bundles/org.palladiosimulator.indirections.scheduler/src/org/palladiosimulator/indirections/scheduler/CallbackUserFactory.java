@@ -1,7 +1,5 @@
 package org.palladiosimulator.indirections.scheduler;
 
-import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.initName;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -9,19 +7,12 @@ import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
-import org.palladiosimulator.pcm.core.CoreFactory;
-import org.palladiosimulator.pcm.core.PCMRandomVariable;
-import org.palladiosimulator.pcm.parameter.ParameterFactory;
-import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
-import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
-import org.palladiosimulator.pcm.usagemodel.ScenarioBehaviour;
-import org.palladiosimulator.pcm.usagemodel.Start;
-import org.palladiosimulator.pcm.usagemodel.Stop;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.probeframework.probes.TriggeredProbe;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 import org.palladiosimulator.simulizar.interpreter.UsageScenarioSwitch;
 
 import de.uka.ipd.sdq.simucomframework.SimuComSimProcess;
@@ -29,10 +20,10 @@ import de.uka.ipd.sdq.simucomframework.exceptions.FailureException;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.usage.AbstractWorkloadUserFactory;
 import de.uka.ipd.sdq.simucomframework.usage.IUser;
-import de.uka.ipd.sdq.stoex.StoexFactory;
-import de.uka.ipd.sdq.stoex.VariableReference;
 
 public class CallbackUserFactory extends AbstractWorkloadUserFactory {
+	private DataChannelSinkConnector sinkConnector;
+
 	/**
 	 * @param <T> type of the data
 	 */
@@ -95,6 +86,21 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 		}
 	}
 
+	/**
+	 * @see UsageScenarioSwitch#caseEntryLevelSystemCall(EntryLevelSystemCall)
+	 * @param context
+	 * @param sinkConnector
+	 */
+	private void simulateComponentCall(InterpreterDefaultContext context, DataChannelSinkConnector sinkConnector) {
+		DataSinkRole sinkRole = sinkConnector.getDataSinkRole();
+
+		final RepositoryComponentSwitch providedDelegationSwitch = new RepositoryComponentSwitch(context,
+				sinkConnector.getAssemblyContext(), sinkRole.getPushesTo(), sinkRole);
+
+		providedDelegationSwitch.doSwitch(sinkRole);
+		context.getStack().removeStackFrame();
+	}
+
 	public class CallbackIteratingUser extends AbstractCallbackUser<List<IndirectionDate>> {
 		public CallbackIteratingUser(SimuComModel owner, String name) {
 			super(owner, name);
@@ -103,15 +109,14 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 		@Override
 		public void scenarioRunner(SimuComSimProcess thread) {
 			for (IndirectionDate currentDate : this.date) {
-				final InterpreterDefaultContext newContext = new InterpreterDefaultContext(
-						context.getRuntimeState().getMainContext(), thread);
-
 				// TODO: fix helper method to handle data on stack
 				context.getStack().createAndPushNewStackFrame();
-				IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), Objects.requireNonNull(dataId),
+				String parameterName = IndirectionSimulationUtil
+						.getOneParameter(sinkConnector.getDataSinkRole().getEventGroup()).getParameterName();
+				IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
 						Objects.requireNonNull(currentDate));
 
-				new UsageScenarioSwitch<Object>(newContext).doSwitch(usageScenario);
+				simulateComponentCall(context, sinkConnector);
 			}
 		}
 	}
@@ -123,23 +128,26 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 
 		@Override
 		public void scenarioRunner(SimuComSimProcess thread) {
-			final InterpreterDefaultContext newContext = new InterpreterDefaultContext(
-					context.getRuntimeState().getMainContext(), thread);
-
 			// TODO: fix helper method to handle data on stack
 			context.getStack().createAndPushNewStackFrame();
-			IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), Objects.requireNonNull(dataId),
+			String parameterName = IndirectionSimulationUtil
+					.getOneParameter(sinkConnector.getDataSinkRole().getEventGroup()).getParameterName();
+			IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
 					Objects.requireNonNull(date));
 
-			new UsageScenarioSwitch<Object>(newContext).doSwitch(usageScenario);
+			simulateComponentCall(context, sinkConnector);
 		}
 	}
 
-	private final UsageScenario usageScenario;
+	public CallbackUserFactory(SimuComModel model, DataChannelSinkConnector sinkConnector) {
+		super(model, initNewUsageScenario(sinkConnector));
+		this.sinkConnector = sinkConnector;
+	}
 
-	public CallbackUserFactory(SimuComModel model, UsageScenario usageScenario) {
-		super(model, usageScenario);
-		this.usageScenario = usageScenario;
+	private static UsageScenario initNewUsageScenario(DataChannelSinkConnector sinkConnector) {
+		UsageScenario usageScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
+		usageScenario.setEntityName(sinkConnector.getEntityName() + "_pushing_UsageScenario");
+		return usageScenario;
 	}
 
 	public CallbackUser createUser() {
@@ -153,53 +161,71 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 	public static CallbackUserFactory createPushingUserFactory(DataChannelSinkConnector sinkConnector,
 			SimuComModel model) {
 
-		final DataSinkRole sinkRole = sinkConnector.getDataSinkRole();
+		return new CallbackUserFactory(model, sinkConnector);
 
-		UsagemodelFactory factory = UsagemodelFactory.eINSTANCE;
-		ParameterFactory parameterFactory = ParameterFactory.eINSTANCE;
-		StoexFactory stoexFactory = StoexFactory.eINSTANCE;
-		CoreFactory coreFactory = CoreFactory.eINSTANCE;
-
-		final String baseName = sinkConnector.getEntityName() + ".Generated";
-		final String parameterName = IndirectionSimulationUtil.getOneParameter(sinkRole.getEventGroup())
-				.getParameterName();
-
-		UsageScenario usageScenario = initName(factory.createUsageScenario(), baseName + ".UsageScenario");
-		ScenarioBehaviour scenarioBehaviour = initName(factory.createScenarioBehaviour(),
-				baseName + ".UsageScenario.Behaviour");
-
-		EntryLevelSystemCall elsc = initName(factory.createEntryLevelSystemCall(), baseName + ".UsageScenario.ELSC");
-
-		PCMRandomVariable pcmRandomVariable = coreFactory.createPCMRandomVariable();
-		pcmRandomVariable.setSpecification(parameterName);
-
-		VariableCharacterisation variableCharacterisation = parameterFactory.createVariableCharacterisation();
-		variableCharacterisation.setSpecification_VariableCharacterisation(pcmRandomVariable);
-
-		VariableReference variableReference = stoexFactory.createVariableReference();
-		variableReference.setReferenceName(parameterName);
-
-		VariableUsage variableUsage = parameterFactory.createVariableUsage();
-		variableUsage.setEntryLevelSystemCall_InputParameterUsage(elsc);
-		variableUsage.setNamedReference__VariableUsage(variableReference);
-		variableUsage.getVariableCharacterisation_VariableUsage().add(variableCharacterisation);
-
-		variableUsage.setNamedReference__VariableUsage(variableReference);
-
-		elsc.getInputParameterUsages_EntryLevelSystemCall().add(variableUsage);
-
-		Start startAction = initName(factory.createStart(), baseName + ".UsageScenario.Start");
-		Stop stopAction = initName(factory.createStop(), baseName + ".UsageScenario.Stop");
-
-		startAction.setSuccessor(elsc);
-		elsc.setSuccessor(stopAction);
-
-		scenarioBehaviour.getActions_ScenarioBehaviour().addAll(List.of(startAction, elsc, stopAction));
-
-		usageScenario.setScenarioBehaviour_UsageScenario(scenarioBehaviour);
-
-		CallbackUserFactory userFactory = new CallbackUserFactory(model, usageScenario);
-
-		return userFactory;
+		/*
+		 * 
+		 * final DataSinkRole sinkRole = sinkConnector.getDataSinkRole();
+		 * 
+		 * UsagemodelFactory factory = UsagemodelFactory.eINSTANCE;
+		 * org.palladiosimulator.indirections.usagemodel.UsagemodelFactory
+		 * indirectionFactory =
+		 * org.palladiosimulator.indirections.usagemodel.UsagemodelFactory.eINSTANCE;
+		 * ParameterFactory parameterFactory = ParameterFactory.eINSTANCE; StoexFactory
+		 * stoexFactory = StoexFactory.eINSTANCE;
+		 * 
+		 * CoreFactory coreFactory = CoreFactory.eINSTANCE;
+		 * 
+		 * final String baseName = sinkConnector.getEntityName() + ".Generated"; final
+		 * String parameterName =
+		 * IndirectionSimulationUtil.getOneParameter(sinkRole.getEventGroup())
+		 * .getParameterName();
+		 * 
+		 * UsageScenario usageScenario = initName(factory.createUsageScenario(),
+		 * baseName + ".UsageScenario"); ScenarioBehaviour scenarioBehaviour =
+		 * initName(factory.createScenarioBehaviour(), baseName +
+		 * ".UsageScenario.Behaviour");
+		 * 
+		 * ComponentCallAction cca =
+		 * initName(indirectionFactory.createComponentCallAction(), baseName +
+		 * ".UsageScenario.CCA");
+		 * cca.setSignature(sinkConnector.getDataSinkRole().getPushesTo());
+		 * cca.setAssemblyContext(sinkConnector.getAssemblyContext());
+		 * 
+		 * PCMRandomVariable pcmRandomVariable = coreFactory.createPCMRandomVariable();
+		 * pcmRandomVariable.setSpecification(parameterName);
+		 * 
+		 * VariableCharacterisation variableCharacterisation =
+		 * parameterFactory.createVariableCharacterisation();
+		 * variableCharacterisation.setSpecification_VariableCharacterisation(
+		 * pcmRandomVariable);
+		 * 
+		 * VariableReference variableReference = stoexFactory.createVariableReference();
+		 * variableReference.setReferenceName(parameterName);
+		 * 
+		 * VariableUsage variableUsage = parameterFactory.createVariableUsage();
+		 * variableUsage.setNamedReference__VariableUsage(variableReference);
+		 * variableUsage.getVariableCharacterisation_VariableUsage().add(
+		 * variableCharacterisation);
+		 * variableUsage.setNamedReference__VariableUsage(variableReference);
+		 * 
+		 * cca.getInputParameterUsages().add(variableUsage);
+		 * 
+		 * Start startAction = initName(factory.createStart(), baseName +
+		 * ".UsageScenario.Start"); Stop stopAction = initName(factory.createStop(),
+		 * baseName + ".UsageScenario.Stop");
+		 * 
+		 * startAction.setSuccessor(cca); cca.setSuccessor(stopAction);
+		 * 
+		 * scenarioBehaviour.getActions_ScenarioBehaviour().addAll(List.of(startAction,
+		 * cca, stopAction));
+		 * 
+		 * usageScenario.setScenarioBehaviour_UsageScenario(scenarioBehaviour);
+		 * 
+		 * CallbackUserFactory userFactory = new CallbackUserFactory(model,
+		 * usageScenario);
+		 * 
+		 * return userFactory;
+		 */
 	}
 }

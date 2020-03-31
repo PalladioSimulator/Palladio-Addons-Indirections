@@ -21,7 +21,10 @@ Export-Package: org.palladiosimulator.indirections.actions,
  org.palladiosimulator.indirections.repository.util,
  org.palladiosimulator.indirections.system,
  org.palladiosimulator.indirections.system.impl,
- org.palladiosimulator.indirections.system.util
+ org.palladiosimulator.indirections.system.util,
+ org.palladiosimulator.indirections.usagemodel,
+ org.palladiosimulator.indirections.usagemodel.impl,
+ org.palladiosimulator.indirections.usagemodel.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.ocl;visibility:=reexport,
