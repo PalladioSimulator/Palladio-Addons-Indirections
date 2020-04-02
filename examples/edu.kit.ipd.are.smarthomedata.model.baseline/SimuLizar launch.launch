@@ -25,7 +25,7 @@
     <stringAttribute key="maximum" value=""/>
     <stringAttribute key="maximumMeasurementCount" value="10000"/>
     <stringAttribute key="minimum" value=""/>
-    <stringAttribute key="monitorRepositoryFile" value=""/>
+    <stringAttribute key="monitorRepositoryFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model.baseline/baseline.monitorrepository"/>
     <stringAttribute key="outpath" value="org.palladiosimulator.temporary"/>
     <stringAttribute key="persistenceFramework" value="Experiment Data Persistency &amp; Presentation (EDP2)"/>
     <stringAttribute key="reconfigurationRulesFolder" value=""/>

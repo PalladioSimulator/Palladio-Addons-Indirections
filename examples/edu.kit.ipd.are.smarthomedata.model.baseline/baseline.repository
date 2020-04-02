@@ -46,20 +46,12 @@
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_n8N9oHT1EeqzkIg9FIremw" describedService__SEFF="_kDCmEHTIEeqzkIg9FIremw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_oOVoYHT1EeqzkIg9FIremw" successor_AbstractAction="_R3O_UHT8EeqzkIg9FIremw"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_oOWPcHT1EeqzkIg9FIremw" predecessor_AbstractAction="_tJUUoHT1EeqzkIg9FIremw"/>
-      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_sJpAUXT1EeqzkIg9FIremw" entityName="SetVariableAction1" predecessor_AbstractAction="_R3O_UHT8EeqzkIg9FIremw" successor_AbstractAction="_tJUUoHT1EeqzkIg9FIremw">
-        <localVariableUsages_SetVariableAction>
-          <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="BoolPMF[(true; 0.1)(false; 0.9)]"/>
-          </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="currentValueTriggersEmit"/>
-        </localVariableUsages_SetVariableAction>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:BranchAction" id="_tJUUoHT1EeqzkIg9FIremw" entityName="BranchAction1" predecessor_AbstractAction="_sJpAUXT1EeqzkIg9FIremw" successor_AbstractAction="_oOWPcHT1EeqzkIg9FIremw">
-        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_tJUUoXT1EeqzkIg9FIremw" entityName="GuardedBranchTransition1">
-          <branchBehaviour_BranchTransition id="_tJUUonT1EeqzkIg9FIremw">
-            <steps_Behaviour xsi:type="seff:StartAction" id="_tJUUo3T1EeqzkIg9FIremw" successor_AbstractAction="_bvLKQHT7EeqzkIg9FIremw"/>
-            <steps_Behaviour xsi:type="seff:StopAction" id="_tJUUpHT1EeqzkIg9FIremw" predecessor_AbstractAction="_bvLKQHT7EeqzkIg9FIremw"/>
-            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_bvLKQHT7EeqzkIg9FIremw" entityName="ExternalCallAction1" predecessor_AbstractAction="_tJUUo3T1EeqzkIg9FIremw" successor_AbstractAction="_tJUUpHT1EeqzkIg9FIremw" calledService_ExternalService="_-uMMgHToEeqzkIg9FIremw" role_ExternalService="_DmTyAHTpEeqzkIg9FIremw">
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_tJUUoHT1EeqzkIg9FIremw" entityName="BranchAction1" predecessor_AbstractAction="_R3O_UHT8EeqzkIg9FIremw" successor_AbstractAction="_oOWPcHT1EeqzkIg9FIremw">
+        <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_fRIjMHT9EeqfGM3fGOBvoA" entityName="ProbabilisticBranchTransition1" branchProbability="0.1">
+          <branchBehaviour_BranchTransition id="_fRJKQHT9EeqfGM3fGOBvoA">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_fRJKQXT9EeqfGM3fGOBvoA" successor_AbstractAction="_bvLKQHT7EeqzkIg9FIremw"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_fRJKQnT9EeqfGM3fGOBvoA" predecessor_AbstractAction="_bvLKQHT7EeqzkIg9FIremw"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_bvLKQHT7EeqzkIg9FIremw" entityName="ExternalCallAction1" predecessor_AbstractAction="_fRJKQXT9EeqfGM3fGOBvoA" successor_AbstractAction="_fRJKQnT9EeqfGM3fGOBvoA" calledService_ExternalService="_-uMMgHToEeqzkIg9FIremw" role_ExternalService="_DmTyAHTpEeqzkIg9FIremw">
               <inputVariableUsages__CallAction>
                 <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
                   <specification_VariableCharacterisation specification="10"/>
@@ -68,10 +60,15 @@
               </inputVariableUsages__CallAction>
             </steps_Behaviour>
           </branchBehaviour_BranchTransition>
-          <branchCondition_GuardedBranchTransition specification="currentValueTriggersEmit.VALUE"/>
+        </branches_Branch>
+        <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_lP0IIHT9EeqfGM3fGOBvoA" entityName="ProbabilisticBranchTransition2" branchProbability="0.9">
+          <branchBehaviour_BranchTransition id="_lP0IIXT9EeqfGM3fGOBvoA">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_lP0IInT9EeqfGM3fGOBvoA" successor_AbstractAction="_lP0II3T9EeqfGM3fGOBvoA"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_lP0II3T9EeqfGM3fGOBvoA" predecessor_AbstractAction="_lP0IInT9EeqfGM3fGOBvoA"/>
+          </branchBehaviour_BranchTransition>
         </branches_Branch>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="_R3O_UHT8EeqzkIg9FIremw" entityName="InternalAction1" predecessor_AbstractAction="_oOVoYHT1EeqzkIg9FIremw" successor_AbstractAction="_sJpAUXT1EeqzkIg9FIremw">
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_R3O_UHT8EeqzkIg9FIremw" entityName="InternalAction1" predecessor_AbstractAction="_oOVoYHT1EeqzkIg9FIremw" successor_AbstractAction="_tJUUoHT1EeqzkIg9FIremw">
         <resourceDemand_Action>
           <specification_ParametericResourceDemand specification="1"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
