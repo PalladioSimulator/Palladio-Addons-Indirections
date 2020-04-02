@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_GUelEHTAEeqzkIg9FIremw">
+  <targetResourceEnvironment_Allocation href="baseline.resourceenvironment#/"/>
+  <system_Allocation href="baseline.system#_RGCqMHTAEeqzkIg9FIremw"/>
+  <allocationContexts_Allocation id="_lw_xUHT3EeqzkIg9FIremw" entityName="Allocation_Assembly_Ingress">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#_v7WfkHTCEeqzkIg9FIremw"/>
+    <assemblyContext_AllocationContext href="baseline.system#_0bKIYHTmEeqzkIg9FIremw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_l2pGUHT3EeqzkIg9FIremw" entityName="Allocation_Assembly_MedianCalculation">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#_v7WfkHTCEeqzkIg9FIremw"/>
+    <assemblyContext_AllocationContext href="baseline.system#_z8dV0HTIEeqzkIg9FIremw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_l8LtoHT3EeqzkIg9FIremw" entityName="Allocation_Assembly_OutlierCalculation">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#_v7WfkHTCEeqzkIg9FIremw"/>
+    <assemblyContext_AllocationContext href="baseline.system#_xgibEHTKEeqzkIg9FIremw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_mCcGoHT3EeqzkIg9FIremw" entityName="Allocation_Assembly_Average">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#_v7WfkHTCEeqzkIg9FIremw"/>
+    <assemblyContext_AllocationContext href="baseline.system#_-BGH4HTmEeqzkIg9FIremw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_mJPSMHT3EeqzkIg9FIremw" entityName="Allocation_Assembly_Group">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#_v7WfkHTCEeqzkIg9FIremw"/>
+    <assemblyContext_AllocationContext href="baseline.system#__4qGcHTmEeqzkIg9FIremw"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>
