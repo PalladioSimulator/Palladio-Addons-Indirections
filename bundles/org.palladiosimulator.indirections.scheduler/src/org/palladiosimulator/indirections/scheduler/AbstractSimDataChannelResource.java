@@ -147,7 +147,11 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 					.getOneParameter(sinkConnector.getDataSinkRole().getEventGroup()).getParameterName();
 	
 			CallbackUser user = sinkConnectorUserFactories.get(sinkConnector).createUser();
-			user.setDataAndStartUserLife(parameterName, date, context);
+			
+			final InterpreterDefaultContext newContext = new InterpreterDefaultContext(
+                    context.getRuntimeState().getMainContext(), user);
+			
+			user.setDataAndStartUserLife(parameterName, date, newContext);
 		}
 
 	}

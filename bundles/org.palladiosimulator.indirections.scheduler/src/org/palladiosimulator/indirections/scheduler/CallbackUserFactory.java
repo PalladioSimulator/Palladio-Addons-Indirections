@@ -113,7 +113,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 				context.getStack().createAndPushNewStackFrame();
 				String parameterName = IndirectionSimulationUtil
 						.getOneParameter(sinkConnector.getDataSinkRole().getEventGroup()).getParameterName();
-				
+
 				IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
 						Objects.requireNonNull(currentDate));
 				IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, currentDate);
@@ -134,7 +134,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 			context.getStack().createAndPushNewStackFrame();
 			String parameterName = IndirectionSimulationUtil
 					.getOneParameter(sinkConnector.getDataSinkRole().getEventGroup()).getParameterName();
-			
+
 			IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
 					Objects.requireNonNull(date));
 			IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, date);
