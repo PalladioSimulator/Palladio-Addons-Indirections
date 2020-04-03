@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.util.IterableUtil;
@@ -239,4 +240,37 @@ public final class IndirectionSimulationUtil {
         identifier.setId(name + ".ID");
         return identifier;
     }
+    
+	public static void makeDateInformationAvailableOnStack(SimulatedStack<Object> stack, String referenceName) {
+		SimulatedStackframe<Object> currentStackframe = stack.currentStackFrame();
+		
+		Object o;
+		try {
+			o = currentStackframe.getValue(referenceName);
+		} catch (ValueNotInFrameException e) {
+			e.printStackTrace();
+			throw new PCMModelInterpreterException(referenceName + " not found on stack.", e);
+		}
+		
+		flattenDataOnStack(stack, referenceName, (IndirectionDate) o);
+	}
+	
+	public static void flattenDataOnStack(SimulatedStack<Object> stack, String baseName, IndirectionDate date) {
+		SimulatedStackframe<Object> currentStackframe = stack.currentStackFrame();
+		
+		if (date instanceof ConcreteIndirectionDate) {
+			ConcreteIndirectionDate indirectionDate = (ConcreteIndirectionDate) date;
+			
+			for (Entry<String, Object> dataEntry : indirectionDate.getData().entrySet()) {
+				currentStackframe.addValue(baseName + "." + dataEntry.getKey(), dataEntry.getValue());
+			}
+		} else if (date instanceof ConcreteGroupingIndirectionDate<?>) {
+			ConcreteGroupingIndirectionDate<?> groupingIndirectionDate = (ConcreteGroupingIndirectionDate<?>) date;
+			
+			int numberOfElements = groupingIndirectionDate.getDataInGroup().size();
+			currentStackframe.addValue(baseName + ".NUMBER_OF_ELEMENTS" , numberOfElements);
+		} else {
+			throw new PCMModelInterpreterException(baseName + " is not a ConcreteIndirectionDate, but a " + date.getClass().getName());
+		}		
+	}
 }

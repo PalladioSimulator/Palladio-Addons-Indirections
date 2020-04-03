@@ -125,7 +125,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		// might block
 		final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
 			context.getStack().currentStackFrame().addValue(action.getVariableReference().getReferenceName(), date);
-			makeDateInformationAvailableOnStack(context.getStack(), action.getVariableReference().getReferenceName());
+			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(context.getStack(), action.getVariableReference().getReferenceName());
 		});
 
 		LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
@@ -184,7 +184,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 					.createAndPushNewStackFrame(this.context.getStack().currentStackFrame());
 
 			innerVariableStackFrame.addValue(referenceName + ".INNER", iterationDate);
-			makeDateInformationAvailableOnStack(this.context.getStack(), referenceName + ".INNER");
+			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(), referenceName + ".INNER");
 
 			this.getParentSwitch().doSwitch(action.getBodyBehaviour_Loop());
 
@@ -217,34 +217,6 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		ages.forEach(it -> measureDataAge(action, it));
 
 		return true;
-	}
-
-	private void makeDateInformationAvailableOnStack(SimulatedStack<Object> stack, String referenceName) {
-		SimulatedStackframe<Object> currentStackframe = stack.currentStackFrame();
-
-		Object o;
-		try {
-			o = currentStackframe.getValue(referenceName);
-		} catch (ValueNotInFrameException e) {
-			e.printStackTrace();
-			throw new PCMModelInterpreterException(referenceName + " not found on stack.", e);
-		}
-		
-		if (o instanceof ConcreteIndirectionDate) {
-			ConcreteIndirectionDate indirectionDate = (ConcreteIndirectionDate) o;
-			
-			for (Entry<String, Object> dataEntry : indirectionDate.getData().entrySet()) {
-				currentStackframe.addValue(referenceName + "." + dataEntry.getKey() + ".VALUE", dataEntry.getValue());
-			}
-		} else if (o instanceof ConcreteGroupingIndirectionDate<?>) {
-			ConcreteGroupingIndirectionDate<?> groupingIndirectionDate = (ConcreteGroupingIndirectionDate<?>) o;
-			
-			int numberOfElements = groupingIndirectionDate.getDataInGroup().size();
-			currentStackframe.addValue(referenceName + ".NUMBER_OF_ELEMENTS" , numberOfElements);
-		} else {
-			throw new PCMModelInterpreterException(referenceName + " is not a ConcreteIndirectionDate, but a " + o.getClass().getName());
-		}
-
 	}
 
 	private void measureDataAge(AnalyseStackAction action, double value) {
