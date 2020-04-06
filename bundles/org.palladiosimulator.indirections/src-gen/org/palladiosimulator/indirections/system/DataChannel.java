@@ -49,7 +49,7 @@ public interface DataChannel extends EventChannel {
 	 * @return the value of the '<em>Capacity</em>' attribute.
 	 * @see #setCapacity(int)
 	 * @see org.palladiosimulator.indirections.system.SystemPackage#getDataChannel_Capacity()
-	 * @model default="-1" required="true" transient="true"
+	 * @model default="-1" required="true"
 	 * @generated
 	 */
 	int getCapacity();

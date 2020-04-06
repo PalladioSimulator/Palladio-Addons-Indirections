@@ -91,8 +91,7 @@
       nsPrefix="org.palladiosimulator.indirections.system">
     <eClassifiers xsi:type="ecore:EClass" name="DataChannel" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/EventChannel">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacity" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" transient="true"
-          defaultValueLiteral="-1"/>
+          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="-1"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEventGroup" lowerBound="1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="sinkEventGroup" lowerBound="1"

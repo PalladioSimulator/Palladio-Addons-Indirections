@@ -337,7 +337,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		initEClass(dataChannelEClass, DataChannel.class, "DataChannel", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataChannel_Capacity(), ecorePackage.getEInt(), "capacity", "-1", 1, 1, DataChannel.class,
-				IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDataChannel_SourceEventGroup(), theRepositoryPackage_1.getEventGroup(), null,
 				"sourceEventGroup", null, 1, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
