@@ -76,7 +76,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 		this.context = context;
 		
 		List<Boolean> sinkRolePushingFlags = dataChannel.getDataChannelSinkConnector().stream().map(it -> it.getDataSinkRole().isPushing()).collect(Collectors.toList());
-		this.isPushing = IterableUtil.claimEqual(sinkRolePushingFlags);
+		this.isPushing = sinkRolePushingFlags.isEmpty() ? false : IterableUtil.claimEqual(sinkRolePushingFlags);
 		
 		if (this.isPushing != (this.dataChannel.getConsumeFromChannelPolicy() == ConsumeFromChannelPolicy.PUSHING)) {
 			throw new PCMModelInterpreterException("Data channel is pushing = " + this.isPushing + " is not reflected by consume policy = " + dataChannel.getConsumeFromChannelPolicy());
