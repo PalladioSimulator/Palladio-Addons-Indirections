@@ -7,8 +7,8 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 
 public class KeyBasedWindowingOperator<T extends IndirectionDate> extends WindowingOperator<T> {
-    public KeyBasedWindowingOperator(boolean emitEmptyWindows, double size, double shift) {
-        super(emitEmptyWindows, size, shift);
+    public KeyBasedWindowingOperator(boolean emitEmptyWindows, double size, double shift, double gracePeriod) {
+        super(emitEmptyWindows, size, shift, gracePeriod);
     }
 
     @Override

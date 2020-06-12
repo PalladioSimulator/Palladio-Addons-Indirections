@@ -115,7 +115,7 @@ public class SimDataChannelResource extends AbstractSimDataChannelResource {
             if (timeGrouping instanceof Windowing) {
                 Windowing windowing = (Windowing) timeGrouping;
                 windowingOperator = new TimeBasedWindowingOperator<>(false, windowing.getSize(), windowing.getShift(),
-                        simuComModel);
+                		windowing.getGracePeriod(), simuComModel);
                 windowingOperator.addConsumer((it) -> LOGGER.trace("Created window: " + it));
                 windowingOperator.addConsumer((it) -> windowSizeCalculator
                         .doMeasure(Measure.valueOf(Long.valueOf(it.getDataInGroup().size()), Unit.ONE)));
