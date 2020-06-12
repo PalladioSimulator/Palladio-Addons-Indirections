@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<usageevolution:UsageEvolution xmlns:usageevolution="http://usageevolution/1.0" id="_4Uft0x_pEeqfed_ke2EJGg" entityName="Evolution">
-  <usages id="_4UgU4B_pEeqfed_ke2EJGg" entityName="Initial" repeatingPattern="true">
-    <loadEvolution href="101_events_bursts.dlim#/"/>
-    <scenario href="101_events_4_plugs_2_households_1234.usagemodel#UsageScenarioH0P1.ID"/>
-  </usages>
-</usageevolution:UsageEvolution>
