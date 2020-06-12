@@ -16,9 +16,9 @@ public abstract class WindowingOperator<T extends IndirectionDate>
 
     public List<T> emittableIndirectionDates;
 
-    public WindowingOperator(boolean emitEmptyWindows, double size, double shift) {
+    public WindowingOperator(boolean emitEmptyWindows, double size, double shift, double gracePeriod) {
         this.emitEmptyWindows = emitEmptyWindows;
-        this.windowEmitter = new WindowEmitter(size, shift);
+        this.windowEmitter = new WindowEmitter(size, shift, gracePeriod);
         this.emittableIndirectionDates = new ArrayList<>();
     }
 

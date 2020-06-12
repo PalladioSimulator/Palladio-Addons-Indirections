@@ -11,16 +11,17 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public class TimeBasedWindowingOperator<T extends IndirectionDate> extends WindowingOperator<T> {
-    private PeriodicallyTriggeredSimulationEntity windowingTrigger;
+	private PeriodicallyTriggeredSimulationEntity windowingTrigger;
 
-    public TimeBasedWindowingOperator(boolean emitEmptyWindows, double size, double shift, SimuComModel model) {
-        super(emitEmptyWindows, size, shift);
+	public TimeBasedWindowingOperator(boolean emitEmptyWindows, double size, double shift, double gracePeriod,
+			SimuComModel model) {
+		super(emitEmptyWindows, size, shift, gracePeriod);
 
-        this.windowingTrigger = IndirectionSimulationUtil.triggerPeriodically(model, 0, shift, () -> {
-            System.out.println(model.getSimulationControl().getCurrentSimulationTime());
-            Optional<List<Window>> windowsToEmit = windowEmitter
-                    .accept(model.getSimulationControl().getCurrentSimulationTime());
-            windowsToEmit.ifPresent(this::emitWindows);
-        });
-    }
+		this.windowingTrigger = IndirectionSimulationUtil.triggerPeriodically(model, gracePeriod, shift, () -> {
+			System.out.println("Current time: " + model.getSimulationControl().getCurrentSimulationTime());
+			Optional<List<Window>> windowsToEmit = windowEmitter
+					.accept(model.getSimulationControl().getCurrentSimulationTime());
+			windowsToEmit.ifPresent(this::emitWindows);
+		});
+	}
 }
