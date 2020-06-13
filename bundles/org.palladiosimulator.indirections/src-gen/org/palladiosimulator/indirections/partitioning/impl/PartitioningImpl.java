@@ -21,117 +21,107 @@ import org.palladiosimulator.pcm.core.entity.impl.NamedElementImpl;
  * The following features are implemented:
  * </p>
  * <ul>
- * <li>{@link org.palladiosimulator.indirections.partitioning.impl.PartitioningImpl#getSpecification
- * <em>Specification</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.partitioning.impl.PartitioningImpl#getSpecification <em>Specification</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class PartitioningImpl extends NamedElementImpl implements Partitioning {
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    protected PartitioningImpl() {
-        super();
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PartitioningImpl() {
+		super();
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    protected EClass eStaticClass() {
-        return PartitioningPackage.Literals.PARTITIONING;
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PartitioningPackage.Literals.PARTITIONING;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public EList<PCMRandomVariable> getSpecification() {
-        return (EList<PCMRandomVariable>) this.eDynamicGet(PartitioningPackage.PARTITIONING__SPECIFICATION,
-                PartitioningPackage.Literals.PARTITIONING__SPECIFICATION, true, true);
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public EList<PCMRandomVariable> getSpecification() {
+		return (EList<PCMRandomVariable>) eDynamicGet(PartitioningPackage.PARTITIONING__SPECIFICATION,
+				PartitioningPackage.Literals.PARTITIONING__SPECIFICATION, true, true);
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
-            final NotificationChain msgs) {
-        switch (featureID) {
-        case PartitioningPackage.PARTITIONING__SPECIFICATION:
-            return ((InternalEList<?>) this.getSpecification()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case PartitioningPackage.PARTITIONING__SPECIFICATION:
+			return ((InternalEList<?>) getSpecification()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-        switch (featureID) {
-        case PartitioningPackage.PARTITIONING__SPECIFICATION:
-            return this.getSpecification();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case PartitioningPackage.PARTITIONING__SPECIFICATION:
+			return getSpecification();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public void eSet(final int featureID, final Object newValue) {
-        switch (featureID) {
-        case PartitioningPackage.PARTITIONING__SPECIFICATION:
-            this.getSpecification().clear();
-            this.getSpecification().addAll((Collection<? extends PCMRandomVariable>) newValue);
-            return;
-        }
-        super.eSet(featureID, newValue);
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case PartitioningPackage.PARTITIONING__SPECIFICATION:
+			getSpecification().clear();
+			getSpecification().addAll((Collection<? extends PCMRandomVariable>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public void eUnset(final int featureID) {
-        switch (featureID) {
-        case PartitioningPackage.PARTITIONING__SPECIFICATION:
-            this.getSpecification().clear();
-            return;
-        }
-        super.eUnset(featureID);
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case PartitioningPackage.PARTITIONING__SPECIFICATION:
+			getSpecification().clear();
+			return;
+		}
+		super.eUnset(featureID);
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public boolean eIsSet(final int featureID) {
-        switch (featureID) {
-        case PartitioningPackage.PARTITIONING__SPECIFICATION:
-            return !this.getSpecification().isEmpty();
-        }
-        return super.eIsSet(featureID);
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case PartitioningPackage.PARTITIONING__SPECIFICATION:
+			return !getSpecification().isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } // PartitioningImpl

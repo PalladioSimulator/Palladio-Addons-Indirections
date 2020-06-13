@@ -17,134 +17,125 @@ import org.palladiosimulator.indirections.partitioning.Windowing;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
- *
  * @generated
  */
 public class PartitioningFactoryImpl extends EFactoryImpl implements PartitioningFactory {
-    /**
-     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    public static PartitioningFactory init() {
-        try {
-            final PartitioningFactory thePartitioningFactory = (PartitioningFactory) EPackage.Registry.INSTANCE
-                    .getEFactory(PartitioningPackage.eNS_URI);
-            if (thePartitioningFactory != null) {
-                return thePartitioningFactory;
-            }
-        } catch (final Exception exception) {
-            EcorePlugin.INSTANCE.log(exception);
-        }
-        return new PartitioningFactoryImpl();
-    }
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static PartitioningFactory init() {
+		try {
+			PartitioningFactory thePartitioningFactory = (PartitioningFactory) EPackage.Registry.INSTANCE
+					.getEFactory(PartitioningPackage.eNS_URI);
+			if (thePartitioningFactory != null) {
+				return thePartitioningFactory;
+			}
+		} catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new PartitioningFactoryImpl();
+	}
 
-    /**
-     * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    public PartitioningFactoryImpl() {
-        super();
-    }
+	/**
+	 * Creates an instance of the factory.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PartitioningFactoryImpl() {
+		super();
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EObject create(final EClass eClass) {
-        switch (eClass.getClassifierID()) {
-        case PartitioningPackage.PARTITIONING:
-            return this.createPartitioning();
-        case PartitioningPackage.WINDOWING:
-            return this.createWindowing();
-        case PartitioningPackage.CONSUME_ALL_AVAILABLE:
-            return this.createConsumeAllAvailable();
-        case PartitioningPackage.COLLECT_WITH_HOLDBACK:
-            return this.createCollectWithHoldback();
-        case PartitioningPackage.JOINING:
-            return this.createJoining();
-        default:
-            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
-        }
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EObject create(EClass eClass) {
+		switch (eClass.getClassifierID()) {
+		case PartitioningPackage.PARTITIONING:
+			return createPartitioning();
+		case PartitioningPackage.WINDOWING:
+			return createWindowing();
+		case PartitioningPackage.CONSUME_ALL_AVAILABLE:
+			return createConsumeAllAvailable();
+		case PartitioningPackage.COLLECT_WITH_HOLDBACK:
+			return createCollectWithHoldback();
+		case PartitioningPackage.JOINING:
+			return createJoining();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		}
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public Partitioning createPartitioning() {
-        final PartitioningImpl partitioning = new PartitioningImpl();
-        return partitioning;
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Partitioning createPartitioning() {
+		PartitioningImpl partitioning = new PartitioningImpl();
+		return partitioning;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public Windowing createWindowing() {
-        final WindowingImpl windowing = new WindowingImpl();
-        return windowing;
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Windowing createWindowing() {
+		WindowingImpl windowing = new WindowingImpl();
+		return windowing;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public ConsumeAllAvailable createConsumeAllAvailable() {
-        final ConsumeAllAvailableImpl consumeAllAvailable = new ConsumeAllAvailableImpl();
-        return consumeAllAvailable;
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ConsumeAllAvailable createConsumeAllAvailable() {
+		ConsumeAllAvailableImpl consumeAllAvailable = new ConsumeAllAvailableImpl();
+		return consumeAllAvailable;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public CollectWithHoldback createCollectWithHoldback() {
-        final CollectWithHoldbackImpl collectWithHoldback = new CollectWithHoldbackImpl();
-        return collectWithHoldback;
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public CollectWithHoldback createCollectWithHoldback() {
+		CollectWithHoldbackImpl collectWithHoldback = new CollectWithHoldbackImpl();
+		return collectWithHoldback;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public Joining createJoining() {
-        final JoiningImpl joining = new JoiningImpl();
-        return joining;
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Joining createJoining() {
+		JoiningImpl joining = new JoiningImpl();
+		return joining;
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public PartitioningPackage getPartitioningPackage() {
-        return (PartitioningPackage) this.getEPackage();
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PartitioningPackage getPartitioningPackage() {
+		return (PartitioningPackage) getEPackage();
+	}
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @deprecated
-     * @generated
-     */
-    @Deprecated
-    public static PartitioningPackage getPackage() {
-        return PartitioningPackage.eINSTANCE;
-    }
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @deprecated
+	 * @generated
+	 */
+	@Deprecated
+	public static PartitioningPackage getPackage() {
+		return PartitioningPackage.eINSTANCE;
+	}
 
 } // PartitioningFactoryImpl
