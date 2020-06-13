@@ -13,8 +13,7 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
  * The following features are supported:
  * </p>
  * <ul>
- * <li>{@link org.palladiosimulator.indirections.repository.DataSourceRole#getEventGroup <em>Event
- * Group</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.repository.DataSourceRole#getEventGroup <em>Event Group</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSourceRole()
@@ -22,28 +21,25 @@ import org.palladiosimulator.pcm.repository.RequiredRole;
  * @generated
  */
 public interface DataSourceRole extends RequiredRole {
-    /**
-     * Returns the value of the '<em><b>Event Group</b></em>' reference. <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     *
-     * @return the value of the '<em>Event Group</em>' reference.
-     * @see #setEventGroup(EventGroup)
-     * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSourceRole_EventGroup()
-     * @model
-     * @generated
-     */
-    EventGroup getEventGroup();
+	/**
+	 * Returns the value of the '<em><b>Event Group</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Event Group</em>' reference.
+	 * @see #setEventGroup(EventGroup)
+	 * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSourceRole_EventGroup()
+	 * @model
+	 * @generated
+	 */
+	EventGroup getEventGroup();
 
-    /**
-     * Sets the value of the
-     * '{@link org.palladiosimulator.indirections.repository.DataSourceRole#getEventGroup <em>Event
-     * Group</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @param value
-     *            the new value of the '<em>Event Group</em>' reference.
-     * @see #getEventGroup()
-     * @generated
-     */
-    void setEventGroup(EventGroup value);
+	/**
+	 * Sets the value of the '{@link org.palladiosimulator.indirections.repository.DataSourceRole#getEventGroup <em>Event Group</em>}' reference.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Event Group</em>' reference.
+	 * @see #getEventGroup()
+	 * @generated
+	 */
+	void setEventGroup(EventGroup value);
 
 } // DataSourceRole

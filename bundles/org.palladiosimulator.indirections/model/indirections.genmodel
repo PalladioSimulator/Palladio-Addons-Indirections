@@ -75,6 +75,7 @@
       <genClasses ecoreClass="indirections.ecore#//partitioning/Windowing">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/size"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/shift"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/gracePeriod"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//partitioning/ConsumeAllAvailable"/>
       <genClasses ecoreClass="indirections.ecore#//partitioning/CollectWithHoldback">

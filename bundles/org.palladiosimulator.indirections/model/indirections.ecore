@@ -72,6 +72,8 @@
     <eClassifiers xsi:type="ecore:EClass" name="Windowing" eSuperTypes="#//partitioning/TimeGrouping">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="shift" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="gracePeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+          defaultValueLiteral="0"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="ConsumeAllAvailable" eSuperTypes="#//partitioning/TimeGrouping"/>
     <eClassifiers xsi:type="ecore:EClass" name="CollectWithHoldback" eSuperTypes="#//partitioning/TimeGrouping">
