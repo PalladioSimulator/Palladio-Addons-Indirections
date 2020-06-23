@@ -60,7 +60,7 @@
       <eLiterals name="DiscardOldestIfFull" value="1"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TimeGrouping" abstract="true" interface="true"/>
-    <eClassifiers xsi:type="ecore:EClass" name="Windowing" eSuperTypes="#//partitioning/TimeGrouping">
+    <eClassifiers xsi:type="ecore:EClass" name="Windowing" eSuperTypes="#//datatypes/TimeGrouping">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="shift" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="gracePeriod" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"

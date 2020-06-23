@@ -5,9 +5,10 @@
     dynamicTemplates="true" modelName="Indirections" editPluginClass="org.palladiosimulator.indirections.actions.provider.IndirectionsEditPlugin"
     editorPluginClass="org.palladiosimulator.indirections.actions.presentation.IndirectionsEditorPlugin"
     rootExtendsInterface="org.eclipse.emf.cdo.CDOObject" rootExtendsClass="org.eclipse.emf.internal.cdo.CDOObjectImpl"
-    codeFormatting="true" testSuiteClass="org.palladiosimulator.indirections.actions.tests.IndirectionsAllTests"
+    codeFormatting="true" testsDirectory="" testSuiteClass="org.palladiosimulator.indirections.actions.tests.IndirectionsAllTests"
     importerID="org.eclipse.emf.importer.ecore" featureDelegation="Dynamic" complianceLevel="7.0"
-    copyrightFields="false" runtimeVersion="2.12" usedGenPackages="../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
+    copyrightFields="false" testsPluginID="org.palladiosimulator.indirections.tests"
+    runtimeVersion="2.12" usedGenPackages="../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
     importOrganizing="true" cleanup="true">
   <foreignModel>indirections.ecore</foreignModel>
   <modelPluginVariables>OCL=org.eclipse.ocl</modelPluginVariables>
@@ -70,30 +71,11 @@
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/OneOrNone"/>
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/ExactlyOne"/>
       </genEnums>
-    </nestedGenPackages>
-    <nestedGenPackages prefix="Partitioning" disposableProviderFactory="true" generateModelWizard="false"
-        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
-        ecorePackage="indirections.ecore#//partitioning">
-      <genClasses ecoreClass="indirections.ecore#//partitioning/Partitioning">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Partitioning/specification"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/TimeGrouping"/>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/Windowing">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/size"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/shift"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/gracePeriod"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/ConsumeAllAvailable"/>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/CollectWithHoldback">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/holdback"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/key"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/partitionDataName"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//partitioning/Joining">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/source"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Joining/canContributeMultipleTimes"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/key"/>
+      <genClasses image="false" ecoreClass="indirections.ecore#//datatypes/TimeGrouping"/>
+      <genClasses ecoreClass="indirections.ecore#//datatypes/Windowing">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//datatypes/Windowing/size"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//datatypes/Windowing/shift"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//datatypes/Windowing/gracePeriod"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"
