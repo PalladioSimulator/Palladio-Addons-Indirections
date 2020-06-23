@@ -46,7 +46,7 @@
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:InternalAction" id="calculateMedians.RD.ID" entityName="calculateMedians.RD" predecessor_AbstractAction="calculateMedians.putDataOnStack.ID" successor_AbstractAction="calculateMedians.analyseStack.afterRD.ID">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="100 + 100 * median.NUMBER_OF_ELEMENTS"/>
+          <specification_ParametericResourceDemand specification="(median.NUMBER_OF_ELEMENTS * median.NUMBER_OF_ELEMENTS) * 4.0 * (10 ^ (-15)) + median.NUMBER_OF_ELEMENTS * 4.0 * (10 ^ (-7))"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
@@ -81,7 +81,7 @@
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:InternalAction" id="calculateGroups.RD.ID" entityName="calculateGroups.RD" predecessor_AbstractAction="calculateGroups.putDataOnStack.ID" successor_AbstractAction="_ISzowSFrEeqcxpr9cnK4CQ">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="100 + 100 * mediansPerHousehold.NUMBER_OF_ELEMENTS"/>
+          <specification_ParametericResourceDemand specification="(1.0 * (10 ^ (-10)))"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
@@ -110,7 +110,7 @@
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:InternalAction" id="calculateAverage.RD.ID" entityName="calculateAverage.RD" predecessor_AbstractAction="calculateAverage.putDataOnStack.ID" successor_AbstractAction="calculateAverage.emitAverageAll.ID">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="100 + 100 * averageAll.NUMBER_OF_ELEMENTS"/>
+          <specification_ParametericResourceDemand specification="0.000000003933 * averageAll.NUMBER_OF_ELEMENTS + 0.000456864345"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>

@@ -71,6 +71,31 @@
         <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/ExactlyOne"/>
       </genEnums>
     </nestedGenPackages>
+    <nestedGenPackages prefix="Partitioning" disposableProviderFactory="true" generateModelWizard="false"
+        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
+        ecorePackage="indirections.ecore#//partitioning">
+      <genClasses ecoreClass="indirections.ecore#//partitioning/Partitioning">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Partitioning/specification"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//partitioning/TimeGrouping"/>
+      <genClasses ecoreClass="indirections.ecore#//partitioning/Windowing">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/size"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/shift"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Windowing/gracePeriod"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//partitioning/ConsumeAllAvailable"/>
+      <genClasses ecoreClass="indirections.ecore#//partitioning/CollectWithHoldback">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/holdback"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/key"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/CollectWithHoldback/partitionDataName"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//partitioning/Joining">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/source"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//partitioning/Joining/canContributeMultipleTimes"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//partitioning/Joining/key"/>
+      </genClasses>
+    </nestedGenPackages>
     <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"
         extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
         ecorePackage="indirections.ecore#//system">
