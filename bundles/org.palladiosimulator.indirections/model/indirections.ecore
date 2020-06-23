@@ -56,7 +56,7 @@
       <eLiterals name="FirstInFirstOut"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="EmitToChannelPolicy">
-      <eLiterals name="BlockIfFull" literal=""/>
+      <eLiterals name="BlockIfFull" literal="BlockIfFull"/>
       <eLiterals name="DiscardOldestIfFull" value="1"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="TimeGrouping" abstract="true" interface="true"/>

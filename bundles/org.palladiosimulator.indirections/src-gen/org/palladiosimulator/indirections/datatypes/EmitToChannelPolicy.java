@@ -26,7 +26,7 @@ public enum EmitToChannelPolicy implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BLOCK_IF_FULL(0, "BlockIfFull", ""),
+	BLOCK_IF_FULL(0, "BlockIfFull", "BlockIfFull"),
 
 	/**
 	 * The '<em><b>Discard Oldest If Full</b></em>' literal object.
@@ -43,7 +43,7 @@ public enum EmitToChannelPolicy implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #BLOCK_IF_FULL
-	 * @model name="BlockIfFull" literal=""
+	 * @model name="BlockIfFull"
 	 * @generated
 	 * @ordered
 	 */
