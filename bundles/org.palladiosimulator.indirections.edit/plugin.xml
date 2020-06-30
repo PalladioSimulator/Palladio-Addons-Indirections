@@ -32,19 +32,6 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <!-- @generated indirections -->
       <factory
-            uri="http://palladiosimulator.org/Indirections/Datatypes/1.0"
-            class="org.palladiosimulator.indirections.datatypes.provider.DatatypesItemProviderAdapterFactory"
-            supportedTypes=
-              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
-               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
-               org.eclipse.emf.edit.provider.ITreeItemContentProvider
-               org.eclipse.emf.edit.provider.IItemLabelProvider
-               org.eclipse.emf.edit.provider.IItemPropertySource"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
-      <!-- @generated indirections -->
-      <factory
             uri="http://palladiosimulator.org/Indirections/System/1.0"
             class="org.palladiosimulator.indirections.system.provider.SystemItemProviderAdapterFactory"
             supportedTypes=
@@ -53,16 +40,6 @@
                org.eclipse.emf.edit.provider.ITreeItemContentProvider
                org.eclipse.emf.edit.provider.IItemLabelProvider
                org.eclipse.emf.edit.provider.IItemPropertySource"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.edit.childCreationExtenders">
-      <!-- @generated indirections -->
-      <extender
-            uri="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2"
-            class="org.palladiosimulator.indirections.system.provider.SystemItemProviderAdapterFactory$CompositionChildCreationExtender"/>
-      <extender
-            uri="http://palladiosimulator.org/PalladioComponentModel/System/5.2"
-            class="org.palladiosimulator.indirections.system.provider.SystemItemProviderAdapterFactory$SystemChildCreationExtender"/>
    </extension>
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
@@ -86,6 +63,19 @@
       <extender
             uri="http://palladiosimulator.org/PalladioComponentModel/System/5.2"
             class="org.palladiosimulator.indirections.composition.provider.CompositionItemProviderAdapterFactory$SystemChildCreationExtender"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated indirections -->
+      <factory
+            uri="http://palladiosimulator.org/Indirections/Composition/Abstract/1.0"
+            class="org.palladiosimulator.indirections.composition.abstract_.provider.AbstractItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
    </extension>
 
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">

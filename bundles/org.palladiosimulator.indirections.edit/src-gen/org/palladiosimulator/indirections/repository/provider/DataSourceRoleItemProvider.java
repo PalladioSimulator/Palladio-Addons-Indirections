@@ -45,6 +45,7 @@ public class DataSourceRoleItemProvider extends RequiredRoleItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addEventGroupPropertyDescriptor(object);
+			addDataSourceSinkConnectorsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -62,6 +63,22 @@ public class DataSourceRoleItemProvider extends RequiredRoleItemProvider {
 						getString("_UI_PropertyDescriptor_description", "_UI_DataSourceRole_eventGroup_feature",
 								"_UI_DataSourceRole_type"),
 						RepositoryPackage.Literals.DATA_SOURCE_ROLE__EVENT_GROUP, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Data Source Sink Connectors feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDataSourceSinkConnectorsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_DataSourceRole_dataSourceSinkConnectors_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_DataSourceRole_dataSourceSinkConnectors_feature", "_UI_DataSourceRole_type"),
+						RepositoryPackage.Literals.DATA_SOURCE_ROLE__DATA_SOURCE_SINK_CONNECTORS, true, false, true,
+						null, null, null));
 	}
 
 	/**

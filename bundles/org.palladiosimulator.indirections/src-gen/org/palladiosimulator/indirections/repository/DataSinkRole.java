@@ -2,9 +2,12 @@
  */
 package org.palladiosimulator.indirections.repository;
 
+import org.eclipse.emf.common.util.EList;
+
+import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector;
+
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
-import org.palladiosimulator.pcm.repository.Signature;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,8 +19,7 @@ import org.palladiosimulator.pcm.repository.Signature;
  * </p>
  * <ul>
  *   <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#getEventGroup <em>Event Group</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes To</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#isPushing <em>Pushing</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.repository.DataSinkRole#getDataSourceSinkConnectors <em>Data Source Sink Connectors</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole()
@@ -48,36 +50,17 @@ public interface DataSinkRole extends ProvidedRole {
 	void setEventGroup(EventGroup value);
 
 	/**
-	 * Returns the value of the '<em><b>Pushes To</b></em>' reference.
+	 * Returns the value of the '<em><b>Data Source Sink Connectors</b></em>' reference list.
+	 * The list contents are of type {@link org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector}.
+	 * It is bidirectional and its opposite is '{@link org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector#getDataSinkRole <em>Data Sink Role</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Pushes To</em>' reference.
-	 * @see #setPushesTo(Signature)
-	 * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_PushesTo()
-	 * @model
+	 * @return the value of the '<em>Data Source Sink Connectors</em>' reference list.
+	 * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_DataSourceSinkConnectors()
+	 * @see org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector#getDataSinkRole
+	 * @model opposite="dataSinkRole"
 	 * @generated
 	 */
-	Signature getPushesTo();
-
-	/**
-	 * Sets the value of the '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes To</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Pushes To</em>' reference.
-	 * @see #getPushesTo()
-	 * @generated
-	 */
-	void setPushesTo(Signature value);
-
-	/**
-	 * Returns the value of the '<em><b>Pushing</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Pushing</em>' attribute.
-	 * @see org.palladiosimulator.indirections.repository.RepositoryPackage#getDataSinkRole_Pushing()
-	 * @model transient="true" changeable="false" volatile="true" derived="true"
-	 * @generated
-	 */
-	boolean isPushing();
+	EList<DataSourceSinkConnector> getDataSourceSinkConnectors();
 
 } // DataSinkRole

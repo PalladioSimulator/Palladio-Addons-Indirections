@@ -106,72 +106,98 @@ public class CompositionItemProviderAdapterFactory extends CompositionAdapterFac
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector} instances.
+	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DataChannelSourceConnectorItemProvider dataChannelSourceConnectorItemProvider;
+	protected DataChannelToAssemblyContextConnectorItemProvider dataChannelToAssemblyContextConnectorItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector}.
+	 * This creates an adapter for a {@link org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createDataChannelSourceConnectorAdapter() {
-		if (dataChannelSourceConnectorItemProvider == null) {
-			dataChannelSourceConnectorItemProvider = new DataChannelSourceConnectorItemProvider(this);
+	public Adapter createDataChannelToAssemblyContextConnectorAdapter() {
+		if (dataChannelToAssemblyContextConnectorItemProvider == null) {
+			dataChannelToAssemblyContextConnectorItemProvider = new DataChannelToAssemblyContextConnectorItemProvider(
+					this);
 		}
 
-		return dataChannelSourceConnectorItemProvider;
+		return dataChannelToAssemblyContextConnectorItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector} instances.
+	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.composition.AssemblyContextToDataChannelConnector} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DataChannelSinkConnectorItemProvider dataChannelSinkConnectorItemProvider;
+	protected AssemblyContextToDataChannelConnectorItemProvider assemblyContextToDataChannelConnectorItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector}.
+	 * This creates an adapter for a {@link org.palladiosimulator.indirections.composition.AssemblyContextToDataChannelConnector}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createDataChannelSinkConnectorAdapter() {
-		if (dataChannelSinkConnectorItemProvider == null) {
-			dataChannelSinkConnectorItemProvider = new DataChannelSinkConnectorItemProvider(this);
+	public Adapter createAssemblyContextToDataChannelConnectorAdapter() {
+		if (assemblyContextToDataChannelConnectorItemProvider == null) {
+			assemblyContextToDataChannelConnectorItemProvider = new AssemblyContextToDataChannelConnectorItemProvider(
+					this);
 		}
 
-		return dataChannelSinkConnectorItemProvider;
+		return assemblyContextToDataChannelConnectorItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.composition.DataChannelConnector} instances.
+	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.composition.DataChannelToDataChannelConnector} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DataChannelConnectorItemProvider dataChannelConnectorItemProvider;
+	protected DataChannelToDataChannelConnectorItemProvider dataChannelToDataChannelConnectorItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.palladiosimulator.indirections.composition.DataChannelConnector}.
+	 * This creates an adapter for a {@link org.palladiosimulator.indirections.composition.DataChannelToDataChannelConnector}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createDataChannelConnectorAdapter() {
-		if (dataChannelConnectorItemProvider == null) {
-			dataChannelConnectorItemProvider = new DataChannelConnectorItemProvider(this);
+	public Adapter createDataChannelToDataChannelConnectorAdapter() {
+		if (dataChannelToDataChannelConnectorItemProvider == null) {
+			dataChannelToDataChannelConnectorItemProvider = new DataChannelToDataChannelConnectorItemProvider(this);
 		}
 
-		return dataChannelConnectorItemProvider;
+		return dataChannelToDataChannelConnectorItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.composition.AssemblyContextToAssemblyContextConnector} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AssemblyContextToAssemblyContextConnectorItemProvider assemblyContextToAssemblyContextConnectorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.palladiosimulator.indirections.composition.AssemblyContextToAssemblyContextConnector}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAssemblyContextToAssemblyContextConnectorAdapter() {
+		if (assemblyContextToAssemblyContextConnectorItemProvider == null) {
+			assemblyContextToAssemblyContextConnectorItemProvider = new AssemblyContextToAssemblyContextConnectorItemProvider(
+					this);
+		}
+
+		return assemblyContextToAssemblyContextConnectorItemProvider;
 	}
 
 	/**
@@ -308,12 +334,14 @@ public class CompositionItemProviderAdapterFactory extends CompositionAdapterFac
 	 */
 	@Override
 	public void dispose() {
-		if (dataChannelSourceConnectorItemProvider != null)
-			dataChannelSourceConnectorItemProvider.dispose();
-		if (dataChannelSinkConnectorItemProvider != null)
-			dataChannelSinkConnectorItemProvider.dispose();
-		if (dataChannelConnectorItemProvider != null)
-			dataChannelConnectorItemProvider.dispose();
+		if (dataChannelToAssemblyContextConnectorItemProvider != null)
+			dataChannelToAssemblyContextConnectorItemProvider.dispose();
+		if (assemblyContextToDataChannelConnectorItemProvider != null)
+			assemblyContextToDataChannelConnectorItemProvider.dispose();
+		if (dataChannelToDataChannelConnectorItemProvider != null)
+			dataChannelToDataChannelConnectorItemProvider.dispose();
+		if (assemblyContextToAssemblyContextConnectorItemProvider != null)
+			assemblyContextToAssemblyContextConnectorItemProvider.dispose();
 	}
 
 	/**
@@ -366,15 +394,19 @@ public class CompositionItemProviderAdapterFactory extends CompositionAdapterFac
 			public Object caseComposedStructure(ComposedStructure object) {
 				newChildDescriptors.add(createChildParameter(
 						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
-						CompositionFactory.eINSTANCE.createDataChannelSourceConnector()));
+						CompositionFactory.eINSTANCE.createDataChannelToAssemblyContextConnector()));
 
 				newChildDescriptors.add(createChildParameter(
 						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
-						CompositionFactory.eINSTANCE.createDataChannelSinkConnector()));
+						CompositionFactory.eINSTANCE.createAssemblyContextToDataChannelConnector()));
 
 				newChildDescriptors.add(createChildParameter(
 						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
-						CompositionFactory.eINSTANCE.createDataChannelConnector()));
+						CompositionFactory.eINSTANCE.createDataChannelToDataChannelConnector()));
+
+				newChildDescriptors.add(createChildParameter(
+						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
+						CompositionFactory.eINSTANCE.createAssemblyContextToAssemblyContextConnector()));
 
 				return null;
 			}
@@ -463,15 +495,19 @@ public class CompositionItemProviderAdapterFactory extends CompositionAdapterFac
 			public Object caseComposedStructure(ComposedStructure object) {
 				newChildDescriptors.add(createChildParameter(
 						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
-						CompositionFactory.eINSTANCE.createDataChannelSourceConnector()));
+						CompositionFactory.eINSTANCE.createDataChannelToAssemblyContextConnector()));
 
 				newChildDescriptors.add(createChildParameter(
 						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
-						CompositionFactory.eINSTANCE.createDataChannelSinkConnector()));
+						CompositionFactory.eINSTANCE.createAssemblyContextToDataChannelConnector()));
 
 				newChildDescriptors.add(createChildParameter(
 						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
-						CompositionFactory.eINSTANCE.createDataChannelConnector()));
+						CompositionFactory.eINSTANCE.createDataChannelToDataChannelConnector()));
+
+				newChildDescriptors.add(createChildParameter(
+						org.palladiosimulator.pcm.core.composition.CompositionPackage.Literals.COMPOSED_STRUCTURE__CONNECTORS_COMPOSED_STRUCTURE,
+						CompositionFactory.eINSTANCE.createAssemblyContextToAssemblyContextConnector()));
 
 				return null;
 			}

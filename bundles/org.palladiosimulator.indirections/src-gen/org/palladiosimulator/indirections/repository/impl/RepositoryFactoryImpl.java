@@ -58,8 +58,6 @@ public class RepositoryFactoryImpl extends EFactoryImpl implements RepositoryFac
 		switch (eClass.getClassifierID()) {
 		case RepositoryPackage.DATA_SINK_ROLE:
 			return createDataSinkRole();
-		case RepositoryPackage.DATA_SOURCE_ROLE:
-			return createDataSourceRole();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -74,17 +72,6 @@ public class RepositoryFactoryImpl extends EFactoryImpl implements RepositoryFac
 	public DataSinkRole createDataSinkRole() {
 		DataSinkRoleImpl dataSinkRole = new DataSinkRoleImpl();
 		return dataSinkRole;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public DataSourceRole createDataSourceRole() {
-		DataSourceRoleImpl dataSourceRole = new DataSourceRoleImpl();
-		return dataSourceRole;
 	}
 
 	/**

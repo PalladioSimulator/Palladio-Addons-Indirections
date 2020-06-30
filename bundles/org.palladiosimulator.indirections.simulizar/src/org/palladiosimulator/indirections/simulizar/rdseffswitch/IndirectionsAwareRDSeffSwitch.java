@@ -2,7 +2,6 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
@@ -16,15 +15,14 @@ import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDateAction;
 import org.palladiosimulator.indirections.actions.DataIteratorAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.PutTimeOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
-import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
-import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
-import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
@@ -37,8 +35,6 @@ import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitc
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 
-import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;
-import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
@@ -94,7 +90,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 	public Object caseEmitDataAction(final EmitDataAction action) {
 		LOGGER.trace("Emit event action: " + action.getEntityName());
 
-		final DataChannelSourceConnector dataChannelSourceConnector = IndirectionModelUtil.getSourceConnector(context,
+		final DataChannelSinkConnector dataChannelSourceConnector = IndirectionModelUtil.getSourceConnector(context,
 				action);
 		final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
 
@@ -114,7 +110,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 	public Object caseConsumeDataAction(final ConsumeDataAction action) {
 		LOGGER.trace("Consume data action: " + action.getEntityName());
 
-		final DataChannelSinkConnector dataChannelSinkConnector = IndirectionModelUtil.getSinkConnector(context,
+		final DataChannelSourceConnector dataChannelSinkConnector = IndirectionModelUtil.getSinkConnector(context,
 				action);
 		final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
 
@@ -125,7 +121,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		// might block
 		final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
 			context.getStack().currentStackFrame().addValue(action.getVariableReference().getReferenceName(), date);
-			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(context.getStack(), action.getVariableReference().getReferenceName());
+			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(context.getStack(),
+					action.getVariableReference().getReferenceName());
 		});
 
 		LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
@@ -184,7 +181,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 					.createAndPushNewStackFrame(this.context.getStack().currentStackFrame());
 
 			innerVariableStackFrame.addValue(referenceName + ".INNER", iterationDate);
-			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(), referenceName + ".INNER");
+			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(),
+					referenceName + ".INNER");
 
 			this.getParentSwitch().doSwitch(action.getBodyBehaviour_Loop());
 
@@ -203,6 +201,12 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 		}
 
 		return true;
+	}
+	
+	@Override
+	public Object casePutTimeOnStackAction(PutTimeOnStackAction object) {
+		// TODO Auto-generated method stub
+		return super.casePutTimeOnStackAction(object);
 	}
 
 	@Override

@@ -56,8 +56,8 @@ public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case SystemPackage.DATA_CHANNEL:
-			return createDataChannel();
+		case SystemPackage.JAVA_CLASS_DATA_CHANNEL:
+			return createJavaClassDataChannel();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -69,9 +69,9 @@ public class SystemFactoryImpl extends EFactoryImpl implements SystemFactory {
 	 * @generated
 	 */
 	@Override
-	public DataChannel createDataChannel() {
-		DataChannelImpl dataChannel = new DataChannelImpl();
-		return dataChannel;
+	public JavaClassDataChannel createJavaClassDataChannel() {
+		JavaClassDataChannelImpl javaClassDataChannel = new JavaClassDataChannelImpl();
+		return javaClassDataChannel;
 	}
 
 	/**

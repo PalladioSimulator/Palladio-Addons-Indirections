@@ -56,12 +56,14 @@ public class CompositionFactoryImpl extends EFactoryImpl implements CompositionF
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-		case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR:
-			return createDataChannelSourceConnector();
-		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR:
-			return createDataChannelSinkConnector();
-		case CompositionPackage.DATA_CHANNEL_CONNECTOR:
-			return createDataChannelConnector();
+		case CompositionPackage.DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR:
+			return createDataChannelToAssemblyContextConnector();
+		case CompositionPackage.ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR:
+			return createAssemblyContextToDataChannelConnector();
+		case CompositionPackage.DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR:
+			return createDataChannelToDataChannelConnector();
+		case CompositionPackage.ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR:
+			return createAssemblyContextToAssemblyContextConnector();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -73,9 +75,9 @@ public class CompositionFactoryImpl extends EFactoryImpl implements CompositionF
 	 * @generated
 	 */
 	@Override
-	public DataChannelSourceConnector createDataChannelSourceConnector() {
-		DataChannelSourceConnectorImpl dataChannelSourceConnector = new DataChannelSourceConnectorImpl();
-		return dataChannelSourceConnector;
+	public DataChannelToAssemblyContextConnector createDataChannelToAssemblyContextConnector() {
+		DataChannelToAssemblyContextConnectorImpl dataChannelToAssemblyContextConnector = new DataChannelToAssemblyContextConnectorImpl();
+		return dataChannelToAssemblyContextConnector;
 	}
 
 	/**
@@ -84,9 +86,9 @@ public class CompositionFactoryImpl extends EFactoryImpl implements CompositionF
 	 * @generated
 	 */
 	@Override
-	public DataChannelSinkConnector createDataChannelSinkConnector() {
-		DataChannelSinkConnectorImpl dataChannelSinkConnector = new DataChannelSinkConnectorImpl();
-		return dataChannelSinkConnector;
+	public AssemblyContextToDataChannelConnector createAssemblyContextToDataChannelConnector() {
+		AssemblyContextToDataChannelConnectorImpl assemblyContextToDataChannelConnector = new AssemblyContextToDataChannelConnectorImpl();
+		return assemblyContextToDataChannelConnector;
 	}
 
 	/**
@@ -95,9 +97,20 @@ public class CompositionFactoryImpl extends EFactoryImpl implements CompositionF
 	 * @generated
 	 */
 	@Override
-	public DataChannelConnector createDataChannelConnector() {
-		DataChannelConnectorImpl dataChannelConnector = new DataChannelConnectorImpl();
-		return dataChannelConnector;
+	public DataChannelToDataChannelConnector createDataChannelToDataChannelConnector() {
+		DataChannelToDataChannelConnectorImpl dataChannelToDataChannelConnector = new DataChannelToDataChannelConnectorImpl();
+		return dataChannelToDataChannelConnector;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AssemblyContextToAssemblyContextConnector createAssemblyContextToAssemblyContextConnector() {
+		AssemblyContextToAssemblyContextConnectorImpl assemblyContextToAssemblyContextConnector = new AssemblyContextToAssemblyContextConnectorImpl();
+		return assemblyContextToAssemblyContextConnector;
 	}
 
 	/**

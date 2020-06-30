@@ -22,13 +22,13 @@ public interface SystemFactory extends EFactory {
 	SystemFactory eINSTANCE = org.palladiosimulator.indirections.system.impl.SystemFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Data Channel</em>'.
+	 * Returns a new object of class '<em>Java Class Data Channel</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Data Channel</em>'.
+	 * @return a new object of class '<em>Java Class Data Channel</em>'.
 	 * @generated
 	 */
-	DataChannel createDataChannel();
+	JavaClassDataChannel createJavaClassDataChannel();
 
 	/**
 	 * Returns the package supported by this factory.

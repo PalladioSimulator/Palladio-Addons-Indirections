@@ -3,15 +3,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.palladiosimulator.indirections.edit;singleton:=true
 Automatic-Module-Name: org.palladiosimulator.indirections.edit
-Bundle-Version: 4.3.0.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.palladiosimulator.indirections.actions.provider.IndirectionsEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.palladiosimulator.indirections.actions.provider,
+ org.palladiosimulator.indirections.composition.abstract_.provider,
  org.palladiosimulator.indirections.composition.provider,
- org.palladiosimulator.indirections.datatypes.provider,
  org.palladiosimulator.indirections.repository.provider,
  org.palladiosimulator.indirections.system.provider
 Require-Bundle: org.eclipse.core.runtime,

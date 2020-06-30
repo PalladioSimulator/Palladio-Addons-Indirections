@@ -12,10 +12,6 @@ import org.eclipse.emf.common.notify.Notifier;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
-import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.edit.command.CommandParameter;
-
 import org.eclipse.emf.edit.domain.EditingDomain;
 
 import org.eclipse.emf.edit.provider.ChangeNotifier;
@@ -34,17 +30,9 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
 import org.palladiosimulator.indirections.actions.provider.IndirectionsEditPlugin;
 
-import org.palladiosimulator.indirections.system.SystemFactory;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.indirections.system.util.SystemAdapterFactory;
-
-import org.palladiosimulator.pcm.core.composition.ComposedStructure;
-import org.palladiosimulator.pcm.core.composition.CompositionPackage;
-
-import org.palladiosimulator.pcm.core.composition.util.CompositionSwitch;
-
-import org.palladiosimulator.pcm.system.util.SystemSwitch;
 
 /**
  * This is the factory that is used to provide the interfaces needed to support Viewers.
@@ -105,26 +93,26 @@ public class SystemItemProviderAdapterFactory extends SystemAdapterFactory
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.system.DataChannel} instances.
+	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.system.JavaClassDataChannel} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DataChannelItemProvider dataChannelItemProvider;
+	protected JavaClassDataChannelItemProvider javaClassDataChannelItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.palladiosimulator.indirections.system.DataChannel}.
+	 * This creates an adapter for a {@link org.palladiosimulator.indirections.system.JavaClassDataChannel}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createDataChannelAdapter() {
-		if (dataChannelItemProvider == null) {
-			dataChannelItemProvider = new DataChannelItemProvider(this);
+	public Adapter createJavaClassDataChannelAdapter() {
+		if (javaClassDataChannelItemProvider == null) {
+			javaClassDataChannelItemProvider = new JavaClassDataChannelItemProvider(this);
 		}
 
-		return dataChannelItemProvider;
+		return javaClassDataChannelItemProvider;
 	}
 
 	/**
@@ -261,186 +249,8 @@ public class SystemItemProviderAdapterFactory extends SystemAdapterFactory
 	 */
 	@Override
 	public void dispose() {
-		if (dataChannelItemProvider != null)
-			dataChannelItemProvider.dispose();
-	}
-
-	/**
-	 * A child creation extender for the {@link CompositionPackage}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static class CompositionChildCreationExtender implements IChildCreationExtender {
-		/**
-		 * The switch for creating child descriptors specific to each extended class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected static class CreationSwitch extends CompositionSwitch<Object> {
-			/**
-			 * The child descriptors being populated.
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			protected List<Object> newChildDescriptors;
-
-			/**
-			 * The domain in which to create the children.
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			protected EditingDomain editingDomain;
-
-			/**
-			 * Creates the a switch for populating child descriptors in the given domain.
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			CreationSwitch(List<Object> newChildDescriptors, EditingDomain editingDomain) {
-				this.newChildDescriptors = newChildDescriptors;
-				this.editingDomain = editingDomain;
-			}
-
-			/**
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			@Override
-			public Object caseComposedStructure(ComposedStructure object) {
-				newChildDescriptors.add(createChildParameter(
-						CompositionPackage.Literals.COMPOSED_STRUCTURE__EVENT_CHANNEL_COMPOSED_STRUCTURE,
-						SystemFactory.eINSTANCE.createDataChannel()));
-
-				return null;
-			}
-
-			/**
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			protected CommandParameter createChildParameter(Object feature, Object child) {
-				return new CommandParameter(null, feature, child);
-			}
-
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		@Override
-		public Collection<Object> getNewChildDescriptors(Object object, EditingDomain editingDomain) {
-			ArrayList<Object> result = new ArrayList<Object>();
-			new CreationSwitch(result, editingDomain).doSwitch((EObject) object);
-			return result;
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		@Override
-		public ResourceLocator getResourceLocator() {
-			return IndirectionsEditPlugin.INSTANCE;
-		}
-	}
-
-	/**
-	 * A child creation extender for the {@link org.palladiosimulator.pcm.system.SystemPackage}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static class SystemChildCreationExtender implements IChildCreationExtender {
-		/**
-		 * The switch for creating child descriptors specific to each extended class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		protected static class CreationSwitch extends SystemSwitch<Object> {
-			/**
-			 * The child descriptors being populated.
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			protected List<Object> newChildDescriptors;
-
-			/**
-			 * The domain in which to create the children.
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			protected EditingDomain editingDomain;
-
-			/**
-			 * Creates the a switch for populating child descriptors in the given domain.
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			CreationSwitch(List<Object> newChildDescriptors, EditingDomain editingDomain) {
-				this.newChildDescriptors = newChildDescriptors;
-				this.editingDomain = editingDomain;
-			}
-
-			/**
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			@Override
-			public Object caseComposedStructure(ComposedStructure object) {
-				newChildDescriptors.add(createChildParameter(
-						CompositionPackage.Literals.COMPOSED_STRUCTURE__EVENT_CHANNEL_COMPOSED_STRUCTURE,
-						SystemFactory.eINSTANCE.createDataChannel()));
-
-				return null;
-			}
-
-			/**
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			protected CommandParameter createChildParameter(Object feature, Object child) {
-				return new CommandParameter(null, feature, child);
-			}
-
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		@Override
-		public Collection<Object> getNewChildDescriptors(Object object, EditingDomain editingDomain) {
-			ArrayList<Object> result = new ArrayList<Object>();
-			new CreationSwitch(result, editingDomain).doSwitch((EObject) object);
-			return result;
-		}
-
-		/**
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		@Override
-		public ResourceLocator getResourceLocator() {
-			return IndirectionsEditPlugin.INSTANCE;
-		}
+		if (javaClassDataChannelItemProvider != null)
+			javaClassDataChannelItemProvider.dispose();
 	}
 
 }

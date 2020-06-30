@@ -169,6 +169,21 @@ public class ActionsSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case ActionsPackage.PUT_TIME_ON_STACK_ACTION: {
+			PutTimeOnStackAction putTimeOnStackAction = (PutTimeOnStackAction) theEObject;
+			T result = casePutTimeOnStackAction(putTimeOnStackAction);
+			if (result == null)
+				result = caseAbstractAction(putTimeOnStackAction);
+			if (result == null)
+				result = caseEntity(putTimeOnStackAction);
+			if (result == null)
+				result = caseIdentifier(putTimeOnStackAction);
+			if (result == null)
+				result = caseNamedElement(putTimeOnStackAction);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -261,6 +276,21 @@ public class ActionsSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseDataIteratorAction(DataIteratorAction object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Put Time On Stack Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Put Time On Stack Action</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePutTimeOnStackAction(PutTimeOnStackAction object) {
 		return null;
 	}
 

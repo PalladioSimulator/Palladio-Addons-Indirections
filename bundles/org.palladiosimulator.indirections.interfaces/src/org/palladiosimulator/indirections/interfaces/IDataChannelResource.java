@@ -2,29 +2,33 @@ package org.palladiosimulator.indirections.interfaces;
 
 import java.util.function.Consumer;
 
-import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 
+/**
+ * Implementations have to have a constructor that accepts a SimulationControl
+ */
 public interface IDataChannelResource {
-    public abstract boolean put(ISchedulableProcess process, DataChannelSourceConnector sourceConnector,
-            IndirectionDate date);
+	boolean put(ISchedulableProcess process, DataChannelSinkConnector sourceConnector, IndirectionDate date);
 
-    public abstract boolean get(ISchedulableProcess process, DataChannelSinkConnector sinkConnector,
-            Consumer<IndirectionDate> callback);
+	boolean get(ISchedulableProcess process, DataChannelSourceConnector sinkConnector,
+			Consumer<IndirectionDate> callback);
 
-    /**
-     * Name of the resource.
-     * 
-     * @return
-     */
-    public String getName();
+	void advance(double simulationTime);
 
-    /**
-     * Unique identifier of the resource.
-     * 
-     * @return
-     */
-    public String getId();
+	/**
+	 * Name of the resource.
+	 * 
+	 * @return
+	 */
+	String getName();
+
+	/**
+	 * Unique identifier of the resource.
+	 * 
+	 * @return
+	 */
+	String getId();
 }

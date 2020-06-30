@@ -49,82 +49,55 @@
       <genClasses ecoreClass="indirections.ecore#//actions/DataIteratorAction">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/DataIteratorAction/variableReference"/>
       </genClasses>
-    </nestedGenPackages>
-    <nestedGenPackages prefix="Datatypes" disposableProviderFactory="true" generateModelWizard="false"
-        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
-        ecorePackage="indirections.ecore#//datatypes">
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/Scheduling">
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/Scheduling/FirstInFirstOut"/>
-      </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/EmitToChannelPolicy">
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/EmitToChannelPolicy/BlockIfFull"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/EmitToChannelPolicy/DiscardOldestIfFull"/>
-      </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/ConsumeFromChannelPolicy">
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/ConsumeFromChannelPolicy/Remove"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/ConsumeFromChannelPolicy/Peek"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/ConsumeFromChannelPolicy/Pushing"/>
-      </genEnums>
-      <genEnums typeSafeEnumCompatible="false" ecoreEnum="indirections.ecore#//datatypes/NumberOfElements">
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/AnyNumber"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/AtLeastOne"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/OneOrNone"/>
-        <genEnumLiterals ecoreEnumLiteral="indirections.ecore#//datatypes/NumberOfElements/ExactlyOne"/>
-      </genEnums>
-      <genClasses image="false" ecoreClass="indirections.ecore#//datatypes/TimeGrouping"/>
-      <genClasses ecoreClass="indirections.ecore#//datatypes/Windowing">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//datatypes/Windowing/size"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//datatypes/Windowing/shift"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//datatypes/Windowing/gracePeriod"/>
+      <genClasses ecoreClass="indirections.ecore#//actions/PutTimeOnStackAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/PutTimeOnStackAction/variableReference"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"
         extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
         ecorePackage="indirections.ecore#//system">
       <genClasses ecoreClass="indirections.ecore#//system/DataChannel" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/capacity"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/sourceEventGroup"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/sinkEventGroup"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataChannelSourceConnector"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataChannelSinkConnector"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/scheduling"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/emitToChannelPolicy"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/numberOfElementsToEmit"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/DataChannel/consumeFromChannelPolicy"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataSinkRoles"
+            get="return (EList&lt;DataSinkRole>) ((EList&lt;?>) getProvidedRoles_InterfaceProvidingEntity());"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataSourceRoles"
+            get="return (EList&lt;DataSourceRole>) ((EList&lt;?>) getRequiredRoles_InterfaceRequiringEntity());"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//system/JavaClassDataChannel">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/JavaClassDataChannel/realizingClassFqn"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/JavaClassDataChannel/configEntries"/>
       </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="Composition" disposableProviderFactory="true" generateModelWizard="false"
         extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
         ecorePackage="indirections.ecore#//composition">
-      <genClasses ecoreClass="indirections.ecore#//composition/DataChannelSourceConnector"
-          labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/dataSourceRole"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/assemblyContext"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSourceConnector/dataChannel"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//composition/DataChannelSinkConnector"
-          labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSinkConnector/dataSinkRole"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSinkConnector/assemblyContext"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelSinkConnector/dataChannel"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//composition/DataChannelConnector"
-          labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelConnector/source"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataChannelConnector/sink"/>
-      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//composition/DataChannelToAssemblyContextConnector"/>
+      <genClasses ecoreClass="indirections.ecore#//composition/AssemblyContextToDataChannelConnector"/>
+      <genClasses ecoreClass="indirections.ecore#//composition/DataChannelToDataChannelConnector"/>
+      <genClasses ecoreClass="indirections.ecore#//composition/AssemblyContextToAssemblyContextConnector"/>
+      <nestedGenPackages prefix="Abstract" disposableProviderFactory="true" ecorePackage="indirections.ecore#//composition/abstract">
+        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataSourceSinkConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataSourceSinkConnector/dataSourceRole"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataSourceSinkConnector/dataSinkRole"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataChannelSourceConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataChannelSourceConnector/sourceDataChannel"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataChannelSinkConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataChannelSinkConnector/sinkDataChannel"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/AssemblyContextSourceConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/AssemblyContextSourceConnector/sourceAssemblyContext"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/AssemblyContextSinkConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/AssemblyContextSinkConnector/sinkAssemblyContext"/>
+        </genClasses>
+      </nestedGenPackages>
     </nestedGenPackages>
     <nestedGenPackages prefix="Repository" disposableProviderFactory="true" generateModelWizard="false"
         extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
@@ -132,10 +105,6 @@
       <genClasses ecoreClass="indirections.ecore#//repository/DataSinkRole" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/eventGroup"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/pushesTo"/>
-        <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//repository/DataSinkRole/pushing"
-            get="return (this.getPushesTo() != null);"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//repository/DataSourceRole" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"

@@ -10,8 +10,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
@@ -47,8 +45,7 @@ public class DataSinkRoleItemProvider extends ProvidedRoleItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addEventGroupPropertyDescriptor(object);
-			addPushesToPropertyDescriptor(object);
-			addPushingPropertyDescriptor(object);
+			addDataSourceSinkConnectorsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -69,34 +66,19 @@ public class DataSinkRoleItemProvider extends ProvidedRoleItemProvider {
 	}
 
 	/**
-	 * This adds a property descriptor for the Pushes To feature.
+	 * This adds a property descriptor for the Data Source Sink Connectors feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addPushesToPropertyDescriptor(Object object) {
+	protected void addDataSourceSinkConnectorsPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_DataSinkRole_pushesTo_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_DataSinkRole_pushesTo_feature",
-								"_UI_DataSinkRole_type"),
-						RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO, true, false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Pushing feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPushingPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_DataSinkRole_pushing_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_DataSinkRole_pushing_feature",
-								"_UI_DataSinkRole_type"),
-						RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHING, false, false, false,
-						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+						getResourceLocator(), getString("_UI_DataSinkRole_dataSourceSinkConnectors_feature"),
+						getString("_UI_PropertyDescriptor_description",
+								"_UI_DataSinkRole_dataSourceSinkConnectors_feature", "_UI_DataSinkRole_type"),
+						RepositoryPackage.Literals.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS, true, false, true, null,
+						null, null));
 	}
 
 	/**
@@ -133,12 +115,6 @@ public class DataSinkRoleItemProvider extends ProvidedRoleItemProvider {
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(DataSinkRole.class)) {
-		case RepositoryPackage.DATA_SINK_ROLE__PUSHING:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		}
 		super.notifyChanged(notification);
 	}
 

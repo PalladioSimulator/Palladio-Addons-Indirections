@@ -2,8 +2,11 @@ package org.palladiosimulator.indirections.scheduler;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
-import org.palladiosimulator.indirections.composition.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
@@ -11,6 +14,7 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.probeframework.probes.TriggeredProbe;
+import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 import org.palladiosimulator.simulizar.interpreter.UsageScenarioSwitch;
@@ -22,7 +26,7 @@ import de.uka.ipd.sdq.simucomframework.usage.AbstractWorkloadUserFactory;
 import de.uka.ipd.sdq.simucomframework.usage.IUser;
 
 public class CallbackUserFactory extends AbstractWorkloadUserFactory {
-	private DataChannelSinkConnector sinkConnector;
+	private DataChannelSourceConnector connector;
 
 	/**
 	 * @param <T> type of the data
@@ -89,16 +93,32 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 	/**
 	 * @see UsageScenarioSwitch#caseEntryLevelSystemCall(EntryLevelSystemCall)
 	 * @param context
-	 * @param sinkConnector
+	 * @param connector
 	 */
-	private void simulateComponentCall(InterpreterDefaultContext context, DataChannelSinkConnector sinkConnector) {
-		DataSinkRole sinkRole = sinkConnector.getDataSinkRole();
+	private static void simulateComponentCall(InterpreterDefaultContext context,
+			AssemblyContextSinkConnector connector) {
+		DataSinkRole sinkRole = connector.getDataSinkRole();
 
 		final RepositoryComponentSwitch providedDelegationSwitch = new RepositoryComponentSwitch(context,
-				sinkConnector.getAssemblyContext(), sinkRole.getPushesTo(), sinkRole);
+				connector.getSinkAssemblyContext(), connector.getPushesTo(), sinkRole);
 
 		providedDelegationSwitch.doSwitch(sinkRole);
 		context.getStack().removeStackFrame();
+	}
+
+	private static void simulateDataChannelCall(InterpreterDefaultContext context, DataChannelSinkConnector connector) {
+		throw new UnsupportedOperationException();
+	}
+
+	private static Consumer<InterpreterDefaultContext> getCallInvocation(DataChannelSourceConnector connector) {
+		if (connector instanceof DataChannelSinkConnector) {
+			return (context) -> simulateDataChannelCall(context, (DataChannelSinkConnector) connector);
+		} else if (connector instanceof AssemblyContextSinkConnector) {
+			return (context) -> simulateComponentCall(context, (AssemblyContextSinkConnector) connector);
+		} else {
+			throw new PCMModelInterpreterException(
+					"Unknown connector type for pushing: " + connector.getClass() + " (" + connector + ")");
+		}
 	}
 
 	public class CallbackIteratingUser extends AbstractCallbackUser<List<IndirectionDate>> {
@@ -108,17 +128,19 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 
 		@Override
 		public void scenarioRunner(SimuComSimProcess thread) {
+			Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(connector);
+
 			for (IndirectionDate currentDate : this.date) {
 				// TODO: fix helper method to handle data on stack
 				context.getStack().createAndPushNewStackFrame();
 				String parameterName = IndirectionSimulationUtil
-						.getOneParameter(sinkConnector.getDataSinkRole().getEventGroup()).getParameterName();
+						.getOneParameter(connector.getDataSinkRole().getEventGroup()).getParameterName();
 
 				IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
 						Objects.requireNonNull(currentDate));
 				IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, currentDate);
 
-				simulateComponentCall(context, sinkConnector);
+				simulationCall.accept(context);
 			}
 		}
 	}
@@ -130,27 +152,29 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 
 		@Override
 		public void scenarioRunner(SimuComSimProcess thread) {
+			Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(connector);
+			
 			// TODO: fix helper method to handle data on stack
 			context.getStack().createAndPushNewStackFrame();
 			String parameterName = IndirectionSimulationUtil
-					.getOneParameter(sinkConnector.getDataSinkRole().getEventGroup()).getParameterName();
+					.getOneParameter(connector.getDataSinkRole().getEventGroup()).getParameterName();
 
 			IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
 					Objects.requireNonNull(date));
 			IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, date);
 
-			simulateComponentCall(context, sinkConnector);
+			simulationCall.accept(context);
 		}
 	}
 
-	public CallbackUserFactory(SimuComModel model, DataChannelSinkConnector sinkConnector) {
-		super(model, initNewUsageScenario(sinkConnector));
-		this.sinkConnector = sinkConnector;
+	public CallbackUserFactory(SimuComModel model, DataChannelSourceConnector connector) {
+		super(model, initNewUsageScenario(connector));
+		this.connector = connector;
 	}
 
-	private static UsageScenario initNewUsageScenario(DataChannelSinkConnector sinkConnector) {
+	private static UsageScenario initNewUsageScenario(DataChannelSourceConnector connector) {
 		UsageScenario usageScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
-		usageScenario.setEntityName(sinkConnector.getEntityName() + "_pushing_UsageScenario");
+		usageScenario.setEntityName(connector.getEntityName() + "_pushing_UsageScenario");
 		return usageScenario;
 	}
 
@@ -162,9 +186,8 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 		return new CallbackIteratingUser(model, "CallbackIteratingUser");
 	}
 
-	public static CallbackUserFactory createPushingUserFactory(DataChannelSinkConnector sinkConnector,
-			SimuComModel model) {
-
-		return new CallbackUserFactory(model, sinkConnector);
+	public static CallbackUserFactory createPushingUserFactory(SimuComModel model,
+			DataChannelSourceConnector connector) {
+		return new CallbackUserFactory(model, connector);
 	}
 }

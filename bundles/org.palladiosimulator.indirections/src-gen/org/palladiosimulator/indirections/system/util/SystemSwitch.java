@@ -11,10 +11,12 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import org.palladiosimulator.indirections.system.*;
 
-import org.palladiosimulator.pcm.core.composition.EventChannel;
-
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity;
+import org.palladiosimulator.pcm.core.entity.InterfaceProvidingRequiringEntity;
+import org.palladiosimulator.pcm.core.entity.InterfaceRequiringEntity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
+import org.palladiosimulator.pcm.core.entity.ResourceInterfaceRequiringEntity;
 
 /**
  * <!-- begin-user-doc -->
@@ -77,13 +79,42 @@ public class SystemSwitch<T> extends Switch<T> {
 			DataChannel dataChannel = (DataChannel) theEObject;
 			T result = caseDataChannel(dataChannel);
 			if (result == null)
-				result = caseEventChannel(dataChannel);
+				result = caseInterfaceProvidingRequiringEntity(dataChannel);
+			if (result == null)
+				result = caseInterfaceProvidingEntity(dataChannel);
+			if (result == null)
+				result = caseInterfaceRequiringEntity(dataChannel);
+			if (result == null)
+				result = caseResourceInterfaceRequiringEntity(dataChannel);
 			if (result == null)
 				result = caseEntity(dataChannel);
 			if (result == null)
 				result = caseIdentifier(dataChannel);
 			if (result == null)
 				result = caseNamedElement(dataChannel);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SystemPackage.JAVA_CLASS_DATA_CHANNEL: {
+			JavaClassDataChannel javaClassDataChannel = (JavaClassDataChannel) theEObject;
+			T result = caseJavaClassDataChannel(javaClassDataChannel);
+			if (result == null)
+				result = caseDataChannel(javaClassDataChannel);
+			if (result == null)
+				result = caseInterfaceProvidingRequiringEntity(javaClassDataChannel);
+			if (result == null)
+				result = caseInterfaceProvidingEntity(javaClassDataChannel);
+			if (result == null)
+				result = caseInterfaceRequiringEntity(javaClassDataChannel);
+			if (result == null)
+				result = caseResourceInterfaceRequiringEntity(javaClassDataChannel);
+			if (result == null)
+				result = caseEntity(javaClassDataChannel);
+			if (result == null)
+				result = caseIdentifier(javaClassDataChannel);
+			if (result == null)
+				result = caseNamedElement(javaClassDataChannel);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -105,6 +136,21 @@ public class SystemSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseDataChannel(DataChannel object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Java Class Data Channel</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Java Class Data Channel</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJavaClassDataChannel(JavaClassDataChannel object) {
 		return null;
 	}
 
@@ -154,17 +200,62 @@ public class SystemSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Event Channel</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Interface Providing Entity</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Event Channel</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Interface Providing Entity</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseEventChannel(EventChannel object) {
+	public T caseInterfaceProvidingEntity(InterfaceProvidingEntity object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Interface Requiring Entity</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Interface Requiring Entity</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseResourceInterfaceRequiringEntity(ResourceInterfaceRequiringEntity object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Interface Requiring Entity</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Interface Requiring Entity</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInterfaceRequiringEntity(InterfaceRequiringEntity object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Interface Providing Requiring Entity</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Interface Providing Requiring Entity</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInterfaceProvidingRequiringEntity(InterfaceProvidingRequiringEntity object) {
 		return null;
 	}
 

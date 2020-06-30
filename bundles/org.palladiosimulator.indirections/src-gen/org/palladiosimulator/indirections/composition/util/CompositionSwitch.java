@@ -11,6 +11,12 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import org.palladiosimulator.indirections.composition.*;
 
+import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector;
+
 import org.palladiosimulator.pcm.core.composition.Connector;
 
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -73,47 +79,86 @@ public class CompositionSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-		case CompositionPackage.DATA_CHANNEL_SOURCE_CONNECTOR: {
-			DataChannelSourceConnector dataChannelSourceConnector = (DataChannelSourceConnector) theEObject;
-			T result = caseDataChannelSourceConnector(dataChannelSourceConnector);
+		case CompositionPackage.DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR: {
+			DataChannelToAssemblyContextConnector dataChannelToAssemblyContextConnector = (DataChannelToAssemblyContextConnector) theEObject;
+			T result = caseDataChannelToAssemblyContextConnector(dataChannelToAssemblyContextConnector);
 			if (result == null)
-				result = caseConnector(dataChannelSourceConnector);
+				result = caseDataChannelSourceConnector(dataChannelToAssemblyContextConnector);
 			if (result == null)
-				result = caseEntity(dataChannelSourceConnector);
+				result = caseAssemblyContextSinkConnector(dataChannelToAssemblyContextConnector);
 			if (result == null)
-				result = caseIdentifier(dataChannelSourceConnector);
+				result = caseDataSourceSinkConnector(dataChannelToAssemblyContextConnector);
 			if (result == null)
-				result = caseNamedElement(dataChannelSourceConnector);
+				result = caseConnector(dataChannelToAssemblyContextConnector);
 			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case CompositionPackage.DATA_CHANNEL_SINK_CONNECTOR: {
-			DataChannelSinkConnector dataChannelSinkConnector = (DataChannelSinkConnector) theEObject;
-			T result = caseDataChannelSinkConnector(dataChannelSinkConnector);
+				result = caseEntity(dataChannelToAssemblyContextConnector);
 			if (result == null)
-				result = caseConnector(dataChannelSinkConnector);
+				result = caseIdentifier(dataChannelToAssemblyContextConnector);
 			if (result == null)
-				result = caseEntity(dataChannelSinkConnector);
-			if (result == null)
-				result = caseIdentifier(dataChannelSinkConnector);
-			if (result == null)
-				result = caseNamedElement(dataChannelSinkConnector);
+				result = caseNamedElement(dataChannelToAssemblyContextConnector);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case CompositionPackage.DATA_CHANNEL_CONNECTOR: {
-			DataChannelConnector dataChannelConnector = (DataChannelConnector) theEObject;
-			T result = caseDataChannelConnector(dataChannelConnector);
+		case CompositionPackage.ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR: {
+			AssemblyContextToDataChannelConnector assemblyContextToDataChannelConnector = (AssemblyContextToDataChannelConnector) theEObject;
+			T result = caseAssemblyContextToDataChannelConnector(assemblyContextToDataChannelConnector);
 			if (result == null)
-				result = caseConnector(dataChannelConnector);
+				result = caseAssemblyContextSourceConnector(assemblyContextToDataChannelConnector);
 			if (result == null)
-				result = caseEntity(dataChannelConnector);
+				result = caseDataChannelSinkConnector(assemblyContextToDataChannelConnector);
 			if (result == null)
-				result = caseIdentifier(dataChannelConnector);
+				result = caseDataSourceSinkConnector(assemblyContextToDataChannelConnector);
 			if (result == null)
-				result = caseNamedElement(dataChannelConnector);
+				result = caseConnector(assemblyContextToDataChannelConnector);
+			if (result == null)
+				result = caseEntity(assemblyContextToDataChannelConnector);
+			if (result == null)
+				result = caseIdentifier(assemblyContextToDataChannelConnector);
+			if (result == null)
+				result = caseNamedElement(assemblyContextToDataChannelConnector);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case CompositionPackage.DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR: {
+			DataChannelToDataChannelConnector dataChannelToDataChannelConnector = (DataChannelToDataChannelConnector) theEObject;
+			T result = caseDataChannelToDataChannelConnector(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = caseDataChannelSourceConnector(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = caseDataChannelSinkConnector(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = caseDataSourceSinkConnector(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = caseConnector(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = caseEntity(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = caseIdentifier(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = caseNamedElement(dataChannelToDataChannelConnector);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case CompositionPackage.ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR: {
+			AssemblyContextToAssemblyContextConnector assemblyContextToAssemblyContextConnector = (AssemblyContextToAssemblyContextConnector) theEObject;
+			T result = caseAssemblyContextToAssemblyContextConnector(assemblyContextToAssemblyContextConnector);
+			if (result == null)
+				result = caseAssemblyContextSourceConnector(assemblyContextToAssemblyContextConnector);
+			if (result == null)
+				result = caseAssemblyContextSinkConnector(assemblyContextToAssemblyContextConnector);
+			if (result == null)
+				result = caseDataSourceSinkConnector(assemblyContextToAssemblyContextConnector);
+			if (result == null)
+				result = caseConnector(assemblyContextToAssemblyContextConnector);
+			if (result == null)
+				result = caseEntity(assemblyContextToAssemblyContextConnector);
+			if (result == null)
+				result = caseIdentifier(assemblyContextToAssemblyContextConnector);
+			if (result == null)
+				result = caseNamedElement(assemblyContextToAssemblyContextConnector);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -124,47 +169,62 @@ public class CompositionSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Data Channel Source Connector</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Data Channel To Assembly Context Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Data Channel Source Connector</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Data Channel To Assembly Context Connector</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseDataChannelSourceConnector(DataChannelSourceConnector object) {
+	public T caseDataChannelToAssemblyContextConnector(DataChannelToAssemblyContextConnector object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Data Channel Sink Connector</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Context To Data Channel Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Data Channel Sink Connector</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Context To Data Channel Connector</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseDataChannelSinkConnector(DataChannelSinkConnector object) {
+	public T caseAssemblyContextToDataChannelConnector(AssemblyContextToDataChannelConnector object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Data Channel Connector</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Data Channel To Data Channel Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Data Channel Connector</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Data Channel To Data Channel Connector</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseDataChannelConnector(DataChannelConnector object) {
+	public T caseDataChannelToDataChannelConnector(DataChannelToDataChannelConnector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Context To Assembly Context Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Context To Assembly Context Connector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyContextToAssemblyContextConnector(AssemblyContextToAssemblyContextConnector object) {
 		return null;
 	}
 
@@ -225,6 +285,81 @@ public class CompositionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConnector(Connector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Data Source Sink Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Data Source Sink Connector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDataSourceSinkConnector(DataSourceSinkConnector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Data Channel Source Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Data Channel Source Connector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDataChannelSourceConnector(DataChannelSourceConnector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Context Sink Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Context Sink Connector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyContextSinkConnector(AssemblyContextSinkConnector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Context Source Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Context Source Connector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAssemblyContextSourceConnector(AssemblyContextSourceConnector object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Data Channel Sink Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Data Channel Sink Connector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDataChannelSinkConnector(DataChannelSinkConnector object) {
 		return null;
 	}
 

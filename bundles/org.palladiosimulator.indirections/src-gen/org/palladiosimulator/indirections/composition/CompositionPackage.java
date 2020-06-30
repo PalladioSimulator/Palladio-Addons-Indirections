@@ -4,7 +4,8 @@ package org.palladiosimulator.indirections.composition;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
+
+import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -17,6 +18,9 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ * <!-- begin-model-doc -->
+ * All connectors for sink/source roles that are either bound to a data channel or to an assembly context, e.g. for a Basic Component
+ * <!-- end-model-doc -->
  * @see org.palladiosimulator.indirections.composition.CompositionFactory
  * @model kind="package"
  * @generated
@@ -55,14 +59,14 @@ public interface CompositionPackage extends EPackage {
 	CompositionPackage eINSTANCE = org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl <em>Data Channel Source Connector</em>}' class.
+	 * The meta object id for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelToAssemblyContextConnectorImpl <em>Data Channel To Assembly Context Connector</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl
-	 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelSourceConnector()
+	 * @see org.palladiosimulator.indirections.composition.impl.DataChannelToAssemblyContextConnectorImpl
+	 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelToAssemblyContextConnector()
 	 * @generated
 	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR = 0;
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR = 0;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -71,7 +75,7 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR__ID = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__ID;
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__ID = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ID;
 
 	/**
 	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
@@ -80,7 +84,7 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR__ENTITY_NAME = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__ENTITY_NAME;
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__ENTITY_NAME = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ENTITY_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference.
@@ -89,7 +93,7 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
 
 	/**
 	 * The feature id for the '<em><b>Data Source Role</b></em>' reference.
@@ -98,75 +102,7 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
-			+ 0;
-
-	/**
-	 * The feature id for the '<em><b>Assembly Context</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
-			+ 1;
-
-	/**
-	 * The feature id for the '<em><b>Data Channel</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR__DATA_CHANNEL = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
-			+ 2;
-
-	/**
-	 * The number of structural features of the '<em>Data Channel Source Connector</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL_SOURCE_CONNECTOR_FEATURE_COUNT = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
-			+ 3;
-
-	/**
-	 * The meta object id for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl <em>Data Channel Sink Connector</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl
-	 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelSinkConnector()
-	 * @generated
-	 */
-	int DATA_CHANNEL_SINK_CONNECTOR = 1;
-
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL_SINK_CONNECTOR__ID = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__ID;
-
-	/**
-	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL_SINK_CONNECTOR__ENTITY_NAME = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__ENTITY_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL_SINK_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__DATA_SOURCE_ROLE = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE;
 
 	/**
 	 * The feature id for the '<em><b>Data Sink Role</b></em>' reference.
@@ -175,48 +111,66 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__DATA_SINK_ROLE = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SINK_ROLE;
+
+	/**
+	 * The feature id for the '<em><b>Source Data Channel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__SOURCE_DATA_CHANNEL = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_DATA_CHANNEL;
+
+	/**
+	 * The feature id for the '<em><b>Sink Assembly Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__SINK_ASSEMBLY_CONTEXT = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR_FEATURE_COUNT
 			+ 0;
 
 	/**
-	 * The feature id for the '<em><b>Assembly Context</b></em>' reference.
+	 * The feature id for the '<em><b>Pushes To</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SINK_CONNECTOR__ASSEMBLY_CONTEXT = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__PUSHES_TO = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR_FEATURE_COUNT
 			+ 1;
 
 	/**
-	 * The feature id for the '<em><b>Data Channel</b></em>' reference.
+	 * The feature id for the '<em><b>Pushing</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SINK_CONNECTOR__DATA_CHANNEL = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR__PUSHING = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR_FEATURE_COUNT
 			+ 2;
 
 	/**
-	 * The number of structural features of the '<em>Data Channel Sink Connector</em>' class.
+	 * The number of structural features of the '<em>Data Channel To Assembly Context Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_SINK_CONNECTOR_FEATURE_COUNT = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR_FEATURE_COUNT = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR_FEATURE_COUNT
 			+ 3;
 
 	/**
-	 * The meta object id for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelConnectorImpl <em>Data Channel Connector</em>}' class.
+	 * The meta object id for the '{@link org.palladiosimulator.indirections.composition.impl.AssemblyContextToDataChannelConnectorImpl <em>Assembly Context To Data Channel Connector</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.palladiosimulator.indirections.composition.impl.DataChannelConnectorImpl
-	 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelConnector()
+	 * @see org.palladiosimulator.indirections.composition.impl.AssemblyContextToDataChannelConnectorImpl
+	 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getAssemblyContextToDataChannelConnector()
 	 * @generated
 	 */
-	int DATA_CHANNEL_CONNECTOR = 2;
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR = 1;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -225,7 +179,7 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_CONNECTOR__ID = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__ID;
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR__ID = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__ID;
 
 	/**
 	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
@@ -234,7 +188,7 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_CONNECTOR__ENTITY_NAME = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__ENTITY_NAME;
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR__ENTITY_NAME = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__ENTITY_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference.
@@ -243,155 +197,282 @@ public interface CompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
 
 	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * The feature id for the '<em><b>Data Source Role</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_CONNECTOR__SOURCE = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR__DATA_SOURCE_ROLE = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__DATA_SOURCE_ROLE;
+
+	/**
+	 * The feature id for the '<em><b>Data Sink Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR__DATA_SINK_ROLE = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__DATA_SINK_ROLE;
+
+	/**
+	 * The feature id for the '<em><b>Source Assembly Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR__SOURCE_ASSEMBLY_CONTEXT = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__SOURCE_ASSEMBLY_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Sink Data Channel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR__SINK_DATA_CHANNEL = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR_FEATURE_COUNT
 			+ 0;
 
 	/**
-	 * The feature id for the '<em><b>Sink</b></em>' reference.
+	 * The number of structural features of the '<em>Assembly Context To Data Channel Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_CONNECTOR__SINK = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR_FEATURE_COUNT = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR_FEATURE_COUNT
 			+ 1;
 
 	/**
-	 * The number of structural features of the '<em>Data Channel Connector</em>' class.
+	 * The meta object id for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelToDataChannelConnectorImpl <em>Data Channel To Data Channel Connector</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.palladiosimulator.indirections.composition.impl.DataChannelToDataChannelConnectorImpl
+	 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelToDataChannelConnector()
+	 * @generated
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR = 2;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_CONNECTOR_FEATURE_COUNT = org.palladiosimulator.pcm.core.composition.CompositionPackage.CONNECTOR_FEATURE_COUNT
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR__ID = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ID;
+
+	/**
+	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR__ENTITY_NAME = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__ENTITY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Data Source Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR__DATA_SOURCE_ROLE = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE;
+
+	/**
+	 * The feature id for the '<em><b>Data Sink Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR__DATA_SINK_ROLE = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SINK_ROLE;
+
+	/**
+	 * The feature id for the '<em><b>Source Data Channel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR__SOURCE_DATA_CHANNEL = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR__SOURCE_DATA_CHANNEL;
+
+	/**
+	 * The feature id for the '<em><b>Sink Data Channel</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR__SINK_DATA_CHANNEL = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR_FEATURE_COUNT
+			+ 0;
+
+	/**
+	 * The number of structural features of the '<em>Data Channel To Data Channel Connector</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR_FEATURE_COUNT = AbstractPackage.DATA_CHANNEL_SOURCE_CONNECTOR_FEATURE_COUNT
+			+ 1;
+
+	/**
+	 * The meta object id for the '{@link org.palladiosimulator.indirections.composition.impl.AssemblyContextToAssemblyContextConnectorImpl <em>Assembly Context To Assembly Context Connector</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.palladiosimulator.indirections.composition.impl.AssemblyContextToAssemblyContextConnectorImpl
+	 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getAssemblyContextToAssemblyContextConnector()
+	 * @generated
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR = 3;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__ID = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__ID;
+
+	/**
+	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__ENTITY_NAME = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__ENTITY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Parent Structure Connector</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__PARENT_STRUCTURE_CONNECTOR = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__PARENT_STRUCTURE_CONNECTOR;
+
+	/**
+	 * The feature id for the '<em><b>Data Source Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__DATA_SOURCE_ROLE = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__DATA_SOURCE_ROLE;
+
+	/**
+	 * The feature id for the '<em><b>Data Sink Role</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__DATA_SINK_ROLE = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__DATA_SINK_ROLE;
+
+	/**
+	 * The feature id for the '<em><b>Source Assembly Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__SOURCE_ASSEMBLY_CONTEXT = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR__SOURCE_ASSEMBLY_CONTEXT;
+
+	/**
+	 * The feature id for the '<em><b>Sink Assembly Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__SINK_ASSEMBLY_CONTEXT = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR_FEATURE_COUNT
+			+ 0;
+
+	/**
+	 * The feature id for the '<em><b>Pushes To</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__PUSHES_TO = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR_FEATURE_COUNT
+			+ 1;
+
+	/**
+	 * The feature id for the '<em><b>Pushing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR__PUSHING = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR_FEATURE_COUNT
 			+ 2;
 
 	/**
-	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector <em>Data Channel Source Connector</em>}'.
+	 * The number of structural features of the '<em>Assembly Context To Assembly Context Connector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Data Channel Source Connector</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSourceConnector
 	 * @generated
+	 * @ordered
 	 */
-	EClass getDataChannelSourceConnector();
+	int ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR_FEATURE_COUNT = AbstractPackage.ASSEMBLY_CONTEXT_SOURCE_CONNECTOR_FEATURE_COUNT
+			+ 3;
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getDataSourceRole <em>Data Source Role</em>}'.
+	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector <em>Data Channel To Assembly Context Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Data Source Role</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getDataSourceRole()
-	 * @see #getDataChannelSourceConnector()
+	 * @return the meta object for class '<em>Data Channel To Assembly Context Connector</em>'.
+	 * @see org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector
 	 * @generated
 	 */
-	EReference getDataChannelSourceConnector_DataSourceRole();
+	EClass getDataChannelToAssemblyContextConnector();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getAssemblyContext <em>Assembly Context</em>}'.
+	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.composition.AssemblyContextToDataChannelConnector <em>Assembly Context To Data Channel Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Assembly Context</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getAssemblyContext()
-	 * @see #getDataChannelSourceConnector()
+	 * @return the meta object for class '<em>Assembly Context To Data Channel Connector</em>'.
+	 * @see org.palladiosimulator.indirections.composition.AssemblyContextToDataChannelConnector
 	 * @generated
 	 */
-	EReference getDataChannelSourceConnector_AssemblyContext();
+	EClass getAssemblyContextToDataChannelConnector();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getDataChannel <em>Data Channel</em>}'.
+	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.composition.DataChannelToDataChannelConnector <em>Data Channel To Data Channel Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Data Channel</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSourceConnector#getDataChannel()
-	 * @see #getDataChannelSourceConnector()
+	 * @return the meta object for class '<em>Data Channel To Data Channel Connector</em>'.
+	 * @see org.palladiosimulator.indirections.composition.DataChannelToDataChannelConnector
 	 * @generated
 	 */
-	EReference getDataChannelSourceConnector_DataChannel();
+	EClass getDataChannelToDataChannelConnector();
 
 	/**
-	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector <em>Data Channel Sink Connector</em>}'.
+	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.composition.AssemblyContextToAssemblyContextConnector <em>Assembly Context To Assembly Context Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Data Channel Sink Connector</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSinkConnector
+	 * @return the meta object for class '<em>Assembly Context To Assembly Context Connector</em>'.
+	 * @see org.palladiosimulator.indirections.composition.AssemblyContextToAssemblyContextConnector
 	 * @generated
 	 */
-	EClass getDataChannelSinkConnector();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataSinkRole <em>Data Sink Role</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Data Sink Role</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataSinkRole()
-	 * @see #getDataChannelSinkConnector()
-	 * @generated
-	 */
-	EReference getDataChannelSinkConnector_DataSinkRole();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getAssemblyContext <em>Assembly Context</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Assembly Context</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getAssemblyContext()
-	 * @see #getDataChannelSinkConnector()
-	 * @generated
-	 */
-	EReference getDataChannelSinkConnector_AssemblyContext();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataChannel <em>Data Channel</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Data Channel</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSinkConnector#getDataChannel()
-	 * @see #getDataChannelSinkConnector()
-	 * @generated
-	 */
-	EReference getDataChannelSinkConnector_DataChannel();
-
-	/**
-	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.composition.DataChannelConnector <em>Data Channel Connector</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Data Channel Connector</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelConnector
-	 * @generated
-	 */
-	EClass getDataChannelConnector();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelConnector#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelConnector#getSource()
-	 * @see #getDataChannelConnector()
-	 * @generated
-	 */
-	EReference getDataChannelConnector_Source();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.composition.DataChannelConnector#getSink <em>Sink</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Sink</em>'.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelConnector#getSink()
-	 * @see #getDataChannelConnector()
-	 * @generated
-	 */
-	EReference getDataChannelConnector_Sink();
+	EClass getAssemblyContextToAssemblyContextConnector();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -416,101 +497,45 @@ public interface CompositionPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl <em>Data Channel Source Connector</em>}' class.
+		 * The meta object literal for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelToAssemblyContextConnectorImpl <em>Data Channel To Assembly Context Connector</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.palladiosimulator.indirections.composition.impl.DataChannelSourceConnectorImpl
-		 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelSourceConnector()
+		 * @see org.palladiosimulator.indirections.composition.impl.DataChannelToAssemblyContextConnectorImpl
+		 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelToAssemblyContextConnector()
 		 * @generated
 		 */
-		EClass DATA_CHANNEL_SOURCE_CONNECTOR = eINSTANCE.getDataChannelSourceConnector();
+		EClass DATA_CHANNEL_TO_ASSEMBLY_CONTEXT_CONNECTOR = eINSTANCE.getDataChannelToAssemblyContextConnector();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Source Role</b></em>' reference feature.
+		 * The meta object literal for the '{@link org.palladiosimulator.indirections.composition.impl.AssemblyContextToDataChannelConnectorImpl <em>Assembly Context To Data Channel Connector</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see org.palladiosimulator.indirections.composition.impl.AssemblyContextToDataChannelConnectorImpl
+		 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getAssemblyContextToDataChannelConnector()
 		 * @generated
 		 */
-		EReference DATA_CHANNEL_SOURCE_CONNECTOR__DATA_SOURCE_ROLE = eINSTANCE
-				.getDataChannelSourceConnector_DataSourceRole();
+		EClass ASSEMBLY_CONTEXT_TO_DATA_CHANNEL_CONNECTOR = eINSTANCE.getAssemblyContextToDataChannelConnector();
 
 		/**
-		 * The meta object literal for the '<em><b>Assembly Context</b></em>' reference feature.
+		 * The meta object literal for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelToDataChannelConnectorImpl <em>Data Channel To Data Channel Connector</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see org.palladiosimulator.indirections.composition.impl.DataChannelToDataChannelConnectorImpl
+		 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelToDataChannelConnector()
 		 * @generated
 		 */
-		EReference DATA_CHANNEL_SOURCE_CONNECTOR__ASSEMBLY_CONTEXT = eINSTANCE
-				.getDataChannelSourceConnector_AssemblyContext();
+		EClass DATA_CHANNEL_TO_DATA_CHANNEL_CONNECTOR = eINSTANCE.getDataChannelToDataChannelConnector();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Channel</b></em>' reference feature.
+		 * The meta object literal for the '{@link org.palladiosimulator.indirections.composition.impl.AssemblyContextToAssemblyContextConnectorImpl <em>Assembly Context To Assembly Context Connector</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see org.palladiosimulator.indirections.composition.impl.AssemblyContextToAssemblyContextConnectorImpl
+		 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getAssemblyContextToAssemblyContextConnector()
 		 * @generated
 		 */
-		EReference DATA_CHANNEL_SOURCE_CONNECTOR__DATA_CHANNEL = eINSTANCE.getDataChannelSourceConnector_DataChannel();
-
-		/**
-		 * The meta object literal for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl <em>Data Channel Sink Connector</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.palladiosimulator.indirections.composition.impl.DataChannelSinkConnectorImpl
-		 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelSinkConnector()
-		 * @generated
-		 */
-		EClass DATA_CHANNEL_SINK_CONNECTOR = eINSTANCE.getDataChannelSinkConnector();
-
-		/**
-		 * The meta object literal for the '<em><b>Data Sink Role</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_CHANNEL_SINK_CONNECTOR__DATA_SINK_ROLE = eINSTANCE.getDataChannelSinkConnector_DataSinkRole();
-
-		/**
-		 * The meta object literal for the '<em><b>Assembly Context</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_CHANNEL_SINK_CONNECTOR__ASSEMBLY_CONTEXT = eINSTANCE
-				.getDataChannelSinkConnector_AssemblyContext();
-
-		/**
-		 * The meta object literal for the '<em><b>Data Channel</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_CHANNEL_SINK_CONNECTOR__DATA_CHANNEL = eINSTANCE.getDataChannelSinkConnector_DataChannel();
-
-		/**
-		 * The meta object literal for the '{@link org.palladiosimulator.indirections.composition.impl.DataChannelConnectorImpl <em>Data Channel Connector</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.palladiosimulator.indirections.composition.impl.DataChannelConnectorImpl
-		 * @see org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl#getDataChannelConnector()
-		 * @generated
-		 */
-		EClass DATA_CHANNEL_CONNECTOR = eINSTANCE.getDataChannelConnector();
-
-		/**
-		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_CHANNEL_CONNECTOR__SOURCE = eINSTANCE.getDataChannelConnector_Source();
-
-		/**
-		 * The meta object literal for the '<em><b>Sink</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_CHANNEL_CONNECTOR__SINK = eINSTANCE.getDataChannelConnector_Sink();
+		EClass ASSEMBLY_CONTEXT_TO_ASSEMBLY_CONTEXT_CONNECTOR = eINSTANCE
+				.getAssemblyContextToAssemblyContextConnector();
 
 	}
 

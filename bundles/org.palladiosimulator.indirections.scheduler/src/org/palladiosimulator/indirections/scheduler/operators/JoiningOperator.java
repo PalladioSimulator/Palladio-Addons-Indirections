@@ -10,16 +10,16 @@ import java.util.Queue;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.palladiosimulator.indirections.composition.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.scheduler.data.DataWithSource;
+import org.palladiosimulator.indirections.scheduler.data.DateWithConnector;
 import org.palladiosimulator.indirections.scheduler.data.JoinedDate;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.indirections.util.StreamUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 
-public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOperator<DataWithSource<T>, JoinedDate<T>> {
-    private final Iterable<JoiningOperator.KeyedChannel<DataWithSource<T>, Object>> channels;
+public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOperator<DateWithConnector<T>, JoinedDate<T>> {
+    private final Iterable<JoiningOperator.KeyedChannel<DateWithConnector<T>, Object>> channels;
 
     public static abstract class Channel<U> {
         public final Queue<U> data;
@@ -106,19 +106,19 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
 
     }
 
-    public JoiningOperator(Iterable<KeyedChannel<DataWithSource<T>, Object>> channels) {
+    public JoiningOperator(Iterable<KeyedChannel<DateWithConnector<T>, Object>> channels) {
         this.channels = channels;
     }
 
     public static <U extends IndirectionDate> JoiningOperator<U> createWithIndices(
-            Function<DataWithSource<U>, Integer> dateToClass, List<PCMRandomVariable> joinKeys,
+            Function<DateWithConnector<U>, Integer> dateToClass, List<PCMRandomVariable> joinKeys,
             List<Boolean> retainDataArray) {
 
-        List<KeyedChannel<DataWithSource<U>, Object>> channels = new ArrayList<>();
+        List<KeyedChannel<DateWithConnector<U>, Object>> channels = new ArrayList<>();
         for (int i = 0; i < retainDataArray.size(); i++) {
             boolean retainData = retainDataArray.get(i);
             final int indexToCheck = i;
-            channels.add(new StrategyChannel<DataWithSource<U>, Object>(retainData,
+            channels.add(new StrategyChannel<DateWithConnector<U>, Object>(retainData,
                     (date) -> date.date.evaluate(joinKeys.get(indexToCheck)),
                     (date) -> dateToClass.apply(date) == indexToCheck));
         }
@@ -127,11 +127,11 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
     }
 
     @Override
-    public void accept(DataWithSource<T> date) {
-        KeyedChannel<DataWithSource<T>, Object> channelToAddTo = IterableUtil.stream(channels)
+    public void accept(DateWithConnector<T> date) {
+        KeyedChannel<DateWithConnector<T>, Object> channelToAddTo = IterableUtil.stream(channels)
                 .filter(it -> it.isResponsibleFor(date)).reduce(StreamUtil.reduceToMaximumOne()).get();
         channelToAddTo.put(date);
-        DataChannelSourceConnector source = date.source;
+		DataSourceSinkConnector source = date.source;
 
         Object key = channelToAddTo.keyFunction.apply(date);
 
@@ -139,8 +139,8 @@ public class JoiningOperator<T extends IndirectionDate> extends SimStatefulOpera
         boolean allRetain = IterableUtil.stream(channels).allMatch(it -> it.retainData);
 
         while (IterableUtil.stream(channels).allMatch(it -> it.canProvide(key))) {
-            Map<KeyedChannel<DataWithSource<T>, Object>, T> dataMap = new HashMap<>();
-            for (KeyedChannel<DataWithSource<T>, Object> channel : channels) {
+            Map<KeyedChannel<DateWithConnector<T>, Object>, T> dataMap = new HashMap<>();
+            for (KeyedChannel<DateWithConnector<T>, Object> channel : channels) {
                 dataMap.put(channel, channel.get(key).date);
             }
             emit(new JoinedDate<T>(dataMap));

@@ -22,31 +22,40 @@ public interface CompositionFactory extends EFactory {
 	CompositionFactory eINSTANCE = org.palladiosimulator.indirections.composition.impl.CompositionFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Data Channel Source Connector</em>'.
+	 * Returns a new object of class '<em>Data Channel To Assembly Context Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Data Channel Source Connector</em>'.
+	 * @return a new object of class '<em>Data Channel To Assembly Context Connector</em>'.
 	 * @generated
 	 */
-	DataChannelSourceConnector createDataChannelSourceConnector();
+	DataChannelToAssemblyContextConnector createDataChannelToAssemblyContextConnector();
 
 	/**
-	 * Returns a new object of class '<em>Data Channel Sink Connector</em>'.
+	 * Returns a new object of class '<em>Assembly Context To Data Channel Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Data Channel Sink Connector</em>'.
+	 * @return a new object of class '<em>Assembly Context To Data Channel Connector</em>'.
 	 * @generated
 	 */
-	DataChannelSinkConnector createDataChannelSinkConnector();
+	AssemblyContextToDataChannelConnector createAssemblyContextToDataChannelConnector();
 
 	/**
-	 * Returns a new object of class '<em>Data Channel Connector</em>'.
+	 * Returns a new object of class '<em>Data Channel To Data Channel Connector</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Data Channel Connector</em>'.
+	 * @return a new object of class '<em>Data Channel To Data Channel Connector</em>'.
 	 * @generated
 	 */
-	DataChannelConnector createDataChannelConnector();
+	DataChannelToDataChannelConnector createDataChannelToDataChannelConnector();
+
+	/**
+	 * Returns a new object of class '<em>Assembly Context To Assembly Context Connector</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Context To Assembly Context Connector</em>'.
+	 * @generated
+	 */
+	AssemblyContextToAssemblyContextConnector createAssemblyContextToAssemblyContextConnector();
 
 	/**
 	 * Returns the package supported by this factory.

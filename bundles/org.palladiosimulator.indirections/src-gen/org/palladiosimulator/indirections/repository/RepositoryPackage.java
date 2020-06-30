@@ -2,7 +2,6 @@
  */
 package org.palladiosimulator.indirections.repository;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -103,24 +102,14 @@ public interface RepositoryPackage extends EPackage {
 			+ 0;
 
 	/**
-	 * The feature id for the '<em><b>Pushes To</b></em>' reference.
+	 * The feature id for the '<em><b>Data Source Sink Connectors</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_SINK_ROLE__PUSHES_TO = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
+	int DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
 			+ 1;
-
-	/**
-	 * The feature id for the '<em><b>Pushing</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_SINK_ROLE__PUSHING = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
-			+ 2;
 
 	/**
 	 * The number of structural features of the '<em>Data Sink Role</em>' class.
@@ -130,7 +119,7 @@ public interface RepositoryPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_SINK_ROLE_FEATURE_COUNT = org.palladiosimulator.pcm.repository.RepositoryPackage.PROVIDED_ROLE_FEATURE_COUNT
-			+ 3;
+			+ 2;
 
 	/**
 	 * The meta object id for the '{@link org.palladiosimulator.indirections.repository.impl.DataSourceRoleImpl <em>Data Source Role</em>}' class.
@@ -180,6 +169,16 @@ public interface RepositoryPackage extends EPackage {
 			+ 0;
 
 	/**
+	 * The feature id for the '<em><b>Data Source Sink Connectors</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_ROLE__DATA_SOURCE_SINK_CONNECTORS = org.palladiosimulator.pcm.repository.RepositoryPackage.REQUIRED_ROLE_FEATURE_COUNT
+			+ 1;
+
+	/**
 	 * The number of structural features of the '<em>Data Source Role</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -187,7 +186,7 @@ public interface RepositoryPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_SOURCE_ROLE_FEATURE_COUNT = org.palladiosimulator.pcm.repository.RepositoryPackage.REQUIRED_ROLE_FEATURE_COUNT
-			+ 1;
+			+ 2;
 
 	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.repository.DataSinkRole <em>Data Sink Role</em>}'.
@@ -211,26 +210,15 @@ public interface RepositoryPackage extends EPackage {
 	EReference getDataSinkRole_EventGroup();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo <em>Pushes To</em>}'.
+	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.repository.DataSinkRole#getDataSourceSinkConnectors <em>Data Source Sink Connectors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Pushes To</em>'.
-	 * @see org.palladiosimulator.indirections.repository.DataSinkRole#getPushesTo()
+	 * @return the meta object for the reference list '<em>Data Source Sink Connectors</em>'.
+	 * @see org.palladiosimulator.indirections.repository.DataSinkRole#getDataSourceSinkConnectors()
 	 * @see #getDataSinkRole()
 	 * @generated
 	 */
-	EReference getDataSinkRole_PushesTo();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.repository.DataSinkRole#isPushing <em>Pushing</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Pushing</em>'.
-	 * @see org.palladiosimulator.indirections.repository.DataSinkRole#isPushing()
-	 * @see #getDataSinkRole()
-	 * @generated
-	 */
-	EAttribute getDataSinkRole_Pushing();
+	EReference getDataSinkRole_DataSourceSinkConnectors();
 
 	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.repository.DataSourceRole <em>Data Source Role</em>}'.
@@ -252,6 +240,17 @@ public interface RepositoryPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDataSourceRole_EventGroup();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.repository.DataSourceRole#getDataSourceSinkConnectors <em>Data Source Sink Connectors</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Data Source Sink Connectors</em>'.
+	 * @see org.palladiosimulator.indirections.repository.DataSourceRole#getDataSourceSinkConnectors()
+	 * @see #getDataSourceRole()
+	 * @generated
+	 */
+	EReference getDataSourceRole_DataSourceSinkConnectors();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -294,20 +293,12 @@ public interface RepositoryPackage extends EPackage {
 		EReference DATA_SINK_ROLE__EVENT_GROUP = eINSTANCE.getDataSinkRole_EventGroup();
 
 		/**
-		 * The meta object literal for the '<em><b>Pushes To</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Source Sink Connectors</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DATA_SINK_ROLE__PUSHES_TO = eINSTANCE.getDataSinkRole_PushesTo();
-
-		/**
-		 * The meta object literal for the '<em><b>Pushing</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_SINK_ROLE__PUSHING = eINSTANCE.getDataSinkRole_Pushing();
+		EReference DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS = eINSTANCE.getDataSinkRole_DataSourceSinkConnectors();
 
 		/**
 		 * The meta object literal for the '{@link org.palladiosimulator.indirections.repository.impl.DataSourceRoleImpl <em>Data Source Role</em>}' class.
@@ -326,6 +317,15 @@ public interface RepositoryPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DATA_SOURCE_ROLE__EVENT_GROUP = eINSTANCE.getDataSourceRole_EventGroup();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Source Sink Connectors</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DATA_SOURCE_ROLE__DATA_SOURCE_SINK_CONNECTORS = eINSTANCE
+				.getDataSourceRole_DataSourceSinkConnectors();
 
 	}
 

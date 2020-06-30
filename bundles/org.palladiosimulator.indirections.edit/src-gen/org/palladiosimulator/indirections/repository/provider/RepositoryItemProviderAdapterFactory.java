@@ -41,7 +41,6 @@ import org.palladiosimulator.indirections.repository.util.RepositoryAdapterFacto
 
 import org.palladiosimulator.pcm.core.entity.EntityPackage;
 import org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity;
-import org.palladiosimulator.pcm.core.entity.InterfaceRequiringEntity;
 
 import org.palladiosimulator.pcm.core.entity.util.EntitySwitch;
 
@@ -128,29 +127,6 @@ public class RepositoryItemProviderAdapterFactory extends RepositoryAdapterFacto
 		}
 
 		return dataSinkRoleItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.palladiosimulator.indirections.repository.DataSourceRole} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DataSourceRoleItemProvider dataSourceRoleItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.palladiosimulator.indirections.repository.DataSourceRole}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDataSourceRoleAdapter() {
-		if (dataSourceRoleItemProvider == null) {
-			dataSourceRoleItemProvider = new DataSourceRoleItemProvider(this);
-		}
-
-		return dataSourceRoleItemProvider;
 	}
 
 	/**
@@ -289,8 +265,6 @@ public class RepositoryItemProviderAdapterFactory extends RepositoryAdapterFacto
 	public void dispose() {
 		if (dataSinkRoleItemProvider != null)
 			dataSinkRoleItemProvider.dispose();
-		if (dataSourceRoleItemProvider != null)
-			dataSourceRoleItemProvider.dispose();
 	}
 
 	/**
@@ -332,20 +306,6 @@ public class RepositoryItemProviderAdapterFactory extends RepositoryAdapterFacto
 			CreationSwitch(List<Object> newChildDescriptors, EditingDomain editingDomain) {
 				this.newChildDescriptors = newChildDescriptors;
 				this.editingDomain = editingDomain;
-			}
-
-			/**
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			@Override
-			public Object caseInterfaceRequiringEntity(InterfaceRequiringEntity object) {
-				newChildDescriptors.add(createChildParameter(
-						EntityPackage.Literals.INTERFACE_REQUIRING_ENTITY__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY,
-						RepositoryFactory.eINSTANCE.createDataSourceRole()));
-
-				return null;
 			}
 
 			/**
@@ -447,20 +407,6 @@ public class RepositoryItemProviderAdapterFactory extends RepositoryAdapterFacto
 				newChildDescriptors.add(createChildParameter(
 						EntityPackage.Literals.INTERFACE_PROVIDING_ENTITY__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY,
 						RepositoryFactory.eINSTANCE.createDataSinkRole()));
-
-				return null;
-			}
-
-			/**
-			 * <!-- begin-user-doc -->
-			 * <!-- end-user-doc -->
-			 * @generated
-			 */
-			@Override
-			public Object caseInterfaceRequiringEntity(InterfaceRequiringEntity object) {
-				newChildDescriptors.add(createChildParameter(
-						EntityPackage.Literals.INTERFACE_REQUIRING_ENTITY__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY,
-						RepositoryFactory.eINSTANCE.createDataSourceRole()));
 
 				return null;
 			}

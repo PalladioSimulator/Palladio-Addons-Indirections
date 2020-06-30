@@ -2,13 +2,23 @@
  */
 package org.palladiosimulator.indirections.repository.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector;
 
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 
 import org.palladiosimulator.pcm.repository.EventGroup;
-import org.palladiosimulator.pcm.repository.Signature;
 
 import org.palladiosimulator.pcm.repository.impl.ProvidedRoleImpl;
 
@@ -21,23 +31,12 @@ import org.palladiosimulator.pcm.repository.impl.ProvidedRoleImpl;
  * </p>
  * <ul>
  *   <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#getEventGroup <em>Event Group</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#getPushesTo <em>Pushes To</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#isPushing <em>Pushing</em>}</li>
+ *   <li>{@link org.palladiosimulator.indirections.repository.impl.DataSinkRoleImpl#getDataSourceSinkConnectors <em>Data Source Sink Connectors</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
-	/**
-	 * The default value of the '{@link #isPushing() <em>Pushing</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isPushing()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean PUSHING_EDEFAULT = false;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,10 +93,12 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Signature getPushesTo() {
-		return (Signature) eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO,
-				RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO, true, true);
+	public EList<DataSourceSinkConnector> getDataSourceSinkConnectors() {
+		return (EList<DataSourceSinkConnector>) eDynamicGet(
+				RepositoryPackage.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS,
+				RepositoryPackage.Literals.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS, true, true);
 	}
 
 	/**
@@ -105,20 +106,15 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Signature basicGetPushesTo() {
-		return (Signature) eDynamicGet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO,
-				RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO, false, true);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public void setPushesTo(Signature newPushesTo) {
-		eDynamicSet(RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO, RepositoryPackage.Literals.DATA_SINK_ROLE__PUSHES_TO,
-				newPushesTo);
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case RepositoryPackage.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDataSourceSinkConnectors())
+					.basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -127,8 +123,12 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 	 * @generated
 	 */
 	@Override
-	public boolean isPushing() {
-		return (this.getPushesTo() != null);
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case RepositoryPackage.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS:
+			return ((InternalEList<?>) getDataSourceSinkConnectors()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -143,12 +143,8 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 			if (resolve)
 				return getEventGroup();
 			return basicGetEventGroup();
-		case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-			if (resolve)
-				return getPushesTo();
-			return basicGetPushesTo();
-		case RepositoryPackage.DATA_SINK_ROLE__PUSHING:
-			return isPushing();
+		case RepositoryPackage.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS:
+			return getDataSourceSinkConnectors();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,14 +154,16 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP:
 			setEventGroup((EventGroup) newValue);
 			return;
-		case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-			setPushesTo((Signature) newValue);
+		case RepositoryPackage.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS:
+			getDataSourceSinkConnectors().clear();
+			getDataSourceSinkConnectors().addAll((Collection<? extends DataSourceSinkConnector>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -182,8 +180,8 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 		case RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP:
 			setEventGroup((EventGroup) null);
 			return;
-		case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-			setPushesTo((Signature) null);
+		case RepositoryPackage.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS:
+			getDataSourceSinkConnectors().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -199,10 +197,8 @@ public class DataSinkRoleImpl extends ProvidedRoleImpl implements DataSinkRole {
 		switch (featureID) {
 		case RepositoryPackage.DATA_SINK_ROLE__EVENT_GROUP:
 			return basicGetEventGroup() != null;
-		case RepositoryPackage.DATA_SINK_ROLE__PUSHES_TO:
-			return basicGetPushesTo() != null;
-		case RepositoryPackage.DATA_SINK_ROLE__PUSHING:
-			return isPushing() != PUSHING_EDEFAULT;
+		case RepositoryPackage.DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS:
+			return !getDataSourceSinkConnectors().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

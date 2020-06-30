@@ -10,7 +10,6 @@ import de.uka.ipd.sdq.stoex.StoexPackage;
 
 import de.uka.ipd.sdq.units.UnitsPackage;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -23,11 +22,11 @@ import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
 
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 
+import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
+
+import org.palladiosimulator.indirections.composition.abstract_.impl.AbstractPackageImpl;
+
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
-
-import org.palladiosimulator.indirections.datatypes.DatatypesPackage;
-
-import org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl;
 
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
@@ -123,10 +122,6 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
 		ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
 				? registeredPackage
 				: ActionsPackage.eINSTANCE);
-		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
-		DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl) (registeredPackage instanceof DatatypesPackageImpl
-				? registeredPackage
-				: DatatypesPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
 		SystemPackageImpl theSystemPackage = (SystemPackageImpl) (registeredPackage instanceof SystemPackageImpl
 				? registeredPackage
@@ -135,20 +130,24 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
 		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
 				? registeredPackage
 				: CompositionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AbstractPackage.eNS_URI);
+		AbstractPackageImpl theAbstractPackage = (AbstractPackageImpl) (registeredPackage instanceof AbstractPackageImpl
+				? registeredPackage
+				: AbstractPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theRepositoryPackage.createPackageContents();
 		theActionsPackage.createPackageContents();
-		theDatatypesPackage.createPackageContents();
 		theSystemPackage.createPackageContents();
 		theCompositionPackage.createPackageContents();
+		theAbstractPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theRepositoryPackage.initializePackageContents();
 		theActionsPackage.initializePackageContents();
-		theDatatypesPackage.initializePackageContents();
 		theSystemPackage.initializePackageContents();
 		theCompositionPackage.initializePackageContents();
+		theAbstractPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theRepositoryPackage.freeze();
@@ -184,18 +183,8 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
 	 * @generated
 	 */
 	@Override
-	public EReference getDataSinkRole_PushesTo() {
+	public EReference getDataSinkRole_DataSourceSinkConnectors() {
 		return (EReference) dataSinkRoleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getDataSinkRole_Pushing() {
-		return (EAttribute) dataSinkRoleEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -216,6 +205,16 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
 	@Override
 	public EReference getDataSourceRole_EventGroup() {
 		return (EReference) dataSourceRoleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getDataSourceRole_DataSourceSinkConnectors() {
+		return (EReference) dataSourceRoleEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -250,11 +249,11 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
 		// Create classes and their features
 		dataSinkRoleEClass = createEClass(DATA_SINK_ROLE);
 		createEReference(dataSinkRoleEClass, DATA_SINK_ROLE__EVENT_GROUP);
-		createEReference(dataSinkRoleEClass, DATA_SINK_ROLE__PUSHES_TO);
-		createEAttribute(dataSinkRoleEClass, DATA_SINK_ROLE__PUSHING);
+		createEReference(dataSinkRoleEClass, DATA_SINK_ROLE__DATA_SOURCE_SINK_CONNECTORS);
 
 		dataSourceRoleEClass = createEClass(DATA_SOURCE_ROLE);
 		createEReference(dataSourceRoleEClass, DATA_SOURCE_ROLE__EVENT_GROUP);
+		createEReference(dataSourceRoleEClass, DATA_SOURCE_ROLE__DATA_SOURCE_SINK_CONNECTORS);
 	}
 
 	/**
@@ -284,6 +283,8 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
 		// Obtain other dependent packages
 		org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
 				.getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
+		AbstractPackage theAbstractPackage = (AbstractPackage) EPackage.Registry.INSTANCE
+				.getEPackage(AbstractPackage.eNS_URI);
 
 		// Create type parameters
 
@@ -299,17 +300,20 @@ public class RepositoryPackageImpl extends EPackageImpl implements RepositoryPac
 		initEReference(getDataSinkRole_EventGroup(), theRepositoryPackage_1.getEventGroup(), null, "eventGroup", null,
 				0, 1, DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataSinkRole_PushesTo(), theRepositoryPackage_1.getSignature(), null, "pushesTo", null, 0, 1,
+		initEReference(getDataSinkRole_DataSourceSinkConnectors(), theAbstractPackage.getDataSourceSinkConnector(),
+				theAbstractPackage.getDataSourceSinkConnector_DataSinkRole(), "dataSourceSinkConnectors", null, 0, -1,
 				DataSinkRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataSinkRole_Pushing(), ecorePackage.getEBoolean(), "pushing", null, 0, 1, DataSinkRole.class,
-				IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
-		initEClass(dataSourceRoleEClass, DataSourceRole.class, "DataSourceRole", !IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(dataSourceRoleEClass, DataSourceRole.class, "DataSourceRole", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataSourceRole_EventGroup(), theRepositoryPackage_1.getEventGroup(), null, "eventGroup", null,
 				0, 1, DataSourceRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDataSourceRole_DataSourceSinkConnectors(), theAbstractPackage.getDataSourceSinkConnector(),
+				theAbstractPackage.getDataSourceSinkConnector_DataSourceRole(), "dataSourceSinkConnectors", null, 0, -1,
+				DataSourceRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

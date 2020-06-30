@@ -31,15 +31,6 @@ public interface RepositoryFactory extends EFactory {
 	DataSinkRole createDataSinkRole();
 
 	/**
-	 * Returns a new object of class '<em>Data Source Role</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Data Source Role</em>'.
-	 * @generated
-	 */
-	DataSourceRole createDataSourceRole();
-
-	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

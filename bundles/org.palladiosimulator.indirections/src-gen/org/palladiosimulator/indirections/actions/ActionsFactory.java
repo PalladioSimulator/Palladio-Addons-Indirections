@@ -76,6 +76,15 @@ public interface ActionsFactory extends EFactory {
 	DataIteratorAction createDataIteratorAction();
 
 	/**
+	 * Returns a new object of class '<em>Put Time On Stack Action</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Put Time On Stack Action</em>'.
+	 * @generated
+	 */
+	PutTimeOnStackAction createPutTimeOnStackAction();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

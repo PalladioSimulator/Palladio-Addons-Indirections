@@ -12,10 +12,10 @@ import org.palladiosimulator.indirections.scheduler.operators.JoiningOperator.Ke
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 
 public class JoinedDate<T extends IndirectionDate> implements GroupingIndirectionDate<T> {
-    public Map<KeyedChannel<DataWithSource<T>, Object>, T> data;
+    public Map<KeyedChannel<DateWithConnector<T>, Object>, T> data;
     protected final Map<String, T> extraData;
 
-    public JoinedDate(Map<KeyedChannel<DataWithSource<T>, Object>, T> dataMap) {
+    public JoinedDate(Map<KeyedChannel<DateWithConnector<T>, Object>, T> dataMap) {
         this.data = dataMap;
         this.extraData = new HashMap<>();
     }
@@ -24,7 +24,7 @@ public class JoinedDate<T extends IndirectionDate> implements GroupingIndirectio
     public Map<String, Object> getData() {
         Map<String, Object> result = new HashMap<String, Object>();
 
-        for (Entry<KeyedChannel<DataWithSource<T>, Object>, T> t : data.entrySet()) {
+        for (Entry<KeyedChannel<DateWithConnector<T>, Object>, T> t : data.entrySet()) {
             for (String key : t.getValue().getData().keySet()) {
                 String newKey = t.getKey().toString() + "." + key;
                 if (result.containsKey(newKey)) {

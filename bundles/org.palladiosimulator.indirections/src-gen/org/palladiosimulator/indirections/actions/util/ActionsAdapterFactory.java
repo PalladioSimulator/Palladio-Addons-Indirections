@@ -106,6 +106,11 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter casePutTimeOnStackAction(PutTimeOnStackAction object) {
+			return createPutTimeOnStackActionAdapter();
+		}
+
+		@Override
 		public Adapter caseIdentifier(Identifier object) {
 			return createIdentifierAdapter();
 		}
@@ -235,6 +240,20 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDataIteratorActionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.actions.PutTimeOnStackAction <em>Put Time On Stack Action</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.actions.PutTimeOnStackAction
+	 * @generated
+	 */
+	public Adapter createPutTimeOnStackActionAdapter() {
 		return null;
 	}
 

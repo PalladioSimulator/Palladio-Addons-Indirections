@@ -23,21 +23,24 @@ import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
 
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 
+import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
+
+import org.palladiosimulator.indirections.composition.abstract_.impl.AbstractPackageImpl;
+
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
-
-import org.palladiosimulator.indirections.datatypes.DatatypesPackage;
-
-import org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl;
 
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 
 import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 
 import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.indirections.system.SystemFactory;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
 import org.palladiosimulator.pcm.PcmPackage;
+
+import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,6 +55,13 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	private EClass dataChannelEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass javaClassDataChannelEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -115,14 +125,14 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
 				? registeredPackage
 				: ActionsPackage.eINSTANCE);
-		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
-		DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl) (registeredPackage instanceof DatatypesPackageImpl
-				? registeredPackage
-				: DatatypesPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CompositionPackage.eNS_URI);
 		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
 				? registeredPackage
 				: CompositionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AbstractPackage.eNS_URI);
+		AbstractPackageImpl theAbstractPackage = (AbstractPackageImpl) (registeredPackage instanceof AbstractPackageImpl
+				? registeredPackage
+				: AbstractPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
 		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
 				? registeredPackage
@@ -131,15 +141,15 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		// Create package meta-data objects
 		theSystemPackage.createPackageContents();
 		theActionsPackage.createPackageContents();
-		theDatatypesPackage.createPackageContents();
 		theCompositionPackage.createPackageContents();
+		theAbstractPackage.createPackageContents();
 		theRepositoryPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theSystemPackage.initializePackageContents();
 		theActionsPackage.initializePackageContents();
-		theDatatypesPackage.initializePackageContents();
 		theCompositionPackage.initializePackageContents();
+		theAbstractPackage.initializePackageContents();
 		theRepositoryPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
@@ -166,8 +176,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getDataChannel_Capacity() {
-		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(0);
+	public EReference getDataChannel_DataSinkRoles() {
+		return (EReference) dataChannelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -176,7 +186,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getDataChannel_SourceEventGroup() {
+	public EReference getDataChannel_DataSourceRoles() {
 		return (EReference) dataChannelEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -186,8 +196,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getDataChannel_SinkEventGroup() {
-		return (EReference) dataChannelEClass.getEStructuralFeatures().get(2);
+	public EClass getJavaClassDataChannel() {
+		return javaClassDataChannelEClass;
 	}
 
 	/**
@@ -196,8 +206,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getDataChannel_DataChannelSourceConnector() {
-		return (EReference) dataChannelEClass.getEStructuralFeatures().get(3);
+	public EAttribute getJavaClassDataChannel_RealizingClassFqn() {
+		return (EAttribute) javaClassDataChannelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -206,48 +216,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 	 * @generated
 	 */
 	@Override
-	public EReference getDataChannel_DataChannelSinkConnector() {
-		return (EReference) dataChannelEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getDataChannel_Scheduling() {
-		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getDataChannel_EmitToChannelPolicy() {
-		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getDataChannel_NumberOfElementsToEmit() {
-		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EAttribute getDataChannel_ConsumeFromChannelPolicy() {
-		return (EAttribute) dataChannelEClass.getEStructuralFeatures().get(8);
+	public EAttribute getJavaClassDataChannel_ConfigEntries() {
+		return (EAttribute) javaClassDataChannelEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -281,15 +251,12 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 
 		// Create classes and their features
 		dataChannelEClass = createEClass(DATA_CHANNEL);
-		createEAttribute(dataChannelEClass, DATA_CHANNEL__CAPACITY);
-		createEReference(dataChannelEClass, DATA_CHANNEL__SOURCE_EVENT_GROUP);
-		createEReference(dataChannelEClass, DATA_CHANNEL__SINK_EVENT_GROUP);
-		createEReference(dataChannelEClass, DATA_CHANNEL__DATA_CHANNEL_SOURCE_CONNECTOR);
-		createEReference(dataChannelEClass, DATA_CHANNEL__DATA_CHANNEL_SINK_CONNECTOR);
-		createEAttribute(dataChannelEClass, DATA_CHANNEL__SCHEDULING);
-		createEAttribute(dataChannelEClass, DATA_CHANNEL__EMIT_TO_CHANNEL_POLICY);
-		createEAttribute(dataChannelEClass, DATA_CHANNEL__NUMBER_OF_ELEMENTS_TO_EMIT);
-		createEAttribute(dataChannelEClass, DATA_CHANNEL__CONSUME_FROM_CHANNEL_POLICY);
+		createEReference(dataChannelEClass, DATA_CHANNEL__DATA_SINK_ROLES);
+		createEReference(dataChannelEClass, DATA_CHANNEL__DATA_SOURCE_ROLES);
+
+		javaClassDataChannelEClass = createEClass(JAVA_CLASS_DATA_CHANNEL);
+		createEAttribute(javaClassDataChannelEClass, JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN);
+		createEAttribute(javaClassDataChannelEClass, JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES);
 	}
 
 	/**
@@ -317,54 +284,36 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		org.palladiosimulator.pcm.core.composition.CompositionPackage theCompositionPackage_1 = (org.palladiosimulator.pcm.core.composition.CompositionPackage) EPackage.Registry.INSTANCE
-				.getEPackage(org.palladiosimulator.pcm.core.composition.CompositionPackage.eNS_URI);
-		org.palladiosimulator.pcm.repository.RepositoryPackage theRepositoryPackage_1 = (org.palladiosimulator.pcm.repository.RepositoryPackage) EPackage.Registry.INSTANCE
-				.getEPackage(org.palladiosimulator.pcm.repository.RepositoryPackage.eNS_URI);
-		CompositionPackage theCompositionPackage = (CompositionPackage) EPackage.Registry.INSTANCE
-				.getEPackage(CompositionPackage.eNS_URI);
-		DatatypesPackage theDatatypesPackage = (DatatypesPackage) EPackage.Registry.INSTANCE
-				.getEPackage(DatatypesPackage.eNS_URI);
+		EntityPackage theEntityPackage = (EntityPackage) EPackage.Registry.INSTANCE.getEPackage(EntityPackage.eNS_URI);
+		RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
+				.getEPackage(RepositoryPackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		dataChannelEClass.getESuperTypes().add(theCompositionPackage_1.getEventChannel());
+		dataChannelEClass.getESuperTypes().add(theEntityPackage.getInterfaceProvidingRequiringEntity());
+		javaClassDataChannelEClass.getESuperTypes().add(this.getDataChannel());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(dataChannelEClass, DataChannel.class, "DataChannel", !IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(dataChannelEClass, DataChannel.class, "DataChannel", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDataChannel_Capacity(), ecorePackage.getEInt(), "capacity", "-1", 1, 1, DataChannel.class,
-				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataChannel_SourceEventGroup(), theRepositoryPackage_1.getEventGroup(), null,
-				"sourceEventGroup", null, 1, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataChannel_SinkEventGroup(), theRepositoryPackage_1.getEventGroup(), null, "sinkEventGroup",
-				null, 1, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
-				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDataChannel_DataChannelSourceConnector(),
-				theCompositionPackage.getDataChannelSourceConnector(),
-				theCompositionPackage.getDataChannelSourceConnector_DataChannel(), "dataChannelSourceConnector", null,
-				0, -1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getDataChannel_DataChannelSinkConnector(), theCompositionPackage.getDataChannelSinkConnector(),
-				theCompositionPackage.getDataChannelSinkConnector_DataChannel(), "dataChannelSinkConnector", null, 0,
-				-1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
-				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getDataChannel_Scheduling(), theDatatypesPackage.getScheduling(), "scheduling", null, 0, 1,
-				DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-				!IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataChannel_EmitToChannelPolicy(), theDatatypesPackage.getEmitToChannelPolicy(),
-				"emitToChannelPolicy", null, 1, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataChannel_NumberOfElementsToEmit(), theDatatypesPackage.getNumberOfElements(),
-				"numberOfElementsToEmit", null, 0, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDataChannel_ConsumeFromChannelPolicy(), theDatatypesPackage.getConsumeFromChannelPolicy(),
-				"consumeFromChannelPolicy", null, 1, 1, DataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-				!IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDataChannel_DataSinkRoles(), theRepositoryPackage.getDataSinkRole(), null, "dataSinkRoles",
+				null, 0, -1, DataChannel.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
+				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getDataChannel_DataSourceRoles(), theRepositoryPackage.getDataSourceRole(), null,
+				"dataSourceRoles", null, 0, -1, DataChannel.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE,
+				!IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
+		initEClass(javaClassDataChannelEClass, JavaClassDataChannel.class, "JavaClassDataChannel", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getJavaClassDataChannel_RealizingClassFqn(), ecorePackage.getEString(), "realizingClassFqn",
+				null, 1, 1, JavaClassDataChannel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getJavaClassDataChannel_ConfigEntries(), ecorePackage.getEString(), "configEntries", null, 0, -1,
+				JavaClassDataChannel.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

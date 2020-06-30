@@ -12,7 +12,7 @@ public class DataChannelResourceFactory implements IDataChannelResourceFactory {
     @Override
     public IDataChannelResource createDataChannelResource(DataChannel dataChannel, InterpreterDefaultContext context,
             SchedulerModel model) {
-        return new SimDataChannelResource(dataChannel, context, model);
+        throw new UnsupportedOperationException();
     }
 
 }

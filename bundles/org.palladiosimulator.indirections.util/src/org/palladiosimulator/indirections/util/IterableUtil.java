@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.util;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,6 +12,8 @@ import java.util.stream.StreamSupport;
 
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
+import org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 
 public final class IterableUtil {
     private IterableUtil() {
@@ -72,4 +75,11 @@ public final class IterableUtil {
     public static <K, V> Map<K, V> toMap(Iterable<Entry<K, V>> entries) {
         return IterableUtil.stream(entries).collect(Collectors.toMap(it -> it.getKey(), it -> it.getValue()));
     }
+
+	@SuppressWarnings("unchecked")
+	public static <U, T extends U> Collection<T> claimType(Collection<U> collection,
+			Class<? extends T> claimedElementType) {
+		// TODO actually check elements
+		return (Collection<T>) ((Collection<?>) collection);
+	}
 }

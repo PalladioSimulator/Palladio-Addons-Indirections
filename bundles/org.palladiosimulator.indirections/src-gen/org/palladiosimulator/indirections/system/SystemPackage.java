@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
-import org.palladiosimulator.pcm.core.composition.CompositionPackage;
+import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__ID = CompositionPackage.EVENT_CHANNEL__ID;
+	int DATA_CHANNEL__ID = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__ID;
 
 	/**
 	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
@@ -83,124 +83,52 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__ENTITY_NAME = CompositionPackage.EVENT_CHANNEL__ENTITY_NAME;
+	int DATA_CHANNEL__ENTITY_NAME = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__ENTITY_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Event Group Event Channel</b></em>' reference.
+	 * The feature id for the '<em><b>Provided Roles Interface Providing Entity</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__EVENT_GROUP_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__EVENT_GROUP_EVENT_CHANNEL;
+	int DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY;
 
 	/**
-	 * The feature id for the '<em><b>Event Channel Source Connector Event Channel</b></em>' reference list.
+	 * The feature id for the '<em><b>Resource Required Roles Resource Interface Requiring Entity</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__EVENT_CHANNEL_SOURCE_CONNECTOR_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__EVENT_CHANNEL_SOURCE_CONNECTOR_EVENT_CHANNEL;
+	int DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY;
 
 	/**
-	 * The feature id for the '<em><b>Event Channel Sink Connector Event Channel</b></em>' reference list.
+	 * The feature id for the '<em><b>Required Roles Interface Requiring Entity</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__EVENT_CHANNEL_SINK_CONNECTOR_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__EVENT_CHANNEL_SINK_CONNECTOR_EVENT_CHANNEL;
+	int DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY;
 
 	/**
-	 * The feature id for the '<em><b>Parent Structure Event Channel</b></em>' container reference.
+	 * The feature id for the '<em><b>Data Sink Roles</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__PARENT_STRUCTURE_EVENT_CHANNEL = CompositionPackage.EVENT_CHANNEL__PARENT_STRUCTURE_EVENT_CHANNEL;
+	int DATA_CHANNEL__DATA_SINK_ROLES = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Capacity</b></em>' attribute.
+	 * The feature id for the '<em><b>Data Source Roles</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL__CAPACITY = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Source Event Group</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__SOURCE_EVENT_GROUP = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Sink Event Group</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__SINK_EVENT_GROUP = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Data Channel Source Connector</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__DATA_CHANNEL_SOURCE_CONNECTOR = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Data Channel Sink Connector</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__DATA_CHANNEL_SINK_CONNECTOR = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Scheduling</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__SCHEDULING = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Emit To Channel Policy</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__EMIT_TO_CHANNEL_POLICY = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Number Of Elements To Emit</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__NUMBER_OF_ELEMENTS_TO_EMIT = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Consume From Channel Policy</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__CONSUME_FROM_CHANNEL_POLICY = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 8;
+	int DATA_CHANNEL__DATA_SOURCE_ROLES = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Data Channel</em>' class.
@@ -209,7 +137,107 @@ public interface SystemPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_CHANNEL_FEATURE_COUNT = CompositionPackage.EVENT_CHANNEL_FEATURE_COUNT + 9;
+	int DATA_CHANNEL_FEATURE_COUNT = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl <em>Java Class Data Channel</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl
+	 * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getJavaClassDataChannel()
+	 * @generated
+	 */
+	int JAVA_CLASS_DATA_CHANNEL = 1;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__ID = DATA_CHANNEL__ID;
+
+	/**
+	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__ENTITY_NAME = DATA_CHANNEL__ENTITY_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Provided Roles Interface Providing Entity</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY = DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY;
+
+	/**
+	 * The feature id for the '<em><b>Resource Required Roles Resource Interface Requiring Entity</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY = DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY;
+
+	/**
+	 * The feature id for the '<em><b>Required Roles Interface Requiring Entity</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY = DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY;
+
+	/**
+	 * The feature id for the '<em><b>Data Sink Roles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__DATA_SINK_ROLES = DATA_CHANNEL__DATA_SINK_ROLES;
+
+	/**
+	 * The feature id for the '<em><b>Data Source Roles</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__DATA_SOURCE_ROLES = DATA_CHANNEL__DATA_SOURCE_ROLES;
+
+	/**
+	 * The feature id for the '<em><b>Realizing Class Fqn</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN = DATA_CHANNEL_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Config Entries</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES = DATA_CHANNEL_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Java Class Data Channel</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JAVA_CLASS_DATA_CHANNEL_FEATURE_COUNT = DATA_CHANNEL_FEATURE_COUNT + 2;
 
 	/**
 	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.system.DataChannel <em>Data Channel</em>}'.
@@ -222,103 +250,58 @@ public interface SystemPackage extends EPackage {
 	EClass getDataChannel();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getCapacity <em>Capacity</em>}'.
+	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.system.DataChannel#getDataSinkRoles <em>Data Sink Roles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Capacity</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getCapacity()
+	 * @return the meta object for the reference list '<em>Data Sink Roles</em>'.
+	 * @see org.palladiosimulator.indirections.system.DataChannel#getDataSinkRoles()
 	 * @see #getDataChannel()
 	 * @generated
 	 */
-	EAttribute getDataChannel_Capacity();
+	EReference getDataChannel_DataSinkRoles();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.system.DataChannel#getSourceEventGroup <em>Source Event Group</em>}'.
+	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.system.DataChannel#getDataSourceRoles <em>Data Source Roles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Source Event Group</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getSourceEventGroup()
+	 * @return the meta object for the reference list '<em>Data Source Roles</em>'.
+	 * @see org.palladiosimulator.indirections.system.DataChannel#getDataSourceRoles()
 	 * @see #getDataChannel()
 	 * @generated
 	 */
-	EReference getDataChannel_SourceEventGroup();
+	EReference getDataChannel_DataSourceRoles();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.palladiosimulator.indirections.system.DataChannel#getSinkEventGroup <em>Sink Event Group</em>}'.
+	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel <em>Java Class Data Channel</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Sink Event Group</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getSinkEventGroup()
-	 * @see #getDataChannel()
+	 * @return the meta object for class '<em>Java Class Data Channel</em>'.
+	 * @see org.palladiosimulator.indirections.system.JavaClassDataChannel
 	 * @generated
 	 */
-	EReference getDataChannel_SinkEventGroup();
+	EClass getJavaClassDataChannel();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.system.DataChannel#getDataChannelSourceConnector <em>Data Channel Source Connector</em>}'.
+	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn <em>Realizing Class Fqn</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Data Channel Source Connector</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getDataChannelSourceConnector()
-	 * @see #getDataChannel()
+	 * @return the meta object for the attribute '<em>Realizing Class Fqn</em>'.
+	 * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn()
+	 * @see #getJavaClassDataChannel()
 	 * @generated
 	 */
-	EReference getDataChannel_DataChannelSourceConnector();
+	EAttribute getJavaClassDataChannel_RealizingClassFqn();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.system.DataChannel#getDataChannelSinkConnector <em>Data Channel Sink Connector</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries <em>Config Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Data Channel Sink Connector</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getDataChannelSinkConnector()
-	 * @see #getDataChannel()
+	 * @return the meta object for the attribute list '<em>Config Entries</em>'.
+	 * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries()
+	 * @see #getJavaClassDataChannel()
 	 * @generated
 	 */
-	EReference getDataChannel_DataChannelSinkConnector();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getScheduling <em>Scheduling</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Scheduling</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getScheduling()
-	 * @see #getDataChannel()
-	 * @generated
-	 */
-	EAttribute getDataChannel_Scheduling();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getEmitToChannelPolicy <em>Emit To Channel Policy</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Emit To Channel Policy</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getEmitToChannelPolicy()
-	 * @see #getDataChannel()
-	 * @generated
-	 */
-	EAttribute getDataChannel_EmitToChannelPolicy();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getNumberOfElementsToEmit <em>Number Of Elements To Emit</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Number Of Elements To Emit</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getNumberOfElementsToEmit()
-	 * @see #getDataChannel()
-	 * @generated
-	 */
-	EAttribute getDataChannel_NumberOfElementsToEmit();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.DataChannel#getConsumeFromChannelPolicy <em>Consume From Channel Policy</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Consume From Channel Policy</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getConsumeFromChannelPolicy()
-	 * @see #getDataChannel()
-	 * @generated
-	 */
-	EAttribute getDataChannel_ConsumeFromChannelPolicy();
+	EAttribute getJavaClassDataChannel_ConfigEntries();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -353,76 +336,46 @@ public interface SystemPackage extends EPackage {
 		EClass DATA_CHANNEL = eINSTANCE.getDataChannel();
 
 		/**
-		 * The meta object literal for the '<em><b>Capacity</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Data Sink Roles</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute DATA_CHANNEL__CAPACITY = eINSTANCE.getDataChannel_Capacity();
+		EReference DATA_CHANNEL__DATA_SINK_ROLES = eINSTANCE.getDataChannel_DataSinkRoles();
 
 		/**
-		 * The meta object literal for the '<em><b>Source Event Group</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Data Source Roles</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DATA_CHANNEL__SOURCE_EVENT_GROUP = eINSTANCE.getDataChannel_SourceEventGroup();
+		EReference DATA_CHANNEL__DATA_SOURCE_ROLES = eINSTANCE.getDataChannel_DataSourceRoles();
 
 		/**
-		 * The meta object literal for the '<em><b>Sink Event Group</b></em>' reference feature.
+		 * The meta object literal for the '{@link org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl <em>Java Class Data Channel</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl
+		 * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getJavaClassDataChannel()
 		 * @generated
 		 */
-		EReference DATA_CHANNEL__SINK_EVENT_GROUP = eINSTANCE.getDataChannel_SinkEventGroup();
+		EClass JAVA_CLASS_DATA_CHANNEL = eINSTANCE.getJavaClassDataChannel();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Channel Source Connector</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Realizing Class Fqn</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DATA_CHANNEL__DATA_CHANNEL_SOURCE_CONNECTOR = eINSTANCE.getDataChannel_DataChannelSourceConnector();
+		EAttribute JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN = eINSTANCE.getJavaClassDataChannel_RealizingClassFqn();
 
 		/**
-		 * The meta object literal for the '<em><b>Data Channel Sink Connector</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Config Entries</b></em>' attribute list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DATA_CHANNEL__DATA_CHANNEL_SINK_CONNECTOR = eINSTANCE.getDataChannel_DataChannelSinkConnector();
-
-		/**
-		 * The meta object literal for the '<em><b>Scheduling</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_CHANNEL__SCHEDULING = eINSTANCE.getDataChannel_Scheduling();
-
-		/**
-		 * The meta object literal for the '<em><b>Emit To Channel Policy</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_CHANNEL__EMIT_TO_CHANNEL_POLICY = eINSTANCE.getDataChannel_EmitToChannelPolicy();
-
-		/**
-		 * The meta object literal for the '<em><b>Number Of Elements To Emit</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_CHANNEL__NUMBER_OF_ELEMENTS_TO_EMIT = eINSTANCE.getDataChannel_NumberOfElementsToEmit();
-
-		/**
-		 * The meta object literal for the '<em><b>Consume From Channel Policy</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute DATA_CHANNEL__CONSUME_FROM_CHANNEL_POLICY = eINSTANCE.getDataChannel_ConsumeFromChannelPolicy();
+		EAttribute JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES = eINSTANCE.getJavaClassDataChannel_ConfigEntries();
 
 	}
 

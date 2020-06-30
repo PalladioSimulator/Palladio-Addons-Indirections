@@ -13,10 +13,12 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.palladiosimulator.indirections.system.*;
 
-import org.palladiosimulator.pcm.core.composition.EventChannel;
-
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity;
+import org.palladiosimulator.pcm.core.entity.InterfaceProvidingRequiringEntity;
+import org.palladiosimulator.pcm.core.entity.InterfaceRequiringEntity;
 import org.palladiosimulator.pcm.core.entity.NamedElement;
+import org.palladiosimulator.pcm.core.entity.ResourceInterfaceRequiringEntity;
 
 /**
  * <!-- begin-user-doc -->
@@ -79,6 +81,11 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseJavaClassDataChannel(JavaClassDataChannel object) {
+			return createJavaClassDataChannelAdapter();
+		}
+
+		@Override
 		public Adapter caseIdentifier(Identifier object) {
 			return createIdentifierAdapter();
 		}
@@ -94,8 +101,23 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseEventChannel(EventChannel object) {
-			return createEventChannelAdapter();
+		public Adapter caseInterfaceProvidingEntity(InterfaceProvidingEntity object) {
+			return createInterfaceProvidingEntityAdapter();
+		}
+
+		@Override
+		public Adapter caseResourceInterfaceRequiringEntity(ResourceInterfaceRequiringEntity object) {
+			return createResourceInterfaceRequiringEntityAdapter();
+		}
+
+		@Override
+		public Adapter caseInterfaceRequiringEntity(InterfaceRequiringEntity object) {
+			return createInterfaceRequiringEntityAdapter();
+		}
+
+		@Override
+		public Adapter caseInterfaceProvidingRequiringEntity(InterfaceProvidingRequiringEntity object) {
+			return createInterfaceProvidingRequiringEntityAdapter();
 		}
 
 		@Override
@@ -128,6 +150,20 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDataChannelAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel <em>Java Class Data Channel</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.system.JavaClassDataChannel
+	 * @generated
+	 */
+	public Adapter createJavaClassDataChannelAdapter() {
 		return null;
 	}
 
@@ -174,16 +210,58 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.core.composition.EventChannel <em>Event Channel</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity <em>Interface Providing Entity</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.palladiosimulator.pcm.core.composition.EventChannel
+	 * @see org.palladiosimulator.pcm.core.entity.InterfaceProvidingEntity
 	 * @generated
 	 */
-	public Adapter createEventChannelAdapter() {
+	public Adapter createInterfaceProvidingEntityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.core.entity.ResourceInterfaceRequiringEntity <em>Resource Interface Requiring Entity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.pcm.core.entity.ResourceInterfaceRequiringEntity
+	 * @generated
+	 */
+	public Adapter createResourceInterfaceRequiringEntityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.core.entity.InterfaceRequiringEntity <em>Interface Requiring Entity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.pcm.core.entity.InterfaceRequiringEntity
+	 * @generated
+	 */
+	public Adapter createInterfaceRequiringEntityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.pcm.core.entity.InterfaceProvidingRequiringEntity <em>Interface Providing Requiring Entity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.pcm.core.entity.InterfaceProvidingRequiringEntity
+	 * @generated
+	 */
+	public Adapter createInterfaceProvidingRequiringEntityAdapter() {
 		return null;
 	}
 

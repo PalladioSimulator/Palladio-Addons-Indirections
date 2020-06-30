@@ -25,14 +25,15 @@ import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDateAction;
 import org.palladiosimulator.indirections.actions.DataIteratorAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.PutTimeOnStackAction;
 
 import org.palladiosimulator.indirections.composition.CompositionPackage;
 
+import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
+
+import org.palladiosimulator.indirections.composition.abstract_.impl.AbstractPackageImpl;
+
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
-
-import org.palladiosimulator.indirections.datatypes.DatatypesPackage;
-
-import org.palladiosimulator.indirections.datatypes.impl.DatatypesPackageImpl;
 
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 
@@ -98,6 +99,13 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 	private EClass dataIteratorActionEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass putTimeOnStackActionEClass = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -155,11 +163,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		UnitsPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(DatatypesPackage.eNS_URI);
-		DatatypesPackageImpl theDatatypesPackage = (DatatypesPackageImpl) (registeredPackage instanceof DatatypesPackageImpl
-				? registeredPackage
-				: DatatypesPackage.eINSTANCE);
-		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
+		Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
 		SystemPackageImpl theSystemPackage = (SystemPackageImpl) (registeredPackage instanceof SystemPackageImpl
 				? registeredPackage
 				: SystemPackage.eINSTANCE);
@@ -167,6 +171,10 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
 				? registeredPackage
 				: CompositionPackage.eINSTANCE);
+		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(AbstractPackage.eNS_URI);
+		AbstractPackageImpl theAbstractPackage = (AbstractPackageImpl) (registeredPackage instanceof AbstractPackageImpl
+				? registeredPackage
+				: AbstractPackage.eINSTANCE);
 		registeredPackage = EPackage.Registry.INSTANCE.getEPackage(RepositoryPackage.eNS_URI);
 		RepositoryPackageImpl theRepositoryPackage = (RepositoryPackageImpl) (registeredPackage instanceof RepositoryPackageImpl
 				? registeredPackage
@@ -174,16 +182,16 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
 		// Create package meta-data objects
 		theActionsPackage.createPackageContents();
-		theDatatypesPackage.createPackageContents();
 		theSystemPackage.createPackageContents();
 		theCompositionPackage.createPackageContents();
+		theAbstractPackage.createPackageContents();
 		theRepositoryPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theActionsPackage.initializePackageContents();
-		theDatatypesPackage.initializePackageContents();
 		theSystemPackage.initializePackageContents();
 		theCompositionPackage.initializePackageContents();
+		theAbstractPackage.initializePackageContents();
 		theRepositoryPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
@@ -390,6 +398,26 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 	 * @generated
 	 */
 	@Override
+	public EClass getPutTimeOnStackAction() {
+		return putTimeOnStackActionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getPutTimeOnStackAction_VariableReference() {
+		return (EReference) putTimeOnStackActionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public ActionsFactory getActionsFactory() {
 		return (ActionsFactory) getEFactoryInstance();
 	}
@@ -438,6 +466,9 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
 		dataIteratorActionEClass = createEClass(DATA_ITERATOR_ACTION);
 		createEReference(dataIteratorActionEClass, DATA_ITERATOR_ACTION__VARIABLE_REFERENCE);
+
+		putTimeOnStackActionEClass = createEClass(PUT_TIME_ON_STACK_ACTION);
+		createEReference(putTimeOnStackActionEClass, PUT_TIME_ON_STACK_ACTION__VARIABLE_REFERENCE);
 	}
 
 	/**
@@ -485,6 +516,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 		createDateActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
 		addToDateActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
 		dataIteratorActionEClass.getESuperTypes().add(theSeffPackage.getAbstractLoopAction());
+		putTimeOnStackActionEClass.getESuperTypes().add(theSeffPackage.getAbstractAction());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(analyseStackActionEClass, AnalyseStackAction.class, "AnalyseStackAction", !IS_ABSTRACT,
@@ -542,6 +574,12 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDataIteratorAction_VariableReference(), theStoexPackage.getVariableReference(), null,
 				"variableReference", null, 1, 1, DataIteratorAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(putTimeOnStackActionEClass, PutTimeOnStackAction.class, "PutTimeOnStackAction", !IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPutTimeOnStackAction_VariableReference(), theStoexPackage.getVariableReference(), null,
+				"variableReference", null, 1, 1, PutTimeOnStackAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
 				IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource

@@ -13,6 +13,12 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.palladiosimulator.indirections.composition.*;
 
+import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector;
+
 import org.palladiosimulator.pcm.core.composition.Connector;
 
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -74,18 +80,23 @@ public class CompositionAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected CompositionSwitch<Adapter> modelSwitch = new CompositionSwitch<Adapter>() {
 		@Override
-		public Adapter caseDataChannelSourceConnector(DataChannelSourceConnector object) {
-			return createDataChannelSourceConnectorAdapter();
+		public Adapter caseDataChannelToAssemblyContextConnector(DataChannelToAssemblyContextConnector object) {
+			return createDataChannelToAssemblyContextConnectorAdapter();
 		}
 
 		@Override
-		public Adapter caseDataChannelSinkConnector(DataChannelSinkConnector object) {
-			return createDataChannelSinkConnectorAdapter();
+		public Adapter caseAssemblyContextToDataChannelConnector(AssemblyContextToDataChannelConnector object) {
+			return createAssemblyContextToDataChannelConnectorAdapter();
 		}
 
 		@Override
-		public Adapter caseDataChannelConnector(DataChannelConnector object) {
-			return createDataChannelConnectorAdapter();
+		public Adapter caseDataChannelToDataChannelConnector(DataChannelToDataChannelConnector object) {
+			return createDataChannelToDataChannelConnectorAdapter();
+		}
+
+		@Override
+		public Adapter caseAssemblyContextToAssemblyContextConnector(AssemblyContextToAssemblyContextConnector object) {
+			return createAssemblyContextToAssemblyContextConnectorAdapter();
 		}
 
 		@Override
@@ -109,6 +120,31 @@ public class CompositionAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseDataSourceSinkConnector(DataSourceSinkConnector object) {
+			return createDataSourceSinkConnectorAdapter();
+		}
+
+		@Override
+		public Adapter caseDataChannelSourceConnector(DataChannelSourceConnector object) {
+			return createDataChannelSourceConnectorAdapter();
+		}
+
+		@Override
+		public Adapter caseAssemblyContextSinkConnector(AssemblyContextSinkConnector object) {
+			return createAssemblyContextSinkConnectorAdapter();
+		}
+
+		@Override
+		public Adapter caseAssemblyContextSourceConnector(AssemblyContextSourceConnector object) {
+			return createAssemblyContextSourceConnectorAdapter();
+		}
+
+		@Override
+		public Adapter caseDataChannelSinkConnector(DataChannelSinkConnector object) {
+			return createDataChannelSinkConnectorAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -128,44 +164,58 @@ public class CompositionAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.DataChannelSourceConnector <em>Data Channel Source Connector</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector <em>Data Channel To Assembly Context Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSourceConnector
+	 * @see org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector
 	 * @generated
 	 */
-	public Adapter createDataChannelSourceConnectorAdapter() {
+	public Adapter createDataChannelToAssemblyContextConnectorAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.DataChannelSinkConnector <em>Data Channel Sink Connector</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.AssemblyContextToDataChannelConnector <em>Assembly Context To Data Channel Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelSinkConnector
+	 * @see org.palladiosimulator.indirections.composition.AssemblyContextToDataChannelConnector
 	 * @generated
 	 */
-	public Adapter createDataChannelSinkConnectorAdapter() {
+	public Adapter createAssemblyContextToDataChannelConnectorAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.DataChannelConnector <em>Data Channel Connector</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.DataChannelToDataChannelConnector <em>Data Channel To Data Channel Connector</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.palladiosimulator.indirections.composition.DataChannelConnector
+	 * @see org.palladiosimulator.indirections.composition.DataChannelToDataChannelConnector
 	 * @generated
 	 */
-	public Adapter createDataChannelConnectorAdapter() {
+	public Adapter createDataChannelToDataChannelConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.AssemblyContextToAssemblyContextConnector <em>Assembly Context To Assembly Context Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.composition.AssemblyContextToAssemblyContextConnector
+	 * @generated
+	 */
+	public Adapter createAssemblyContextToAssemblyContextConnectorAdapter() {
 		return null;
 	}
 
@@ -222,6 +272,76 @@ public class CompositionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector <em>Data Source Sink Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector
+	 * @generated
+	 */
+	public Adapter createDataSourceSinkConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector <em>Data Channel Source Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector
+	 * @generated
+	 */
+	public Adapter createDataChannelSourceConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSinkConnector <em>Assembly Context Sink Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSinkConnector
+	 * @generated
+	 */
+	public Adapter createAssemblyContextSinkConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector <em>Assembly Context Source Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector
+	 * @generated
+	 */
+	public Adapter createAssemblyContextSourceConnectorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector <em>Data Channel Sink Connector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector
+	 * @generated
+	 */
+	public Adapter createDataChannelSinkConnectorAdapter() {
 		return null;
 	}
 

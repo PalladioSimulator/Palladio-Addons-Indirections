@@ -8,15 +8,19 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import org.palladiosimulator.indirections.repository.RepositoryFactory;
 
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
-import org.palladiosimulator.pcm.core.composition.provider.EventChannelItemProvider;
+import org.palladiosimulator.pcm.core.entity.EntityPackage;
+
+import org.palladiosimulator.pcm.core.entity.provider.InterfaceProvidingRequiringEntityItemProvider;
 
 /**
  * This is the item provider adapter for a {@link org.palladiosimulator.indirections.system.DataChannel} object.
@@ -24,7 +28,7 @@ import org.palladiosimulator.pcm.core.composition.provider.EventChannelItemProvi
  * <!-- end-user-doc -->
  * @generated
  */
-public class DataChannelItemProvider extends EventChannelItemProvider {
+public class DataChannelItemProvider extends InterfaceProvidingRequiringEntityItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -46,158 +50,39 @@ public class DataChannelItemProvider extends EventChannelItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addCapacityPropertyDescriptor(object);
-			addSourceEventGroupPropertyDescriptor(object);
-			addSinkEventGroupPropertyDescriptor(object);
-			addDataChannelSourceConnectorPropertyDescriptor(object);
-			addDataChannelSinkConnectorPropertyDescriptor(object);
-			addSchedulingPropertyDescriptor(object);
-			addEmitToChannelPolicyPropertyDescriptor(object);
-			addNumberOfElementsToEmitPropertyDescriptor(object);
-			addConsumeFromChannelPolicyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Capacity feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addCapacityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_DataChannel_capacity_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_capacity_feature",
-								"_UI_DataChannel_type"),
-						SystemPackage.Literals.DATA_CHANNEL__CAPACITY, true, false, false,
-						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(SystemPackage.Literals.DATA_CHANNEL__DATA_SINK_ROLES);
+			childrenFeatures.add(SystemPackage.Literals.DATA_CHANNEL__DATA_SOURCE_ROLES);
+		}
+		return childrenFeatures;
 	}
 
 	/**
-	 * This adds a property descriptor for the Source Event Group feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addSourceEventGroupPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_DataChannel_sourceEventGroup_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_sourceEventGroup_feature",
-								"_UI_DataChannel_type"),
-						SystemPackage.Literals.DATA_CHANNEL__SOURCE_EVENT_GROUP, true, false, true, null, null, null));
-	}
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
 
-	/**
-	 * This adds a property descriptor for the Sink Event Group feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSinkEventGroupPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_DataChannel_sinkEventGroup_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_sinkEventGroup_feature",
-								"_UI_DataChannel_type"),
-						SystemPackage.Literals.DATA_CHANNEL__SINK_EVENT_GROUP, true, false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Data Channel Source Connector feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDataChannelSourceConnectorPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_DataChannel_dataChannelSourceConnector_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_dataChannelSourceConnector_feature",
-						"_UI_DataChannel_type"),
-				SystemPackage.Literals.DATA_CHANNEL__DATA_CHANNEL_SOURCE_CONNECTOR, true, false, true, null, null,
-				null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Data Channel Sink Connector feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDataChannelSinkConnectorPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_DataChannel_dataChannelSinkConnector_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_dataChannelSinkConnector_feature",
-						"_UI_DataChannel_type"),
-				SystemPackage.Literals.DATA_CHANNEL__DATA_CHANNEL_SINK_CONNECTOR, true, false, true, null, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Scheduling feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSchedulingPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_DataChannel_scheduling_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_scheduling_feature",
-								"_UI_DataChannel_type"),
-						SystemPackage.Literals.DATA_CHANNEL__SCHEDULING, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Emit To Channel Policy feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEmitToChannelPolicyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_DataChannel_emitToChannelPolicy_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_emitToChannelPolicy_feature",
-								"_UI_DataChannel_type"),
-						SystemPackage.Literals.DATA_CHANNEL__EMIT_TO_CHANNEL_POLICY, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Number Of Elements To Emit feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNumberOfElementsToEmitPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_DataChannel_numberOfElementsToEmit_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_numberOfElementsToEmit_feature",
-						"_UI_DataChannel_type"),
-				SystemPackage.Literals.DATA_CHANNEL__NUMBER_OF_ELEMENTS_TO_EMIT, true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Consume From Channel Policy feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addConsumeFromChannelPolicyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_DataChannel_consumeFromChannelPolicy_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataChannel_consumeFromChannelPolicy_feature",
-						"_UI_DataChannel_type"),
-				SystemPackage.Literals.DATA_CHANNEL__CONSUME_FROM_CHANNEL_POLICY, true, false, false,
-				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -236,12 +121,9 @@ public class DataChannelItemProvider extends EventChannelItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(DataChannel.class)) {
-		case SystemPackage.DATA_CHANNEL__CAPACITY:
-		case SystemPackage.DATA_CHANNEL__SCHEDULING:
-		case SystemPackage.DATA_CHANNEL__EMIT_TO_CHANNEL_POLICY:
-		case SystemPackage.DATA_CHANNEL__NUMBER_OF_ELEMENTS_TO_EMIT:
-		case SystemPackage.DATA_CHANNEL__CONSUME_FROM_CHANNEL_POLICY:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+		case SystemPackage.DATA_CHANNEL__DATA_SINK_ROLES:
+		case SystemPackage.DATA_CHANNEL__DATA_SOURCE_ROLES:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -257,6 +139,34 @@ public class DataChannelItemProvider extends EventChannelItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(
+				EntityPackage.Literals.INTERFACE_PROVIDING_ENTITY__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY,
+				RepositoryFactory.eINSTANCE.createDataSinkRole()));
+
+		newChildDescriptors.add(createChildParameter(SystemPackage.Literals.DATA_CHANNEL__DATA_SINK_ROLES,
+				RepositoryFactory.eINSTANCE.createDataSinkRole()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify = childFeature == EntityPackage.Literals.INTERFACE_PROVIDING_ENTITY__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY
+				|| childFeature == SystemPackage.Literals.DATA_CHANNEL__DATA_SINK_ROLES;
+
+		if (qualify) {
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

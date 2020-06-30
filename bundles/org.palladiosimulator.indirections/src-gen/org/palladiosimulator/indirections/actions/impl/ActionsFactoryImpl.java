@@ -68,6 +68,8 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 			return createAddToDateAction();
 		case ActionsPackage.DATA_ITERATOR_ACTION:
 			return createDataIteratorAction();
+		case ActionsPackage.PUT_TIME_ON_STACK_ACTION:
+			return createPutTimeOnStackAction();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -137,6 +139,17 @@ public class ActionsFactoryImpl extends EFactoryImpl implements ActionsFactory {
 	public DataIteratorAction createDataIteratorAction() {
 		DataIteratorActionImpl dataIteratorAction = new DataIteratorActionImpl();
 		return dataIteratorAction;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PutTimeOnStackAction createPutTimeOnStackAction() {
+		PutTimeOnStackActionImpl putTimeOnStackAction = new PutTimeOnStackActionImpl();
+		return putTimeOnStackAction;
 	}
 
 	/**
