@@ -2,189 +2,190 @@
  */
 package org.palladiosimulator.indirections.actions.impl;
 
-import de.uka.ipd.sdq.stoex.VariableReference;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AddToDateAction;
-
 import org.palladiosimulator.pcm.parameter.VariableUsage;
-
 import org.palladiosimulator.pcm.seff.impl.AbstractActionImpl;
 
+import de.uka.ipd.sdq.stoex.VariableReference;
+
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Add To Date Action</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Add To Date
+ * Action</b></em>'. <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.palladiosimulator.indirections.actions.impl.AddToDateActionImpl#getVariableReference <em>Variable Reference</em>}</li>
- *   <li>{@link org.palladiosimulator.indirections.actions.impl.AddToDateActionImpl#getVariableUsages <em>Variable Usages</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.actions.impl.AddToDateActionImpl#getVariableReference
+ * <em>Variable Reference</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.actions.impl.AddToDateActionImpl#getVariableUsages
+ * <em>Variable Usages</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class AddToDateActionImpl extends AbstractActionImpl implements AddToDateAction {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AddToDateActionImpl() {
-		super();
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    protected AddToDateActionImpl() {
+        super();
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ActionsPackage.Literals.ADD_TO_DATE_ACTION;
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    protected EClass eStaticClass() {
+        return ActionsPackage.Literals.ADD_TO_DATE_ACTION;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public VariableReference getVariableReference() {
-		return (VariableReference) eDynamicGet(ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE,
-				ActionsPackage.Literals.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE, true, true);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public VariableReference getVariableReference() {
+        return (VariableReference) this.eDynamicGet(ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE,
+                ActionsPackage.Literals.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE, true, true);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetVariableReference(VariableReference newVariableReference, NotificationChain msgs) {
-		msgs = eDynamicInverseAdd((InternalEObject) newVariableReference,
-				ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE, msgs);
-		return msgs;
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    public NotificationChain basicSetVariableReference(final VariableReference newVariableReference,
+            NotificationChain msgs) {
+        msgs = this.eDynamicInverseAdd((InternalEObject) newVariableReference,
+                ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE, msgs);
+        return msgs;
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setVariableReference(VariableReference newVariableReference) {
-		eDynamicSet(ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE,
-				ActionsPackage.Literals.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE, newVariableReference);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void setVariableReference(final VariableReference newVariableReference) {
+        this.eDynamicSet(ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE,
+                ActionsPackage.Literals.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE, newVariableReference);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public EList<VariableUsage> getVariableUsages() {
-		return (EList<VariableUsage>) eDynamicGet(ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES,
-				ActionsPackage.Literals.ADD_TO_DATE_ACTION__VARIABLE_USAGES, true, true);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public EList<VariableUsage> getVariableUsages() {
+        return (EList<VariableUsage>) this.eDynamicGet(ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES,
+                ActionsPackage.Literals.ADD_TO_DATE_ACTION__VARIABLE_USAGES, true, true);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
-			return basicSetVariableReference(null, msgs);
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
-			return ((InternalEList<?>) getVariableUsages()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(final InternalEObject otherEnd, final int featureID,
+            final NotificationChain msgs) {
+        switch (featureID) {
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
+            return this.basicSetVariableReference(null, msgs);
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
+            return ((InternalEList<?>) this.getVariableUsages()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
-			return getVariableReference();
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
-			return getVariableUsages();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+        switch (featureID) {
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
+            return this.getVariableReference();
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
+            return this.getVariableUsages();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
-			setVariableReference((VariableReference) newValue);
-			return;
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
-			getVariableUsages().clear();
-			getVariableUsages().addAll((Collection<? extends VariableUsage>) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public void eSet(final int featureID, final Object newValue) {
+        switch (featureID) {
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
+            this.setVariableReference((VariableReference) newValue);
+            return;
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
+            this.getVariableUsages()
+                .clear();
+            this.getVariableUsages()
+                .addAll((Collection<? extends VariableUsage>) newValue);
+            return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
-			setVariableReference((VariableReference) null);
-			return;
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
-			getVariableUsages().clear();
-			return;
-		}
-		super.eUnset(featureID);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void eUnset(final int featureID) {
+        switch (featureID) {
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
+            this.setVariableReference((VariableReference) null);
+            return;
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
+            this.getVariableUsages()
+                .clear();
+            return;
+        }
+        super.eUnset(featureID);
+    }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
-			return getVariableReference() != null;
-		case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
-			return !getVariableUsages().isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public boolean eIsSet(final int featureID) {
+        switch (featureID) {
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_REFERENCE:
+            return this.getVariableReference() != null;
+        case ActionsPackage.ADD_TO_DATE_ACTION__VARIABLE_USAGES:
+            return !this.getVariableUsages()
+                .isEmpty();
+        }
+        return super.eIsSet(featureID);
+    }
 
-} //AddToDateActionImpl
+} // AddToDateActionImpl

@@ -9,16 +9,17 @@ import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 public class TriggerableTimeSpanCalculator extends TriggerableCalculator<Double, Duration> {
-    public TriggerableTimeSpanCalculator(String name, BaseMetricDescription baseMetric, MetricSetDescription metricSet,
-            InterpreterDefaultContext context) {
+    public TriggerableTimeSpanCalculator(final String name, final BaseMetricDescription baseMetric,
+            final MetricSetDescription metricSet, final InterpreterDefaultContext context) {
         super(name, baseMetric, metricSet, context);
     }
 
-    public void doMeasure(double timeSpan) {
+    public void doMeasure(final double timeSpan) {
         super.doMeasure(Measure.valueOf(timeSpan, SI.SECOND));
     }
 
-    public void doMeasureUntilNow(double time) {
-        doMeasure(model.getSimulationControl().getCurrentSimulationTime() - time);
+    public void doMeasureUntilNow(final double time) {
+        this.doMeasure(this.model.getSimulationControl()
+            .getCurrentSimulationTime() - time);
     }
 }

@@ -38,197 +38,225 @@ import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInsta
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
-	private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
+    private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
 
-	private final InterpreterDefaultContext context;
-	private final SimulatedBasicComponentInstance basicComponentInstance;
-	private ExplicitDispatchComposedSwitch<Object> parentSwitch;
-	private final Allocation allocation;
-	private final AssemblyContext assemblyContext;
-	private final SimulatedStackframe<Object> resultStackFrame;
+    private final Allocation allocation;
+    private final AssemblyContext assemblyContext;
+    private final SimulatedBasicComponentInstance basicComponentInstance;
+    private final InterpreterDefaultContext context;
+    private final DataChannelRegistry dataChannelRegistry;
+    private final IndirectionMeasuringPointRegistry indirectionMeasuringPointRegistry;
 
-	private final DataChannelRegistry dataChannelRegistry;
-	private final IndirectionMeasuringPointRegistry indirectionMeasuringPointRegistry;
+    private ExplicitDispatchComposedSwitch<Object> parentSwitch;
+    private final SimulatedStackframe<Object> resultStackFrame;
 
-	/**
-	 * copied from
-	 * {@link org.palladiosimulator.simulizar.interpreter.RDSeffSwitch#RDSeffSwitch(InterpreterDefaultContext, SimulatedBasicComponentInstance)}
-	 * 
-	 * @param context
-	 * @param basicComponentInstance
-	 */
-	public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
-			final SimulatedBasicComponentInstance basicComponentInstance) {
-		super();
+    /**
+     * copied from
+     * {@link org.palladiosimulator.simulizar.interpreter.RDSeffSwitch#RDSeffSwitch(InterpreterDefaultContext, SimulatedBasicComponentInstance)}
+     *
+     * @param context
+     * @param basicComponentInstance
+     */
+    public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
+            final SimulatedBasicComponentInstance basicComponentInstance) {
+        super();
 
-		this.context = context;
-		this.allocation = context.getLocalPCMModelAtContextCreation().getAllocation();
-		this.assemblyContext = context.getAssemblyContextStack().lastElement();
-		this.resultStackFrame = new SimulatedStackframe<Object>();
-		this.basicComponentInstance = basicComponentInstance;
+        this.context = context;
+        this.allocation = context.getLocalPCMModelAtContextCreation()
+            .getAllocation();
+        this.assemblyContext = context.getAssemblyContextStack()
+            .lastElement();
+        this.resultStackFrame = new SimulatedStackframe<Object>();
+        this.basicComponentInstance = basicComponentInstance;
 
-		this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context);
-		this.indirectionMeasuringPointRegistry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
-	}
+        this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context);
+        this.indirectionMeasuringPointRegistry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
+    }
 
-	public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
-			final SimulatedBasicComponentInstance basicComponentInstance,
-			final ExplicitDispatchComposedSwitch<Object> parentSwitch) {
-		this(context, basicComponentInstance);
-		this.parentSwitch = parentSwitch;
-	}
+    public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
+            final SimulatedBasicComponentInstance basicComponentInstance,
+            final ExplicitDispatchComposedSwitch<Object> parentSwitch) {
+        this(context, basicComponentInstance);
+        this.parentSwitch = parentSwitch;
+    }
 
-	public Switch<Object> getParentSwitch() {
-		if (this.parentSwitch != null) {
-			return this.parentSwitch;
-		}
+    @Override
+    public Object caseAddToDateAction(final AddToDateAction action) {
+        LOGGER.trace("Adding to date: " + action.getEntityName());
 
-		return this;
-	}
+        final String referenceName = action.getVariableReference()
+            .getReferenceName();
 
-	@Override
-	public Object caseEmitDataAction(final EmitDataAction action) {
-		LOGGER.trace("Emit event action: " + action.getEntityName());
+        final IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
+                referenceName);
 
-		final DataChannelSinkConnector dataChannelSourceConnector = IndirectionModelUtil.getSourceConnector(context,
-				action);
-		final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
+        final Map<String, Object> newEntries = IndirectionSimulationUtil.createDataEntries(this.context.getStack(),
+                action.getVariableUsages());
 
-		String referenceName = action.getVariableReference().getReferenceName();
-		IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
+        date.addData(newEntries);
 
-		LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
-				+ dataChannelResource.getId());
+        return true;
+    }
 
-		// might block
-		dataChannelResource.put(this.context.getThread(), dataChannelSourceConnector, date);
+    @Override
+    public Object caseAnalyseStackAction(final AnalyseStackAction action) {
+        LOGGER.trace("Analyzing data: " + action.getEntityName());
 
-		return true;
-	}
+        final String referenceName = action.getVariableReference()
+            .getReferenceName();
 
-	@Override
-	public Object caseConsumeDataAction(final ConsumeDataAction action) {
-		LOGGER.trace("Consume data action: " + action.getEntityName());
+        final IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
+                referenceName);
+        final List<Double> ages = IndirectionSimulationUtil.getDataAgeRecursive(data);
 
-		final DataChannelSourceConnector dataChannelSinkConnector = IndirectionModelUtil.getSinkConnector(context,
-				action);
-		final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context, action);
+        ages.forEach(it -> this.measureDataAge(action, it));
 
-		final String threadName = Thread.currentThread().getName();
+        return true;
+    }
 
-		LOGGER.trace("Trying to get (" + threadName + ")");
+    @Override
+    public Object caseConsumeDataAction(final ConsumeDataAction action) {
+        LOGGER.trace("Consume data action: " + action.getEntityName());
 
-		// might block
-		final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
-			context.getStack().currentStackFrame().addValue(action.getVariableReference().getReferenceName(), date);
-			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(context.getStack(),
-					action.getVariableReference().getReferenceName());
-		});
+        final DataChannelSourceConnector dataChannelSinkConnector = IndirectionModelUtil.getSinkConnector(this.context,
+                action);
+        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
+                action);
 
-		LOGGER.trace("Continuing with " + this.context.getStack().currentStackFrame() + " (" + threadName + ")");
+        final String threadName = Thread.currentThread()
+            .getName();
 
-		return result;
-	}
+        LOGGER.trace("Trying to get (" + threadName + ")");
 
-	@Override
-	public Object caseCreateDateAction(CreateDateAction action) {
-		LOGGER.trace("Creating date: " + action.getEntityName());
+        // might block
+        final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
+            this.context.getStack()
+                .currentStackFrame()
+                .addValue(action.getVariableReference()
+                    .getReferenceName(), date);
+            IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(),
+                    action.getVariableReference()
+                        .getReferenceName());
+        });
 
-		String referenceName = action.getVariableReference().getReferenceName();
-		double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
+        LOGGER.trace("Continuing with " + this.context.getStack()
+            .currentStackFrame() + " (" + threadName + ")");
 
-		IndirectionDate date = IndirectionSimulationUtil.createData(context.getStack(), action.getVariableUsages(),
-				currentSimulationTime);
-		IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), referenceName, date);
+        return result;
+    }
 
-		return true;
-	}
+    @Override
+    public Object caseCreateDateAction(final CreateDateAction action) {
+        LOGGER.trace("Creating date: " + action.getEntityName());
 
-	@Override
-	public Object caseAddToDateAction(AddToDateAction action) {
-		LOGGER.trace("Adding to date: " + action.getEntityName());
+        final String referenceName = action.getVariableReference()
+            .getReferenceName();
+        final double currentSimulationTime = this.context.getModel()
+            .getSimulationControl()
+            .getCurrentSimulationTime();
 
-		String referenceName = action.getVariableReference().getReferenceName();
+        final IndirectionDate date = IndirectionSimulationUtil.createData(this.context.getStack(),
+                action.getVariableUsages(), currentSimulationTime);
+        IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), referenceName, date);
 
-		IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
+        return true;
+    }
 
-		Map<String, Object> newEntries = IndirectionSimulationUtil.createDataEntries(context.getStack(),
-				action.getVariableUsages());
+    @Override
+    public Object caseDataIteratorAction(final DataIteratorAction action) {
+        LOGGER.trace("Iterating over data: " + action.getEntityName());
 
-		date.addData(newEntries);
+        final String referenceName = action.getVariableReference()
+            .getReferenceName();
 
-		return true;
-	}
+        final IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
+                referenceName);
 
-	@Override
-	public Object caseDataIteratorAction(DataIteratorAction action) {
-		LOGGER.trace("Iterating over data: " + action.getEntityName());
+        if (!(date instanceof GroupingIndirectionDate<?>)) {
+            throw new PCMModelInterpreterException(
+                    "Date cannot be iterated over, because it is not a grouping date: (is " + date.getClass()
+                        .getName() + "): " + date.toString());
+        }
 
-		String referenceName = action.getVariableReference().getReferenceName();
+        final GroupingIndirectionDate<IndirectionDate> groupingDate = (GroupingIndirectionDate<IndirectionDate>) date;
+        for (final IndirectionDate iterationDate : groupingDate.getDataInGroup()) {
+            LOGGER.debug("Iterating for " + iterationDate);
 
-		IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
+            final SimulatedStackframe<Object> innerVariableStackFrame = this.context.getStack()
+                .createAndPushNewStackFrame(this.context.getStack()
+                    .currentStackFrame());
 
-		if (!(date instanceof GroupingIndirectionDate<?>))
-			throw new PCMModelInterpreterException(
-					"Date cannot be iterated over, because it is not a grouping date: (is " + date.getClass().getName()
-							+ "): " + date.toString());
+            innerVariableStackFrame.addValue(referenceName + ".INNER", iterationDate);
+            IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(),
+                    referenceName + ".INNER");
 
-		GroupingIndirectionDate<IndirectionDate> groupingDate = (GroupingIndirectionDate<IndirectionDate>) date;
-		for (IndirectionDate iterationDate : groupingDate.getDataInGroup()) {
-			LOGGER.debug("Iterating for " + iterationDate);
+            this.getParentSwitch()
+                .doSwitch(action.getBodyBehaviour_Loop());
 
-			final SimulatedStackframe<Object> innerVariableStackFrame = this.context.getStack()
-					.createAndPushNewStackFrame(this.context.getStack().currentStackFrame());
+            if (this.context.getStack()
+                .currentStackFrame() != innerVariableStackFrame) {
+                throw new SimulatedStackAccessException(
+                        "Inner value characterisations of inner collection variable expected");
+            }
 
-			innerVariableStackFrame.addValue(referenceName + ".INNER", iterationDate);
-			IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(),
-					referenceName + ".INNER");
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Remove stack frame: " + innerVariableStackFrame);
+            }
+            this.context.getStack()
+                .removeStackFrame();
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Finished iteration on " + iterationDate + " (" + action + ")");
+            }
+        }
 
-			this.getParentSwitch().doSwitch(action.getBodyBehaviour_Loop());
+        return true;
+    }
 
-			if (this.context.getStack().currentStackFrame() != innerVariableStackFrame) {
-				throw new SimulatedStackAccessException(
-						"Inner value characterisations of inner collection variable expected");
-			}
+    @Override
+    public Object caseEmitDataAction(final EmitDataAction action) {
+        LOGGER.trace("Emit event action: " + action.getEntityName());
 
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Remove stack frame: " + innerVariableStackFrame);
-			}
-			this.context.getStack().removeStackFrame();
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug("Finished iteration on " + iterationDate + " (" + action + ")");
-			}
-		}
+        final DataChannelSinkConnector dataChannelSourceConnector = IndirectionModelUtil
+            .getSourceConnector(this.context, action);
+        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
+                action);
 
-		return true;
-	}
-	
-	@Override
-	public Object casePutTimeOnStackAction(PutTimeOnStackAction object) {
-		// TODO Auto-generated method stub
-		return super.casePutTimeOnStackAction(object);
-	}
+        final String referenceName = action.getVariableReference()
+            .getReferenceName();
+        final IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
+                referenceName);
 
-	@Override
-	public Object caseAnalyseStackAction(AnalyseStackAction action) {
-		LOGGER.trace("Analyzing data: " + action.getEntityName());
+        LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
+                + dataChannelResource.getId());
 
-		String referenceName = action.getVariableReference().getReferenceName();
+        // might block
+        dataChannelResource.put(this.context.getThread(), dataChannelSourceConnector, date);
 
-		IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), referenceName);
-		List<Double> ages = IndirectionSimulationUtil.getDataAgeRecursive(data);
+        return true;
+    }
 
-		ages.forEach(it -> measureDataAge(action, it));
+    @Override
+    public Object casePutTimeOnStackAction(final PutTimeOnStackAction object) {
+        // TODO Auto-generated method stub
+        return super.casePutTimeOnStackAction(object);
+    }
 
-		return true;
-	}
+    public Switch<Object> getParentSwitch() {
+        if (this.parentSwitch != null) {
+            return this.parentSwitch;
+        }
 
-	private void measureDataAge(AnalyseStackAction action, double value) {
-		TriggeredProxyProbe<Double, Duration> probe = this.indirectionMeasuringPointRegistry.getProbe(action,
-				assemblyContext);
+        return this;
+    }
 
-		double currentSimulationTime = context.getModel().getSimulationControl().getCurrentSimulationTime();
-		LOGGER.trace("Measuring age " + (currentSimulationTime - value) + " at " + currentSimulationTime);
-		probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));
-	}
+    private void measureDataAge(final AnalyseStackAction action, final double value) {
+        final TriggeredProxyProbe<Double, Duration> probe = this.indirectionMeasuringPointRegistry.getProbe(action,
+                this.assemblyContext);
+
+        final double currentSimulationTime = this.context.getModel()
+            .getSimulationControl()
+            .getCurrentSimulationTime();
+        LOGGER.trace("Measuring age " + (currentSimulationTime - value) + " at " + currentSimulationTime);
+        probe.doMeasure(Measure.valueOf(currentSimulationTime - value, SI.SECOND));
+    }
 }

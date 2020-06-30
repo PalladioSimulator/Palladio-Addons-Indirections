@@ -13,28 +13,30 @@ import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionD
 public abstract class PartitioningOperator<P, T extends IndirectionDate>
         extends SimStatefulOperator<GroupingIndirectionDate<T>, PartitionedIndirectionDate<P, T>> {
 
-    @Override
-    public void accept(GroupingIndirectionDate<T> group) {
-        Map<P, List<T>> collect = group.getDataInGroup().stream().collect(Collectors.groupingBy(this::getPartition));
-
-        this.observers.forEach(it -> it.notifyNumberOfPartitions(collect.size()));
-
-        for (Map.Entry<P, List<T>> mapEntry : collect.entrySet()) {
-            PartitionedIndirectionDate<P, T> partitionedDateToEmit = new PartitionedIndirectionDate<P, T>(
-                    mapEntry.getKey(), mapEntry.getValue(), group.getData());
-            emit(partitionedDateToEmit);
-        }
-    }
-
-    protected abstract P getPartition(IndirectionDate date);
-
     public static interface Observer {
         void notifyNumberOfPartitions(int size);
     }
 
     private final Collection<PartitioningOperator.Observer> observers = new HashSet<PartitioningOperator.Observer>();
 
-    public void addObserver(PartitioningOperator.Observer observer) {
+    @Override
+    public void accept(final GroupingIndirectionDate<T> group) {
+        final Map<P, List<T>> collect = group.getDataInGroup()
+            .stream()
+            .collect(Collectors.groupingBy(this::getPartition));
+
+        this.observers.forEach(it -> it.notifyNumberOfPartitions(collect.size()));
+
+        for (final Map.Entry<P, List<T>> mapEntry : collect.entrySet()) {
+            final PartitionedIndirectionDate<P, T> partitionedDateToEmit = new PartitionedIndirectionDate<P, T>(
+                    mapEntry.getKey(), mapEntry.getValue(), group.getData());
+            this.emit(partitionedDateToEmit);
+        }
+    }
+
+    public void addObserver(final PartitioningOperator.Observer observer) {
         this.observers.add(observer);
     }
+
+    protected abstract P getPartition(IndirectionDate date);
 }

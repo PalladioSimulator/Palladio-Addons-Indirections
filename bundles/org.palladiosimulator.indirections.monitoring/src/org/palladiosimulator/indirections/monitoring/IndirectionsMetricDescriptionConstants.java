@@ -12,20 +12,20 @@ import org.palladiosimulator.metricspec.BaseMetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 
 public class IndirectionsMetricDescriptionConstants {
-    public static final String INDIRECTIONS_METRICSPEC_URI = "platform:/plugin/org.palladiosimulator.indirections.monitoring/model/indirectionMetrics.metricspec";
-    private static final Map<?, ?> OPTIONS = Collections.emptyMap();
-
     public final static BaseMetricDescription DATA_AGE_METRIC;
     public final static MetricSetDescription DATA_AGE_METRIC_TUPLE;
 
-    public final static BaseMetricDescription SIZE_OF_GROUPED_DATE_METRIC;
-    public final static MetricSetDescription SIZE_OF_GROUPED_DATE_METRIC_TUPLE;
-
     public final static BaseMetricDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC;
     public final static MetricSetDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC_TUPLE;
-    
+
+    public static final String INDIRECTIONS_METRICSPEC_URI = "platform:/plugin/org.palladiosimulator.indirections.monitoring/model/indirectionMetrics.metricspec";
     public final static BaseMetricDescription NUMBER_OF_ELEMENTS_METRIC;
+
     public final static MetricSetDescription NUMBER_OF_ELEMENTS_METRIC_TUPLE;
+    private static final Map<?, ?> OPTIONS = Collections.emptyMap();
+
+    public final static BaseMetricDescription SIZE_OF_GROUPED_DATE_METRIC;
+    public final static MetricSetDescription SIZE_OF_GROUPED_DATE_METRIC_TUPLE;
     public final static MetricSetDescription TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE;
 
     static {

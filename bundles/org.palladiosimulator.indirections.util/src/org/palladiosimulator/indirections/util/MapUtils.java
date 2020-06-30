@@ -4,10 +4,10 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class MapUtils {
-    private MapUtils() {
+    public static <K, V> Optional<V> tryGet(final Map<K, V> map, final K key) {
+        return Optional.ofNullable(map.get(key));
     }
 
-    public static <K, V> Optional<V> tryGet(Map<K, V> map, K key) {
-        return Optional.ofNullable(map.get(key));
+    private MapUtils() {
     }
 }

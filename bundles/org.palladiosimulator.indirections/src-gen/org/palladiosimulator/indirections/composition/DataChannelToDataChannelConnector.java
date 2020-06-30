@@ -6,9 +6,8 @@ import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkC
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Data Channel To Data Channel Connector</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Data Channel To Data Channel
+ * Connector</b></em>'. <!-- end-user-doc -->
  *
  *
  * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelToDataChannelConnector()

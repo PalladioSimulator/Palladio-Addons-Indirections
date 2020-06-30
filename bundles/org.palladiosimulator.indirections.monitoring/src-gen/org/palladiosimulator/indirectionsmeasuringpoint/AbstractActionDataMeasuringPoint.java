@@ -14,7 +14,8 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint#getAbstractAction <em>Abstract Action</em>}</li>
+ * <li>{@link org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint#getAbstractAction
+ * <em>Abstract Action</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointPackage#getAbstractActionDataMeasuringPoint()
@@ -23,24 +24,27 @@ import org.palladiosimulator.pcm.seff.AbstractAction;
  */
 public interface AbstractActionDataMeasuringPoint extends EObject, MeasuringPoint {
     /**
-	 * Returns the value of the '<em><b>Abstract Action</b></em>' reference.
-	 * <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Abstract Action</b></em>' reference. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Abstract Action</em>' reference.
-	 * @see #setAbstractAction(AbstractAction)
-	 * @see org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointPackage#getAbstractActionDataMeasuringPoint_AbstractAction()
-	 * @model required="true"
-	 * @generated
-	 */
+     *
+     * @return the value of the '<em>Abstract Action</em>' reference.
+     * @see #setAbstractAction(AbstractAction)
+     * @see org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointPackage#getAbstractActionDataMeasuringPoint_AbstractAction()
+     * @model required="true"
+     * @generated
+     */
     AbstractAction getAbstractAction();
 
     /**
-	 * Sets the value of the '{@link org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint#getAbstractAction <em>Abstract Action</em>}' reference.
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Abstract Action</em>' reference.
-	 * @see #getAbstractAction()
-	 * @generated
-	 */
+     * Sets the value of the
+     * '{@link org.palladiosimulator.indirectionsmeasuringpoint.AbstractActionDataMeasuringPoint#getAbstractAction
+     * <em>Abstract Action</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @param value
+     *            the new value of the '<em>Abstract Action</em>' reference.
+     * @see #getAbstractAction()
+     * @generated
+     */
     void setAbstractAction(AbstractAction value);
 
 } // AbstractActionDataMeasuringPoint

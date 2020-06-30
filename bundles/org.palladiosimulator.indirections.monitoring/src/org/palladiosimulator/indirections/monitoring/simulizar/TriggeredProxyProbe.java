@@ -10,22 +10,22 @@ import org.palladiosimulator.probeframework.probes.BasicTriggeredProbe;
 public class TriggeredProxyProbe<V, Q extends Quantity> extends BasicTriggeredProbe<V, Q> {
     Measure<V, Q> currentMeasure = null;
 
-    public TriggeredProxyProbe(BaseMetricDescription metricDescription) {
+    public TriggeredProxyProbe(final BaseMetricDescription metricDescription) {
         super(metricDescription);
     }
 
-    @Override
-    protected Measure<V, Q> getBasicMeasure(RequestContext measurementContext) {
-        return currentMeasure;
-    }
-
-    public void setCurrentMeasure(Measure<V, Q> currentMeasure) {
-        this.currentMeasure = currentMeasure;
-    }
-
-    public void doMeasure(Measure<V, Q> newCurrentMeasure) {
+    public void doMeasure(final Measure<V, Q> newCurrentMeasure) {
         this.currentMeasure = newCurrentMeasure;
-        notifyMeasurementSourceListener(doMeasure(RequestContext.EMPTY_REQUEST_CONTEXT));
+        this.notifyMeasurementSourceListener(this.doMeasure(RequestContext.EMPTY_REQUEST_CONTEXT));
+    }
+
+    @Override
+    protected Measure<V, Q> getBasicMeasure(final RequestContext measurementContext) {
+        return this.currentMeasure;
+    }
+
+    public void setCurrentMeasure(final Measure<V, Q> currentMeasure) {
+        this.currentMeasure = currentMeasure;
     }
 
 }

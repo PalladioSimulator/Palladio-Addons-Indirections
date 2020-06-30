@@ -26,168 +26,191 @@ import de.uka.ipd.sdq.simucomframework.usage.AbstractWorkloadUserFactory;
 import de.uka.ipd.sdq.simucomframework.usage.IUser;
 
 public class CallbackUserFactory extends AbstractWorkloadUserFactory {
-	private DataChannelSourceConnector connector;
+    /**
+     * @param <T>
+     *            type of the data
+     */
+    private abstract class AbstractCallbackUser<T> extends SimuComSimProcess implements IUser {
+        protected InterpreterDefaultContext context;
+        protected String dataId = null;
+        protected T date = null;
 
-	/**
-	 * @param <T> type of the data
-	 */
-	private abstract class AbstractCallbackUser<T> extends SimuComSimProcess implements IUser {
-		protected String dataId = null;
-		protected T date = null;
-		protected InterpreterDefaultContext context;
+        protected AbstractCallbackUser(final SimuComModel model, final String name) {
+            super(model, name);
+        }
 
-		protected AbstractCallbackUser(SimuComModel model, String name) {
-			super(model, name);
-		}
+        @Override
+        protected void internalLifeCycle() {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug(this.getName() + " started! I'm alive!!!");
+            }
+            // update session id
+            this.updateNewSessionID();
+            try {
+                // TODO: Fixme and provide a new solution
+                // blackboardGarbageCollector.enterRegion(getRequestContext()
+                // .rootContext());
+                ((TriggeredProbe) CallbackUserFactory.this.usageStartStopProbes.get(0))
+                    .takeMeasurement(this.getRequestContext());
+                this.scenarioRunner(this);
+                ((TriggeredProbe) CallbackUserFactory.this.usageStartStopProbes.get(1))
+                    .takeMeasurement(this.getRequestContext());
+                if (this.getModel()
+                    .getConfiguration()
+                    .getSimulateFailures()) {
+                    this.getModel()
+                        .getFailureStatistics()
+                        .recordSuccess();
+                }
+            } catch (final FailureException exception) {
+                if (this.getModel()
+                    .getConfiguration()
+                    .getSimulateFailures()) {
+                    this.getModel()
+                        .getFailureStatistics()
+                        .increaseUnhandledFailureCounter(exception.getFailureType(), this.currentSessionId);
+                }
+            } finally {
+                // Increase measurements counter manually as usage scenario run is
+                // not finished:
+                this.getModel()
+                    .increaseMainMeasurementsCount();
 
-		public void setDataAndStartUserLife(String dataId, T date, InterpreterDefaultContext context) {
-			this.dataId = dataId;
-			this.date = date;
-			this.context = context;
+                // TODO: Fixme and provide a new solution
+                // blackboardGarbageCollector.leaveRegion(getRequestContext()
+                // .rootContext());
+            }
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug(this.getName() + " done! I'm dying!!!");
+            }
+        }
 
-			startUserLife();
-		}
+        public void setDataAndStartUserLife(final String dataId, final T date,
+                final InterpreterDefaultContext context) {
+            this.dataId = dataId;
+            this.date = date;
+            this.context = context;
 
-		@Override
-		public void startUserLife() {
-			this.scheduleAt(0);
-		}
+            this.startUserLife();
+        }
 
-		@Override
-		protected void internalLifeCycle() {
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug(getName() + " started! I'm alive!!!");
-			}
-			// update session id
-			updateNewSessionID();
-			try {
-				// TODO: Fixme and provide a new solution
-				// blackboardGarbageCollector.enterRegion(getRequestContext()
-				// .rootContext());
-				((TriggeredProbe) usageStartStopProbes.get(0)).takeMeasurement(getRequestContext());
-				scenarioRunner(this);
-				((TriggeredProbe) usageStartStopProbes.get(1)).takeMeasurement(getRequestContext());
-				if (getModel().getConfiguration().getSimulateFailures()) {
-					getModel().getFailureStatistics().recordSuccess();
-				}
-			} catch (final FailureException exception) {
-				if (getModel().getConfiguration().getSimulateFailures()) {
-					getModel().getFailureStatistics().increaseUnhandledFailureCounter(exception.getFailureType(),
-							currentSessionId);
-				}
-			} finally {
-				// Increase measurements counter manually as usage scenario run is
-				// not finished:
-				getModel().increaseMainMeasurementsCount();
+        @Override
+        public void startUserLife() {
+            this.scheduleAt(0);
+        }
+    }
 
-				// TODO: Fixme and provide a new solution
-				// blackboardGarbageCollector.leaveRegion(getRequestContext()
-				// .rootContext());
-			}
-			if (LOGGER.isDebugEnabled()) {
-				LOGGER.debug(getName() + " done! I'm dying!!!");
-			}
-		}
-	}
+    public class CallbackIteratingUser extends AbstractCallbackUser<List<IndirectionDate>> {
+        public CallbackIteratingUser(final SimuComModel owner, final String name) {
+            super(owner, name);
+        }
 
-	/**
-	 * @see UsageScenarioSwitch#caseEntryLevelSystemCall(EntryLevelSystemCall)
-	 * @param context
-	 * @param connector
-	 */
-	private static void simulateComponentCall(InterpreterDefaultContext context,
-			AssemblyContextSinkConnector connector) {
-		DataSinkRole sinkRole = connector.getDataSinkRole();
+        @Override
+        public void scenarioRunner(final SimuComSimProcess thread) {
+            final Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(
+                    CallbackUserFactory.this.connector);
 
-		final RepositoryComponentSwitch providedDelegationSwitch = new RepositoryComponentSwitch(context,
-				connector.getSinkAssemblyContext(), connector.getPushesTo(), sinkRole);
+            for (final IndirectionDate currentDate : this.date) {
+                // TODO: fix helper method to handle data on stack
+                this.context.getStack()
+                    .createAndPushNewStackFrame();
+                final String parameterName = IndirectionSimulationUtil
+                    .getOneParameter(CallbackUserFactory.this.connector.getDataSinkRole()
+                        .getEventGroup())
+                    .getParameterName();
 
-		providedDelegationSwitch.doSwitch(sinkRole);
-		context.getStack().removeStackFrame();
-	}
+                IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), parameterName,
+                        Objects.requireNonNull(currentDate));
+                IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, currentDate);
 
-	private static void simulateDataChannelCall(InterpreterDefaultContext context, DataChannelSinkConnector connector) {
-		throw new UnsupportedOperationException();
-	}
+                simulationCall.accept(this.context);
+            }
+        }
+    }
 
-	private static Consumer<InterpreterDefaultContext> getCallInvocation(DataChannelSourceConnector connector) {
-		if (connector instanceof DataChannelSinkConnector) {
-			return (context) -> simulateDataChannelCall(context, (DataChannelSinkConnector) connector);
-		} else if (connector instanceof AssemblyContextSinkConnector) {
-			return (context) -> simulateComponentCall(context, (AssemblyContextSinkConnector) connector);
-		} else {
-			throw new PCMModelInterpreterException(
-					"Unknown connector type for pushing: " + connector.getClass() + " (" + connector + ")");
-		}
-	}
+    public class CallbackUser extends AbstractCallbackUser<IndirectionDate> {
+        public CallbackUser(final SimuComModel owner, final String name) {
+            super(owner, name);
+        }
 
-	public class CallbackIteratingUser extends AbstractCallbackUser<List<IndirectionDate>> {
-		public CallbackIteratingUser(SimuComModel owner, String name) {
-			super(owner, name);
-		}
+        @Override
+        public void scenarioRunner(final SimuComSimProcess thread) {
+            final Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(
+                    CallbackUserFactory.this.connector);
 
-		@Override
-		public void scenarioRunner(SimuComSimProcess thread) {
-			Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(connector);
+            // TODO: fix helper method to handle data on stack
+            this.context.getStack()
+                .createAndPushNewStackFrame();
+            final String parameterName = IndirectionSimulationUtil
+                .getOneParameter(CallbackUserFactory.this.connector.getDataSinkRole()
+                    .getEventGroup())
+                .getParameterName();
 
-			for (IndirectionDate currentDate : this.date) {
-				// TODO: fix helper method to handle data on stack
-				context.getStack().createAndPushNewStackFrame();
-				String parameterName = IndirectionSimulationUtil
-						.getOneParameter(connector.getDataSinkRole().getEventGroup()).getParameterName();
+            IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), parameterName,
+                    Objects.requireNonNull(this.date));
+            IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, this.date);
 
-				IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
-						Objects.requireNonNull(currentDate));
-				IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, currentDate);
+            simulationCall.accept(this.context);
+        }
+    }
 
-				simulationCall.accept(context);
-			}
-		}
-	}
+    public static CallbackUserFactory createPushingUserFactory(final SimuComModel model,
+            final DataChannelSourceConnector connector) {
+        return new CallbackUserFactory(model, connector);
+    }
 
-	public class CallbackUser extends AbstractCallbackUser<IndirectionDate> {
-		public CallbackUser(SimuComModel owner, String name) {
-			super(owner, name);
-		}
+    private static Consumer<InterpreterDefaultContext> getCallInvocation(final DataChannelSourceConnector connector) {
+        if (connector instanceof DataChannelSinkConnector) {
+            return (context) -> simulateDataChannelCall(context, (DataChannelSinkConnector) connector);
+        } else if (connector instanceof AssemblyContextSinkConnector) {
+            return (context) -> simulateComponentCall(context, (AssemblyContextSinkConnector) connector);
+        } else {
+            throw new PCMModelInterpreterException(
+                    "Unknown connector type for pushing: " + connector.getClass() + " (" + connector + ")");
+        }
+    }
 
-		@Override
-		public void scenarioRunner(SimuComSimProcess thread) {
-			Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(connector);
-			
-			// TODO: fix helper method to handle data on stack
-			context.getStack().createAndPushNewStackFrame();
-			String parameterName = IndirectionSimulationUtil
-					.getOneParameter(connector.getDataSinkRole().getEventGroup()).getParameterName();
+    private static UsageScenario initNewUsageScenario(final DataChannelSourceConnector connector) {
+        final UsageScenario usageScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
+        usageScenario.setEntityName(connector.getEntityName() + "_pushing_UsageScenario");
+        return usageScenario;
+    }
 
-			IndirectionSimulationUtil.createNewDataOnStack(context.getStack(), parameterName,
-					Objects.requireNonNull(date));
-			IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, date);
+    /**
+     * @see UsageScenarioSwitch#caseEntryLevelSystemCall(EntryLevelSystemCall)
+     * @param context
+     * @param connector
+     */
+    private static void simulateComponentCall(final InterpreterDefaultContext context,
+            final AssemblyContextSinkConnector connector) {
+        final DataSinkRole sinkRole = connector.getDataSinkRole();
 
-			simulationCall.accept(context);
-		}
-	}
+        final RepositoryComponentSwitch providedDelegationSwitch = new RepositoryComponentSwitch(context,
+                connector.getSinkAssemblyContext(), connector.getPushesTo(), sinkRole);
 
-	public CallbackUserFactory(SimuComModel model, DataChannelSourceConnector connector) {
-		super(model, initNewUsageScenario(connector));
-		this.connector = connector;
-	}
+        providedDelegationSwitch.doSwitch(sinkRole);
+        context.getStack()
+            .removeStackFrame();
+    }
 
-	private static UsageScenario initNewUsageScenario(DataChannelSourceConnector connector) {
-		UsageScenario usageScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
-		usageScenario.setEntityName(connector.getEntityName() + "_pushing_UsageScenario");
-		return usageScenario;
-	}
+    private static void simulateDataChannelCall(final InterpreterDefaultContext context,
+            final DataChannelSinkConnector connector) {
+        throw new UnsupportedOperationException();
+    }
 
-	public CallbackUser createUser() {
-		return new CallbackUser(model, "CallbackUser");
-	}
+    private final DataChannelSourceConnector connector;
 
-	public CallbackIteratingUser createIteratingUser() {
-		return new CallbackIteratingUser(model, "CallbackIteratingUser");
-	}
+    public CallbackUserFactory(final SimuComModel model, final DataChannelSourceConnector connector) {
+        super(model, initNewUsageScenario(connector));
+        this.connector = connector;
+    }
 
-	public static CallbackUserFactory createPushingUserFactory(SimuComModel model,
-			DataChannelSourceConnector connector) {
-		return new CallbackUserFactory(model, connector);
-	}
+    public CallbackIteratingUser createIteratingUser() {
+        return new CallbackIteratingUser(this.model, "CallbackIteratingUser");
+    }
+
+    @Override
+    public CallbackUser createUser() {
+        return new CallbackUser(this.model, "CallbackUser");
+    }
 }

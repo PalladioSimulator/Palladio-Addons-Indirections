@@ -8,7 +8,7 @@ public class DirectTransferOperator<T extends IndirectionDate> extends SimStatef
     }
 
     @Override
-    public void accept(T t) {
+    public void accept(final T t) {
         this.emit(t);
     }
 

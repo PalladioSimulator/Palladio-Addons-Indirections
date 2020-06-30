@@ -11,24 +11,24 @@ import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
  * Implementations have to have a constructor that accepts a SimulationControl
  */
 public interface IDataChannelResource {
-	boolean put(ISchedulableProcess process, DataChannelSinkConnector sourceConnector, IndirectionDate date);
+    void advance(double simulationTime);
 
-	boolean get(ISchedulableProcess process, DataChannelSourceConnector sinkConnector,
-			Consumer<IndirectionDate> callback);
+    boolean get(ISchedulableProcess process, DataChannelSourceConnector sinkConnector,
+            Consumer<IndirectionDate> callback);
 
-	void advance(double simulationTime);
+    /**
+     * Unique identifier of the resource.
+     * 
+     * @return
+     */
+    String getId();
 
-	/**
-	 * Name of the resource.
-	 * 
-	 * @return
-	 */
-	String getName();
+    /**
+     * Name of the resource.
+     * 
+     * @return
+     */
+    String getName();
 
-	/**
-	 * Unique identifier of the resource.
-	 * 
-	 * @return
-	 */
-	String getId();
+    boolean put(ISchedulableProcess process, DataChannelSinkConnector sourceConnector, IndirectionDate date);
 }

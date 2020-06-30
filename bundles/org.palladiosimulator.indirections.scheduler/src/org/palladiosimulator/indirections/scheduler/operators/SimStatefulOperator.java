@@ -11,11 +11,11 @@ public abstract class SimStatefulOperator<T, U> implements Consumer<T> {
         this.emitsTo = new ArrayList<>();
     }
 
-    protected final void emit(U date) {
-        emitsTo.forEach(it -> it.accept(date));
+    public void addConsumer(final Consumer<U> emitTo) {
+        this.emitsTo.add(emitTo);
     }
 
-    public void addConsumer(Consumer<U> emitTo) {
-        this.emitsTo.add(emitTo);
+    protected final void emit(final U date) {
+        this.emitsTo.forEach(it -> it.accept(date));
     }
 }

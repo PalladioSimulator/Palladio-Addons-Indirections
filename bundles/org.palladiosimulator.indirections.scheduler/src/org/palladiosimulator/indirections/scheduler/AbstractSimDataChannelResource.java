@@ -20,8 +20,8 @@ import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescripti
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.scheduler.CallbackUserFactory.CallbackUser;
-import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToConsume;
-import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToEmit;
+import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
+import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.system.DataChannel;
@@ -37,334 +37,437 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public abstract class AbstractSimDataChannelResource implements IDataChannelResource {
-	protected Map<DataSourceRole, Queue<ProcessWaitingToConsume>> processesWaitingToConsume;
-	protected Map<DataSinkRole, Queue<ProcessWaitingToEmit>> processesWaitingToEmit;
-	protected DataChannel dataChannel;
+    protected TriggerableTimeSpanCalculator afterAcceptingAgeCalculator;
+    protected TriggerableTimeSpanCalculator beforePuttingAgeCalculator;
+    private boolean canGetNewData = false;
 
-	protected final InterpreterDefaultContext context;
-	protected SimuComModel model;
+    private boolean canPutNewData = false;
+    protected final InterpreterDefaultContext context;
 
-	protected final String name;
-	protected final String id;
-	
-	private PeriodicallyTriggeredSimulationEntity scheduledFlush;
-	private double currentSimulationTime = Double.NEGATIVE_INFINITY;
+    private double currentWatermarkedTime = Double.NEGATIVE_INFINITY;
+    protected DataChannel dataChannel;
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    protected TriggerableTimeSpanCalculator discardedAgeCalculator;
+    protected final String id;
 
-	@Override
-	public String getId() {
-		return this.id;
-	}
+    protected SimuComModel model;
+    protected final String name;
 
-	public AbstractSimDataChannelResource(DataChannel dataChannel, InterpreterDefaultContext context,
-			SchedulerModel model) {
-		if (!(model instanceof SimuComModel)) {
-			throw new IllegalArgumentException("Currently only works with " + SimuComModel.class.getName() + ", got "
-					+ model.getClass().getName());
-		}
+    protected TriggerableCountingCalculator numberOfDiscardedIncomingElementsCalculator;
 
-		this.dataChannel = dataChannel;
+    protected TriggerableCountingCalculator numberOfDiscardedOutgoingElementsCalculator;
 
-		this.id = dataChannel.getId() + "_" + UUID.randomUUID().toString();
-		this.name = dataChannel.getEntityName() + "_" + this.getClass().getSimpleName();
+    protected TriggerableCountingCalculator numberOfStoredIncomingElementsCalculator;
 
-		this.model = (SimuComModel) model;
-		this.context = context;
+    protected TriggerableCountingCalculator numberOfStoredOutgoingElementsCalculator;
 
-		this.initializeQueues();
-		this.createPushingUserFactories();
+    private boolean postponeNotification = false;
 
-		setupCalculators();
-	}
-		
-	protected final void scheduleAdvance(double firstOccurence, double delay) {
-		if (scheduledFlush != null) {
-			throw new PCMModelInterpreterException("Cannot schedule advance for " + this + ", already scheduled.");
-		}
-		
-		scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(model, firstOccurence, delay, () -> {
-			this.advance(model.getSimulationControl().getCurrentSimulationTime());
-		});
-	}
-	
-	protected final void unscheduleAdvance() {
-		if (scheduledFlush != null) {
-			throw new PCMModelInterpreterException("Cannot unschedule advance for " + this + ", not scheduled.");
-		}
-		
-		scheduledFlush.stopScheduling();
-		scheduledFlush = null;
-	}
-	
-	@Override
-	public final void advance(double simulationTime) {
-		var oldSimulationTime = simulationTime;
-		if (simulationTime < currentSimulationTime) {
-			throw new PCMModelInterpreterException("Cannot go back in time from " + currentSimulationTime + " to " + simulationTime);
-		}
-		
-		currentSimulationTime = simulationTime;
-		
-		handleNewSimulationTime(oldSimulationTime, simulationTime);
-	}
-	
-	protected abstract void handleNewSimulationTime(double oldSimulationTime, double simulationTime);
+    protected Map<DataSourceRole, Queue<ProcessWaitingToGet>> processesWaitingToGet;
 
-	public double getCurrentSimulationTime() {
-		return this.currentSimulationTime;
-	}
+    protected Map<DataSinkRole, Queue<ProcessWaitingToPut>> processesWaitingToPut;
 
-	protected TriggerableTimeSpanCalculator afterAcceptingAgeCalculator;
-	protected TriggerableTimeSpanCalculator beforeEmittingAgeCalculator;
-	protected TriggerableTimeSpanCalculator discardedAgeCalculator;
-	protected TriggerableCountingCalculator numberOfDiscardedIncomingElementsCalculator;
-	protected TriggerableCountingCalculator numberOfStoredIncomingElementsCalculator;
-	protected TriggerableCountingCalculator numberOfDiscardedOutgoingElementsCalculator;
-	protected TriggerableCountingCalculator numberOfStoredOutgoingElementsCalculator;
-	protected ContextAwareTimeSpanCalculator<ProcessWaitingToEmit> waitingToEmitTimeCalculator;
-	protected ContextAwareTimeSpanCalculator<ProcessWaitingToConsume> waitingToConsumeTimeCalculator;
+    private PeriodicallyTriggeredSimulationEntity scheduledFlush;
 
-	private void setupCalculators() {
-		setupSourceCalculators();
-		setupSinkCalculators();
-	}
-	
-	private void setupSourceCalculators() {
-		this.beforeEmittingAgeCalculator = new TriggerableTimeSpanCalculator("Data age before emitting (" + name + ")",
-				IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
-				IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, context);
-		this.waitingToConsumeTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToConsume>(
-				"Waiting time to consume (" + name + ")", MetricDescriptionConstants.WAITING_TIME_METRIC,
-				MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, context);
-		this.numberOfDiscardedIncomingElementsCalculator = new TriggerableCountingCalculator(
-				"Discarded incoming elements (" + name + ")", "Total discarded incoming elements (" + name + ")",
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-				IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, context);
-		this.discardedAgeCalculator = new TriggerableTimeSpanCalculator("Data age before discarding (" + name + ")",
-				IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
-				IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, context);
-		this.numberOfStoredIncomingElementsCalculator = new TriggerableCountingCalculator(
-				"Stored incoming elements (" + name + ")", "Total stored incoming elements (" + name + ")",
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-				IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, context);
-	}
-	
-	private void setupSinkCalculators() {
-		this.afterAcceptingAgeCalculator = new TriggerableTimeSpanCalculator(
-				"Data age after accepting date (" + name + ")", IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
-				IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, context);	
-		this.waitingToEmitTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToEmit>(
-				"Waiting time to emit (" + name + ")", MetricDescriptionConstants.WAITING_TIME_METRIC,
-				MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, context);
-		this.numberOfDiscardedOutgoingElementsCalculator = new TriggerableCountingCalculator(
-				"Discarded outgoing elements (" + name + ")", "Total discarded outgoing elements (" + name + ")",
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-				IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, context);
-		this.numberOfStoredOutgoingElementsCalculator = new TriggerableCountingCalculator(
-				"Stored outgoing elements (" + name + ")", "Total stored outgoing elements (" + name + ")",
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
-				IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-				IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, context);
-	}
+    private final Map<DataChannelToAssemblyContextConnector, CallbackUserFactory> sourceConnectorUserFactories = new HashMap<>();
+    protected ContextAwareTimeSpanCalculator<ProcessWaitingToGet> waitingToGetTimeCalculator;
+    protected ContextAwareTimeSpanCalculator<ProcessWaitingToPut> waitingToPutTimeCalculator;
+    public AbstractSimDataChannelResource(final DataChannel dataChannel, final InterpreterDefaultContext context,
+            final SchedulerModel model) {
+        if (!(model instanceof SimuComModel)) {
+            throw new IllegalArgumentException(
+                    "Currently only works with " + SimuComModel.class.getName() + ", got " + model.getClass()
+                        .getName());
+        }
 
-	private void initializeQueues() {
-		processesWaitingToConsume = new HashMap<>();
-		for (DataSourceRole role : dataChannel.getDataSourceRoles())
-			processesWaitingToConsume.put(role, new ArrayDeque<>());
+        this.dataChannel = dataChannel;
 
-		processesWaitingToEmit = new HashMap<>();
-		for (DataSinkRole role : dataChannel.getDataSinkRoles())
-			processesWaitingToEmit.put(role, new ArrayDeque<>());
-	}
+        this.id = dataChannel.getId() + "_" + UUID.randomUUID()
+            .toString();
+        this.name = dataChannel.getEntityName() + "_" + this.getClass()
+            .getSimpleName();
 
-	protected void processDataAvailableToGet() {
-		for (DataSourceRole dataSourceRole : dataChannel.getDataSourceRoles()) {
-			if (canProvideData(dataSourceRole)) {
-				if (IndirectionModelUtil.isPushingRole(dataSourceRole)) {
-					spawnNewConsumerUsers(dataSourceRole);
-				} else {
-					notifyProcessesWaitingToGet(dataSourceRole);
-				}
-			}
-		}
-	}
+        this.model = (SimuComModel) model;
+        this.context = context;
 
-	private Map<DataChannelToAssemblyContextConnector, CallbackUserFactory> sourceConnectorUserFactories = new HashMap<>();
+        this.initializeQueues();
+        this.createPushingUserFactories();
 
-	private Collection<DataChannelToAssemblyContextConnector> claimDataChannelToAssemblyContextConnectors() {
-		return IterableUtil.claimType(IndirectionModelUtil.getAllConnectorsFromSourceRoles(dataChannel),
-				DataChannelToAssemblyContextConnector.class);
-	}
+        this.setupCalculators();
+    }
+    protected abstract void acceptData(DataChannelSinkConnector connector, IndirectionDate date);
+    private void activateIfWaiting(final SuspendableSchedulerEntity process) {
+        if (process.isWaiting()) {
+            process.activate();
+        }
+    }
+    @Override
+    public final void advance(final double watermarkTime) {
+        final var oldWatermarkTime = watermarkTime;
+        if (watermarkTime < this.currentWatermarkedTime) {
+            System.out
+                .println("Not advancing backward. Requested: " + this.currentWatermarkedTime + " to " + watermarkTime);
+            return;
+        }
 
-	private void createPushingUserFactories() {
-		if (!sourceConnectorUserFactories.isEmpty()) {
-			throw new IllegalStateException("User factories already created.");
-		}
+        this.currentWatermarkedTime = watermarkTime;
 
-		for (DataChannelToAssemblyContextConnector connector : claimDataChannelToAssemblyContextConnectors()) {
-			sourceConnectorUserFactories.put(connector, CallbackUserFactory.createPushingUserFactory(model, connector));
-		}
-	}
+        this.handleNewWatermarkedTime(oldWatermarkTime, watermarkTime);
+    }
+    private void allowToGetAndActivate(final ProcessWaitingToGet process) {
+        this.collectAndPostponeNotification(() -> {
+            this.waitingToGetTimeCalculator.endMeasurement(process);
 
-	private void spawnNewConsumerUsers(DataSourceRole dataSourceRole) {
-		IndirectionDate date = provideData(dataSourceRole);
-		beforeEmittingAgeCalculator.doMeasure(date.getTime());
+            final IndirectionDate providedData = this.provideDataAndAdvance(process.connector);
+            IndirectionSimulationUtil.getDataAgeRecursive(providedData)
+                .forEach(this.beforePuttingAgeCalculator::doMeasureUntilNow);
+            process.callback.accept(providedData);
 
-		for (DataChannelSourceConnector connector : claimDataChannelToAssemblyContextConnectors()) {
-			String parameterName = IndirectionSimulationUtil
-					.getOneParameter(connector.getDataSinkRole().getEventGroup()).getParameterName();
+            this.activateIfWaiting(process);
+        });
+    }
+    private void allowToPutAndActivate(final ProcessWaitingToPut process) {
+        this.collectAndPostponeNotification(() -> {
+            this.waitingToPutTimeCalculator.endMeasurement(process);
 
-			CallbackUser user = sourceConnectorUserFactories.get(connector).createUser();
+            this.acceptData(process.connector, process.date);
 
-			InterpreterDefaultContext newContext = new InterpreterDefaultContext(
-					context.getRuntimeState().getMainContext(), user);
+            IndirectionSimulationUtil.getDataAgeRecursive(process.date)
+                .forEach(this.afterAcceptingAgeCalculator::doMeasureUntilNow);
 
-			user.setDataAndStartUserLife(parameterName, date, newContext);
-		}
-	}
+            this.activateIfWaiting(process);
+        });
+    }
 
-	@Override
-	public boolean put(ISchedulableProcess schedulableProcess, DataChannelSinkConnector connector,
-			IndirectionDate date) {
-		IndirectionSimulationUtil.validateIndirectionDateStructure(date, connector.getDataSourceRole().getEventGroup());
+    protected final void blockUntilCanGet(final ProcessWaitingToGet process) {
+        this.processesWaitingToGet.get(process.connector.getDataSourceRole())
+            .add(process);
+        process.passivate();
+    }
 
-		if (!this.model.getSimulationControl().isRunning()) {
-			return true;
-		}
+    protected final void blockUntilCanPut(final ProcessWaitingToPut process) {
+        this.processesWaitingToPut.get(process.connector.getDataSinkRole())
+            .add(process);
+        process.passivate();
+    }
 
-		ProcessWaitingToEmit process = new ProcessWaitingToEmit(this.model, schedulableProcess, connector, date);
+    protected abstract boolean canAcceptData(DataChannelSinkConnector connector);
 
-		this.waitingToEmitTimeCalculator.startMeasurement(process);
+    private boolean canProceedToGet(final ProcessWaitingToGet process) {
+        final DataSourceRole role = process.connector.getDataSourceRole();
 
-		if (this.canProceedToPut(process)) {
-			this.allowToPutAndActivate(process);
-			this.processDataAvailableToGet();
-			return true;
-		} else {
-			handleCannotProceedToPut(process);
+        final boolean isNextProcess = this.processesWaitingToGet.isEmpty() || this.processesWaitingToGet.get(role)
+            .peek().schedulableProcess.equals(process.schedulableProcess);
 
-			return false;
-		}
-	}
-	
-	protected final void blockUntilCanEmit(ProcessWaitingToEmit process) {
-		processesWaitingToEmit.get(process.connector.getDataSinkRole()).add(process);
-		process.passivate();
-	}
-	
-	protected final void discardDataAndContinue(ProcessWaitingToEmit process) {
-		waitingToEmitTimeCalculator.endMeasurement(process);
-		
-		IndirectionDate dateToDiscard = process.date;
-		IndirectionSimulationUtil.getDataAgeRecursive(dateToDiscard)
-			.forEach(discardedAgeCalculator::doMeasureUntilNow);
-		
-		numberOfDiscardedIncomingElementsCalculator.change(1);
-		
-		activateIfWaiting(process);
-	}
+        return isNextProcess && this.canProvideData(process.connector);
+    }
 
-	/* might be sensible to default this to blockUntilCanEmit */
-	protected abstract void handleCannotProceedToPut(ProcessWaitingToEmit process);
+    private boolean canProceedToPut(final ProcessWaitingToPut process) {
+        final DataSinkRole role = process.connector.getDataSinkRole();
 
+        final boolean isNextProcess = this.processesWaitingToPut.isEmpty() || this.processesWaitingToPut.get(role)
+            .peek().schedulableProcess.equals(process.schedulableProcess);
 
-	@Override
-	public boolean get(ISchedulableProcess schedulableProcess, DataChannelSourceConnector connector,
-			Consumer<IndirectionDate> callback) {
-		if (!this.model.getSimulationControl().isRunning()) {
-			return true;
-		}
+        return isNextProcess && this.canAcceptData(process.connector);
+    }
+    protected abstract boolean canProvideData(DataChannelSourceConnector connector);
 
-		if (IndirectionModelUtil.isPushingRole(connector.getDataSourceRole())) {
-			throw new IllegalStateException("Cannot pull data over pushing role.");
-		}
+    private Collection<DataChannelToAssemblyContextConnector> claimDataChannelToAssemblyContextConnectors() {
+        return IterableUtil.claimType(IndirectionModelUtil.getAllConnectorsFromSourceRoles(this.dataChannel),
+                DataChannelToAssemblyContextConnector.class);
+    }
 
-		ProcessWaitingToConsume process = new ProcessWaitingToConsume(this.model, schedulableProcess, connector,
-				callback);
+    /**
+     * Sets a flag to collect notification information, runs the given block and afterwards checks
+     * whether new data is available and acts accordingly.
+     *
+     * @param block
+     */
+    private void collectAndPostponeNotification(final Runnable block) {
+        final var initialPostponeState = this.postponeNotification;
+        this.postponeNotification = true;
+        block.run();
+        this.postponeNotification = initialPostponeState;
+        this.handleNotifications();
+    }
 
-		this.waitingToConsumeTimeCalculator.startMeasurement(process);
+    protected final void continueWithoutData(final ProcessWaitingToGet process) {
+        // this does not put data on the stack (i.e., does not call the callback)
+        this.waitingToGetTimeCalculator.endMeasurement(process);
+        this.activateIfWaiting(process);
+    }
 
-		if (this.canProceedToGet(process)) {
-			allowToGetAndActivate(process);
-			notifyProcessesWaitingToPut();
-			return true;
-		} else {
-			handleCannotProceedToGet(process);
-			return false;
-		}
-	}
-	
-	protected final void blockUntilCanConsume(ProcessWaitingToConsume process) {
-		processesWaitingToConsume.get(process.connector.getDataSourceRole()).add(process);
-		process.passivate();
-	}
-	
-	protected final void continueWithoutData(ProcessWaitingToConsume process) {
-		// this does not put data on the stack (i.e., does not call the callback)
-		waitingToConsumeTimeCalculator.endMeasurement(process);
-		activateIfWaiting(process);
-	}
+    private void createPushingUserFactories() {
+        if (!this.sourceConnectorUserFactories.isEmpty()) {
+            throw new IllegalStateException("User factories already created.");
+        }
 
-	/* might be sensible to default this to blockUntilCanConsume */
-	protected abstract void handleCannotProceedToGet(ProcessWaitingToConsume process);
+        for (final DataChannelToAssemblyContextConnector connector : this
+            .claimDataChannelToAssemblyContextConnectors()) {
+            this.sourceConnectorUserFactories.put(connector,
+                    CallbackUserFactory.createPushingUserFactory(this.model, connector));
+        }
+    }
 
-	private void activateIfWaiting(SuspendableSchedulerEntity process) {
-		if (process.isWaiting()) {
-			process.activate();
-		}
-	}
+    protected final void discardDataAndContinue(final ProcessWaitingToPut process) {
+        this.waitingToPutTimeCalculator.endMeasurement(process);
 
-	private boolean canProceedToPut(ProcessWaitingToEmit process) {
-		DataSinkRole role = process.connector.getDataSinkRole();
+        final IndirectionDate dateToDiscard = process.date;
+        IndirectionSimulationUtil.getDataAgeRecursive(dateToDiscard)
+            .forEach(this.discardedAgeCalculator::doMeasureUntilNow);
 
-		boolean isNextProcess = processesWaitingToEmit.isEmpty()
-				|| processesWaitingToEmit.get(role).peek().schedulableProcess.equals(process.schedulableProcess);
+        this.numberOfDiscardedIncomingElementsCalculator.change(1);
 
-		return isNextProcess && canAcceptData(role);
-	}
+        this.activateIfWaiting(process);
+    }
 
-	protected abstract boolean canAcceptData(DataSinkRole role);
+    @Override
+    public boolean get(final ISchedulableProcess schedulableProcess, final DataChannelSourceConnector connector,
+            final Consumer<IndirectionDate> callback) {
+        if (!this.model.getSimulationControl()
+            .isRunning()) {
+            return true;
+        }
 
-	protected abstract boolean canProvideData(DataSourceRole role);
+        if (IndirectionModelUtil.isPushingRole(connector.getDataSourceRole())) {
+            throw new IllegalStateException("Cannot pull data over pushing role.");
+        }
 
-	private boolean canProceedToGet(ProcessWaitingToConsume process) {
-		DataSourceRole role = process.connector.getDataSourceRole();
+        final ProcessWaitingToGet process = new ProcessWaitingToGet(this.model, schedulableProcess, connector,
+                callback);
 
-		boolean isNextProcess = processesWaitingToConsume.isEmpty()
-				|| processesWaitingToConsume.get(role).peek().schedulableProcess.equals(process.schedulableProcess);
+        this.waitingToGetTimeCalculator.startMeasurement(process);
 
-		return isNextProcess && canProvideData(role);
-	}
+        if (this.canProceedToGet(process)) {
+            this.allowToGetAndActivate(process);
+            return true;
+        } else {
+            this.handleCannotProceedToGet(process);
+            return false;
+        }
+    }
 
-	protected abstract IndirectionDate provideData(DataSourceRole role);
+    public double getCurrentWatermarkedTime() {
+        return this.currentWatermarkedTime;
+    }
 
-	protected abstract void acceptData(DataSinkRole role, IndirectionDate date);
+    @Override
+    public String getId() {
+        return this.id;
+    }
 
-	private void allowToGetAndActivate(ProcessWaitingToConsume process) {
-		this.waitingToConsumeTimeCalculator.endMeasurement(process);
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-		IndirectionDate dateToEmit = provideData(process.connector.getDataSourceRole());
-		IndirectionSimulationUtil.getDataAgeRecursive(dateToEmit)
-				.forEach(beforeEmittingAgeCalculator::doMeasureUntilNow);
-		process.callback.accept(dateToEmit);
-		activateIfWaiting(process);
-	}
+    /* might be sensible to default this to blockUntilCanGet */
+    protected abstract void handleCannotProceedToGet(ProcessWaitingToGet process);
 
-	private void allowToPutAndActivate(ProcessWaitingToEmit process) {
-		this.waitingToEmitTimeCalculator.endMeasurement(process);
+    /* might be sensible to default this to blockUntilCanPut */
+    protected abstract void handleCannotProceedToPut(ProcessWaitingToPut process);
 
-		acceptData(process.connector.getDataSinkRole(), process.date);
+    protected abstract void handleNewWatermarkedTime(double oldWatermarkTime, double watermarkTime);
 
-		IndirectionSimulationUtil.getDataAgeRecursive(process.date)
-				.forEach(afterAcceptingAgeCalculator::doMeasureUntilNow);
+    private void handleNotifications() {
+        if (!this.postponeNotification) {
+            if (this.canGetNewData) {
+                this.canGetNewData = false;
+                this.processDataAvailableToGet();
+            }
+            if (this.canPutNewData) {
+                this.canPutNewData = false;
+                this.notifyProcessesWaitingToPut();
+            }
+        }
+    }
 
-		activateIfWaiting(process);
-	}
+    private void initializeQueues() {
+        this.processesWaitingToGet = new HashMap<>();
+        for (final DataSourceRole role : this.dataChannel.getDataSourceRoles()) {
+            this.processesWaitingToGet.put(role, new ArrayDeque<>());
+        }
+
+        this.processesWaitingToPut = new HashMap<>();
+        for (final DataSinkRole role : this.dataChannel.getDataSinkRoles()) {
+            this.processesWaitingToPut.put(role, new ArrayDeque<>());
+        }
+    }
+
+    protected final void notifyProcessesCanGetNewData() {
+        this.canGetNewData = true;
+        this.handleNotifications();
+    }
+
+    protected final void notifyProcessesCanPutNewData() {
+        this.canPutNewData = true;
+        this.handleNotifications();
+    }
+
+    private void notifyProcessesWaitingToGet() {
+        for (final var entry : this.processesWaitingToGet.entrySet()) {
+            final var processes = entry.getValue();
+
+            ProcessWaitingToGet waitingProcess = processes.peek();
+            while (waitingProcess != null && this.canProceedToGet(waitingProcess)) {
+                this.allowToGetAndActivate(waitingProcess);
+                processes.remove();
+                waitingProcess = processes.peek();
+            }
+        }
+    }
+
+    private void notifyProcessesWaitingToPut() {
+        for (final var entry : this.processesWaitingToPut.entrySet()) {
+            final var processes = entry.getValue();
+
+            ProcessWaitingToPut waitingProcess = processes.peek();
+            while (waitingProcess != null && this.canProceedToPut(waitingProcess)) {
+                this.allowToPutAndActivate(waitingProcess);
+                processes.remove();
+                waitingProcess = processes.peek();
+            }
+        }
+    }
+
+    protected void processDataAvailableToGet() {
+        boolean shouldNotifyProcessesWaitingToGet = false; // we only need to call this once
+        for (final DataChannelSourceConnector connector : IndirectionModelUtil
+            .getAllConnectorsFromSourceRoles(this.dataChannel)) {
+            if (IndirectionModelUtil.isPushingRole(connector.getDataSourceRole())) {
+                while (this.canProvideData(connector)) {
+                    // the method directly takes the data, thus it should not be an infinite loop
+                    this.spawnNewConsumerUser(connector);
+                }
+            } else {
+                shouldNotifyProcessesWaitingToGet = true;
+            }
+        }
+
+        if (shouldNotifyProcessesWaitingToGet) {
+            this.notifyProcessesWaitingToGet();
+        }
+    }
+
+    /**
+     * It must hold that {@link #provideDataAndAdvance(DataChannelSourceConnector)} can be called
+     * iff {@link #canProvideData(DataChannelSourceConnector)} was true immediately before the call.
+     * <p>
+     * Calling {@link #provideDataAndAdvance(DataChannelSourceConnector)} in a loop must eventually
+     * lead to {@link #canProvideData(DataChannelSourceConnector)} returning {@code false}.
+     */
+    protected abstract IndirectionDate provideDataAndAdvance(DataChannelSourceConnector connector);
+
+    @Override
+    public boolean put(final ISchedulableProcess schedulableProcess, final DataChannelSinkConnector connector,
+            final IndirectionDate date) {
+        IndirectionSimulationUtil.validateIndirectionDateStructure(date, connector.getDataSourceRole()
+            .getEventGroup());
+
+        if (!this.model.getSimulationControl()
+            .isRunning()) {
+            return true;
+        }
+
+        final ProcessWaitingToPut process = new ProcessWaitingToPut(this.model, schedulableProcess, connector, date);
+
+        this.waitingToPutTimeCalculator.startMeasurement(process);
+
+        if (this.canProceedToPut(process)) {
+            this.allowToPutAndActivate(process);
+            return true;
+        } else {
+            this.handleCannotProceedToPut(process);
+            return false;
+        }
+    }
+
+    protected final void scheduleAdvance(final double firstOccurence, final double delay,
+            final double lagBehindRealTime) {
+        if (this.scheduledFlush != null) {
+            throw new PCMModelInterpreterException("Cannot schedule advance for " + this + ", already scheduled.");
+        }
+
+        this.scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(this.model, firstOccurence, delay, () -> {
+            this.advance(this.model.getSimulationControl()
+                .getCurrentSimulationTime() - lagBehindRealTime);
+        });
+    }
+
+    private void setupCalculators() {
+        this.setupSourceCalculators();
+        this.setupSinkCalculators();
+    }
+
+    private void setupSinkCalculators() {
+        this.afterAcceptingAgeCalculator = new TriggerableTimeSpanCalculator(
+                "Data age after accepting date (" + this.name + ")",
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
+        this.waitingToPutTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToPut>(
+                "Waiting time to put (" + this.name + ")", MetricDescriptionConstants.WAITING_TIME_METRIC,
+                MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, this.context);
+        this.numberOfDiscardedOutgoingElementsCalculator = new TriggerableCountingCalculator(
+                "Discarded outgoing elements (" + this.name + ")",
+                "Total discarded outgoing elements (" + this.name + ")",
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+        this.numberOfStoredOutgoingElementsCalculator = new TriggerableCountingCalculator(
+                "Stored outgoing elements (" + this.name + ")", "Total stored outgoing elements (" + this.name + ")",
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+    }
+
+    private void setupSourceCalculators() {
+        this.beforePuttingAgeCalculator = new TriggerableTimeSpanCalculator(
+                "Data age before putting (" + this.name + ")", IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
+        this.waitingToGetTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToGet>(
+                "Waiting time to get (" + this.name + ")", MetricDescriptionConstants.WAITING_TIME_METRIC,
+                MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, this.context);
+        this.numberOfDiscardedIncomingElementsCalculator = new TriggerableCountingCalculator(
+                "Discarded incoming elements (" + this.name + ")",
+                "Total discarded incoming elements (" + this.name + ")",
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+        this.discardedAgeCalculator = new TriggerableTimeSpanCalculator(
+                "Data age before discarding (" + this.name + ")",
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
+        this.numberOfStoredIncomingElementsCalculator = new TriggerableCountingCalculator(
+                "Stored incoming elements (" + this.name + ")", "Total stored incoming elements (" + this.name + ")",
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
+                IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+    }
+
+    private void spawnNewConsumerUser(final DataChannelSourceConnector connector) {
+        final IndirectionDate date = this.provideDataAndAdvance(connector);
+        this.beforePuttingAgeCalculator.doMeasure(date.getTime());
+
+        final String parameterName = IndirectionSimulationUtil.getOneParameter(connector.getDataSinkRole()
+            .getEventGroup())
+            .getParameterName();
+
+        final CallbackUser user = this.sourceConnectorUserFactories.get(connector)
+            .createUser();
+
+        final InterpreterDefaultContext newContext = new InterpreterDefaultContext(this.context.getRuntimeState()
+            .getMainContext(), user);
+
+        user.setDataAndStartUserLife(parameterName, date, newContext);
+    }
+
+    protected final void unscheduleAdvance() {
+        if (this.scheduledFlush != null) {
+            throw new PCMModelInterpreterException("Cannot unschedule advance for " + this + ", not scheduled.");
+        }
+
+        this.scheduledFlush.stopScheduling();
+        this.scheduledFlush = null;
+    }
+
 }

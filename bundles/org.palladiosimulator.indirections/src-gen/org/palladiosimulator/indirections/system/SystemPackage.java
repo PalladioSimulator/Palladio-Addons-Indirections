@@ -6,377 +6,382 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 /**
- * <!-- begin-user-doc -->
- * The <b>Package</b> for the model.
- * It contains accessors for the meta objects to represent
+ * <!-- begin-user-doc --> The <b>Package</b> for the model. It contains accessors for the meta
+ * objects to represent
  * <ul>
- *   <li>each class,</li>
- *   <li>each feature of each class,</li>
- *   <li>each enum,</li>
- *   <li>and each data type</li>
+ * <li>each class,</li>
+ * <li>each feature of each class,</li>
+ * <li>each enum,</li>
+ * <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
+ *
  * @see org.palladiosimulator.indirections.system.SystemFactory
  * @model kind="package"
  * @generated
  */
 public interface SystemPackage extends EPackage {
-	/**
-	 * The package name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String eNAME = "system";
+    /**
+     * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    String eNAME = "system";
 
-	/**
-	 * The package namespace URI.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String eNS_URI = "http://palladiosimulator.org/Indirections/System/1.0";
+    /**
+     * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    String eNS_URI = "http://palladiosimulator.org/Indirections/System/1.0";
 
-	/**
-	 * The package namespace name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	String eNS_PREFIX = "org.palladiosimulator.indirections.system";
+    /**
+     * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    String eNS_PREFIX = "org.palladiosimulator.indirections.system";
 
-	/**
-	 * The singleton instance of the package.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	SystemPackage eINSTANCE = org.palladiosimulator.indirections.system.impl.SystemPackageImpl.init();
+    /**
+     * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    SystemPackage eINSTANCE = org.palladiosimulator.indirections.system.impl.SystemPackageImpl.init();
 
-	/**
-	 * The meta object id for the '{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl <em>Data Channel</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.palladiosimulator.indirections.system.impl.DataChannelImpl
-	 * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getDataChannel()
-	 * @generated
-	 */
-	int DATA_CHANNEL = 0;
+    /**
+     * The meta object id for the
+     * '{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl <em>Data
+     * Channel</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see org.palladiosimulator.indirections.system.impl.DataChannelImpl
+     * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getDataChannel()
+     * @generated
+     */
+    int DATA_CHANNEL = 0;
 
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__ID = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__ID;
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL__ID = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__ID;
 
-	/**
-	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__ENTITY_NAME = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__ENTITY_NAME;
+    /**
+     * The feature id for the '<em><b>Entity Name</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL__ENTITY_NAME = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__ENTITY_NAME;
 
-	/**
-	 * The feature id for the '<em><b>Provided Roles Interface Providing Entity</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY;
+    /**
+     * The feature id for the '<em><b>Provided Roles Interface Providing Entity</b></em>'
+     * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY;
 
-	/**
-	 * The feature id for the '<em><b>Resource Required Roles Resource Interface Requiring Entity</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY;
+    /**
+     * The feature id for the '<em><b>Resource Required Roles Resource Interface Requiring
+     * Entity</b></em>' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY;
 
-	/**
-	 * The feature id for the '<em><b>Required Roles Interface Requiring Entity</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY;
+    /**
+     * The feature id for the '<em><b>Required Roles Interface Requiring Entity</b></em>'
+     * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY;
 
-	/**
-	 * The feature id for the '<em><b>Data Sink Roles</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__DATA_SINK_ROLES = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 0;
+    /**
+     * The feature id for the '<em><b>Data Sink Roles</b></em>' reference list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL__DATA_SINK_ROLES = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 0;
 
-	/**
-	 * The feature id for the '<em><b>Data Source Roles</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL__DATA_SOURCE_ROLES = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 1;
+    /**
+     * The feature id for the '<em><b>Data Source Roles</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL__DATA_SOURCE_ROLES = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 1;
 
-	/**
-	 * The number of structural features of the '<em>Data Channel</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DATA_CHANNEL_FEATURE_COUNT = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 2;
+    /**
+     * The number of structural features of the '<em>Data Channel</em>' class. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int DATA_CHANNEL_FEATURE_COUNT = EntityPackage.INTERFACE_PROVIDING_REQUIRING_ENTITY_FEATURE_COUNT + 2;
 
-	/**
-	 * The meta object id for the '{@link org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl <em>Java Class Data Channel</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl
-	 * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getJavaClassDataChannel()
-	 * @generated
-	 */
-	int JAVA_CLASS_DATA_CHANNEL = 1;
+    /**
+     * The meta object id for the
+     * '{@link org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl <em>Java
+     * Class Data Channel</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl
+     * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getJavaClassDataChannel()
+     * @generated
+     */
+    int JAVA_CLASS_DATA_CHANNEL = 1;
 
-	/**
-	 * The feature id for the '<em><b>Id</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__ID = DATA_CHANNEL__ID;
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__ID = DATA_CHANNEL__ID;
 
-	/**
-	 * The feature id for the '<em><b>Entity Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__ENTITY_NAME = DATA_CHANNEL__ENTITY_NAME;
+    /**
+     * The feature id for the '<em><b>Entity Name</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__ENTITY_NAME = DATA_CHANNEL__ENTITY_NAME;
 
-	/**
-	 * The feature id for the '<em><b>Provided Roles Interface Providing Entity</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY = DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY;
+    /**
+     * The feature id for the '<em><b>Provided Roles Interface Providing Entity</b></em>'
+     * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY = DATA_CHANNEL__PROVIDED_ROLES_INTERFACE_PROVIDING_ENTITY;
 
-	/**
-	 * The feature id for the '<em><b>Resource Required Roles Resource Interface Requiring Entity</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY = DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY;
+    /**
+     * The feature id for the '<em><b>Resource Required Roles Resource Interface Requiring
+     * Entity</b></em>' containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY = DATA_CHANNEL__RESOURCE_REQUIRED_ROLES_RESOURCE_INTERFACE_REQUIRING_ENTITY;
 
-	/**
-	 * The feature id for the '<em><b>Required Roles Interface Requiring Entity</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY = DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY;
+    /**
+     * The feature id for the '<em><b>Required Roles Interface Requiring Entity</b></em>'
+     * containment reference list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY = DATA_CHANNEL__REQUIRED_ROLES_INTERFACE_REQUIRING_ENTITY;
 
-	/**
-	 * The feature id for the '<em><b>Data Sink Roles</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__DATA_SINK_ROLES = DATA_CHANNEL__DATA_SINK_ROLES;
+    /**
+     * The feature id for the '<em><b>Data Sink Roles</b></em>' reference list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__DATA_SINK_ROLES = DATA_CHANNEL__DATA_SINK_ROLES;
 
-	/**
-	 * The feature id for the '<em><b>Data Source Roles</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__DATA_SOURCE_ROLES = DATA_CHANNEL__DATA_SOURCE_ROLES;
+    /**
+     * The feature id for the '<em><b>Data Source Roles</b></em>' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__DATA_SOURCE_ROLES = DATA_CHANNEL__DATA_SOURCE_ROLES;
 
-	/**
-	 * The feature id for the '<em><b>Realizing Class Fqn</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN = DATA_CHANNEL_FEATURE_COUNT + 0;
+    /**
+     * The feature id for the '<em><b>Realizing Class Fqn</b></em>' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN = DATA_CHANNEL_FEATURE_COUNT + 0;
 
-	/**
-	 * The feature id for the '<em><b>Config Entries</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES = DATA_CHANNEL_FEATURE_COUNT + 1;
+    /**
+     * The feature id for the '<em><b>Config Entries</b></em>' attribute list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES = DATA_CHANNEL_FEATURE_COUNT + 1;
 
-	/**
-	 * The number of structural features of the '<em>Java Class Data Channel</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int JAVA_CLASS_DATA_CHANNEL_FEATURE_COUNT = DATA_CHANNEL_FEATURE_COUNT + 2;
+    /**
+     * The number of structural features of the '<em>Java Class Data Channel</em>' class. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_DATA_CHANNEL_FEATURE_COUNT = DATA_CHANNEL_FEATURE_COUNT + 2;
 
-	/**
-	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.system.DataChannel <em>Data Channel</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Data Channel</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel
-	 * @generated
-	 */
-	EClass getDataChannel();
+    /**
+     * Returns the meta object for class
+     * '{@link org.palladiosimulator.indirections.system.DataChannel <em>Data Channel</em>}'. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for class '<em>Data Channel</em>'.
+     * @see org.palladiosimulator.indirections.system.DataChannel
+     * @generated
+     */
+    EClass getDataChannel();
 
-	/**
-	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.system.DataChannel#getDataSinkRoles <em>Data Sink Roles</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Data Sink Roles</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getDataSinkRoles()
-	 * @see #getDataChannel()
-	 * @generated
-	 */
-	EReference getDataChannel_DataSinkRoles();
+    /**
+     * Returns the meta object for the reference list
+     * '{@link org.palladiosimulator.indirections.system.DataChannel#getDataSinkRoles <em>Data Sink
+     * Roles</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the reference list '<em>Data Sink Roles</em>'.
+     * @see org.palladiosimulator.indirections.system.DataChannel#getDataSinkRoles()
+     * @see #getDataChannel()
+     * @generated
+     */
+    EReference getDataChannel_DataSinkRoles();
 
-	/**
-	 * Returns the meta object for the reference list '{@link org.palladiosimulator.indirections.system.DataChannel#getDataSourceRoles <em>Data Source Roles</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Data Source Roles</em>'.
-	 * @see org.palladiosimulator.indirections.system.DataChannel#getDataSourceRoles()
-	 * @see #getDataChannel()
-	 * @generated
-	 */
-	EReference getDataChannel_DataSourceRoles();
+    /**
+     * Returns the meta object for the reference list
+     * '{@link org.palladiosimulator.indirections.system.DataChannel#getDataSourceRoles <em>Data
+     * Source Roles</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the reference list '<em>Data Source Roles</em>'.
+     * @see org.palladiosimulator.indirections.system.DataChannel#getDataSourceRoles()
+     * @see #getDataChannel()
+     * @generated
+     */
+    EReference getDataChannel_DataSourceRoles();
 
-	/**
-	 * Returns the meta object for class '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel <em>Java Class Data Channel</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Java Class Data Channel</em>'.
-	 * @see org.palladiosimulator.indirections.system.JavaClassDataChannel
-	 * @generated
-	 */
-	EClass getJavaClassDataChannel();
+    /**
+     * Returns the meta object for class
+     * '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel <em>Java Class Data
+     * Channel</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for class '<em>Java Class Data Channel</em>'.
+     * @see org.palladiosimulator.indirections.system.JavaClassDataChannel
+     * @generated
+     */
+    EClass getJavaClassDataChannel();
 
-	/**
-	 * Returns the meta object for the attribute '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn <em>Realizing Class Fqn</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Realizing Class Fqn</em>'.
-	 * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn()
-	 * @see #getJavaClassDataChannel()
-	 * @generated
-	 */
-	EAttribute getJavaClassDataChannel_RealizingClassFqn();
+    /**
+     * Returns the meta object for the attribute
+     * '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn
+     * <em>Realizing Class Fqn</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute '<em>Realizing Class Fqn</em>'.
+     * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn()
+     * @see #getJavaClassDataChannel()
+     * @generated
+     */
+    EAttribute getJavaClassDataChannel_RealizingClassFqn();
 
-	/**
-	 * Returns the meta object for the attribute list '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries <em>Config Entries</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Config Entries</em>'.
-	 * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries()
-	 * @see #getJavaClassDataChannel()
-	 * @generated
-	 */
-	EAttribute getJavaClassDataChannel_ConfigEntries();
+    /**
+     * Returns the meta object for the attribute list
+     * '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries
+     * <em>Config Entries</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the meta object for the attribute list '<em>Config Entries</em>'.
+     * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries()
+     * @see #getJavaClassDataChannel()
+     * @generated
+     */
+    EAttribute getJavaClassDataChannel_ConfigEntries();
 
-	/**
-	 * Returns the factory that creates the instances of the model.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the factory that creates the instances of the model.
-	 * @generated
-	 */
-	SystemFactory getSystemFactory();
+    /**
+     * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @return the factory that creates the instances of the model.
+     * @generated
+     */
+    SystemFactory getSystemFactory();
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * Defines literals for the meta objects that represent
-	 * <ul>
-	 *   <li>each class,</li>
-	 *   <li>each feature of each class,</li>
-	 *   <li>each enum,</li>
-	 *   <li>and each data type</li>
-	 * </ul>
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	interface Literals {
-		/**
-		 * The meta object literal for the '{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl <em>Data Channel</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.palladiosimulator.indirections.system.impl.DataChannelImpl
-		 * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getDataChannel()
-		 * @generated
-		 */
-		EClass DATA_CHANNEL = eINSTANCE.getDataChannel();
+    /**
+     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
+     * <ul>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
+     * </ul>
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    interface Literals {
+        /**
+         * The meta object literal for the
+         * '{@link org.palladiosimulator.indirections.system.impl.DataChannelImpl <em>Data
+         * Channel</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @see org.palladiosimulator.indirections.system.impl.DataChannelImpl
+         * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getDataChannel()
+         * @generated
+         */
+        EClass DATA_CHANNEL = eINSTANCE.getDataChannel();
 
-		/**
-		 * The meta object literal for the '<em><b>Data Sink Roles</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_CHANNEL__DATA_SINK_ROLES = eINSTANCE.getDataChannel_DataSinkRoles();
+        /**
+         * The meta object literal for the '<em><b>Data Sink Roles</b></em>' reference list feature.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EReference DATA_CHANNEL__DATA_SINK_ROLES = eINSTANCE.getDataChannel_DataSinkRoles();
 
-		/**
-		 * The meta object literal for the '<em><b>Data Source Roles</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DATA_CHANNEL__DATA_SOURCE_ROLES = eINSTANCE.getDataChannel_DataSourceRoles();
+        /**
+         * The meta object literal for the '<em><b>Data Source Roles</b></em>' reference list
+         * feature. <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EReference DATA_CHANNEL__DATA_SOURCE_ROLES = eINSTANCE.getDataChannel_DataSourceRoles();
 
-		/**
-		 * The meta object literal for the '{@link org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl <em>Java Class Data Channel</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl
-		 * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getJavaClassDataChannel()
-		 * @generated
-		 */
-		EClass JAVA_CLASS_DATA_CHANNEL = eINSTANCE.getJavaClassDataChannel();
+        /**
+         * The meta object literal for the
+         * '{@link org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl <em>Java
+         * Class Data Channel</em>}' class. <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @see org.palladiosimulator.indirections.system.impl.JavaClassDataChannelImpl
+         * @see org.palladiosimulator.indirections.system.impl.SystemPackageImpl#getJavaClassDataChannel()
+         * @generated
+         */
+        EClass JAVA_CLASS_DATA_CHANNEL = eINSTANCE.getJavaClassDataChannel();
 
-		/**
-		 * The meta object literal for the '<em><b>Realizing Class Fqn</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN = eINSTANCE.getJavaClassDataChannel_RealizingClassFqn();
+        /**
+         * The meta object literal for the '<em><b>Realizing Class Fqn</b></em>' attribute feature.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN = eINSTANCE.getJavaClassDataChannel_RealizingClassFqn();
 
-		/**
-		 * The meta object literal for the '<em><b>Config Entries</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES = eINSTANCE.getJavaClassDataChannel_ConfigEntries();
+        /**
+         * The meta object literal for the '<em><b>Config Entries</b></em>' attribute list feature.
+         * <!-- begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EAttribute JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES = eINSTANCE.getJavaClassDataChannel_ConfigEntries();
 
-	}
+    }
 
-} //SystemPackage
+} // SystemPackage

@@ -6,9 +6,8 @@ import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextS
 import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
 
 /**
- * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Assembly Context To Assembly Context Connector</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> A representation of the model object '<em><b>Assembly Context To Assembly
+ * Context Connector</b></em>'. <!-- end-user-doc -->
  *
  *
  * @see org.palladiosimulator.indirections.composition.CompositionPackage#getAssemblyContextToAssemblyContextConnector()
@@ -16,5 +15,5 @@ import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextS
  * @generated
  */
 public interface AssemblyContextToAssemblyContextConnector
-		extends AssemblyContextSourceConnector, AssemblyContextSinkConnector {
+        extends AssemblyContextSourceConnector, AssemblyContextSinkConnector {
 } // AssemblyContextToAssemblyContextConnector

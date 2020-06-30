@@ -4,10 +4,10 @@ import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkCo
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
 public class DateWithConnector<T extends IndirectionDate> {
-    public final DataSourceSinkConnector source;
     public final T date;
+    public final DataSourceSinkConnector source;
 
-    public DateWithConnector(DataSourceSinkConnector source, T date) {
+    public DateWithConnector(final DataSourceSinkConnector source, final T date) {
         this.source = source;
         this.date = date;
     }

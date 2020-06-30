@@ -13,12 +13,30 @@ public class ModelObserver implements IModelObserver {
     public static BufferedWriter csvWriter2;
     private static Map<String, Map.Entry<Double, Double>> uuidToCurrentTimeToDelay;
 
+    public static void measureWindowSize(final int windowSize) {
+        try {
+            csvWriter2.append(Integer.toString(windowSize) + "\n");
+        } catch (final IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeLine(final String line) {
+        throw new UnsupportedOperationException();
+//        try {
+//            csvWriter.append(line + "\n");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
     @Override
-    public void initialize(AbstractSimuLizarRuntimeState runtimeState) {
+    public void initialize(final AbstractSimuLizarRuntimeState runtimeState) {
         if (csvWriter2 != null) {
             try {
                 csvWriter2.close();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         }
@@ -33,21 +51,12 @@ public class ModelObserver implements IModelObserver {
                             + ".csv");
                 }
                 csvWriter2 = new BufferedWriter(new FileWriter(f));
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
 
-    }
-
-    public static void writeLine(String line) {
-        throw new UnsupportedOperationException();
-//        try {
-//            csvWriter.append(line + "\n");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
@@ -71,16 +80,7 @@ public class ModelObserver implements IModelObserver {
 
         try {
             csvWriter2.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void measureWindowSize(int windowSize) {
-        try {
-            csvWriter2.append(Integer.toString(windowSize) + "\n");
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }

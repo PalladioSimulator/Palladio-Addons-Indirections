@@ -12,27 +12,29 @@ import org.palladiosimulator.indirections.scheduler.operators.Emitters.WindowEmi
 public abstract class WindowingOperator<T extends IndirectionDate>
         extends SimStatefulOperator<T, WindowingIndirectionDate<T>> {
     protected final boolean emitEmptyWindows;
-    protected final WindowEmitter windowEmitter;
-
     public List<T> emittableIndirectionDates;
 
-    public WindowingOperator(boolean emitEmptyWindows, double size, double shift, double gracePeriod) {
+    protected final WindowEmitter windowEmitter;
+
+    public WindowingOperator(final boolean emitEmptyWindows, final double size, final double shift,
+            final double gracePeriod) {
         this.emitEmptyWindows = emitEmptyWindows;
         this.windowEmitter = new WindowEmitter(size, shift, gracePeriod);
         this.emittableIndirectionDates = new ArrayList<>();
     }
 
     @Override
-    public void accept(T indirectionDate) {
-        emittableIndirectionDates.add(indirectionDate);
+    public void accept(final T indirectionDate) {
+        this.emittableIndirectionDates.add(indirectionDate);
     }
 
-    protected final void emitWindows(List<Window> windows) {
-        for (Window w : windows) {
-            List<T> dataInWindow = emittableIndirectionDates.stream().filter(it -> w.contains(it.getTime()))
-                    .collect(Collectors.toList());
-            if (emitEmptyWindows || !dataInWindow.isEmpty()) {
-                emit(new WindowingIndirectionDate<T>(dataInWindow, w));
+    protected final void emitWindows(final List<Window> windows) {
+        for (final Window w : windows) {
+            final List<T> dataInWindow = this.emittableIndirectionDates.stream()
+                .filter(it -> w.contains(it.getTime()))
+                .collect(Collectors.toList());
+            if (this.emitEmptyWindows || !dataInWindow.isEmpty()) {
+                this.emit(new WindowingIndirectionDate<T>(dataInWindow, w));
             }
         }
     }

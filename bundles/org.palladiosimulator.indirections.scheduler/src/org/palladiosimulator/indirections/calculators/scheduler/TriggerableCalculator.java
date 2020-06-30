@@ -18,28 +18,30 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public class TriggerableCalculator<V, Q extends Quantity> {
-    protected final TriggeredProxyProbe<V, Q> proxyProbe;
-    protected final TriggeredCombiningProbe<V, Q> probeList;
-    protected final IndirectionMeasuringPointRegistry registry;
     protected final SimuComModel model;
+    protected final TriggeredCombiningProbe<V, Q> probeList;
+    protected final TriggeredProxyProbe<V, Q> proxyProbe;
+    protected final IndirectionMeasuringPointRegistry registry;
 
-    public TriggerableCalculator(String name, BaseMetricDescription baseMetric, MetricSetDescription metricSet,
-            InterpreterDefaultContext context) {
+    public TriggerableCalculator(final String name, final BaseMetricDescription baseMetric,
+            final MetricSetDescription metricSet, final InterpreterDefaultContext context) {
 
         this.model = context.getModel();
-        registry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
+        this.registry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
 
-        StringMeasuringPoint measuringPoint = MeasuringUtil
-                .createStringMeasuringPoint(IndirectionMeasuringPointRegistry.MEASURING_POINT_REPOSITORY, name);
+        final StringMeasuringPoint measuringPoint = MeasuringUtil
+            .createStringMeasuringPoint(IndirectionMeasuringPointRegistry.MEASURING_POINT_REPOSITORY, name);
 
-        proxyProbe = new TriggeredProxyProbe<V, Q>(baseMetric);
-        probeList = new TriggeredCombiningProbe<V, Q>(metricSet, List.of(registry.timeProbe, proxyProbe), proxyProbe);
+        this.proxyProbe = new TriggeredProxyProbe<V, Q>(baseMetric);
+        this.probeList = new TriggeredCombiningProbe<V, Q>(metricSet, List.of(this.registry.timeProbe, this.proxyProbe),
+                this.proxyProbe);
 
-        ICalculatorFactory calculatorFactory = model.getProbeFrameworkContext().getCalculatorFactory();
-        calculatorFactory.buildExecutionResultCalculator(measuringPoint, probeList);
+        final ICalculatorFactory calculatorFactory = this.model.getProbeFrameworkContext()
+            .getCalculatorFactory();
+        calculatorFactory.buildExecutionResultCalculator(measuringPoint, this.probeList);
     }
 
-    public void doMeasure(Measure<V, Q> measure) {
-        proxyProbe.doMeasure(measure);
+    public void doMeasure(final Measure<V, Q> measure) {
+        this.proxyProbe.doMeasure(measure);
     }
 }

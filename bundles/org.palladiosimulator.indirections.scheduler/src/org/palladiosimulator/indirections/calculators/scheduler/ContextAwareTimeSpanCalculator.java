@@ -9,29 +9,31 @@ import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 public class ContextAwareTimeSpanCalculator<C> extends TriggerableTimeSpanCalculator {
-    public ContextAwareTimeSpanCalculator(String name, BaseMetricDescription baseMetric, MetricSetDescription metricSet,
-            InterpreterDefaultContext context) {
+    private final Map<C, Double> activeMeasurements = new HashMap<>();
+
+    public ContextAwareTimeSpanCalculator(final String name, final BaseMetricDescription baseMetric,
+            final MetricSetDescription metricSet, final InterpreterDefaultContext context) {
         super(name, baseMetric, metricSet, context);
     }
 
-    private Map<C, Double> activeMeasurements = new HashMap<>();
-
-    public void startMeasurement(C c) {
-        if (activeMeasurements.containsKey(c)) {
-            throw new PCMModelInterpreterException("Cannot start measurement for " + c.toString()
-                    + ", already started at " + activeMeasurements.get(c));
-        }
-
-        activeMeasurements.put(c, model.getSimulationControl().getCurrentSimulationTime());
-    }
-
-    public void endMeasurement(C c) {
-        if (!activeMeasurements.containsKey(c)) {
+    public void endMeasurement(final C c) {
+        if (!this.activeMeasurements.containsKey(c)) {
             throw new PCMModelInterpreterException(
                     "Cannot end measurement for " + c.toString() + ", no measurement start present");
         }
 
-        double timeSpan = model.getSimulationControl().getCurrentSimulationTime() - activeMeasurements.get(c);
-        doMeasure(timeSpan);
+        final double timeSpan = this.model.getSimulationControl()
+            .getCurrentSimulationTime() - this.activeMeasurements.get(c);
+        this.doMeasure(timeSpan);
+    }
+
+    public void startMeasurement(final C c) {
+        if (this.activeMeasurements.containsKey(c)) {
+            throw new PCMModelInterpreterException("Cannot start measurement for " + c.toString()
+                    + ", already started at " + this.activeMeasurements.get(c));
+        }
+
+        this.activeMeasurements.put(c, this.model.getSimulationControl()
+            .getCurrentSimulationTime());
     }
 }

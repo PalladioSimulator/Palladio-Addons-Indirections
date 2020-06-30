@@ -21,19 +21,15 @@
         extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
         ecorePackage="indirections.ecore#//actions">
       <genClasses ecoreClass="indirections.ecore#//actions/AnalyseStackAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//actions/AnalyseStackAction/key"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AnalyseStackAction/variableReference"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//actions/AnalyseStackAction/measurementIdentificationKey"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/ConsumeDataAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/dataSinkRole"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/variableReference"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/EmitDataAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/eventType"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/dataSourceRole"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/variableReference"/>
@@ -96,6 +92,10 @@
         <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/AssemblyContextSinkConnector">
           <genFeatures notify="false" createChild="false" propertySortChoices="true"
               ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/AssemblyContextSinkConnector/sinkAssemblyContext"/>
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/AssemblyContextSinkConnector/pushesTo"/>
+          <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//composition/abstract/AssemblyContextSinkConnector/pushing"
+              get="return (this.getPushesTo() != null);"/>
         </genClasses>
       </nestedGenPackages>
     </nestedGenPackages>
@@ -105,10 +105,14 @@
       <genClasses ecoreClass="indirections.ecore#//repository/DataSinkRole" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/eventGroup"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/dataSourceSinkConnectors"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//repository/DataSourceRole" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSourceRole/eventGroup"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSourceRole/dataSourceSinkConnectors"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

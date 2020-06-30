@@ -12,21 +12,22 @@ import de.uka.ipd.sdq.simucomframework.variables.StackContext;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class SpecificationPartitioningOperator<T extends IndirectionDate> extends PartitioningOperator<Object, T> {
-    private List<PCMRandomVariable> specification;
+    private final List<PCMRandomVariable> specification;
 
-    public SpecificationPartitioningOperator(List<PCMRandomVariable> specification) {
+    public SpecificationPartitioningOperator(final List<PCMRandomVariable> specification) {
         this.specification = specification;
     }
 
     @Override
-    protected Object getPartition(IndirectionDate date) {
+    protected Object getPartition(final IndirectionDate date) {
         final SimulatedStackframe<Object> stack = SimulatedStackHelper.createFromMap(date.getData());
 
-        Map<String, Object> partition = specification.stream().collect(Collectors.toMap(it -> {
-            return it.getSpecification();
-        }, it -> {
-            return StackContext.evaluateStatic(it.getSpecification(), stack);
-        }));
+        final Map<String, Object> partition = this.specification.stream()
+            .collect(Collectors.toMap(it -> {
+                return it.getSpecification();
+            }, it -> {
+                return StackContext.evaluateStatic(it.getSpecification(), stack);
+            }));
 
         return partition;
 

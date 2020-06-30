@@ -11,17 +11,18 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
 public class TimeBasedWindowingOperator<T extends IndirectionDate> extends WindowingOperator<T> {
-	private PeriodicallyTriggeredSimulationEntity windowingTrigger;
+    private final PeriodicallyTriggeredSimulationEntity windowingTrigger;
 
-	public TimeBasedWindowingOperator(boolean emitEmptyWindows, double size, double shift, double gracePeriod,
-			SimuComModel model) {
-		super(emitEmptyWindows, size, shift, gracePeriod);
+    public TimeBasedWindowingOperator(final boolean emitEmptyWindows, final double size, final double shift,
+            final double gracePeriod, final SimuComModel model) {
+        super(emitEmptyWindows, size, shift, gracePeriod);
 
-		this.windowingTrigger = IndirectionSimulationUtil.triggerPeriodically(model, gracePeriod, shift, () -> {
-			System.out.println("Current time: " + model.getSimulationControl().getCurrentSimulationTime());
-			Optional<List<Window>> windowsToEmit = windowEmitter
-					.accept(model.getSimulationControl().getCurrentSimulationTime());
-			windowsToEmit.ifPresent(this::emitWindows);
-		});
-	}
+        this.windowingTrigger = IndirectionSimulationUtil.triggerPeriodically(model, gracePeriod, shift, () -> {
+            System.out.println("Current time: " + model.getSimulationControl()
+                .getCurrentSimulationTime());
+            final Optional<List<Window>> windowsToEmit = this.windowEmitter.accept(model.getSimulationControl()
+                .getCurrentSimulationTime());
+            windowsToEmit.ifPresent(this::emitWindows);
+        });
+    }
 }
