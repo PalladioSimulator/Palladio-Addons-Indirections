@@ -1,9 +1,12 @@
 package org.palladiosimulator.indirections.scheduler.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
@@ -12,6 +15,8 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
+import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -295,5 +300,51 @@ public final class IndirectionSimulationUtil {
     }
 
     private IndirectionSimulationUtil() {
+    }
+
+    public static void requireNumberOfSinkSourceRoles(DataChannel dataChannel, Predicate<Integer> sinkRoleCheck,
+            String sinkRoleCheckDescription, Predicate<Integer> sourceRoleCheck, String sourceRoleCheckDescription) {
+
+        int numberOfSinkRoles = dataChannel.getDataSinkRoles()
+            .size();
+        int numberOfSourceRoles = dataChannel.getDataSourceRoles()
+            .size();
+
+        if (!sinkRoleCheck.test(numberOfSinkRoles)) {
+            throw new PCMModelInterpreterException("Number of sink roles not suitable for " + dataChannel
+                    + ": expected " + sinkRoleCheckDescription + ", got " + numberOfSinkRoles);
+        }
+        if (!sourceRoleCheck.test(numberOfSourceRoles)) {
+            throw new PCMModelInterpreterException("Number of source roles not suitable for " + dataChannel
+                    + ": expected " + sourceRoleCheckDescription + ", got " + numberOfSourceRoles);
+        }
+    }
+
+    public static double getDoubleParameter(JavaClassDataChannel dataChannel, String parameterName) {
+        return Double.valueOf(forceGetParameter(parameterName, dataChannel));
+    }
+
+    public static int getIntegerParameter(JavaClassDataChannel dataChannel, String parameterName) {
+        return Integer.valueOf(forceGetParameter(parameterName, dataChannel));
+    }
+
+    public static String forceGetParameter(String parameterName, JavaClassDataChannel dataChannel) {
+        var configEntries = dataChannel.getConfigEntries();
+        return Objects.requireNonNull(toConfigMap(configEntries).get(parameterName), "Could not find parameter "
+                + parameterName + " in configuration (" + String.join(", ", configEntries) + ")");
+    }
+
+    public static Map<String, String> toConfigMap(Collection<String> entries) {
+        return entries.stream()
+            .map(it -> forceSplitAtFirstOccurence(it, "->"))
+            .collect(Collectors.toMap(it -> it[0], it -> it[1]));
+    }
+
+    private static String[] forceSplitAtFirstOccurence(String it, String splitter) {
+        var split = it.indexOf(splitter);
+        if (split == -1)
+            throw new PCMModelInterpreterException("Cannot split string " + it + " at " + splitter);
+
+        return new String[] { it.substring(0, split), it.substring(split + splitter.length()) };
     }
 }

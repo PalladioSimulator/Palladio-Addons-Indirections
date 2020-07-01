@@ -1,5 +1,8 @@
 package org.palladiosimulator.indirections.scheduler;
 
+import static org.palladiosimulator.indirections.util.IndirectionModelUtil.getAllConnectorsFromSourceRoles;
+import static org.palladiosimulator.indirections.util.IndirectionModelUtil.isPushingRole;
+
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.HashMap;
@@ -35,6 +38,7 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simulation.abstractsimengine.ISimulationControl;
 
 public abstract class AbstractSimDataChannelResource implements IDataChannelResource {
     protected TriggerableTimeSpanCalculator afterAcceptingAgeCalculator;
@@ -72,6 +76,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     private final Map<DataChannelToAssemblyContextConnector, CallbackUserFactory> sourceConnectorUserFactories = new HashMap<>();
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToGet> waitingToGetTimeCalculator;
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToPut> waitingToPutTimeCalculator;
+
     public AbstractSimDataChannelResource(final DataChannel dataChannel, final InterpreterDefaultContext context,
             final SchedulerModel model) {
         if (!(model instanceof SimuComModel)) {
@@ -95,12 +100,15 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         this.setupCalculators();
     }
+
     protected abstract void acceptData(DataChannelSinkConnector connector, IndirectionDate date);
+
     private void activateIfWaiting(final SuspendableSchedulerEntity process) {
         if (process.isWaiting()) {
             process.activate();
         }
     }
+
     @Override
     public final void advance(final double watermarkTime) {
         final var oldWatermarkTime = watermarkTime;
@@ -114,6 +122,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         this.handleNewWatermarkedTime(oldWatermarkTime, watermarkTime);
     }
+
     private void allowToGetAndActivate(final ProcessWaitingToGet process) {
         this.collectAndPostponeNotification(() -> {
             this.waitingToGetTimeCalculator.endMeasurement(process);
@@ -126,6 +135,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             this.activateIfWaiting(process);
         });
     }
+
     private void allowToPutAndActivate(final ProcessWaitingToPut process) {
         this.collectAndPostponeNotification(() -> {
             this.waitingToPutTimeCalculator.endMeasurement(process);
@@ -170,10 +180,11 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         return isNextProcess && this.canAcceptData(process.connector);
     }
+
     protected abstract boolean canProvideData(DataChannelSourceConnector connector);
 
     private Collection<DataChannelToAssemblyContextConnector> claimDataChannelToAssemblyContextConnectors() {
-        return IterableUtil.claimType(IndirectionModelUtil.getAllConnectorsFromSourceRoles(this.dataChannel),
+        return IterableUtil.claimType(getAllConnectorsFromSourceRoles(this.dataChannel),
                 DataChannelToAssemblyContextConnector.class);
     }
 
@@ -213,23 +224,33 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.waitingToPutTimeCalculator.endMeasurement(process);
 
         final IndirectionDate dateToDiscard = process.date;
+        discardIncomingDate(dateToDiscard);
+
+        this.activateIfWaiting(process);
+    }
+
+    protected final void discardIncomingDate(final IndirectionDate dateToDiscard) {
         IndirectionSimulationUtil.getDataAgeRecursive(dateToDiscard)
             .forEach(this.discardedAgeCalculator::doMeasureUntilNow);
 
         this.numberOfDiscardedIncomingElementsCalculator.change(1);
+    }
 
-        this.activateIfWaiting(process);
+    protected final void discardDateIfTooOld(IndirectionDate dateToDiscard) {
+        if (IndirectionSimulationUtil.getDataAgeRecursive(dateToDiscard)
+            .stream()
+            .anyMatch(it -> it < currentWatermarkedTime))
+            discardIncomingDate(dateToDiscard);
     }
 
     @Override
     public boolean get(final ISchedulableProcess schedulableProcess, final DataChannelSourceConnector connector,
             final Consumer<IndirectionDate> callback) {
-        if (!this.model.getSimulationControl()
-            .isRunning()) {
+        if (!isSimulationRunning()) {
             return true;
         }
 
-        if (IndirectionModelUtil.isPushingRole(connector.getDataSourceRole())) {
+        if (isPushingRole(connector.getDataSourceRole())) {
             throw new IllegalStateException("Cannot pull data over pushing role.");
         }
 
@@ -245,6 +266,11 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             this.handleCannotProceedToGet(process);
             return false;
         }
+    }
+
+    private boolean isSimulationRunning() {
+        ISimulationControl simulationControl = this.model.getSimulationControl();
+        return simulationControl.isRunning();
     }
 
     public double getCurrentWatermarkedTime() {
@@ -334,7 +360,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         boolean shouldNotifyProcessesWaitingToGet = false; // we only need to call this once
         for (final DataChannelSourceConnector connector : IndirectionModelUtil
             .getAllConnectorsFromSourceRoles(this.dataChannel)) {
-            if (IndirectionModelUtil.isPushingRole(connector.getDataSourceRole())) {
+            if (isPushingRole(connector.getDataSourceRole())) {
                 while (this.canProvideData(connector)) {
                     // the method directly takes the data, thus it should not be an infinite loop
                     this.spawnNewConsumerUser(connector);
@@ -364,8 +390,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         IndirectionSimulationUtil.validateIndirectionDateStructure(date, connector.getDataSourceRole()
             .getEventGroup());
 
-        if (!this.model.getSimulationControl()
-            .isRunning()) {
+        if (!isSimulationRunning()) {
             return true;
         }
 

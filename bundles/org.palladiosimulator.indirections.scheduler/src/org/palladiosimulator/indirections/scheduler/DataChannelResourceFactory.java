@@ -34,21 +34,22 @@ public class DataChannelResourceFactory implements IDataChannelResourceFactory {
                 .getClassLoader()
                 .loadClass(fqn);
         } catch (final ClassNotFoundException e) {
-            throw new PCMModelInterpreterException("Could not find realizing class " + fqn + " for " + dataChannel, e);
+            throw new PCMModelInterpreterException(
+                    "Could not find realizing class " + fqn + " for " + javaClassDataChannel, e);
         }
 
         // AbstractSimDataChannelResource(final DataChannel dataChannel, final
         // InterpreterDefaultContext context, final SchedulerModel model)
         Constructor<IDataChannelResource> constructor;
         try {
-            constructor = clazz.getDeclaredConstructor(DataChannel.class, InterpreterDefaultContext.class,
+            constructor = clazz.getDeclaredConstructor(JavaClassDataChannel.class, InterpreterDefaultContext.class,
                     SchedulerModel.class);
-            final IDataChannelResource instance = constructor.newInstance(dataChannel, context, model);
+            final IDataChannelResource instance = constructor.newInstance(javaClassDataChannel, context, model);
             return instance;
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException e) {
-            throw new PCMModelInterpreterException("Could not create instance of class " + fqn + " for " + dataChannel,
-                    e);
+            throw new PCMModelInterpreterException(
+                    "Could not create instance of class " + fqn + " for " + javaClassDataChannel, e);
         }
 
     }
