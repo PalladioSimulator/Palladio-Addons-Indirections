@@ -6,8 +6,9 @@ import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextS
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 
 /**
- * <!-- begin-user-doc --> A representation of the model object '<em><b>Data Channel To Assembly
- * Context Connector</b></em>'. <!-- end-user-doc -->
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Data Channel To Assembly Context Connector</b></em>'.
+ * <!-- end-user-doc -->
  *
  *
  * @see org.palladiosimulator.indirections.composition.CompositionPackage#getDataChannelToAssemblyContextConnector()
@@ -15,5 +16,5 @@ import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourc
  * @generated
  */
 public interface DataChannelToAssemblyContextConnector
-        extends DataChannelSourceConnector, AssemblyContextSinkConnector {
+		extends DataChannelSourceConnector, AssemblyContextSinkConnector {
 } // DataChannelToAssemblyContextConnector
