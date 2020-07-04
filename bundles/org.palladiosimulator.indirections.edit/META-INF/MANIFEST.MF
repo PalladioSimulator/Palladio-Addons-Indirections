@@ -10,6 +10,7 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.palladiosimulator.indirections.actions.provider,
+ org.palladiosimulator.indirections.allocation.provider,
  org.palladiosimulator.indirections.composition.abstract_.provider,
  org.palladiosimulator.indirections.composition.provider,
  org.palladiosimulator.indirections.repository.provider,
