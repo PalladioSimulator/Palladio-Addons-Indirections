@@ -6,26 +6,26 @@
     <semanticResources>pathmap://PCM_MODELS/FailureTypes.repository</semanticResources>
     <semanticResources>pathmap://PCM_MODELS/PrimitiveTypes.repository</semanticResources>
     <semanticResources>repo.trepo</semanticResources>
-    <semanticResources>000-minimum-channel/000-minimum-channel.repository</semanticResources>
-    <semanticResources>000-minimum-channel/000-minimum-channel.system</semanticResources>
-    <semanticResources>000-minimum-channel/000-minimum-channel.usagemodel</semanticResources>
-    <semanticResources>000-minimum-channel/000-minimum-channel.resourceenvironment</semanticResources>
-    <semanticResources>000-minimum-channel/000-minimum-channel.allocation</semanticResources>
-    <semanticResources>001-minimum-channel_with_rd/001-minimum-channel_with_rd.allocation</semanticResources>
-    <semanticResources>001-minimum-channel_with_rd/001-minimum-channel_with_rd.resourceenvironment</semanticResources>
-    <semanticResources>001-minimum-channel_with_rd/001-minimum-channel_with_rd.system</semanticResources>
-    <semanticResources>001-minimum-channel_with_rd/001-minimum-channel_with_rd.repository</semanticResources>
-    <semanticResources>001-minimum-channel_with_rd/001-minimum-channel_with_rd.usagemodel</semanticResources>
-    <semanticResources>002-data-channel-to-data-channel/002-data-channel-to-data-channel.allocation</semanticResources>
-    <semanticResources>002-data-channel-to-data-channel/002-data-channel-to-data-channel.resourceenvironment</semanticResources>
-    <semanticResources>002-data-channel-to-data-channel/002-data-channel-to-data-channel.system</semanticResources>
-    <semanticResources>002-data-channel-to-data-channel/002-data-channel-to-data-channel.repository</semanticResources>
-    <semanticResources>002-data-channel-to-data-channel/002-data-channel-to-data-channel.usagemodel</semanticResources>
-    <semanticResources>003-data-channel-chain/003-data-channel-chain.allocation</semanticResources>
-    <semanticResources>003-data-channel-chain/003-data-channel-chain.resourceenvironment</semanticResources>
-    <semanticResources>003-data-channel-chain/003-data-channel-chain.system</semanticResources>
-    <semanticResources>003-data-channel-chain/003-data-channel-chain.repository</semanticResources>
-    <semanticResources>003-data-channel-chain/003-data-channel-chain.usagemodel</semanticResources>
+    <semanticResources>000_minimum-channel/000_minimum-channel.allocation</semanticResources>
+    <semanticResources>000_minimum-channel/000_minimum-channel.resourceenvironment</semanticResources>
+    <semanticResources>000_minimum-channel/000_minimum-channel.system</semanticResources>
+    <semanticResources>000_minimum-channel/000_minimum-channel.repository</semanticResources>
+    <semanticResources>000_minimum-channel/000_minimum-channel.usagemodel</semanticResources>
+    <semanticResources>001_minimum-channel-with-rd/001_minimum-channel-with-rd.allocation</semanticResources>
+    <semanticResources>001_minimum-channel-with-rd/001_minimum-channel-with-rd.resourceenvironment</semanticResources>
+    <semanticResources>001_minimum-channel-with-rd/001_minimum-channel-with-rd.system</semanticResources>
+    <semanticResources>001_minimum-channel-with-rd/001_minimum-channel-with-rd.repository</semanticResources>
+    <semanticResources>001_minimum-channel-with-rd/001_minimum-channel-with-rd.usagemodel</semanticResources>
+    <semanticResources>002_data-channel-to-data-channel/002_data-channel-to-data-channel.allocation</semanticResources>
+    <semanticResources>002_data-channel-to-data-channel/002_data-channel-to-data-channel.resourceenvironment</semanticResources>
+    <semanticResources>002_data-channel-to-data-channel/002_data-channel-to-data-channel.system</semanticResources>
+    <semanticResources>002_data-channel-to-data-channel/002_data-channel-to-data-channel.repository</semanticResources>
+    <semanticResources>002_data-channel-to-data-channel/002_data-channel-to-data-channel.usagemodel</semanticResources>
+    <semanticResources>003_data-channel-chain/003_data-channel-chain.allocation</semanticResources>
+    <semanticResources>003_data-channel-chain/003_data-channel-chain.resourceenvironment</semanticResources>
+    <semanticResources>003_data-channel-chain/003_data-channel-chain.system</semanticResources>
+    <semanticResources>003_data-channel-chain/003_data-channel-chain.repository</semanticResources>
+    <semanticResources>003_data-channel-chain/003_data-channel-chain.usagemodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_CmKgICDVEeqfDZoo5DmFaA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.allocation/description/allocation.odesign#//@ownedViewpoints[name='Allocation']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_Cm-_hiDVEeqfDZoo5DmFaA" name="Allocation Diagram" repPath="#_CmKgISDVEeqfDZoo5DmFaA">

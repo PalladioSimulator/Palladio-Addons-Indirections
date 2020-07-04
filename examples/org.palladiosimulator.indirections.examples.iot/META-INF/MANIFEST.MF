@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: org.palladiosimulator.indirections.examples.iot
-Bundle-SymbolicName: org.palladiosimulator.indirections.examples.iot
-Bundle-Version: 4.2.0.qualifier
