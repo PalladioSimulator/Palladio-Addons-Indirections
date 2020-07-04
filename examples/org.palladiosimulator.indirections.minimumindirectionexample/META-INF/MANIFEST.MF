@@ -1,6 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.palladiosimulator.indirections.minimumindirectionexample
-Bundle-SymbolicName: org.palladiosimulator.indirections.minimumindirectionexample
-Bundle-Version: 4.3.0.qualifier
-Require-Bundle: org.palladiosimulator.pcm
+Bundle-Name: javadatachannels
+Bundle-SymbolicName: javadatachannels
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.palladiosimulator.pcm;bundle-version="4.3.0",
+ org.palladiosimulator.pcm.resources;bundle-version="4.3.0"

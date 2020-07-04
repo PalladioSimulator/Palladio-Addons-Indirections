@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="de.upb.pcm.interpreter.SimuLizarLaunching">
-    <stringAttribute key="EDP2RepositoryID" value="_dvbfBA9nEeqNn_YgAPkI9w"/>
+    <stringAttribute key="EDP2RepositoryID" value="_XTbPILuxEeq6yLif1TQnIQ"/>
     <stringAttribute key="accuracyQualityAnnotationFile" value=""/>
     <stringAttribute key="actionModelFile" value="platform:/plugin/org.palladiosimulator.simulizar.action.repository/model/repository.actions"/>
-    <stringAttribute key="allocationFile" value="platform:/resource/org.palladiosimulator.indirections.minimumindirectionexample/001_minimum/001_minimum.allocation"/>
+    <stringAttribute key="allocationFile" value="platform:/resource/javadatachannels/000-minimum-channel/000-minimum-channel.allocation"/>
     <booleanAttribute key="clear" value="true"/>
     <stringAttribute key="confidenceBatchSize" value="200"/>
     <stringAttribute key="confidenceHalfWidth" value="10"/>
@@ -31,7 +31,7 @@
     <stringAttribute key="persistenceFramework" value="Experiment Data Persistency &amp; Presentation (EDP2)"/>
     <stringAttribute key="reconfigurationRulesFolder" value=""/>
     <stringAttribute key="serviceLevelObjectiveRepositoryFile" value=""/>
-    <stringAttribute key="simTime" value="15000"/>
+    <stringAttribute key="simTime" value="150"/>
     <booleanAttribute key="simulateAccuracy" value="false"/>
     <booleanAttribute key="simulateEvents" value="false"/>
     <booleanAttribute key="simulateFailures" value="false"/>
@@ -42,7 +42,7 @@
     <stringAttribute key="storageProject" value="org.palladiosimulator.temporary"/>
     <booleanAttribute key="storeTransformedModels" value="true"/>
     <stringAttribute key="usageEvolutionFile" value=""/>
-    <stringAttribute key="usageFile" value="platform:/resource/org.palladiosimulator.indirections.minimumindirectionexample/001_minimum/001_minimum.usagemodel"/>
+    <stringAttribute key="usageFile" value="platform:/resource/javadatachannels/000-minimum-channel/000-minimum-channel.usagemodel"/>
     <booleanAttribute key="useConfidenceStopCondition" value="false"/>
     <booleanAttribute key="useFixedSeed" value="false"/>
     <stringAttribute key="variable" value=""/>
