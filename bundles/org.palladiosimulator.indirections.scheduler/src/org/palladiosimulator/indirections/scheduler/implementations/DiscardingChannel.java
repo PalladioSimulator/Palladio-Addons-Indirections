@@ -1,10 +1,5 @@
 package org.palladiosimulator.indirections.scheduler.implementations;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
@@ -16,69 +11,45 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-// holds back elements for some time before making them available for consumption
-public class BarrierDataChannelResource extends AbstractSimDataChannelResource {
-	public static final double INTERVAL = 100;
-
-	private final List<IndirectionDate> dataIn;
-	private final Queue<IndirectionDate> dataOut;
-
-	public BarrierDataChannelResource(final JavaClassDataChannel dataChannel, final InterpreterDefaultContext context,
-			final SchedulerModel model) {
+public class DiscardingChannel extends AbstractSimDataChannelResource {
+	public DiscardingChannel(final JavaClassDataChannel dataChannel,
+			final InterpreterDefaultContext context, final SchedulerModel model) {
 		super(dataChannel, context, model);
-
-		this.dataIn = new ArrayList<>();
-		this.dataOut = new ArrayDeque<>();
-
-		// flushes data every INTERVAL time units
-		this.scheduleAdvance(this.model.getSimulationControl().getCurrentSimulationTime(), INTERVAL, 0);
 	}
 
 	@Override
 	protected void acceptData(final DataChannelSinkConnector connector, final IndirectionDate date) {
-		this.dataIn.add(date);
+		throw new AssertionError("canAcceptData is constant false");
 	}
 
 	@Override
 	protected boolean canAcceptData(final DataChannelSinkConnector connector) {
-		return true;
+		return false;
 	}
 
 	@Override
 	protected boolean canProvideData(final DataChannelSourceConnector connector) {
-		return this.dataOut.size() > 0;
+		return false;
 	}
 
 	@Override
 	protected void handleCannotProceedToGet(final ProcessWaitingToGet process) {
-		this.blockUntilCanGet(process);
+		this.continueWithoutData(process);
 	}
 
 	@Override
 	protected void handleCannotProceedToPut(final ProcessWaitingToPut process) {
-		this.blockUntilCanPut(process);
+		this.discardDataAndContinue(process);
 	}
 
 	@Override
-	protected void handleNewWatermarkedTime(final double oldWatermarkTime, final double watermarkTime) {
-		boolean newData = false;
-		for (final var iter = this.dataIn.iterator(); iter.hasNext();) {
-			final var date = iter.next();
-			if (date.getTime() <= watermarkTime) {
-				this.dataOut.add(date);
-				iter.remove();
-				newData = true;
-			}
-		}
-
-		if (newData) {
-			this.notifyProcessesCanGetNewData();
-		}
+	protected void handleNewWatermarkedTime(final double oldSimulationTime, final double simulationTime) {
+		// do nothing. everything is discarded immediately
 	}
 
 	@Override
 	protected IndirectionDate provideDataAndAdvance(final DataChannelSourceConnector connector) {
-		return this.dataOut.remove();
+		throw new AssertionError("canProvideData is constant false");
 	}
 
 }

@@ -19,7 +19,8 @@ public class TriggerableTimeSpanCalculator extends TriggerableCalculator<Double,
     }
 
     public void doMeasureUntilNow(final double time) {
-        this.doMeasure(this.model.getSimulationControl()
-            .getCurrentSimulationTime() - time);
+        double now = this.model.getSimulationControl()
+            .getCurrentSimulationTime();
+        this.doMeasure(now - time);
     }
 }

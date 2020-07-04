@@ -17,6 +17,7 @@ import org.palladiosimulator.indirections.actions.DataIteratorAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.PutTimeOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
+import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
@@ -216,23 +217,29 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseEmitDataAction(final EmitDataAction action) {
         LOGGER.trace("Emit event action: " + action.getEntityName());
 
-        final DataChannelSinkConnector dataChannelSourceConnector = IndirectionModelUtil
-            .getSourceConnector(this.context, action);
-        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
+        final AssemblyContextSourceConnector sourceConnector = IndirectionModelUtil.getSourceConnector(this.context,
                 action);
 
-        final String referenceName = action.getVariableReference()
-            .getReferenceName();
-        final IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
-                referenceName);
+        if (sourceConnector instanceof DataChannelSinkConnector) {
+            final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
+                    action);
 
-        LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
-                + dataChannelResource.getId());
+            final String referenceName = action.getVariableReference()
+                .getReferenceName();
+            final IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
+                    referenceName);
 
-        // might block
-        dataChannelResource.put(this.context.getThread(), dataChannelSourceConnector, date);
+            LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
+                    + dataChannelResource.getId());
 
-        return true;
+            // might block
+            dataChannelResource.put(this.context.getThread(), (DataChannelSinkConnector) sourceConnector, date);
+
+            return true;
+        } else {
+            throw new PCMModelInterpreterException(
+                    "Unknown " + AssemblyContextSourceConnector.class.getName() + " type: " + sourceConnector);
+        }
     }
 
     @Override

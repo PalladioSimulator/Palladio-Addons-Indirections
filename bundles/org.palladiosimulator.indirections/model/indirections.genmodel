@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.palladiosimulator.indirections/src-gen" editDirectory="/org.palladiosimulator.indirections.edit/src-gen"
-    editorDirectory="/org.palladiosimulator.indirections.editor/src-gen" modelPluginID="org.palladiosimulator.indirections"
-    dynamicTemplates="true" modelName="Indirections" editPluginClass="org.palladiosimulator.indirections.actions.provider.IndirectionsEditPlugin"
+    editorDirectory="" modelPluginID="org.palladiosimulator.indirections" dynamicTemplates="true"
+    modelName="Indirections" editPluginClass="org.palladiosimulator.indirections.actions.provider.IndirectionsEditPlugin"
     editorPluginClass="org.palladiosimulator.indirections.actions.presentation.IndirectionsEditorPlugin"
     rootExtendsInterface="org.eclipse.emf.cdo.CDOObject" rootExtendsClass="org.eclipse.emf.internal.cdo.CDOObjectImpl"
     codeFormatting="true" testsDirectory="" testSuiteClass="org.palladiosimulator.indirections.actions.tests.IndirectionsAllTests"
     importerID="org.eclipse.emf.importer.ecore" featureDelegation="Dynamic" complianceLevel="7.0"
-    copyrightFields="false" testsPluginID="org.palladiosimulator.indirections.tests"
+    copyrightFields="false" testsPluginID="org.palladiosimulator.indirections.editor"
     runtimeVersion="2.12" usedGenPackages="../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
     importOrganizing="true" cleanup="true">
   <foreignModel>indirections.ecore</foreignModel>
@@ -17,60 +17,60 @@
   <genPackages prefix="Indirections" basePackage="org.palladiosimulator" resource="XMI"
       disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
       ecorePackage="indirections.ecore#/">
-    <nestedGenPackages prefix="Actions" disposableProviderFactory="true" generateModelWizard="false"
-        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
-        ecorePackage="indirections.ecore#//actions">
+    <nestedGenPackages prefix="Actions" basePackage="org.palladiosimulator.indirections"
+        disposableProviderFactory="true" generateModelWizard="false" extensibleProviderFactory="true"
+        childCreationExtenders="true" fileExtensions="" ecorePackage="indirections.ecore#//actions">
       <genClasses ecoreClass="indirections.ecore#//actions/AnalyseStackAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AnalyseStackAction/variableReference"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//actions/AnalyseStackAction/measurementIdentificationKey"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/ConsumeDataAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/dataSinkRole"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/ConsumeDataAction/variableReference"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/EmitDataAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/dataSourceRole"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/EmitDataAction/variableReference"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/CreateDateAction">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDateAction/variableReference"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDateAction/variableUsages"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/AddToDateAction">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AddToDateAction/variableReference"/>
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AddToDateAction/variableUsages"/>
       </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//actions/DataIteratorAction">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/DataIteratorAction/variableReference"/>
-      </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//actions/PutTimeOnStackAction">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/PutTimeOnStackAction/variableReference"/>
+      <genClasses ecoreClass="indirections.ecore#//actions/DataIteratorAction"/>
+      <genClasses ecoreClass="indirections.ecore#//actions/PutTimeOnStackAction"/>
+      <genClasses image="false" ecoreClass="indirections.ecore#//actions/RegroupDataAction"/>
+      <genClasses ecoreClass="indirections.ecore#//actions/JavaClassRegroupDataAction"/>
+      <genClasses image="false" ecoreClass="indirections.ecore#//actions/DataAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/DataAction/variableReference"/>
       </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="System" disposableProviderFactory="true" generateModelWizard="false"
-        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
-        ecorePackage="indirections.ecore#//system">
+    <nestedGenPackages prefix="System" basePackage="org.palladiosimulator.indirections"
+        disposableProviderFactory="true" generateModelWizard="false" extensibleProviderFactory="true"
+        childCreationExtenders="true" fileExtensions="" ecorePackage="indirections.ecore#//system">
       <genClasses ecoreClass="indirections.ecore#//system/DataChannel" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataSinkRoles"
+        <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataSinkRoles"
             get="return (EList&lt;DataSinkRole>) ((EList&lt;?>) getProvidedRoles_InterfaceProvidingEntity());"/>
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataSourceRoles"
+        <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataSourceRoles"
             get="return (EList&lt;DataSourceRole>) ((EList&lt;?>) getRequiredRoles_InterfaceRequiringEntity());"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//system/JavaClassDataChannel">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/JavaClassDataChannel/realizingClassFqn"/>
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/JavaClassDataChannel/configEntries"/>
       </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//system/IndirectionsAwareSystem">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/IndirectionsAwareSystem/dataChannels"/>
+      </genClasses>
     </nestedGenPackages>
-    <nestedGenPackages prefix="Composition" disposableProviderFactory="true" generateModelWizard="false"
-        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
-        ecorePackage="indirections.ecore#//composition">
+    <nestedGenPackages prefix="Composition" basePackage="org.palladiosimulator.indirections"
+        disposableProviderFactory="true" generateModelWizard="false" extensibleProviderFactory="true"
+        childCreationExtenders="true" fileExtensions="" ecorePackage="indirections.ecore#//composition">
       <genClasses ecoreClass="indirections.ecore#//composition/DataChannelToAssemblyContextConnector"/>
       <genClasses ecoreClass="indirections.ecore#//composition/AssemblyContextToDataChannelConnector"/>
       <genClasses ecoreClass="indirections.ecore#//composition/DataChannelToDataChannelConnector"/>
       <genClasses ecoreClass="indirections.ecore#//composition/AssemblyContextToAssemblyContextConnector"/>
-      <nestedGenPackages prefix="Abstract" disposableProviderFactory="true" ecorePackage="indirections.ecore#//composition/abstract">
+      <nestedGenPackages prefix="Abstract" basePackage="org.palladiosimulator.indirections.composition"
+          disposableProviderFactory="true" ecorePackage="indirections.ecore#//composition/abstract">
         <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataSourceSinkConnector">
           <genFeatures notify="false" createChild="false" propertySortChoices="true"
               ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataSourceSinkConnector/dataSourceRole"/>
@@ -99,20 +99,28 @@
         </genClasses>
       </nestedGenPackages>
     </nestedGenPackages>
-    <nestedGenPackages prefix="Repository" disposableProviderFactory="true" generateModelWizard="false"
-        extensibleProviderFactory="true" childCreationExtenders="true" fileExtensions=""
-        ecorePackage="indirections.ecore#//repository">
+    <nestedGenPackages prefix="Repository" basePackage="org.palladiosimulator.indirections"
+        disposableProviderFactory="true" generateModelWizard="false" extensibleProviderFactory="true"
+        childCreationExtenders="true" fileExtensions="" ecorePackage="indirections.ecore#//repository">
       <genClasses ecoreClass="indirections.ecore#//repository/DataSinkRole" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/eventGroup"/>
-        <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSinkRole/dataSourceSinkConnectors"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//repository/DataSourceRole" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSourceRole/eventGroup"/>
+      </genClasses>
+    </nestedGenPackages>
+    <nestedGenPackages prefix="Allocation" basePackage="org.palladiosimulator.indirections"
+        disposableProviderFactory="true" ecorePackage="indirections.ecore#//allocation">
+      <genClasses ecoreClass="indirections.ecore#//allocation/IndirectionsAwareAllocation">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//allocation/IndirectionsAwareAllocation/dataChannelAllocationContexts"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//allocation/DataChannelAllocationContext">
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//repository/DataSourceRole/dataSourceSinkConnectors"/>
+            ecoreFeature="ecore:EReference indirections.ecore#//allocation/DataChannelAllocationContext/dataChannel"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//allocation/DataChannelAllocationContext/resourceEnvironment"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

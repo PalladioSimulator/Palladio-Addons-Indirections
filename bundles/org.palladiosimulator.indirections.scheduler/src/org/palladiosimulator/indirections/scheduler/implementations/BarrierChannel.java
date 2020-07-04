@@ -18,47 +18,30 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
 // holds back elements for some time before making them available for consumption
-public class SlidingWindowDataChannelResource extends AbstractSimDataChannelResource {
-    public static final String WINDOW_SIZE_PARAMETER_NAME = "windowSize";
-    public static final String WINDOW_SHIFT_PARAMETER_NAME = "windowShift";
-    public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";
-
-    private final double windowSize;
-    private final double windowShift;
-    private final double gracePeriod;
+public class BarrierChannel extends AbstractSimDataChannelResource {
+    public static final String INTERVAL_PARAMETER_NAME = "interval";
 
     private final List<IndirectionDate> dataIn;
     private final Queue<IndirectionDate> dataOut;
 
-    public SlidingWindowDataChannelResource(final JavaClassDataChannel dataChannel,
-            final InterpreterDefaultContext context, final SchedulerModel model, final String[] configEntries) {
+    private double interval;
+
+    public BarrierChannel(final JavaClassDataChannel dataChannel, final InterpreterDefaultContext context,
+            final SchedulerModel model) {
         super(dataChannel, context, model);
-
-        if (true)
-            throw new UnsupportedOperationException();
-
-        IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it == 1,
-                "== 1");
 
         this.dataIn = new ArrayList<>();
         this.dataOut = new ArrayDeque<>();
 
-        this.windowSize = IndirectionSimulationUtil.getDoubleParameter(dataChannel, WINDOW_SIZE_PARAMETER_NAME);
-        this.windowShift = IndirectionSimulationUtil.getDoubleParameter(dataChannel, WINDOW_SHIFT_PARAMETER_NAME);
-        this.gracePeriod = IndirectionSimulationUtil.getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME);
+        this.interval = IndirectionSimulationUtil.getDoubleParameter(dataChannel, INTERVAL_PARAMETER_NAME);
 
         // flushes data every INTERVAL time units
-        this.scheduleAdvance(findNextWindowStart(this.model.getSimulationControl()
-            .getCurrentSimulationTime()), windowShift, gracePeriod);
-    }
-
-    private double findNextWindowStart(double currentSimulationTime) {
-        return Math.ceil(currentSimulationTime / windowShift) * windowShift;
+        this.scheduleAdvance(this.model.getSimulationControl()
+            .getCurrentSimulationTime(), interval, 0);
     }
 
     @Override
     protected void acceptData(final DataChannelSinkConnector connector, final IndirectionDate date) {
-        discardDateIfTooOld(date);
         this.dataIn.add(date);
     }
 

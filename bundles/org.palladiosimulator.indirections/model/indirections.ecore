@@ -2,55 +2,46 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="indirections" nsURI="http://palladiosimulator.org/Indirections/1.0"
     nsPrefix="org.palladiosimulator.indirections">
+  <eClassifiers xsi:type="ecore:EClass" name="JavaClassRealization" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="realizingClassFqn" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="configEntries" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" transient="true"/>
+  </eClassifiers>
   <eSubpackages name="actions" nsURI="http://palladiosimulator.org/Indirections/Actions/1.0"
       nsPrefix="org.palladiosimulator.indirections.actions">
-    <eClassifiers xsi:type="ecore:EClass" name="AnalyseStackAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+    <eClassifiers xsi:type="ecore:EClass" name="DataAction" abstract="true" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
           eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
           containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="AnalyseStackAction" eSuperTypes="#//actions/DataAction">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="measurementIdentificationKey"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="ConsumeDataAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+    <eClassifiers xsi:type="ecore:EClass" name="ConsumeDataAction" eSuperTypes="#//actions/DataAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataSinkRole" ordered="false"
           lowerBound="1" eType="#//repository/DataSinkRole"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
-          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
-          containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="EmitDataAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
+    <eClassifiers xsi:type="ecore:EClass" name="EmitDataAction" eSuperTypes="#//actions/DataAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceRole" lowerBound="1"
           eType="#//repository/DataSourceRole"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
-          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
-          containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="CreateDateAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
-          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
-          containment="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="CreateDateAction" eSuperTypes="#//actions/DataAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableUsages" upperBound="-1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//parameter/VariableUsage"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="AddToDateAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
-          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
-          containment="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="AddToDateAction" eSuperTypes="#//actions/DataAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableUsages" upperBound="-1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//parameter/VariableUsage"
           containment="true"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="DataIteratorAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractLoopAction">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
-          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
-          containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="PutTimeOnStackAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractAction">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="variableReference" lowerBound="1"
-          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
-          containment="true"/>
-    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataIteratorAction" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//seff/AbstractLoopAction #//actions/DataAction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="PutTimeOnStackAction" eSuperTypes="#//actions/DataAction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="RegroupDataAction" abstract="true"
+        eSuperTypes="#//actions/DataAction"/>
+    <eClassifiers xsi:type="ecore:EClass" name="JavaClassRegroupDataAction" eSuperTypes="#//actions/RegroupDataAction #//JavaClassRealization"/>
   </eSubpackages>
   <eSubpackages name="system" nsURI="http://palladiosimulator.org/Indirections/System/1.0"
       nsPrefix="org.palladiosimulator.indirections.system">
@@ -59,7 +50,8 @@
         <details key="documentation" value="&lt;p>Note that this class is also a {@link ResourceInterfaceRequiringEntity}&lt;/p> &lt;p>TODO: validation for derived attribute should be implemented (type must be DataSinkRole/DataSourceRole)&lt;/p>"/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataSinkRoles" upperBound="-1"
-          eType="#//repository/DataSinkRole" volatile="true" transient="true" derived="true">
+          eType="#//repository/DataSinkRole" changeable="false" volatile="true" transient="true"
+          derived="true">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="get" value="return (EList&lt;DataSinkRole>) ((EList&lt;?>) getProvidedRoles_InterfaceProvidingEntity());"/>
         </eAnnotations>
@@ -72,12 +64,10 @@
         </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="JavaClassDataChannel" eSuperTypes="#//system/DataChannel">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="realizingClassFqn" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="configEntries" upperBound="-1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          transient="true"/>
+    <eClassifiers xsi:type="ecore:EClass" name="JavaClassDataChannel" eSuperTypes="#//system/DataChannel #//JavaClassRealization"/>
+    <eClassifiers xsi:type="ecore:EClass" name="IndirectionsAwareSystem" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//system/System">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannels" upperBound="-1"
+          eType="#//system/DataChannel" containment="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="composition" nsURI="http://palladiosimulator.org/Indirections/Composition/1.0"
@@ -101,9 +91,9 @@
           <details key="documentation" value="Connector between a source and a sink of data."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceRole" ordered="false"
-            lowerBound="1" eType="#//repository/DataSourceRole" eOpposite="#//repository/DataSourceRole/dataSourceSinkConnectors"/>
+            lowerBound="1" eType="#//repository/DataSourceRole"/>
         <eStructuralFeatures xsi:type="ecore:EReference" name="dataSinkRole" ordered="false"
-            lowerBound="1" eType="#//repository/DataSinkRole" eOpposite="#//repository/DataSinkRole/dataSourceSinkConnectors"/>
+            lowerBound="1" eType="#//repository/DataSinkRole"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="DataChannelSourceConnector" abstract="true"
           eSuperTypes="#//composition/abstract/DataSourceSinkConnector">
@@ -155,15 +145,22 @@
       nsPrefix="org.palladiosimulator.indirections.repository">
     <eClassifiers xsi:type="ecore:EClass" name="DataSinkRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/ProvidedRole">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventGroup" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceSinkConnectors"
-          upperBound="-1" eType="#//composition/abstract/DataSourceSinkConnector"
-          eOpposite="#//composition/abstract/DataSourceSinkConnector/dataSinkRole"/>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="DataSourceRole" abstract="true" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/RequiredRole">
+    <eClassifiers xsi:type="ecore:EClass" name="DataSourceRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/RequiredRole">
       <eStructuralFeatures xsi:type="ecore:EReference" name="eventGroup" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="dataSourceSinkConnectors"
-          upperBound="-1" eType="#//composition/abstract/DataSourceSinkConnector"
-          eOpposite="#//composition/abstract/DataSourceSinkConnector/dataSourceRole"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="allocation" nsURI="http://palladiosimulator.org/Indirections/Allocation/1.0"
+      nsPrefix="org.palladiosimulator.indirections.allocation">
+    <eClassifiers xsi:type="ecore:EClass" name="IndirectionsAwareAllocation" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//allocation/Allocation">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannelAllocationContexts"
+          upperBound="-1" eType="#//allocation/DataChannelAllocationContext" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataChannelAllocationContext" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/Entity">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannel" lowerBound="1"
+          eType="#//system/DataChannel"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="resourceEnvironment"
+          lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

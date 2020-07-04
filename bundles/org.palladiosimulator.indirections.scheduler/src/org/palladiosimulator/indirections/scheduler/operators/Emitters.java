@@ -107,6 +107,12 @@ public final class Emitters {
             return result;
         }
 
+        public void skipUntil(final double currentSimulationTime) {
+            while (currentSimulationTime - this.gracePeriod >= this.createNextWindow().end) {
+                this.next();
+            }
+        }
+
         public Window createNextWindow() {
             if (this.currentWindow == null) {
                 return new Window(this.shift - this.size, this.shift);

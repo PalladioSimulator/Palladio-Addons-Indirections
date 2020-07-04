@@ -320,12 +320,22 @@ public final class IndirectionSimulationUtil {
         }
     }
 
+    public static void requireExactNumberOfSinkSourceRoles(DataChannel dataChannel, int sinkRoleNumber,
+            int sourceRoleNumber) {
+        requireNumberOfSinkSourceRoles(dataChannel, it -> it == sinkRoleNumber, "== " + sinkRoleNumber,
+                it -> it == sourceRoleNumber, "== " + sourceRoleNumber);
+    }
+
     public static double getDoubleParameter(JavaClassDataChannel dataChannel, String parameterName) {
         return Double.valueOf(forceGetParameter(parameterName, dataChannel));
     }
 
     public static int getIntegerParameter(JavaClassDataChannel dataChannel, String parameterName) {
         return Integer.valueOf(forceGetParameter(parameterName, dataChannel));
+    }
+
+    public static boolean getBooleanParameter(JavaClassDataChannel dataChannel, String parameterName) {
+        return Boolean.valueOf(forceGetParameter(parameterName, dataChannel));
     }
 
     public static String forceGetParameter(String parameterName, JavaClassDataChannel dataChannel) {

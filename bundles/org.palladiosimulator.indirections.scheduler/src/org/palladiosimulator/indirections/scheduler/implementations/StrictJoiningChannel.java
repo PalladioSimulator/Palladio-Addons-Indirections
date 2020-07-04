@@ -22,10 +22,10 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
 // emits data together when each sink role has contributed exactly one date.
-public class StrictJoiningDataChannelResource extends AbstractSimDataChannelResource {
+public class StrictJoiningChannel extends AbstractSimDataChannelResource {
     private Map<DataSinkRole, IndirectionDate> dataIn;
 
-    public StrictJoiningDataChannelResource(JavaClassDataChannel dataChannel, InterpreterDefaultContext context,
+    public StrictJoiningChannel(JavaClassDataChannel dataChannel, InterpreterDefaultContext context,
             SchedulerModel model) {
         super(dataChannel, context, model);
 

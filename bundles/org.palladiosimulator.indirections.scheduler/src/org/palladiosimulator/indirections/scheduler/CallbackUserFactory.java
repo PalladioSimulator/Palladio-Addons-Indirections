@@ -2,14 +2,17 @@ package org.palladiosimulator.indirections.scheduler;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
+import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
@@ -70,6 +73,8 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
                         .getFailureStatistics()
                         .increaseUnhandledFailureCounter(exception.getFailureType(), this.currentSessionId);
                 }
+            } catch (final Exception e) {
+                e.printStackTrace();
             } finally {
                 // Increase measurements counter manually as usage scenario run is
                 // not finished:
@@ -107,8 +112,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 
         @Override
         public void scenarioRunner(final SimuComSimProcess thread) {
-            final Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(
-                    CallbackUserFactory.this.connector);
+            final var simulationCall = getCallInvocation(CallbackUserFactory.this.connector);
 
             for (final IndirectionDate currentDate : this.date) {
                 // TODO: fix helper method to handle data on stack
@@ -123,34 +127,37 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
                         Objects.requireNonNull(currentDate));
                 IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, currentDate);
 
-                simulationCall.accept(this.context);
+                simulationCall.accept(this.context, parameterName);
             }
         }
     }
 
     public class CallbackUser extends AbstractCallbackUser<IndirectionDate> {
+        private final String parameterName;
+        private final BiConsumer<InterpreterDefaultContext, String> simulationCall;
+
         public CallbackUser(final SimuComModel owner, final String name) {
             super(owner, name);
+
+            parameterName = IndirectionSimulationUtil
+                .getOneParameter(CallbackUserFactory.this.connector.getDataSinkRole()
+                    .getEventGroup())
+                .getParameterName();
+
+            simulationCall = getCallInvocation(CallbackUserFactory.this.connector);
         }
 
         @Override
         public void scenarioRunner(final SimuComSimProcess thread) {
-            final Consumer<InterpreterDefaultContext> simulationCall = getCallInvocation(
-                    CallbackUserFactory.this.connector);
-
             // TODO: fix helper method to handle data on stack
             this.context.getStack()
                 .createAndPushNewStackFrame();
-            final String parameterName = IndirectionSimulationUtil
-                .getOneParameter(CallbackUserFactory.this.connector.getDataSinkRole()
-                    .getEventGroup())
-                .getParameterName();
 
             IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), parameterName,
                     Objects.requireNonNull(this.date));
             IndirectionSimulationUtil.flattenDataOnStack(this.context.getStack(), parameterName, this.date);
 
-            simulationCall.accept(this.context);
+            simulationCall.accept(this.context, parameterName);
         }
     }
 
@@ -159,11 +166,14 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
         return new CallbackUserFactory(model, connector);
     }
 
-    private static Consumer<InterpreterDefaultContext> getCallInvocation(final DataChannelSourceConnector connector) {
+    private static BiConsumer<InterpreterDefaultContext, String> getCallInvocation(
+            final DataChannelSourceConnector connector) {
         if (connector instanceof DataChannelSinkConnector) {
-            return (context) -> simulateDataChannelCall(context, (DataChannelSinkConnector) connector);
+            return (context, parameterName) -> simulateDataChannelCall(context, (DataChannelSinkConnector) connector,
+                    parameterName);
         } else if (connector instanceof AssemblyContextSinkConnector) {
-            return (context) -> simulateComponentCall(context, (AssemblyContextSinkConnector) connector);
+            return (context, parameterName) -> simulateComponentCall(context, (AssemblyContextSinkConnector) connector,
+                    parameterName);
         } else {
             throw new PCMModelInterpreterException(
                     "Unknown connector type for pushing: " + connector.getClass() + " (" + connector + ")");
@@ -182,7 +192,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
      * @param connector
      */
     private static void simulateComponentCall(final InterpreterDefaultContext context,
-            final AssemblyContextSinkConnector connector) {
+            final AssemblyContextSinkConnector connector, String parameterName) {
         final DataSinkRole sinkRole = connector.getDataSinkRole();
 
         final RepositoryComponentSwitch providedDelegationSwitch = new RepositoryComponentSwitch(context,
@@ -194,8 +204,16 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
     }
 
     private static void simulateDataChannelCall(final InterpreterDefaultContext context,
-            final DataChannelSinkConnector connector) {
-        throw new UnsupportedOperationException();
+            final DataChannelSinkConnector connector, String parameterName) {
+
+        final DataSinkRole sinkRole = connector.getDataSinkRole();
+        final DataChannel dataChannel = connector.getSinkDataChannel();
+
+        final IDataChannelResource dataChannelResource = DataChannelRegistry.getInstanceFor(context)
+            .getOrCreateDataChannelResource(dataChannel);
+
+        IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), parameterName);
+        dataChannelResource.put(context.getThread(), connector, date);
     }
 
     private final DataChannelSourceConnector connector;

@@ -1,6 +1,7 @@
 package org.palladiosimulator.indirections.scheduler;
 
 import static org.palladiosimulator.indirections.util.IndirectionModelUtil.getAllConnectorsFromSourceRoles;
+import static org.palladiosimulator.indirections.util.IndirectionModelUtil.getSystem;
 import static org.palladiosimulator.indirections.util.IndirectionModelUtil.isPushingRole;
 
 import java.util.ArrayDeque;
@@ -31,6 +32,7 @@ import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
+import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
@@ -42,7 +44,7 @@ import de.uka.ipd.sdq.simulation.abstractsimengine.ISimulationControl;
 
 public abstract class AbstractSimDataChannelResource implements IDataChannelResource {
     protected TriggerableTimeSpanCalculator afterAcceptingAgeCalculator;
-    protected TriggerableTimeSpanCalculator beforePuttingAgeCalculator;
+    protected TriggerableTimeSpanCalculator beforeProvidingAgeCalculator;
     private boolean canGetNewData = false;
 
     private boolean canPutNewData = false;
@@ -73,7 +75,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     private PeriodicallyTriggeredSimulationEntity scheduledFlush;
 
-    private final Map<DataChannelToAssemblyContextConnector, CallbackUserFactory> sourceConnectorUserFactories = new HashMap<>();
+    private final Map<DataChannelSourceConnector, CallbackUserFactory> sourceConnectorUserFactories = new HashMap<>();
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToGet> waitingToGetTimeCalculator;
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToPut> waitingToPutTimeCalculator;
 
@@ -127,9 +129,11 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.collectAndPostponeNotification(() -> {
             this.waitingToGetTimeCalculator.endMeasurement(process);
 
+            this.numberOfStoredOutgoingElementsCalculator.change(1);
+
             final IndirectionDate providedData = this.provideDataAndAdvance(process.connector);
             IndirectionSimulationUtil.getDataAgeRecursive(providedData)
-                .forEach(this.beforePuttingAgeCalculator::doMeasureUntilNow);
+                .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
             process.callback.accept(providedData);
 
             this.activateIfWaiting(process);
@@ -140,6 +144,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.collectAndPostponeNotification(() -> {
             this.waitingToPutTimeCalculator.endMeasurement(process);
 
+            this.numberOfStoredIncomingElementsCalculator.change(1);
             this.acceptData(process.connector, process.date);
 
             IndirectionSimulationUtil.getDataAgeRecursive(process.date)
@@ -166,8 +171,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     private boolean canProceedToGet(final ProcessWaitingToGet process) {
         final DataSourceRole role = process.connector.getDataSourceRole();
 
-        final boolean isNextProcess = this.processesWaitingToGet.isEmpty() || this.processesWaitingToGet.get(role)
-            .peek().schedulableProcess.equals(process.schedulableProcess);
+        Queue<ProcessWaitingToGet> processQueue = this.processesWaitingToGet.get(role);
+        final boolean isNextProcess = processQueue.isEmpty()
+                || processQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 
         return isNextProcess && this.canProvideData(process.connector);
     }
@@ -175,8 +181,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     private boolean canProceedToPut(final ProcessWaitingToPut process) {
         final DataSinkRole role = process.connector.getDataSinkRole();
 
-        final boolean isNextProcess = this.processesWaitingToPut.isEmpty() || this.processesWaitingToPut.get(role)
-            .peek().schedulableProcess.equals(process.schedulableProcess);
+        Queue<ProcessWaitingToPut> processQueue = this.processesWaitingToPut.get(role);
+        final boolean isNextProcess = processQueue.isEmpty()
+                || processQueue.peek().schedulableProcess.equals(process.schedulableProcess);
 
         return isNextProcess && this.canAcceptData(process.connector);
     }
@@ -213,8 +220,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             throw new IllegalStateException("User factories already created.");
         }
 
-        for (final DataChannelToAssemblyContextConnector connector : this
-            .claimDataChannelToAssemblyContextConnectors()) {
+        for (final DataChannelSourceConnector connector : getAllConnectorsFromSourceRoles(this.dataChannel)) {
             this.sourceConnectorUserFactories.put(connector,
                     CallbackUserFactory.createPushingUserFactory(this.model, connector));
         }
@@ -236,11 +242,37 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.numberOfDiscardedIncomingElementsCalculator.change(1);
     }
 
-    protected final void discardDateIfTooOld(IndirectionDate dateToDiscard) {
+    protected final boolean discardDateIfTooOld(IndirectionDate dateToDiscard) {
         if (IndirectionSimulationUtil.getDataAgeRecursive(dateToDiscard)
             .stream()
-            .anyMatch(it -> it < currentWatermarkedTime))
+            .anyMatch(it -> it < currentWatermarkedTime)) {
+            numberOfDiscardedOutgoingElementsCalculator.change(1);
             discardIncomingDate(dateToDiscard);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Schedules the given demand on the given resource type. This postpones the continued
+     * execution.
+     * 
+     * <p>
+     * 
+     * The demand is scheduled on the resource this data channel is allocated on.
+     * 
+     * <p>
+     * 
+     * TODO: implement
+     * 
+     * @param resourceType
+     *            the type of resource
+     * @param demandSpecification
+     *            a StoEx as String
+     */
+    protected final void scheduleDemand(ProcessingResourceType resourceType, String demandSpecification) {
+        if (true)
+            throw new UnsupportedOperationException();
     }
 
     @Override
@@ -250,7 +282,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             return true;
         }
 
-        if (isPushingRole(connector.getDataSourceRole())) {
+        if (isPushingRole(connector.getDataSourceRole(), getSystem(dataChannel))) {
             throw new IllegalStateException("Cannot pull data over pushing role.");
         }
 
@@ -360,7 +392,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         boolean shouldNotifyProcessesWaitingToGet = false; // we only need to call this once
         for (final DataChannelSourceConnector connector : IndirectionModelUtil
             .getAllConnectorsFromSourceRoles(this.dataChannel)) {
-            if (isPushingRole(connector.getDataSourceRole())) {
+            if (isPushingRole(connector.getDataSourceRole(), getSystem(dataChannel))) {
                 while (this.canProvideData(connector)) {
                     // the method directly takes the data, thus it should not be an infinite loop
                     this.spawnNewConsumerUser(connector);
@@ -446,8 +478,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     private void setupSourceCalculators() {
-        this.beforePuttingAgeCalculator = new TriggerableTimeSpanCalculator(
-                "Data age before putting (" + this.name + ")", IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
+        this.beforeProvidingAgeCalculator = new TriggerableTimeSpanCalculator(
+                "Data age before providing (" + this.name + ")", IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
         this.waitingToGetTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToGet>(
                 "Waiting time to get (" + this.name + ")", MetricDescriptionConstants.WAITING_TIME_METRIC,
@@ -471,7 +503,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     private void spawnNewConsumerUser(final DataChannelSourceConnector connector) {
         final IndirectionDate date = this.provideDataAndAdvance(connector);
-        this.beforePuttingAgeCalculator.doMeasure(date.getTime());
+        this.beforeProvidingAgeCalculator.doMeasureUntilNow(date.getTime());
 
         final String parameterName = IndirectionSimulationUtil.getOneParameter(connector.getDataSinkRole()
             .getEventGroup())
@@ -483,6 +515,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         final InterpreterDefaultContext newContext = new InterpreterDefaultContext(this.context.getRuntimeState()
             .getMainContext(), user);
 
+        this.numberOfStoredOutgoingElementsCalculator.change(1);
         user.setDataAndStartUserLife(parameterName, date, newContext);
     }
 

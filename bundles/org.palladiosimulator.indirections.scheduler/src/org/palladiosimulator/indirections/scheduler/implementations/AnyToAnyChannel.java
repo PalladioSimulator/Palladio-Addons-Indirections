@@ -44,7 +44,7 @@ public abstract class AnyToAnyChannel extends AbstractSimDataChannelResource {
 
     @Override
     protected void handleCannotProceedToPut(final ProcessWaitingToPut process) {
-        throw new IllegalArgumentException("This should never happen.");
+        throw new AssertionError("This should never happen.");
     }
 
     @Override

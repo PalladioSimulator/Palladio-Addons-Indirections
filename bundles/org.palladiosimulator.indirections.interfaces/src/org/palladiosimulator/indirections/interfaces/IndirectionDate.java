@@ -18,9 +18,13 @@ public interface IndirectionDate {
 
     void addDate(String key, Object value);
 
+    default Object evaluate(final String stoEx) {
+        return StackContext.evaluateStatic(stoEx, SimulatedStackHelper.createFromMap(this.getData()),
+                VariableMode.EXCEPTION_ON_NOT_FOUND);
+    }
+
     default Object evaluate(final PCMRandomVariable pcmRandomVariable) {
-        return StackContext.evaluateStatic(pcmRandomVariable.getSpecification(),
-                SimulatedStackHelper.createFromMap(this.getData()), VariableMode.EXCEPTION_ON_NOT_FOUND);
+        return evaluate(pcmRandomVariable.getSpecification());
     }
 
     Map<String, Object> getData();
