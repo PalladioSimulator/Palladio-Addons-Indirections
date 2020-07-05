@@ -5,6 +5,7 @@ package org.palladiosimulator.indirections.actions.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.palladiosimulator.indirections.JavaClassRealization;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AddToDateAction;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
@@ -77,6 +78,26 @@ public class ActionsSwitch<T> extends Switch<T> {
     @Override
     protected T doSwitch(final int classifierID, final EObject theEObject) {
         switch (classifierID) {
+        case ActionsPackage.DATA_ACTION: {
+            final DataAction dataAction = (DataAction) theEObject;
+            T result = this.caseDataAction(dataAction);
+            if (result == null) {
+                result = this.caseAbstractAction(dataAction);
+            }
+            if (result == null) {
+                result = this.caseEntity(dataAction);
+            }
+            if (result == null) {
+                result = this.caseIdentifier(dataAction);
+            }
+            if (result == null) {
+                result = this.caseNamedElement(dataAction);
+            }
+            if (result == null) {
+                result = this.defaultCase(theEObject);
+            }
+            return result;
+        }
         case ActionsPackage.ANALYSE_STACK_ACTION: {
             final AnalyseStackAction analyseStackAction = (AnalyseStackAction) theEObject;
             T result = this.caseAnalyseStackAction(analyseStackAction);
@@ -274,6 +295,9 @@ public class ActionsSwitch<T> extends Switch<T> {
                 result = this.caseRegroupDataAction(javaClassRegroupDataAction);
             }
             if (result == null) {
+                result = this.caseJavaClassRealization(javaClassRegroupDataAction);
+            }
+            if (result == null) {
                 result = this.caseDataAction(javaClassRegroupDataAction);
             }
             if (result == null) {
@@ -287,26 +311,6 @@ public class ActionsSwitch<T> extends Switch<T> {
             }
             if (result == null) {
                 result = this.caseNamedElement(javaClassRegroupDataAction);
-            }
-            if (result == null) {
-                result = this.defaultCase(theEObject);
-            }
-            return result;
-        }
-        case ActionsPackage.DATA_ACTION: {
-            final DataAction dataAction = (DataAction) theEObject;
-            T result = this.caseDataAction(dataAction);
-            if (result == null) {
-                result = this.caseAbstractAction(dataAction);
-            }
-            if (result == null) {
-                result = this.caseEntity(dataAction);
-            }
-            if (result == null) {
-                result = this.caseIdentifier(dataAction);
-            }
-            if (result == null) {
-                result = this.caseNamedElement(dataAction);
             }
             if (result == null) {
                 result = this.defaultCase(theEObject);
@@ -565,6 +569,22 @@ public class ActionsSwitch<T> extends Switch<T> {
      * @generated
      */
     public T caseAbstractLoopAction(final AbstractLoopAction object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Java Class
+     * Realization</em>'. <!-- begin-user-doc --> This implementation returns null; returning a
+     * non-null result will terminate the switch. <!-- end-user-doc -->
+     *
+     * @param object
+     *            the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Java Class
+     *         Realization</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseJavaClassRealization(final JavaClassRealization object) {
         return null;
     }
 

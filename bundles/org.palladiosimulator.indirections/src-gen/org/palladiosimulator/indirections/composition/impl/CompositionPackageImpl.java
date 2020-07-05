@@ -5,6 +5,7 @@ package org.palladiosimulator.indirections.composition.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.palladiosimulator.indirections.IndirectionsPackage;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
 import org.palladiosimulator.indirections.allocation.AllocationPackage;
@@ -17,6 +18,7 @@ import org.palladiosimulator.indirections.composition.DataChannelToAssemblyConte
 import org.palladiosimulator.indirections.composition.DataChannelToDataChannelConnector;
 import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
 import org.palladiosimulator.indirections.composition.abstract_.impl.AbstractPackageImpl;
+import org.palladiosimulator.indirections.impl.IndirectionsPackageImpl;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 import org.palladiosimulator.indirections.system.SystemPackage;
@@ -122,7 +124,11 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
         UnitsPackage.eINSTANCE.eClass();
 
         // Obtain or create and register interdependencies
-        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
+        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(IndirectionsPackage.eNS_URI);
+        final IndirectionsPackageImpl theIndirectionsPackage = (IndirectionsPackageImpl) (registeredPackage instanceof IndirectionsPackageImpl
+                ? registeredPackage
+                : IndirectionsPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
         final ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
                 ? registeredPackage
                 : ActionsPackage.eINSTANCE);
@@ -145,6 +151,7 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 
         // Create package meta-data objects
         theCompositionPackage.createPackageContents();
+        theIndirectionsPackage.createPackageContents();
         theActionsPackage.createPackageContents();
         theSystemPackage.createPackageContents();
         theAbstractPackage.createPackageContents();
@@ -153,6 +160,7 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
 
         // Initialize created meta-data
         theCompositionPackage.initializePackageContents();
+        theIndirectionsPackage.initializePackageContents();
         theActionsPackage.initializePackageContents();
         theSystemPackage.initializePackageContents();
         theAbstractPackage.initializePackageContents();
@@ -316,9 +324,6 @@ public class CompositionPackageImpl extends EPackageImpl implements CompositionP
         this.initEClass(this.assemblyContextToAssemblyContextConnectorEClass,
                 AssemblyContextToAssemblyContextConnector.class, "AssemblyContextToAssemblyContextConnector",
                 !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        // Create resource
-        this.createResource(eNS_URI);
     }
 
 } // CompositionPackageImpl

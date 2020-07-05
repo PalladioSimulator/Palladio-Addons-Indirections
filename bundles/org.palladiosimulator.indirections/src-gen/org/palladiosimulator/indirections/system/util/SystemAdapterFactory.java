@@ -6,6 +6,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.palladiosimulator.indirections.JavaClassRealization;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.IndirectionsAwareSystem;
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
@@ -122,6 +123,11 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseInterfaceProvidingRequiringEntity(final InterfaceProvidingRequiringEntity object) {
             return SystemAdapterFactory.this.createInterfaceProvidingRequiringEntityAdapter();
+        }
+
+        @Override
+        public Adapter caseJavaClassRealization(final JavaClassRealization object) {
+            return SystemAdapterFactory.this.createJavaClassRealizationAdapter();
         }
 
         @Override
@@ -303,6 +309,21 @@ public class SystemAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createInterfaceProvidingRequiringEntityAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class
+     * '{@link org.palladiosimulator.indirections.JavaClassRealization <em>Java Class
+     * Realization</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the
+     * cases anyway. <!-- end-user-doc -->
+     *
+     * @return the new adapter.
+     * @see org.palladiosimulator.indirections.JavaClassRealization
+     * @generated
+     */
+    public Adapter createJavaClassRealizationAdapter() {
         return null;
     }
 

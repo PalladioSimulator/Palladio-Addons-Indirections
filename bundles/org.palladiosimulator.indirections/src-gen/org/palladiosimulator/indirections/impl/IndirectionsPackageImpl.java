@@ -1,12 +1,14 @@
 /**
  */
-package org.palladiosimulator.indirections.system.impl;
+package org.palladiosimulator.indirections.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.palladiosimulator.indirections.IndirectionsFactory;
 import org.palladiosimulator.indirections.IndirectionsPackage;
+import org.palladiosimulator.indirections.JavaClassRealization;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
 import org.palladiosimulator.indirections.allocation.AllocationPackage;
@@ -15,16 +17,11 @@ import org.palladiosimulator.indirections.composition.CompositionPackage;
 import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
 import org.palladiosimulator.indirections.composition.abstract_.impl.AbstractPackageImpl;
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
-import org.palladiosimulator.indirections.impl.IndirectionsPackageImpl;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
-import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.system.IndirectionsAwareSystem;
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
-import org.palladiosimulator.indirections.system.SystemFactory;
 import org.palladiosimulator.indirections.system.SystemPackage;
+import org.palladiosimulator.indirections.system.impl.SystemPackageImpl;
 import org.palladiosimulator.pcm.PcmPackage;
-import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 import de.uka.ipd.sdq.identifier.IdentifierPackage;
 import de.uka.ipd.sdq.probfunction.ProbfunctionPackage;
@@ -36,27 +33,13 @@ import de.uka.ipd.sdq.units.UnitsPackage;
  *
  * @generated
  */
-public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
+public class IndirectionsPackageImpl extends EPackageImpl implements IndirectionsPackage {
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      */
-    private EClass dataChannelEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private EClass javaClassDataChannelEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    private EClass indirectionsAwareSystemEClass = null;
+    private EClass javaClassRealizationEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -68,12 +51,12 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see org.palladiosimulator.indirections.system.SystemPackage#eNS_URI
+     * @see org.palladiosimulator.indirections.IndirectionsPackage#eNS_URI
      * @see #init()
      * @generated
      */
-    private SystemPackageImpl() {
-        super(eNS_URI, SystemFactory.eINSTANCE);
+    private IndirectionsPackageImpl() {
+        super(eNS_URI, IndirectionsFactory.eINSTANCE);
     }
 
     /**
@@ -88,7 +71,7 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * upon which it depends.
      *
      * <p>
-     * This method is used to initialize {@link SystemPackage#eINSTANCE} when that field is
+     * This method is used to initialize {@link IndirectionsPackage#eINSTANCE} when that field is
      * accessed. Clients should not invoke it directly. Instead, they should simply access that
      * field to obtain the package. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
@@ -97,16 +80,16 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * @see #initializePackageContents()
      * @generated
      */
-    public static SystemPackage init() {
+    public static IndirectionsPackage init() {
         if (isInited) {
-            return (SystemPackage) EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
+            return (IndirectionsPackage) EPackage.Registry.INSTANCE.getEPackage(IndirectionsPackage.eNS_URI);
         }
 
         // Obtain or create and register package
-        final Object registeredSystemPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-        final SystemPackageImpl theSystemPackage = registeredSystemPackage instanceof SystemPackageImpl
-                ? (SystemPackageImpl) registeredSystemPackage
-                : new SystemPackageImpl();
+        final Object registeredIndirectionsPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+        final IndirectionsPackageImpl theIndirectionsPackage = registeredIndirectionsPackage instanceof IndirectionsPackageImpl
+                ? (IndirectionsPackageImpl) registeredIndirectionsPackage
+                : new IndirectionsPackageImpl();
 
         isInited = true;
 
@@ -118,14 +101,14 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
         UnitsPackage.eINSTANCE.eClass();
 
         // Obtain or create and register interdependencies
-        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(IndirectionsPackage.eNS_URI);
-        final IndirectionsPackageImpl theIndirectionsPackage = (IndirectionsPackageImpl) (registeredPackage instanceof IndirectionsPackageImpl
-                ? registeredPackage
-                : IndirectionsPackage.eINSTANCE);
-        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
+        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
         final ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
                 ? registeredPackage
                 : ActionsPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
+        final SystemPackageImpl theSystemPackage = (SystemPackageImpl) (registeredPackage instanceof SystemPackageImpl
+                ? registeredPackage
+                : SystemPackage.eINSTANCE);
         registeredPackage = EPackage.Registry.INSTANCE.getEPackage(CompositionPackage.eNS_URI);
         final CompositionPackageImpl theCompositionPackage = (CompositionPackageImpl) (registeredPackage instanceof CompositionPackageImpl
                 ? registeredPackage
@@ -144,29 +127,29 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
                 : AllocationPackage.eINSTANCE);
 
         // Create package meta-data objects
-        theSystemPackage.createPackageContents();
         theIndirectionsPackage.createPackageContents();
         theActionsPackage.createPackageContents();
+        theSystemPackage.createPackageContents();
         theCompositionPackage.createPackageContents();
         theAbstractPackage.createPackageContents();
         theRepositoryPackage.createPackageContents();
         theAllocationPackage.createPackageContents();
 
         // Initialize created meta-data
-        theSystemPackage.initializePackageContents();
         theIndirectionsPackage.initializePackageContents();
         theActionsPackage.initializePackageContents();
+        theSystemPackage.initializePackageContents();
         theCompositionPackage.initializePackageContents();
         theAbstractPackage.initializePackageContents();
         theRepositoryPackage.initializePackageContents();
         theAllocationPackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
-        theSystemPackage.freeze();
+        theIndirectionsPackage.freeze();
 
         // Update the registry and return the package
-        EPackage.Registry.INSTANCE.put(SystemPackage.eNS_URI, theSystemPackage);
-        return theSystemPackage;
+        EPackage.Registry.INSTANCE.put(IndirectionsPackage.eNS_URI, theIndirectionsPackage);
+        return theIndirectionsPackage;
     }
 
     /**
@@ -175,8 +158,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * @generated
      */
     @Override
-    public EClass getDataChannel() {
-        return this.dataChannelEClass;
+    public EClass getJavaClassRealization() {
+        return this.javaClassRealizationEClass;
     }
 
     /**
@@ -185,8 +168,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * @generated
      */
     @Override
-    public EReference getDataChannel_DataSinkRoles() {
-        return (EReference) this.dataChannelEClass.getEStructuralFeatures()
+    public EAttribute getJavaClassRealization_RealizingClassFqn() {
+        return (EAttribute) this.javaClassRealizationEClass.getEStructuralFeatures()
             .get(0);
     }
 
@@ -196,8 +179,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * @generated
      */
     @Override
-    public EReference getDataChannel_DataSourceRoles() {
-        return (EReference) this.dataChannelEClass.getEStructuralFeatures()
+    public EAttribute getJavaClassRealization_ConfigEntries() {
+        return (EAttribute) this.javaClassRealizationEClass.getEStructuralFeatures()
             .get(1);
     }
 
@@ -207,39 +190,8 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
      * @generated
      */
     @Override
-    public EClass getJavaClassDataChannel() {
-        return this.javaClassDataChannelEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EClass getIndirectionsAwareSystem() {
-        return this.indirectionsAwareSystemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EReference getIndirectionsAwareSystem_DataChannels() {
-        return (EReference) this.indirectionsAwareSystemEClass.getEStructuralFeatures()
-            .get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public SystemFactory getSystemFactory() {
-        return (SystemFactory) this.getEFactoryInstance();
+    public IndirectionsFactory getIndirectionsFactory() {
+        return (IndirectionsFactory) this.getEFactoryInstance();
     }
 
     /**
@@ -262,14 +214,9 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
         this.isCreated = true;
 
         // Create classes and their features
-        this.dataChannelEClass = this.createEClass(DATA_CHANNEL);
-        this.createEReference(this.dataChannelEClass, DATA_CHANNEL__DATA_SINK_ROLES);
-        this.createEReference(this.dataChannelEClass, DATA_CHANNEL__DATA_SOURCE_ROLES);
-
-        this.javaClassDataChannelEClass = this.createEClass(JAVA_CLASS_DATA_CHANNEL);
-
-        this.indirectionsAwareSystemEClass = this.createEClass(INDIRECTIONS_AWARE_SYSTEM);
-        this.createEReference(this.indirectionsAwareSystemEClass, INDIRECTIONS_AWARE_SYSTEM__DATA_CHANNELS);
+        this.javaClassRealizationEClass = this.createEClass(JAVA_CLASS_REALIZATION);
+        this.createEAttribute(this.javaClassRealizationEClass, JAVA_CLASS_REALIZATION__REALIZING_CLASS_FQN);
+        this.createEAttribute(this.javaClassRealizationEClass, JAVA_CLASS_REALIZATION__CONFIG_ENTRIES);
     }
 
     /**
@@ -297,47 +244,47 @@ public class SystemPackageImpl extends EPackageImpl implements SystemPackage {
         this.setNsURI(eNS_URI);
 
         // Obtain other dependent packages
-        final EntityPackage theEntityPackage = (EntityPackage) EPackage.Registry.INSTANCE
-            .getEPackage(EntityPackage.eNS_URI);
+        final ActionsPackage theActionsPackage = (ActionsPackage) EPackage.Registry.INSTANCE
+            .getEPackage(ActionsPackage.eNS_URI);
+        final SystemPackage theSystemPackage = (SystemPackage) EPackage.Registry.INSTANCE
+            .getEPackage(SystemPackage.eNS_URI);
+        final CompositionPackage theCompositionPackage = (CompositionPackage) EPackage.Registry.INSTANCE
+            .getEPackage(CompositionPackage.eNS_URI);
         final RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
             .getEPackage(RepositoryPackage.eNS_URI);
-        final IndirectionsPackage theIndirectionsPackage = (IndirectionsPackage) EPackage.Registry.INSTANCE
-            .getEPackage(IndirectionsPackage.eNS_URI);
-        final org.palladiosimulator.pcm.system.SystemPackage theSystemPackage_1 = (org.palladiosimulator.pcm.system.SystemPackage) EPackage.Registry.INSTANCE
-            .getEPackage(org.palladiosimulator.pcm.system.SystemPackage.eNS_URI);
+        final AllocationPackage theAllocationPackage = (AllocationPackage) EPackage.Registry.INSTANCE
+            .getEPackage(AllocationPackage.eNS_URI);
+
+        // Add subpackages
+        this.getESubpackages()
+            .add(theActionsPackage);
+        this.getESubpackages()
+            .add(theSystemPackage);
+        this.getESubpackages()
+            .add(theCompositionPackage);
+        this.getESubpackages()
+            .add(theRepositoryPackage);
+        this.getESubpackages()
+            .add(theAllocationPackage);
 
         // Create type parameters
 
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        this.dataChannelEClass.getESuperTypes()
-            .add(theEntityPackage.getInterfaceProvidingRequiringEntity());
-        this.javaClassDataChannelEClass.getESuperTypes()
-            .add(this.getDataChannel());
-        this.javaClassDataChannelEClass.getESuperTypes()
-            .add(theIndirectionsPackage.getJavaClassRealization());
-        this.indirectionsAwareSystemEClass.getESuperTypes()
-            .add(theSystemPackage_1.getSystem());
 
         // Initialize classes and features; add operations and parameters
-        this.initEClass(this.dataChannelEClass, DataChannel.class, "DataChannel", IS_ABSTRACT, !IS_INTERFACE,
-                IS_GENERATED_INSTANCE_CLASS);
-        this.initEReference(this.getDataChannel_DataSinkRoles(), theRepositoryPackage.getDataSinkRole(), null,
-                "dataSinkRoles", null, 0, -1, DataChannel.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE,
-                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-        this.initEReference(this.getDataChannel_DataSourceRoles(), theRepositoryPackage.getDataSourceRole(), null,
-                "dataSourceRoles", null, 0, -1, DataChannel.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE,
-                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        this.initEClass(this.javaClassRealizationEClass, JavaClassRealization.class, "JavaClassRealization",
+                IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        this.initEAttribute(this.getJavaClassRealization_RealizingClassFqn(), this.ecorePackage.getEString(),
+                "realizingClassFqn", null, 1, 1, JavaClassRealization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        this.initEAttribute(this.getJavaClassRealization_ConfigEntries(), this.ecorePackage.getEString(),
+                "configEntries", null, 0, -1, JavaClassRealization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        this.initEClass(this.javaClassDataChannelEClass, JavaClassDataChannel.class, "JavaClassDataChannel",
-                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        this.initEClass(this.indirectionsAwareSystemEClass, IndirectionsAwareSystem.class, "IndirectionsAwareSystem",
-                !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        this.initEReference(this.getIndirectionsAwareSystem_DataChannels(), this.getDataChannel(), null, "dataChannels",
-                null, 0, -1, IndirectionsAwareSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
-                !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        // Create resource
+        this.createResource(eNS_URI);
     }
 
-} // SystemPackageImpl
+} // IndirectionsPackageImpl

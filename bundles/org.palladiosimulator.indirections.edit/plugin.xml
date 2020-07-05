@@ -9,6 +9,19 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <!-- @generated indirections -->
       <factory
+            uri="http://palladiosimulator.org/Indirections/1.0"
+            class="org.palladiosimulator.indirections.provider.IndirectionsItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated indirections -->
+      <factory
             uri="http://palladiosimulator.org/Indirections/Actions/1.0"
             class="org.palladiosimulator.indirections.actions.provider.ActionsItemProviderAdapterFactory"
             supportedTypes=

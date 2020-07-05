@@ -6,6 +6,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.palladiosimulator.indirections.JavaClassRealization;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AddToDateAction;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
@@ -79,6 +80,11 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
      */
     protected ActionsSwitch<Adapter> modelSwitch = new ActionsSwitch<Adapter>() {
         @Override
+        public Adapter caseDataAction(final DataAction object) {
+            return ActionsAdapterFactory.this.createDataActionAdapter();
+        }
+
+        @Override
         public Adapter caseAnalyseStackAction(final AnalyseStackAction object) {
             return ActionsAdapterFactory.this.createAnalyseStackActionAdapter();
         }
@@ -124,11 +130,6 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
         }
 
         @Override
-        public Adapter caseDataAction(final DataAction object) {
-            return ActionsAdapterFactory.this.createDataActionAdapter();
-        }
-
-        @Override
         public Adapter caseIdentifier(final Identifier object) {
             return ActionsAdapterFactory.this.createIdentifierAdapter();
         }
@@ -156,6 +157,11 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
         @Override
         public Adapter caseAbstractLoopAction(final AbstractLoopAction object) {
             return ActionsAdapterFactory.this.createAbstractLoopActionAdapter();
+        }
+
+        @Override
+        public Adapter caseJavaClassRealization(final JavaClassRealization object) {
+            return ActionsAdapterFactory.this.createJavaClassRealizationAdapter();
         }
 
         @Override
@@ -412,6 +418,21 @@ public class ActionsAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createAbstractLoopActionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class
+     * '{@link org.palladiosimulator.indirections.JavaClassRealization <em>Java Class
+     * Realization</em>}'. <!-- begin-user-doc --> This default implementation returns null so that
+     * we can easily ignore cases; it's useful to ignore a case when inheritance will catch all the
+     * cases anyway. <!-- end-user-doc -->
+     *
+     * @return the new adapter.
+     * @see org.palladiosimulator.indirections.JavaClassRealization
+     * @generated
+     */
+    public Adapter createJavaClassRealizationAdapter() {
         return null;
     }
 

@@ -6,6 +6,8 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.palladiosimulator.indirections.IndirectionsPackage;
+import org.palladiosimulator.indirections.JavaClassRealization;
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
@@ -62,7 +64,7 @@ public class JavaClassDataChannelImpl extends DataChannelImpl implements JavaCla
     @Override
     public String getRealizingClassFqn() {
         return (String) this.eDynamicGet(SystemPackage.JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN,
-                SystemPackage.Literals.JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN, true, true);
+                IndirectionsPackage.Literals.JAVA_CLASS_REALIZATION__REALIZING_CLASS_FQN, true, true);
     }
 
     /**
@@ -73,7 +75,7 @@ public class JavaClassDataChannelImpl extends DataChannelImpl implements JavaCla
     @Override
     public void setRealizingClassFqn(final String newRealizingClassFqn) {
         this.eDynamicSet(SystemPackage.JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN,
-                SystemPackage.Literals.JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN, newRealizingClassFqn);
+                IndirectionsPackage.Literals.JAVA_CLASS_REALIZATION__REALIZING_CLASS_FQN, newRealizingClassFqn);
     }
 
     /**
@@ -85,7 +87,7 @@ public class JavaClassDataChannelImpl extends DataChannelImpl implements JavaCla
     @Override
     public EList<String> getConfigEntries() {
         return (EList<String>) this.eDynamicGet(SystemPackage.JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES,
-                SystemPackage.Literals.JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES, true, true);
+                IndirectionsPackage.Literals.JAVA_CLASS_REALIZATION__CONFIG_ENTRIES, true, true);
     }
 
     /**
@@ -161,6 +163,46 @@ public class JavaClassDataChannelImpl extends DataChannelImpl implements JavaCla
                 .isEmpty();
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public int eBaseStructuralFeatureID(final int derivedFeatureID, final Class<?> baseClass) {
+        if (baseClass == JavaClassRealization.class) {
+            switch (derivedFeatureID) {
+            case SystemPackage.JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN:
+                return IndirectionsPackage.JAVA_CLASS_REALIZATION__REALIZING_CLASS_FQN;
+            case SystemPackage.JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES:
+                return IndirectionsPackage.JAVA_CLASS_REALIZATION__CONFIG_ENTRIES;
+            default:
+                return -1;
+            }
+        }
+        return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public int eDerivedStructuralFeatureID(final int baseFeatureID, final Class<?> baseClass) {
+        if (baseClass == JavaClassRealization.class) {
+            switch (baseFeatureID) {
+            case IndirectionsPackage.JAVA_CLASS_REALIZATION__REALIZING_CLASS_FQN:
+                return SystemPackage.JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN;
+            case IndirectionsPackage.JAVA_CLASS_REALIZATION__CONFIG_ENTRIES:
+                return SystemPackage.JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES;
+            default:
+                return -1;
+            }
+        }
+        return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
     }
 
 } // JavaClassDataChannelImpl

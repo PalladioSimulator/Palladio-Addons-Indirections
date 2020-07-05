@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.palladiosimulator.indirections.IndirectionsPackage;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
 import org.palladiosimulator.indirections.allocation.AllocationPackage;
@@ -20,6 +21,7 @@ import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkC
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector;
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
+import org.palladiosimulator.indirections.impl.IndirectionsPackageImpl;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 import org.palladiosimulator.indirections.system.SystemPackage;
@@ -132,7 +134,11 @@ public class AbstractPackageImpl extends EPackageImpl implements AbstractPackage
         UnitsPackage.eINSTANCE.eClass();
 
         // Obtain or create and register interdependencies
-        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
+        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(IndirectionsPackage.eNS_URI);
+        final IndirectionsPackageImpl theIndirectionsPackage = (IndirectionsPackageImpl) (registeredPackage instanceof IndirectionsPackageImpl
+                ? registeredPackage
+                : IndirectionsPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
         final ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
                 ? registeredPackage
                 : ActionsPackage.eINSTANCE);
@@ -155,6 +161,7 @@ public class AbstractPackageImpl extends EPackageImpl implements AbstractPackage
 
         // Create package meta-data objects
         theAbstractPackage.createPackageContents();
+        theIndirectionsPackage.createPackageContents();
         theActionsPackage.createPackageContents();
         theSystemPackage.createPackageContents();
         theCompositionPackage.createPackageContents();
@@ -163,6 +170,7 @@ public class AbstractPackageImpl extends EPackageImpl implements AbstractPackage
 
         // Initialize created meta-data
         theAbstractPackage.initializePackageContents();
+        theIndirectionsPackage.initializePackageContents();
         theActionsPackage.initializePackageContents();
         theSystemPackage.initializePackageContents();
         theCompositionPackage.initializePackageContents();

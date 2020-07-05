@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.palladiosimulator.indirections.IndirectionsPackage;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl;
 import org.palladiosimulator.indirections.allocation.AllocationFactory;
@@ -16,6 +17,7 @@ import org.palladiosimulator.indirections.composition.CompositionPackage;
 import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
 import org.palladiosimulator.indirections.composition.abstract_.impl.AbstractPackageImpl;
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
+import org.palladiosimulator.indirections.impl.IndirectionsPackageImpl;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 import org.palladiosimulator.indirections.system.SystemPackage;
@@ -109,7 +111,11 @@ public class AllocationPackageImpl extends EPackageImpl implements AllocationPac
         UnitsPackage.eINSTANCE.eClass();
 
         // Obtain or create and register interdependencies
-        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
+        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(IndirectionsPackage.eNS_URI);
+        final IndirectionsPackageImpl theIndirectionsPackage = (IndirectionsPackageImpl) (registeredPackage instanceof IndirectionsPackageImpl
+                ? registeredPackage
+                : IndirectionsPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(ActionsPackage.eNS_URI);
         final ActionsPackageImpl theActionsPackage = (ActionsPackageImpl) (registeredPackage instanceof ActionsPackageImpl
                 ? registeredPackage
                 : ActionsPackage.eINSTANCE);
@@ -132,6 +138,7 @@ public class AllocationPackageImpl extends EPackageImpl implements AllocationPac
 
         // Create package meta-data objects
         theAllocationPackage.createPackageContents();
+        theIndirectionsPackage.createPackageContents();
         theActionsPackage.createPackageContents();
         theSystemPackage.createPackageContents();
         theCompositionPackage.createPackageContents();
@@ -140,6 +147,7 @@ public class AllocationPackageImpl extends EPackageImpl implements AllocationPac
 
         // Initialize created meta-data
         theAllocationPackage.initializePackageContents();
+        theIndirectionsPackage.initializePackageContents();
         theActionsPackage.initializePackageContents();
         theSystemPackage.initializePackageContents();
         theCompositionPackage.initializePackageContents();
@@ -308,9 +316,6 @@ public class AllocationPackageImpl extends EPackageImpl implements AllocationPac
                 theResourceenvironmentPackage.getResourceContainer(), null, "resourceEnvironment", null, 1, 1,
                 DataChannelAllocationContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
                 IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        // Create resource
-        this.createResource(eNS_URI);
     }
 
 } // AllocationPackageImpl

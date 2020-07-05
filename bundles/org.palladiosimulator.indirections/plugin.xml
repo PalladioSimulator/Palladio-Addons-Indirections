@@ -6,6 +6,21 @@
 
 <plugin>
    <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated indirections -->
+      <package
+            uri="http://palladiosimulator.org/Indirections/1.0"
+            class="org.palladiosimulator.indirections.IndirectionsPackage"
+            genModel="model/indirections.genmodel"/>
+   </extension>
+
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated indirections -->
+      <parser
+            type="indirections"
+            class="org.palladiosimulator.indirections.util.IndirectionsResourceFactoryImpl"/>
+   </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
             uri="http://palladiosimulator.org/Indirections/Actions/1.0"

@@ -61,7 +61,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getDataAction()
      * @generated
      */
-    int DATA_ACTION = 9;
+    int DATA_ACTION = 0;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -135,7 +135,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getAnalyseStackAction()
      * @generated
      */
-    int ANALYSE_STACK_ACTION = 0;
+    int ANALYSE_STACK_ACTION = 1;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -218,7 +218,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getConsumeDataAction()
      * @generated
      */
-    int CONSUME_DATA_ACTION = 1;
+    int CONSUME_DATA_ACTION = 2;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -301,7 +301,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getEmitDataAction()
      * @generated
      */
-    int EMIT_DATA_ACTION = 2;
+    int EMIT_DATA_ACTION = 3;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -384,7 +384,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getCreateDateAction()
      * @generated
      */
-    int CREATE_DATE_ACTION = 3;
+    int CREATE_DATE_ACTION = 4;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -467,7 +467,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getAddToDateAction()
      * @generated
      */
-    int ADD_TO_DATE_ACTION = 4;
+    int ADD_TO_DATE_ACTION = 5;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -550,7 +550,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getDataIteratorAction()
      * @generated
      */
-    int DATA_ITERATOR_ACTION = 5;
+    int DATA_ITERATOR_ACTION = 6;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -660,7 +660,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getPutTimeOnStackAction()
      * @generated
      */
-    int PUT_TIME_ON_STACK_ACTION = 6;
+    int PUT_TIME_ON_STACK_ACTION = 7;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -734,7 +734,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getRegroupDataAction()
      * @generated
      */
-    int REGROUP_DATA_ACTION = 7;
+    int REGROUP_DATA_ACTION = 8;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -809,7 +809,7 @@ public interface ActionsPackage extends EPackage {
      * @see org.palladiosimulator.indirections.actions.impl.ActionsPackageImpl#getJavaClassRegroupDataAction()
      * @generated
      */
-    int JAVA_CLASS_REGROUP_DATA_ACTION = 8;
+    int JAVA_CLASS_REGROUP_DATA_ACTION = 9;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -866,13 +866,31 @@ public interface ActionsPackage extends EPackage {
     int JAVA_CLASS_REGROUP_DATA_ACTION__VARIABLE_REFERENCE = REGROUP_DATA_ACTION__VARIABLE_REFERENCE;
 
     /**
+     * The feature id for the '<em><b>Realizing Class Fqn</b></em>' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_REGROUP_DATA_ACTION__REALIZING_CLASS_FQN = REGROUP_DATA_ACTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Config Entries</b></em>' attribute list. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int JAVA_CLASS_REGROUP_DATA_ACTION__CONFIG_ENTRIES = REGROUP_DATA_ACTION_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Java Class Regroup Data Action</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int JAVA_CLASS_REGROUP_DATA_ACTION_FEATURE_COUNT = REGROUP_DATA_ACTION_FEATURE_COUNT + 0;
+    int JAVA_CLASS_REGROUP_DATA_ACTION_FEATURE_COUNT = REGROUP_DATA_ACTION_FEATURE_COUNT + 2;
 
     /**
      * Returns the meta object for class

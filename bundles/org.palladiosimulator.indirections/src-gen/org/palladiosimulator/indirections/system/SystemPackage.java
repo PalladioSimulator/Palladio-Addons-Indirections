@@ -2,7 +2,6 @@
  */
 package org.palladiosimulator.indirections.system;
 
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -404,30 +403,6 @@ public interface SystemPackage extends EPackage {
     EClass getJavaClassDataChannel();
 
     /**
-     * Returns the meta object for the attribute
-     * '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn
-     * <em>Realizing Class Fqn</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the meta object for the attribute '<em>Realizing Class Fqn</em>'.
-     * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getRealizingClassFqn()
-     * @see #getJavaClassDataChannel()
-     * @generated
-     */
-    EAttribute getJavaClassDataChannel_RealizingClassFqn();
-
-    /**
-     * Returns the meta object for the attribute list
-     * '{@link org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries
-     * <em>Config Entries</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the meta object for the attribute list '<em>Config Entries</em>'.
-     * @see org.palladiosimulator.indirections.system.JavaClassDataChannel#getConfigEntries()
-     * @see #getJavaClassDataChannel()
-     * @generated
-     */
-    EAttribute getJavaClassDataChannel_ConfigEntries();
-
-    /**
      * Returns the meta object for class
      * '{@link org.palladiosimulator.indirections.system.IndirectionsAwareSystem <em>Indirections
      * Aware System</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -509,22 +484,6 @@ public interface SystemPackage extends EPackage {
          * @generated
          */
         EClass JAVA_CLASS_DATA_CHANNEL = eINSTANCE.getJavaClassDataChannel();
-
-        /**
-         * The meta object literal for the '<em><b>Realizing Class Fqn</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!-- end-user-doc -->
-         *
-         * @generated
-         */
-        EAttribute JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN = eINSTANCE.getJavaClassDataChannel_RealizingClassFqn();
-
-        /**
-         * The meta object literal for the '<em><b>Config Entries</b></em>' attribute list feature.
-         * <!-- begin-user-doc --> <!-- end-user-doc -->
-         *
-         * @generated
-         */
-        EAttribute JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES = eINSTANCE.getJavaClassDataChannel_ConfigEntries();
 
         /**
          * The meta object literal for the

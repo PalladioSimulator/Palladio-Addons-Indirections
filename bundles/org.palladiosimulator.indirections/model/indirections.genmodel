@@ -17,9 +17,16 @@
   <genPackages prefix="Indirections" basePackage="org.palladiosimulator" resource="XMI"
       disposableProviderFactory="true" extensibleProviderFactory="true" childCreationExtenders="true"
       ecorePackage="indirections.ecore#/">
+    <genClasses image="false" ecoreClass="indirections.ecore#//JavaClassRealization">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//JavaClassRealization/realizingClassFqn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//JavaClassRealization/configEntries"/>
+    </genClasses>
     <nestedGenPackages prefix="Actions" basePackage="org.palladiosimulator.indirections"
         disposableProviderFactory="true" generateModelWizard="false" extensibleProviderFactory="true"
         childCreationExtenders="true" fileExtensions="" ecorePackage="indirections.ecore#//actions">
+      <genClasses image="false" ecoreClass="indirections.ecore#//actions/DataAction">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/DataAction/variableReference"/>
+      </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/AnalyseStackAction" labelFeature="../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm/core/entity/NamedElement/entityName">
         <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//actions/AnalyseStackAction/measurementIdentificationKey"/>
       </genClasses>
@@ -41,9 +48,6 @@
       <genClasses ecoreClass="indirections.ecore#//actions/PutTimeOnStackAction"/>
       <genClasses image="false" ecoreClass="indirections.ecore#//actions/RegroupDataAction"/>
       <genClasses ecoreClass="indirections.ecore#//actions/JavaClassRegroupDataAction"/>
-      <genClasses image="false" ecoreClass="indirections.ecore#//actions/DataAction">
-        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/DataAction/variableReference"/>
-      </genClasses>
     </nestedGenPackages>
     <nestedGenPackages prefix="System" basePackage="org.palladiosimulator.indirections"
         disposableProviderFactory="true" generateModelWizard="false" extensibleProviderFactory="true"
@@ -54,10 +58,7 @@
         <genFeatures property="None" createChild="false" ecoreFeature="ecore:EReference indirections.ecore#//system/DataChannel/dataSourceRoles"
             get="return (EList&lt;DataSourceRole>) ((EList&lt;?>) getRequiredRoles_InterfaceRequiringEntity());"/>
       </genClasses>
-      <genClasses ecoreClass="indirections.ecore#//system/JavaClassDataChannel">
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/JavaClassDataChannel/realizingClassFqn"/>
-        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//system/JavaClassDataChannel/configEntries"/>
-      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//system/JavaClassDataChannel"/>
       <genClasses ecoreClass="indirections.ecore#//system/IndirectionsAwareSystem">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//system/IndirectionsAwareSystem/dataChannels"/>
       </genClasses>

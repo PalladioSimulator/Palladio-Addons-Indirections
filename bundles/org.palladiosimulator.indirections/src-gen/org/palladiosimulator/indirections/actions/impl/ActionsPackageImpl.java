@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.palladiosimulator.indirections.IndirectionsPackage;
 import org.palladiosimulator.indirections.actions.ActionsFactory;
 import org.palladiosimulator.indirections.actions.ActionsPackage;
 import org.palladiosimulator.indirections.actions.AddToDateAction;
@@ -25,6 +26,7 @@ import org.palladiosimulator.indirections.composition.CompositionPackage;
 import org.palladiosimulator.indirections.composition.abstract_.AbstractPackage;
 import org.palladiosimulator.indirections.composition.abstract_.impl.AbstractPackageImpl;
 import org.palladiosimulator.indirections.composition.impl.CompositionPackageImpl;
+import org.palladiosimulator.indirections.impl.IndirectionsPackageImpl;
 import org.palladiosimulator.indirections.repository.RepositoryPackage;
 import org.palladiosimulator.indirections.repository.impl.RepositoryPackageImpl;
 import org.palladiosimulator.indirections.system.SystemPackage;
@@ -174,7 +176,11 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         UnitsPackage.eINSTANCE.eClass();
 
         // Obtain or create and register interdependencies
-        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
+        Object registeredPackage = EPackage.Registry.INSTANCE.getEPackage(IndirectionsPackage.eNS_URI);
+        final IndirectionsPackageImpl theIndirectionsPackage = (IndirectionsPackageImpl) (registeredPackage instanceof IndirectionsPackageImpl
+                ? registeredPackage
+                : IndirectionsPackage.eINSTANCE);
+        registeredPackage = EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
         final SystemPackageImpl theSystemPackage = (SystemPackageImpl) (registeredPackage instanceof SystemPackageImpl
                 ? registeredPackage
                 : SystemPackage.eINSTANCE);
@@ -197,6 +203,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
         // Create package meta-data objects
         theActionsPackage.createPackageContents();
+        theIndirectionsPackage.createPackageContents();
         theSystemPackage.createPackageContents();
         theCompositionPackage.createPackageContents();
         theAbstractPackage.createPackageContents();
@@ -205,6 +212,7 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
         // Initialize created meta-data
         theActionsPackage.initializePackageContents();
+        theIndirectionsPackage.initializePackageContents();
         theSystemPackage.initializePackageContents();
         theCompositionPackage.initializePackageContents();
         theAbstractPackage.initializePackageContents();
@@ -415,6 +423,9 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         this.isCreated = true;
 
         // Create classes and their features
+        this.dataActionEClass = this.createEClass(DATA_ACTION);
+        this.createEReference(this.dataActionEClass, DATA_ACTION__VARIABLE_REFERENCE);
+
         this.analyseStackActionEClass = this.createEClass(ANALYSE_STACK_ACTION);
         this.createEAttribute(this.analyseStackActionEClass, ANALYSE_STACK_ACTION__MEASUREMENT_IDENTIFICATION_KEY);
 
@@ -437,9 +448,6 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         this.regroupDataActionEClass = this.createEClass(REGROUP_DATA_ACTION);
 
         this.javaClassRegroupDataActionEClass = this.createEClass(JAVA_CLASS_REGROUP_DATA_ACTION);
-
-        this.dataActionEClass = this.createEClass(DATA_ACTION);
-        this.createEReference(this.dataActionEClass, DATA_ACTION__VARIABLE_REFERENCE);
     }
 
     /**
@@ -467,19 +475,23 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
         this.setNsURI(eNS_URI);
 
         // Obtain other dependent packages
+        final SeffPackage theSeffPackage = (SeffPackage) EPackage.Registry.INSTANCE.getEPackage(SeffPackage.eNS_URI);
+        final StoexPackage theStoexPackage = (StoexPackage) EPackage.Registry.INSTANCE
+            .getEPackage(StoexPackage.eNS_URI);
         final RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
             .getEPackage(RepositoryPackage.eNS_URI);
         final ParameterPackage theParameterPackage = (ParameterPackage) EPackage.Registry.INSTANCE
             .getEPackage(ParameterPackage.eNS_URI);
-        final SeffPackage theSeffPackage = (SeffPackage) EPackage.Registry.INSTANCE.getEPackage(SeffPackage.eNS_URI);
-        final StoexPackage theStoexPackage = (StoexPackage) EPackage.Registry.INSTANCE
-            .getEPackage(StoexPackage.eNS_URI);
+        final IndirectionsPackage theIndirectionsPackage = (IndirectionsPackage) EPackage.Registry.INSTANCE
+            .getEPackage(IndirectionsPackage.eNS_URI);
 
         // Create type parameters
 
         // Set bounds for type parameters
 
         // Add supertypes to classes
+        this.dataActionEClass.getESuperTypes()
+            .add(theSeffPackage.getAbstractAction());
         this.analyseStackActionEClass.getESuperTypes()
             .add(this.getDataAction());
         this.consumeDataActionEClass.getESuperTypes()
@@ -500,10 +512,16 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
             .add(this.getDataAction());
         this.javaClassRegroupDataActionEClass.getESuperTypes()
             .add(this.getRegroupDataAction());
-        this.dataActionEClass.getESuperTypes()
-            .add(theSeffPackage.getAbstractAction());
+        this.javaClassRegroupDataActionEClass.getESuperTypes()
+            .add(theIndirectionsPackage.getJavaClassRealization());
 
         // Initialize classes and features; add operations and parameters
+        this.initEClass(this.dataActionEClass, DataAction.class, "DataAction", IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        this.initEReference(this.getDataAction_VariableReference(), theStoexPackage.getVariableReference(), null,
+                "variableReference", null, 1, 1, DataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         this.initEClass(this.analyseStackActionEClass, AnalyseStackAction.class, "AnalyseStackAction", !IS_ABSTRACT,
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         this.initEAttribute(this.getAnalyseStackAction_MeasurementIdentificationKey(), this.ecorePackage.getEString(),
@@ -545,15 +563,6 @@ public class ActionsPackageImpl extends EPackageImpl implements ActionsPackage {
 
         this.initEClass(this.javaClassRegroupDataActionEClass, JavaClassRegroupDataAction.class,
                 "JavaClassRegroupDataAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        this.initEClass(this.dataActionEClass, DataAction.class, "DataAction", IS_ABSTRACT, !IS_INTERFACE,
-                IS_GENERATED_INSTANCE_CLASS);
-        this.initEReference(this.getDataAction_VariableReference(), theStoexPackage.getVariableReference(), null,
-                "variableReference", null, 1, 1, DataAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
-                IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        // Create resource
-        this.createResource(eNS_URI);
     }
 
 } // ActionsPackageImpl

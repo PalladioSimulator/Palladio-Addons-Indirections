@@ -11,6 +11,7 @@ import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.palladiosimulator.indirections.IndirectionsPackage;
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.indirections.system.SystemPackage;
 
@@ -58,10 +59,10 @@ public class JavaClassDataChannelItemProvider extends DataChannelItemProvider {
     protected void addRealizingClassFqnPropertyDescriptor(final Object object) {
         this.itemPropertyDescriptors.add(this.createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) this.adapterFactory).getRootAdapterFactory(), this.getResourceLocator(),
-                this.getString("_UI_JavaClassDataChannel_realizingClassFqn_feature"),
+                this.getString("_UI_JavaClassRealization_realizingClassFqn_feature"),
                 this.getString("_UI_PropertyDescriptor_description",
-                        "_UI_JavaClassDataChannel_realizingClassFqn_feature", "_UI_JavaClassDataChannel_type"),
-                SystemPackage.Literals.JAVA_CLASS_DATA_CHANNEL__REALIZING_CLASS_FQN, true, false, false,
+                        "_UI_JavaClassRealization_realizingClassFqn_feature", "_UI_JavaClassRealization_type"),
+                IndirectionsPackage.Literals.JAVA_CLASS_REALIZATION__REALIZING_CLASS_FQN, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 
@@ -74,10 +75,10 @@ public class JavaClassDataChannelItemProvider extends DataChannelItemProvider {
     protected void addConfigEntriesPropertyDescriptor(final Object object) {
         this.itemPropertyDescriptors.add(this.createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) this.adapterFactory).getRootAdapterFactory(), this.getResourceLocator(),
-                this.getString("_UI_JavaClassDataChannel_configEntries_feature"),
-                this.getString("_UI_PropertyDescriptor_description", "_UI_JavaClassDataChannel_configEntries_feature",
-                        "_UI_JavaClassDataChannel_type"),
-                SystemPackage.Literals.JAVA_CLASS_DATA_CHANNEL__CONFIG_ENTRIES, true, false, false,
+                this.getString("_UI_JavaClassRealization_configEntries_feature"),
+                this.getString("_UI_PropertyDescriptor_description", "_UI_JavaClassRealization_configEntries_feature",
+                        "_UI_JavaClassRealization_type"),
+                IndirectionsPackage.Literals.JAVA_CLASS_REALIZATION__CONFIG_ENTRIES, true, false, false,
                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
     }
 

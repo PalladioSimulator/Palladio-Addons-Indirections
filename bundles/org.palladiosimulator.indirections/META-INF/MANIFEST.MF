@@ -8,7 +8,8 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Automatic-Module-Name: org.palladiosimulator.indirections
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: org.palladiosimulator.indirections.actions,
+Export-Package: org.palladiosimulator.indirections,
+ org.palladiosimulator.indirections.actions,
  org.palladiosimulator.indirections.actions.impl,
  org.palladiosimulator.indirections.actions.util,
  org.palladiosimulator.indirections.allocation,
@@ -20,12 +21,14 @@ Export-Package: org.palladiosimulator.indirections.actions,
  org.palladiosimulator.indirections.composition.abstract_.util,
  org.palladiosimulator.indirections.composition.impl,
  org.palladiosimulator.indirections.composition.util,
+ org.palladiosimulator.indirections.impl,
  org.palladiosimulator.indirections.repository,
  org.palladiosimulator.indirections.repository.impl,
  org.palladiosimulator.indirections.repository.util,
  org.palladiosimulator.indirections.system,
  org.palladiosimulator.indirections.system.impl,
- org.palladiosimulator.indirections.system.util
+ org.palladiosimulator.indirections.system.util,
+ org.palladiosimulator.indirections.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.ocl;visibility:=reexport,

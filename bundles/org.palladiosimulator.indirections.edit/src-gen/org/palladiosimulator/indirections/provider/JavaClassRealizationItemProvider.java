@@ -1,35 +1,43 @@
 /**
  */
-package org.palladiosimulator.indirections.actions.provider;
+package org.palladiosimulator.indirections.provider;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IChildCreationExtender;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.palladiosimulator.indirections.IndirectionsPackage;
-import org.palladiosimulator.indirections.actions.ActionsPackage;
-import org.palladiosimulator.indirections.actions.JavaClassRegroupDataAction;
+import org.palladiosimulator.indirections.JavaClassRealization;
 
 /**
  * This is the item provider adapter for a
- * {@link org.palladiosimulator.indirections.actions.JavaClassRegroupDataAction} object. <!--
- * begin-user-doc --> <!-- end-user-doc -->
+ * {@link org.palladiosimulator.indirections.JavaClassRealization} object. <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
  *
  * @generated
  */
-public class JavaClassRegroupDataActionItemProvider extends RegroupDataActionItemProvider {
+public class JavaClassRealizationItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+        IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
     /**
      * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      *
      * @generated
      */
-    public JavaClassRegroupDataActionItemProvider(final AdapterFactory adapterFactory) {
+    public JavaClassRealizationItemProvider(final AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -83,17 +91,6 @@ public class JavaClassRegroupDataActionItemProvider extends RegroupDataActionIte
     }
 
     /**
-     * This returns JavaClassRegroupDataAction.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public Object getImage(final Object object) {
-        return this.overlayImage(object, this.getResourceLocator()
-            .getImage("full/obj16/JavaClassRegroupDataAction"));
-    }
-
-    /**
      * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      *
@@ -101,9 +98,9 @@ public class JavaClassRegroupDataActionItemProvider extends RegroupDataActionIte
      */
     @Override
     public String getText(final Object object) {
-        final String label = ((JavaClassRegroupDataAction) object).getId();
-        return label == null || label.length() == 0 ? this.getString("_UI_JavaClassRegroupDataAction_type")
-                : this.getString("_UI_JavaClassRegroupDataAction_type") + " " + label;
+        final String label = ((JavaClassRealization) object).getRealizingClassFqn();
+        return label == null || label.length() == 0 ? this.getString("_UI_JavaClassRealization_type")
+                : this.getString("_UI_JavaClassRealization_type") + " " + label;
     }
 
     /**
@@ -117,9 +114,9 @@ public class JavaClassRegroupDataActionItemProvider extends RegroupDataActionIte
     public void notifyChanged(final Notification notification) {
         this.updateChildren(notification);
 
-        switch (notification.getFeatureID(JavaClassRegroupDataAction.class)) {
-        case ActionsPackage.JAVA_CLASS_REGROUP_DATA_ACTION__REALIZING_CLASS_FQN:
-        case ActionsPackage.JAVA_CLASS_REGROUP_DATA_ACTION__CONFIG_ENTRIES:
+        switch (notification.getFeatureID(JavaClassRealization.class)) {
+        case IndirectionsPackage.JAVA_CLASS_REALIZATION__REALIZING_CLASS_FQN:
+        case IndirectionsPackage.JAVA_CLASS_REALIZATION__CONFIG_ENTRIES:
             this.fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
             return;
         }
@@ -135,6 +132,17 @@ public class JavaClassRegroupDataActionItemProvider extends RegroupDataActionIte
     @Override
     protected void collectNewChildDescriptors(final Collection<Object> newChildDescriptors, final Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
+    }
+
+    /**
+     * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public ResourceLocator getResourceLocator() {
+        return ((IChildCreationExtender) this.adapterFactory).getResourceLocator();
     }
 
 }

@@ -5,6 +5,7 @@ package org.palladiosimulator.indirections.system.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.palladiosimulator.indirections.JavaClassRealization;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.IndirectionsAwareSystem;
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
@@ -107,6 +108,9 @@ public class SystemSwitch<T> extends Switch<T> {
             T result = this.caseJavaClassDataChannel(javaClassDataChannel);
             if (result == null) {
                 result = this.caseDataChannel(javaClassDataChannel);
+            }
+            if (result == null) {
+                result = this.caseJavaClassRealization(javaClassDataChannel);
             }
             if (result == null) {
                 result = this.caseInterfaceProvidingRequiringEntity(javaClassDataChannel);
@@ -330,6 +334,22 @@ public class SystemSwitch<T> extends Switch<T> {
      * @generated
      */
     public T caseInterfaceProvidingRequiringEntity(final InterfaceProvidingRequiringEntity object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Java Class
+     * Realization</em>'. <!-- begin-user-doc --> This implementation returns null; returning a
+     * non-null result will terminate the switch. <!-- end-user-doc -->
+     *
+     * @param object
+     *            the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Java Class
+     *         Realization</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseJavaClassRealization(final JavaClassRealization object) {
         return null;
     }
 
