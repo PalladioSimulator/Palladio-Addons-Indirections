@@ -26,6 +26,11 @@
     <semanticResources>003_data-channel-chain/003_data-channel-chain.system</semanticResources>
     <semanticResources>003_data-channel-chain/003_data-channel-chain.repository</semanticResources>
     <semanticResources>003_data-channel-chain/003_data-channel-chain.usagemodel</semanticResources>
+    <semanticResources>004_windowing/004_windowing.allocation</semanticResources>
+    <semanticResources>004_windowing/004_windowing.repository</semanticResources>
+    <semanticResources>004_windowing/004_windowing.resourceenvironment</semanticResources>
+    <semanticResources>004_windowing/004_windowing.system</semanticResources>
+    <semanticResources>004_windowing/004_windowing.usagemodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_CmKgICDVEeqfDZoo5DmFaA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.allocation/description/allocation.odesign#//@ownedViewpoints[name='Allocation']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_Cm-_hiDVEeqfDZoo5DmFaA" name="Allocation Diagram" repPath="#_CmKgISDVEeqfDZoo5DmFaA">
