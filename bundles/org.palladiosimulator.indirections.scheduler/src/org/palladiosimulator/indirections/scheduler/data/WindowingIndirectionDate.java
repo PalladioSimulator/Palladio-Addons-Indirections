@@ -1,8 +1,10 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
-import java.util.Collections;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
@@ -12,17 +14,12 @@ public class WindowingIndirectionDate<T extends IndirectionDate> extends Concret
 
     public WindowingIndirectionDate(final List<T> dataInGroup, final Window window,
             final Map<String, Object> extraData) {
-        super(dataInGroup, Map.of("WINDOW.VALUE", window));
+        super(dataInGroup, new HashMap<>(Map.of("WINDOW.VALUE", window)));
         this.extraData.putAll(extraData);
         this.window = window;
     }
 
     public WindowingIndirectionDate(final List<T> dataInGroup, final Window window) {
-        this(dataInGroup, window, Collections.emptyMap());
-    }
-
-    @Override
-    public Double getTime() {
-        throw new UnsupportedOperationException();
+        this(dataInGroup, window, new HashMap<>());
     }
 }

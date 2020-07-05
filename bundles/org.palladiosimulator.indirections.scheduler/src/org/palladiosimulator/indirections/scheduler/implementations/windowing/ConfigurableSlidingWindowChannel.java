@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.scheduler.implementations;
+package org.palladiosimulator.indirections.scheduler.implementations.windowing;
 
 import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getBooleanParameter;
 import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getDoubleParameter;

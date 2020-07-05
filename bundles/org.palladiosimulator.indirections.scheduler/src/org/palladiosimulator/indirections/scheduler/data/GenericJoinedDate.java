@@ -1,17 +1,25 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
-public class GenericJoinedDate<T extends IndirectionDate, TAG, TAGGED extends TaggedDate<T, TAG>>
+/**
+ * A joined date that retains information about where elements come from in form of tags. 
+ *
+ * @param <T> the type of the resulting date
+ * @param <TAG> type of the information about the source of the data
+ */
+public class GenericJoinedDate<T extends IndirectionDate, TAG>
         implements GroupingIndirectionDate<T> {
-    public Map<TAG, TAGGED> data;
+    public Map<TAG, TaggedDate<T, TAG>> data;
     protected final Map<String, Object> extraData;
 
-    public GenericJoinedDate(final Map<TAG, TAGGED> dataMap) {
+    public GenericJoinedDate(final Map<TAG, TaggedDate<T, TAG>> dataMap) {
         this.data = dataMap;
         this.extraData = new HashMap<>();
     }
@@ -43,11 +51,15 @@ public class GenericJoinedDate<T extends IndirectionDate, TAG, TAGGED extends Ta
 
     @Override
     public List<T> getDataInGroup() {
-        throw new UnsupportedOperationException();
+        return this.data.values().stream().map(it -> it.date).collect(Collectors.toUnmodifiableList());
     }
 
     @Override
-    public Double getTime() {
-        throw new UnsupportedOperationException();
+    public Collection<Double> getTime() {
+        return this.getDataInGroup()
+                .stream()
+                .flatMap(it -> it.getTime()
+                    .stream())
+                .collect(Collectors.toList());
     }
 }

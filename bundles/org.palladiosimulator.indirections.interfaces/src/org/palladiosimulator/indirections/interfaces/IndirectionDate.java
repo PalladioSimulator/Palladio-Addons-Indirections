@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.interfaces;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -29,5 +30,5 @@ public interface IndirectionDate {
 
     Map<String, Object> getData();
 
-    Double getTime();
+    Collection<Double> getTime();
 }

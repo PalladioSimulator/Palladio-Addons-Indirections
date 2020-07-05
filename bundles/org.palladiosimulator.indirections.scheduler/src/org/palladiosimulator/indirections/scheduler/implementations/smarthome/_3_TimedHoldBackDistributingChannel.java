@@ -24,6 +24,7 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToG
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
+import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
@@ -31,12 +32,14 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 // holdback with timer
 public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelResource {
     public static final String WINDOW_SHIFT_PARAMETER_NAME = "windowShift";
+    public static final String WINDOW_SIZE_PARAMETER_NAME = "windowSize";
     public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";
 
     private final Map<Window, List<PartitionedIndirectionDate<String, IndirectionDate>>> dataIn;
-    private final Map<DataChannelSourceConnector, Queue<PartitionedIndirectionDate<Window, IndirectionDate>>> dataOut;
+    private final Map<DataChannelSourceConnector, Queue<PartitionedIndirectionDate<Window, PartitionedIndirectionDate<String, IndirectionDate>>>> dataOut;
 
     private final double windowShift;
+    private final double windowSize;
     private final double gracePeriod;
 
     public _3_TimedHoldBackDistributingChannel(final JavaClassDataChannel dataChannel,
@@ -51,16 +54,17 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
             dataOut.put(connector, new ArrayDeque<>());
 
         this.windowShift = getDoubleParameter(dataChannel, WINDOW_SHIFT_PARAMETER_NAME);
+        this.windowSize = getDoubleParameter(dataChannel, WINDOW_SIZE_PARAMETER_NAME);
         this.gracePeriod = getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME);
 
         // flushes data every INTERVAL time units
-        this.scheduleAdvance(findNextWindowStart(this.model.getSimulationControl()
+        this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
             .getCurrentSimulationTime()), windowShift, gracePeriod);
     }
 
     // TODO remove duplicated code (SlidingWindowChannel)
-    private double findNextWindowStart(double currentSimulationTime) {
-        return Math.ceil(currentSimulationTime / windowShift) * windowShift;
+    private double findNextWindowEnd(double currentSimulationTime) {
+        return Math.ceil(currentSimulationTime / windowShift) * windowShift + windowSize;
     }
 
     @SuppressWarnings("unchecked")
@@ -80,6 +84,8 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
 
         dataIn.computeIfAbsent(window, (it) -> new ArrayList<>())
             .add(partitionedDate);
+        
+        notifyProcessesCanGetNewData();
     }
 
     @Override
@@ -100,7 +106,7 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
 
     @Override
     protected void handleCannotProceedToPut(final ProcessWaitingToPut process) {
-        this.blockUntilCanPut(process);
+        throw new PCMModelInterpreterException("This should not happen.");
     }
 
     @Override
@@ -110,17 +116,18 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
 
         for (var entry : this.dataIn.entrySet()) {
             Window window = entry.getKey();
-            List<IndirectionDate> dataInWindow = entry.getValue()
+            List<PartitionedIndirectionDate<String, IndirectionDate>> dataInWindow = entry.getValue()
                 .stream()
                 .flatMap(it -> it.getDataInGroup()
-                    .stream())
+                    .stream()
+                    .map(date -> (PartitionedIndirectionDate<String, IndirectionDate>) date))
                 .collect(Collectors.toList());
 
             if (window.end + gracePeriod < watermarkTime) {
                 // PartitionedIndirectionDate<Window, IndirectionDate>
-                dataOut.forEach(
-                        (connector, queue) -> queue.add(new PartitionedIndirectionDate<Window, IndirectionDate>(window,
-                                dataInWindow, Collections.emptyMap())));
+                dataOut.forEach((connector, queue) -> queue
+                    .add(new PartitionedIndirectionDate<Window, PartitionedIndirectionDate<String, IndirectionDate>>(
+                            window, dataInWindow, Collections.emptyMap())));
                 newData = true;
                 windowsToRemove.add(window);
             }

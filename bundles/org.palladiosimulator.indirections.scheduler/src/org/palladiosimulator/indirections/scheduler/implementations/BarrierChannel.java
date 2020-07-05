@@ -70,7 +70,7 @@ public class BarrierChannel extends AbstractSimDataChannelResource {
         boolean newData = false;
         for (final var iter = this.dataIn.iterator(); iter.hasNext();) {
             final var date = iter.next();
-            if (date.getTime() <= watermarkTime) {
+            if (date.getTime().stream().allMatch(it -> it <= watermarkTime)) {
                 this.dataOut.add(date);
                 iter.remove();
                 newData = true;

@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -42,8 +43,12 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
     }
 
     @Override
-    public Double getTime() {
-        throw new UnsupportedOperationException();
+    public Collection<Double> getTime() {
+        return this.getDataInGroup()
+                .stream()
+                .flatMap(it -> it.getTime()
+                    .stream())
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -132,7 +132,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             this.numberOfStoredOutgoingElementsCalculator.change(1);
 
             final IndirectionDate providedData = this.provideDataAndAdvance(process.connector);
-            IndirectionSimulationUtil.getDataAgeRecursive(providedData)
+            providedData.getTime()
                 .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
             process.callback.accept(providedData);
 
@@ -147,7 +147,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             this.numberOfStoredIncomingElementsCalculator.change(1);
             this.acceptData(process.connector, process.date);
 
-            IndirectionSimulationUtil.getDataAgeRecursive(process.date)
+            process.date.getTime()
                 .forEach(this.afterAcceptingAgeCalculator::doMeasureUntilNow);
 
             this.activateIfWaiting(process);
@@ -236,16 +236,20 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     protected final void discardIncomingDate(final IndirectionDate dateToDiscard) {
-        IndirectionSimulationUtil.getDataAgeRecursive(dateToDiscard)
+        dateToDiscard.getTime()
             .forEach(this.discardedAgeCalculator::doMeasureUntilNow);
 
         this.numberOfDiscardedIncomingElementsCalculator.change(1);
     }
 
+    /**
+     * Finds out whether ALL data in dateToDiscard is too old for this channel.
+     * If so, this method returns true and measurements about the discarding are recorded.
+     */
     protected final boolean discardDateIfTooOld(IndirectionDate dateToDiscard) {
-        if (IndirectionSimulationUtil.getDataAgeRecursive(dateToDiscard)
+        if (dateToDiscard.getTime()
             .stream()
-            .anyMatch(it -> it < currentWatermarkedTime)) {
+            .allMatch(it -> it < currentWatermarkedTime)) {
             numberOfDiscardedOutgoingElementsCalculator.change(1);
             discardIncomingDate(dateToDiscard);
             return true;
@@ -271,8 +275,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
      *            a StoEx as String
      */
     protected final void scheduleDemand(ProcessingResourceType resourceType, String demandSpecification) {
-        if (true)
-            throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -503,7 +506,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     private void spawnNewConsumerUser(final DataChannelSourceConnector connector) {
         final IndirectionDate date = this.provideDataAndAdvance(connector);
-        this.beforeProvidingAgeCalculator.doMeasureUntilNow(date.getTime());
+        date.getTime()
+            .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
 
         final String parameterName = IndirectionSimulationUtil.getOneParameter(connector.getDataSinkRole()
             .getEventGroup())

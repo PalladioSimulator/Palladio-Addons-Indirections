@@ -108,9 +108,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
         final IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
                 referenceName);
-        final List<Double> ages = IndirectionSimulationUtil.getDataAgeRecursive(data);
 
-        ages.forEach(it -> this.measureDataAge(action, it));
+        data.getTime().forEach(it -> this.measureDataAge(action, it));
 
         return true;
     }

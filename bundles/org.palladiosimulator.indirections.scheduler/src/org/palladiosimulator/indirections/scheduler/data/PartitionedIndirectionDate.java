@@ -34,10 +34,4 @@ public class PartitionedIndirectionDate<P, T extends IndirectionDate> extends Co
     public P getPartition() {
         return this.partition;
     }
-
-    @Override
-    public Double getTime() {
-        throw new UnsupportedOperationException();
-    }
-
 }

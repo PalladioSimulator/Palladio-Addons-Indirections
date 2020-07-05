@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,8 +41,8 @@ public class ConcreteIndirectionDate implements IndirectionDate {
     }
 
     @Override
-    public Double getTime() {
-        return this.time;
+    public Collection<Double> getTime() {
+        return Collections.singletonList(this.time);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.scheduler.implementations;
+package org.palladiosimulator.indirections.scheduler.implementations.windowing;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -52,12 +52,12 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
         this.windowCalculator = new WindowCalculator(windowSize, windowShift, gracePeriod);
 
         // flushes data every INTERVAL time units
-        this.scheduleAdvance(findNextWindowStart(this.model.getSimulationControl()
+        this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
             .getCurrentSimulationTime()), windowShift, gracePeriod);
     }
 
-    private double findNextWindowStart(double currentSimulationTime) {
-        return Math.ceil(currentSimulationTime / windowShift) * windowShift;
+    private double findNextWindowEnd(double currentSimulationTime) {
+        return Math.ceil(currentSimulationTime / windowShift) * windowShift + windowSize;
     }
 
     @Override
@@ -66,6 +66,8 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
             return;
         else
             this.dataIn.add(date);
+        
+        notifyProcessesCanGetNewData();
     }
 
     @Override
@@ -95,7 +97,8 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
         boolean newData = false;
         for (var window : windows) {
             List<IndirectionDate> data = this.dataIn.stream()
-                .filter(it -> window.contains(it.getTime()))
+                    // TODO: is overlap always enough?
+                .filter(it -> it.getTime().stream().anyMatch(time -> window.contains(time)))
                 .collect(Collectors.toList());
             if (emitEmptyWindows || !data.isEmpty()) {
                 this.dataOut.add(new WindowingIndirectionDate<>(data, window));
@@ -105,7 +108,7 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
 
         if (!windows.isEmpty()) {
             var newestWindow = windows.get(windows.size() - 1);
-            dataIn.removeIf(it -> it.getTime() + gracePeriod < newestWindow.start);
+            dataIn.removeIf(it -> it.getTime().stream().allMatch(time -> time  + gracePeriod < newestWindow.start));
         }
 
         if (newData) {
