@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -28,7 +27,6 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.identifier.Identifier;
-import de.uka.ipd.sdq.simucomframework.SimuComSimProcess;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.EvaluationProxy;
 import de.uka.ipd.sdq.simucomframework.variables.StackContext;
@@ -183,13 +181,13 @@ public final class IndirectionSimulationUtil {
         stack.currentStackFrame()
             .addValue(id, date);
     }
-    
+
     public static SimulatedStackframe<Object> indirectionDateToStackframe(final String baseName,
             final IndirectionDate date) {
         var stackframe = new SimulatedStackframe<Object>();
-        
+
         flattenDataOnStackframe(stackframe, baseName, date);
-        
+
         return stackframe;
     }
 
@@ -337,6 +335,10 @@ public final class IndirectionSimulationUtil {
         return Boolean.valueOf(forceGetParameter(parameterName, dataChannel));
     }
 
+    public static String getStringParameter(JavaClassDataChannel dataChannel, String parameterName) {
+        return forceGetParameter(parameterName, dataChannel);
+    }
+
     public static String forceGetParameter(String parameterName, JavaClassDataChannel dataChannel) {
         var configEntries = dataChannel.getConfigEntries();
         return Objects.requireNonNull(toConfigMap(configEntries).get(parameterName), "Could not find parameter "
@@ -356,4 +358,5 @@ public final class IndirectionSimulationUtil {
 
         return new String[] { it.substring(0, split), it.substring(split + splitter.length()) };
     }
+
 }

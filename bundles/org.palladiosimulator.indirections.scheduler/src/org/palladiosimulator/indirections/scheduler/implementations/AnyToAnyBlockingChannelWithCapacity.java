@@ -14,7 +14,7 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 public class AnyToAnyBlockingChannelWithCapacity extends AnyToAnyBlockingChannel {
     public final String CAPACITY_PARAMETER_NAME = "capacity";
 
-    private final int capacity;
+    protected final int capacity;
 
     public AnyToAnyBlockingChannelWithCapacity(final JavaClassDataChannel dataChannel,
             final InterpreterDefaultContext context, final SchedulerModel model) {

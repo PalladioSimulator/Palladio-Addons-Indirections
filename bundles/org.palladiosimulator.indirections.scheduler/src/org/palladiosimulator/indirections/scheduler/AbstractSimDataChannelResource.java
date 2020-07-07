@@ -282,7 +282,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
      * @param demandSpecification
      *            a StoEx as String
      */
-    protected final void scheduleDemand(ProcessingResourceType resourceType, String demandSpecification,
+    protected final void scheduleDemand(String resourceTypeId, String demandSpecification,
             IndirectionDate date, Runnable andThen) {
 
         DataChannelAllocationContext allocationContext = ((IndirectionsAwareAllocation) allocation)
@@ -303,11 +303,11 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
                 model.getResourceRegistry()
                     .getResourceContainer(resourceContainer.getId())
-                    .loadActiveResource(this, resourceType.getId(), demand);
+                    .loadActiveResource(this, resourceTypeId, demand);
 
                 andThen.run();
             }
-        };
+        }.scheduleAt(0);
     }
 
     @Override

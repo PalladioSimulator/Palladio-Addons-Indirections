@@ -31,6 +31,11 @@
     <semanticResources>004_windowing/004_windowing.resourceenvironment</semanticResources>
     <semanticResources>004_windowing/004_windowing.system</semanticResources>
     <semanticResources>004_windowing/004_windowing.usagemodel</semanticResources>
+    <semanticResources>005_minimum-rd-inside-channel/005_minimum-rd-inside-channel.allocation</semanticResources>
+    <semanticResources>005_minimum-rd-inside-channel/005_minimum-rd-inside-channel.resourceenvironment</semanticResources>
+    <semanticResources>005_minimum-rd-inside-channel/005_minimum-rd-inside-channel.system</semanticResources>
+    <semanticResources>005_minimum-rd-inside-channel/005_minimum-rd-inside-channel.repository</semanticResources>
+    <semanticResources>005_minimum-rd-inside-channel/005_minimum-rd-inside-channel.usagemodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_CmKgICDVEeqfDZoo5DmFaA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.allocation/description/allocation.odesign#//@ownedViewpoints[name='Allocation']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_Cm-_hiDVEeqfDZoo5DmFaA" name="Allocation Diagram" repPath="#_CmKgISDVEeqfDZoo5DmFaA">
