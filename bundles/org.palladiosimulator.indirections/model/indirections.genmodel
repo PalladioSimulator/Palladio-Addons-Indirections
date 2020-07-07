@@ -121,7 +121,7 @@
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
             ecoreFeature="ecore:EReference indirections.ecore#//allocation/DataChannelAllocationContext/dataChannel"/>
         <genFeatures notify="false" createChild="false" propertySortChoices="true"
-            ecoreFeature="ecore:EReference indirections.ecore#//allocation/DataChannelAllocationContext/resourceEnvironment"/>
+            ecoreFeature="ecore:EReference indirections.ecore#//allocation/DataChannelAllocationContext/resourceContainer"/>
       </genClasses>
     </nestedGenPackages>
   </genPackages>

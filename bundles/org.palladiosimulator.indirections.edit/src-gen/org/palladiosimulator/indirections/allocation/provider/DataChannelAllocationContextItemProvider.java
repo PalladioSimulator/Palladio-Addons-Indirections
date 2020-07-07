@@ -45,7 +45,7 @@ public class DataChannelAllocationContextItemProvider extends EntityItemProvider
             super.getPropertyDescriptors(object);
 
             this.addDataChannelPropertyDescriptor(object);
-            this.addResourceEnvironmentPropertyDescriptor(object);
+            this.addResourceContainerPropertyDescriptor(object);
         }
         return this.itemPropertyDescriptors;
     }
@@ -68,20 +68,20 @@ public class DataChannelAllocationContextItemProvider extends EntityItemProvider
     }
 
     /**
-     * This adds a property descriptor for the Resource Environment feature. <!-- begin-user-doc -->
+     * This adds a property descriptor for the Resource Container feature. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      *
      * @generated
      */
-    protected void addResourceEnvironmentPropertyDescriptor(final Object object) {
+    protected void addResourceContainerPropertyDescriptor(final Object object) {
         this.itemPropertyDescriptors.add(this.createItemPropertyDescriptor(
                 ((ComposeableAdapterFactory) this.adapterFactory).getRootAdapterFactory(), this.getResourceLocator(),
-                this.getString("_UI_DataChannelAllocationContext_resourceEnvironment_feature"),
+                this.getString("_UI_DataChannelAllocationContext_resourceContainer_feature"),
                 this.getString("_UI_PropertyDescriptor_description",
-                        "_UI_DataChannelAllocationContext_resourceEnvironment_feature",
+                        "_UI_DataChannelAllocationContext_resourceContainer_feature",
                         "_UI_DataChannelAllocationContext_type"),
-                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT, true, false, true,
-                null, null, null));
+                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER, true, false, true, null,
+                null, null));
     }
 
     /**

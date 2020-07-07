@@ -167,13 +167,13 @@ public interface AllocationPackage extends EPackage {
     int DATA_CHANNEL_ALLOCATION_CONTEXT__DATA_CHANNEL = EntityPackage.ENTITY_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Resource Environment</b></em>' reference. <!-- begin-user-doc
+     * The feature id for the '<em><b>Resource Container</b></em>' reference. <!-- begin-user-doc
      * --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT = EntityPackage.ENTITY_FEATURE_COUNT + 1;
+    int DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER = EntityPackage.ENTITY_FEATURE_COUNT + 1;
 
     /**
      * The number of structural features of the '<em>Data Channel Allocation Context</em>' class.
@@ -233,15 +233,15 @@ public interface AllocationPackage extends EPackage {
 
     /**
      * Returns the meta object for the reference
-     * '{@link org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceEnvironment
-     * <em>Resource Environment</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceContainer
+     * <em>Resource Container</em>}'. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
-     * @return the meta object for the reference '<em>Resource Environment</em>'.
-     * @see org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceEnvironment()
+     * @return the meta object for the reference '<em>Resource Container</em>'.
+     * @see org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceContainer()
      * @see #getDataChannelAllocationContext()
      * @generated
      */
-    EReference getDataChannelAllocationContext_ResourceEnvironment();
+    EReference getDataChannelAllocationContext_ResourceContainer();
 
     /**
      * Returns the factory that creates the instances of the model. <!-- begin-user-doc --> <!--
@@ -308,13 +308,13 @@ public interface AllocationPackage extends EPackage {
             .getDataChannelAllocationContext_DataChannel();
 
         /**
-         * The meta object literal for the '<em><b>Resource Environment</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Resource Container</b></em>' reference feature.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          *
          * @generated
          */
-        EReference DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT = eINSTANCE
-            .getDataChannelAllocationContext_ResourceEnvironment();
+        EReference DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER = eINSTANCE
+            .getDataChannelAllocationContext_ResourceContainer();
 
     }
 

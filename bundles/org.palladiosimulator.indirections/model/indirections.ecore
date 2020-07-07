@@ -159,8 +159,8 @@
     <eClassifiers xsi:type="ecore:EClass" name="DataChannelAllocationContext" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/Entity">
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataChannel" lowerBound="1"
           eType="#//system/DataChannel"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="resourceEnvironment"
-          lowerBound="1" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="resourceContainer" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

@@ -12,6 +12,8 @@ import java.util.Queue;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+import org.palladiosimulator.indirections.allocation.DataChannelAllocationContext;
+import org.palladiosimulator.indirections.allocation.IndirectionsAwareAllocation;
 import org.palladiosimulator.indirections.calculators.scheduler.ContextAwareTimeSpanCalculator;
 import org.palladiosimulator.indirections.calculators.scheduler.TriggerableCountingCalculator;
 import org.palladiosimulator.indirections.calculators.scheduler.TriggerableTimeSpanCalculator;
@@ -31,7 +33,10 @@ import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUt
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.IterableUtil;
+import org.palladiosimulator.indirections.util.StreamUtil;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
+import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -39,6 +44,7 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
+import de.uka.ipd.sdq.simucomframework.SimuComSimProcess;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simulation.abstractsimengine.ISimulationControl;
 
@@ -78,6 +84,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     private final Map<DataChannelSourceConnector, CallbackUserFactory> sourceConnectorUserFactories = new HashMap<>();
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToGet> waitingToGetTimeCalculator;
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToPut> waitingToPutTimeCalculator;
+    private final Allocation allocation;
 
     public AbstractSimDataChannelResource(final DataChannel dataChannel, final InterpreterDefaultContext context,
             final SchedulerModel model) {
@@ -96,6 +103,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         this.model = (SimuComModel) model;
         this.context = context;
+
+        this.allocation = context.getLocalPCMModelAtContextCreation()
+            .getAllocation();
 
         this.initializeQueues();
         this.createPushingUserFactories();
@@ -243,8 +253,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     /**
-     * Finds out whether ALL data in dateToDiscard is too old for this channel.
-     * If so, this method returns true and measurements about the discarding are recorded.
+     * Finds out whether ALL data in dateToDiscard is too old for this channel. If so, this method
+     * returns true and measurements about the discarding are recorded.
      */
     protected final boolean discardDateIfTooOld(IndirectionDate dateToDiscard) {
         if (dateToDiscard.getTime()
@@ -267,15 +277,37 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
      * 
      * <p>
      * 
-     * TODO: implement
-     * 
      * @param resourceType
      *            the type of resource
      * @param demandSpecification
      *            a StoEx as String
      */
-    protected final void scheduleDemand(ProcessingResourceType resourceType, String demandSpecification) {
-        throw new UnsupportedOperationException();
+    protected final void scheduleDemand(ProcessingResourceType resourceType, String demandSpecification,
+            IndirectionDate date, Runnable andThen) {
+
+        DataChannelAllocationContext allocationContext = ((IndirectionsAwareAllocation) allocation)
+            .getDataChannelAllocationContexts()
+            .stream()
+            .filter(it -> it.getDataChannel()
+                .equals(this.dataChannel))
+            .reduce(StreamUtil.reduceToMaximumOne())
+            .orElseThrow(() -> new PCMModelInterpreterException("No data channel allocation found."));
+
+        final ResourceContainer resourceContainer = allocationContext.getResourceContainer();
+
+        new SimuComSimProcess(model, this.id + "-DemandContinuation") {
+            @Override
+            protected void internalLifeCycle() {
+                // might be necessary to also consider variables from data channel.
+                final Double demand = (Double) date.evaluate(demandSpecification);
+
+                model.getResourceRegistry()
+                    .getResourceContainer(resourceContainer.getId())
+                    .loadActiveResource(this, resourceType.getId(), demand);
+
+                andThen.run();
+            }
+        };
     }
 
     @Override

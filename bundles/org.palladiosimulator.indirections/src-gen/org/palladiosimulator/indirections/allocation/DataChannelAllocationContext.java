@@ -16,8 +16,8 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
  * <ul>
  * <li>{@link org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getDataChannel
  * <em>Data Channel</em>}</li>
- * <li>{@link org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceEnvironment
- * <em>Resource Environment</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceContainer
+ * <em>Resource Container</em>}</li>
  * </ul>
  *
  * @see org.palladiosimulator.indirections.allocation.AllocationPackage#getDataChannelAllocationContext()
@@ -50,27 +50,27 @@ public interface DataChannelAllocationContext extends Entity {
     void setDataChannel(DataChannel value);
 
     /**
-     * Returns the value of the '<em><b>Resource Environment</b></em>' reference. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
+     * Returns the value of the '<em><b>Resource Container</b></em>' reference. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      *
-     * @return the value of the '<em>Resource Environment</em>' reference.
-     * @see #setResourceEnvironment(ResourceContainer)
-     * @see org.palladiosimulator.indirections.allocation.AllocationPackage#getDataChannelAllocationContext_ResourceEnvironment()
+     * @return the value of the '<em>Resource Container</em>' reference.
+     * @see #setResourceContainer(ResourceContainer)
+     * @see org.palladiosimulator.indirections.allocation.AllocationPackage#getDataChannelAllocationContext_ResourceContainer()
      * @model required="true"
      * @generated
      */
-    ResourceContainer getResourceEnvironment();
+    ResourceContainer getResourceContainer();
 
     /**
      * Sets the value of the
-     * '{@link org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceEnvironment
-     * <em>Resource Environment</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * '{@link org.palladiosimulator.indirections.allocation.DataChannelAllocationContext#getResourceContainer
+     * <em>Resource Container</em>}' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @param value
-     *            the new value of the '<em>Resource Environment</em>' reference.
-     * @see #getResourceEnvironment()
+     *            the new value of the '<em>Resource Container</em>' reference.
+     * @see #getResourceContainer()
      * @generated
      */
-    void setResourceEnvironment(ResourceContainer value);
+    void setResourceContainer(ResourceContainer value);
 
 } // DataChannelAllocationContext

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.identifier.Identifier;
+import de.uka.ipd.sdq.simucomframework.SimuComSimProcess;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.EvaluationProxy;
 import de.uka.ipd.sdq.simucomframework.variables.StackContext;
@@ -181,24 +183,38 @@ public final class IndirectionSimulationUtil {
         stack.currentStackFrame()
             .addValue(id, date);
     }
+    
+    public static SimulatedStackframe<Object> indirectionDateToStackframe(final String baseName,
+            final IndirectionDate date) {
+        var stackframe = new SimulatedStackframe<Object>();
+        
+        flattenDataOnStackframe(stackframe, baseName, date);
+        
+        return stackframe;
+    }
 
     public static void flattenDataOnStack(final SimulatedStack<Object> stack, final String baseName,
             final IndirectionDate date) {
         final SimulatedStackframe<Object> currentStackframe = stack.currentStackFrame();
 
+        flattenDataOnStackframe(currentStackframe, baseName, date);
+    }
+
+    private static void flattenDataOnStackframe(final SimulatedStackframe<Object> stackframe, final String baseName,
+            final IndirectionDate date) {
         if (date instanceof ConcreteIndirectionDate) {
             final ConcreteIndirectionDate indirectionDate = (ConcreteIndirectionDate) date;
 
             for (final Entry<String, Object> dataEntry : indirectionDate.getData()
                 .entrySet()) {
-                currentStackframe.addValue(baseName + "." + dataEntry.getKey(), dataEntry.getValue());
+                stackframe.addValue(baseName + "." + dataEntry.getKey(), dataEntry.getValue());
             }
         } else if (date instanceof ConcreteGroupingIndirectionDate<?>) {
             final ConcreteGroupingIndirectionDate<?> groupingIndirectionDate = (ConcreteGroupingIndirectionDate<?>) date;
 
             final int numberOfElements = groupingIndirectionDate.getDataInGroup()
                 .size();
-            currentStackframe.addValue(baseName + ".NUMBER_OF_ELEMENTS", numberOfElements);
+            stackframe.addValue(baseName + ".NUMBER_OF_ELEMENTS", numberOfElements);
         } else {
             throw new PCMModelInterpreterException(
                     baseName + " is not a ConcreteIndirectionDate, but a " + date.getClass()

@@ -210,7 +210,7 @@ public class AllocationPackageImpl extends EPackageImpl implements AllocationPac
      * @generated
      */
     @Override
-    public EReference getDataChannelAllocationContext_ResourceEnvironment() {
+    public EReference getDataChannelAllocationContext_ResourceContainer() {
         return (EReference) this.dataChannelAllocationContextEClass.getEStructuralFeatures()
             .get(1);
     }
@@ -252,7 +252,7 @@ public class AllocationPackageImpl extends EPackageImpl implements AllocationPac
         this.dataChannelAllocationContextEClass = this.createEClass(DATA_CHANNEL_ALLOCATION_CONTEXT);
         this.createEReference(this.dataChannelAllocationContextEClass, DATA_CHANNEL_ALLOCATION_CONTEXT__DATA_CHANNEL);
         this.createEReference(this.dataChannelAllocationContextEClass,
-                DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT);
+                DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER);
     }
 
     /**
@@ -312,8 +312,8 @@ public class AllocationPackageImpl extends EPackageImpl implements AllocationPac
         this.initEReference(this.getDataChannelAllocationContext_DataChannel(), theSystemPackage.getDataChannel(), null,
                 "dataChannel", null, 1, 1, DataChannelAllocationContext.class, !IS_TRANSIENT, !IS_VOLATILE,
                 IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        this.initEReference(this.getDataChannelAllocationContext_ResourceEnvironment(),
-                theResourceenvironmentPackage.getResourceContainer(), null, "resourceEnvironment", null, 1, 1,
+        this.initEReference(this.getDataChannelAllocationContext_ResourceContainer(),
+                theResourceenvironmentPackage.getResourceContainer(), null, "resourceContainer", null, 1, 1,
                 DataChannelAllocationContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
                 IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     }

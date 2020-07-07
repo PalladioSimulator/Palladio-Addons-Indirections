@@ -18,8 +18,8 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
  * <ul>
  * <li>{@link org.palladiosimulator.indirections.allocation.impl.DataChannelAllocationContextImpl#getDataChannel
  * <em>Data Channel</em>}</li>
- * <li>{@link org.palladiosimulator.indirections.allocation.impl.DataChannelAllocationContextImpl#getResourceEnvironment
- * <em>Resource Environment</em>}</li>
+ * <li>{@link org.palladiosimulator.indirections.allocation.impl.DataChannelAllocationContextImpl#getResourceContainer
+ * <em>Resource Container</em>}</li>
  * </ul>
  *
  * @generated
@@ -82,10 +82,10 @@ public class DataChannelAllocationContextImpl extends EntityImpl implements Data
      * @generated
      */
     @Override
-    public ResourceContainer getResourceEnvironment() {
+    public ResourceContainer getResourceContainer() {
         return (ResourceContainer) this.eDynamicGet(
-                AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT,
-                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT, true, true);
+                AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER,
+                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER, true, true);
     }
 
     /**
@@ -93,10 +93,10 @@ public class DataChannelAllocationContextImpl extends EntityImpl implements Data
      *
      * @generated
      */
-    public ResourceContainer basicGetResourceEnvironment() {
+    public ResourceContainer basicGetResourceContainer() {
         return (ResourceContainer) this.eDynamicGet(
-                AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT,
-                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT, false, true);
+                AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER,
+                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER, false, true);
     }
 
     /**
@@ -105,10 +105,9 @@ public class DataChannelAllocationContextImpl extends EntityImpl implements Data
      * @generated
      */
     @Override
-    public void setResourceEnvironment(final ResourceContainer newResourceEnvironment) {
-        this.eDynamicSet(AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT,
-                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT,
-                newResourceEnvironment);
+    public void setResourceContainer(final ResourceContainer newResourceContainer) {
+        this.eDynamicSet(AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER,
+                AllocationPackage.Literals.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER, newResourceContainer);
     }
 
     /**
@@ -124,11 +123,11 @@ public class DataChannelAllocationContextImpl extends EntityImpl implements Data
                 return this.getDataChannel();
             }
             return this.basicGetDataChannel();
-        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT:
+        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER:
             if (resolve) {
-                return this.getResourceEnvironment();
+                return this.getResourceContainer();
             }
-            return this.basicGetResourceEnvironment();
+            return this.basicGetResourceContainer();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -144,8 +143,8 @@ public class DataChannelAllocationContextImpl extends EntityImpl implements Data
         case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__DATA_CHANNEL:
             this.setDataChannel((DataChannel) newValue);
             return;
-        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT:
-            this.setResourceEnvironment((ResourceContainer) newValue);
+        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER:
+            this.setResourceContainer((ResourceContainer) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -162,8 +161,8 @@ public class DataChannelAllocationContextImpl extends EntityImpl implements Data
         case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__DATA_CHANNEL:
             this.setDataChannel((DataChannel) null);
             return;
-        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT:
-            this.setResourceEnvironment((ResourceContainer) null);
+        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER:
+            this.setResourceContainer((ResourceContainer) null);
             return;
         }
         super.eUnset(featureID);
@@ -179,8 +178,8 @@ public class DataChannelAllocationContextImpl extends EntityImpl implements Data
         switch (featureID) {
         case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__DATA_CHANNEL:
             return this.basicGetDataChannel() != null;
-        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_ENVIRONMENT:
-            return this.basicGetResourceEnvironment() != null;
+        case AllocationPackage.DATA_CHANNEL_ALLOCATION_CONTEXT__RESOURCE_CONTAINER:
+            return this.basicGetResourceContainer() != null;
         }
         return super.eIsSet(featureID);
     }
