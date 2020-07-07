@@ -35,8 +35,8 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
     public static final String WINDOW_SIZE_PARAMETER_NAME = "windowSize";
     public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";
 
-    private final Map<Window, List<PartitionedIndirectionDate<String, IndirectionDate>>> dataIn;
-    private final Map<DataChannelSourceConnector, Queue<PartitionedIndirectionDate<Window, PartitionedIndirectionDate<String, IndirectionDate>>>> dataOut;
+    private final Map<Window, List<PartitionedIndirectionDate<Integer, IndirectionDate>>> dataIn;
+    private final Map<DataChannelSourceConnector, Queue<PartitionedIndirectionDate<Window, PartitionedIndirectionDate<Integer, IndirectionDate>>>> dataOut;
 
     private final double windowShift;
     private final double windowSize;
@@ -71,7 +71,7 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
     @Override
     protected void acceptData(final DataChannelSinkConnector connector, final IndirectionDate date) {
         // input: plug -> readings
-        PartitionedIndirectionDate<String, IndirectionDate> partitionedDate = forceCast(date,
+        PartitionedIndirectionDate<Integer, IndirectionDate> partitionedDate = forceCast(date,
                 PartitionedIndirectionDate.class);
         var window = (Window) partitionedDate.evaluate(_2_WindowPartitionByPlugChannel.WINDOW_VALUE_NAME);
 
@@ -116,17 +116,17 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
 
         for (var entry : this.dataIn.entrySet()) {
             Window window = entry.getKey();
-            List<PartitionedIndirectionDate<String, IndirectionDate>> dataInWindow = entry.getValue()
+            List<PartitionedIndirectionDate<Integer, IndirectionDate>> dataInWindow = entry.getValue()
                 .stream()
                 .flatMap(it -> it.getDataInGroup()
                     .stream()
-                    .map(date -> (PartitionedIndirectionDate<String, IndirectionDate>) date))
+                    .map(date -> (PartitionedIndirectionDate<Integer, IndirectionDate>) date))
                 .collect(Collectors.toList());
 
             if (window.end + gracePeriod < watermarkTime) {
                 // PartitionedIndirectionDate<Window, IndirectionDate>
                 dataOut.forEach((connector, queue) -> queue
-                    .add(new PartitionedIndirectionDate<Window, PartitionedIndirectionDate<String, IndirectionDate>>(
+                    .add(new PartitionedIndirectionDate<Window, PartitionedIndirectionDate<Integer, IndirectionDate>>(
                             window, dataInWindow, Collections.emptyMap())));
                 newData = true;
                 windowsToRemove.add(window);

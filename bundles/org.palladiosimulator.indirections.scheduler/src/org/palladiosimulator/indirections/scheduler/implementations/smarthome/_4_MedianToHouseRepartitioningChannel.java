@@ -38,11 +38,11 @@ public class _4_MedianToHouseRepartitioningChannel extends AbstractSimDataChanne
 
     @Override
     protected void acceptData(DataChannelSinkConnector connector, IndirectionDate date) {
-        PartitionedIndirectionDate<Window, PartitionedIndirectionDate<String, IndirectionDate>> partitionedDate = forceCast(
+        PartitionedIndirectionDate<Window, PartitionedIndirectionDate<Integer, IndirectionDate>> partitionedDate = forceCast(
                 date, PartitionedIndirectionDate.class);
 
         var window = partitionedDate.getPartition();
-        List<PartitionedIndirectionDate<String, IndirectionDate>> innerData = partitionedDate.getDataInGroup();
+        List<PartitionedIndirectionDate<Integer, IndirectionDate>> innerData = partitionedDate.getDataInGroup();
         
         innerData.stream()
             .flatMap(it -> it.getDataInGroup()

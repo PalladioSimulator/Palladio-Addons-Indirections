@@ -1,10 +1,494 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" uid="_bu7ScL4UEeqYUuFAJlLCuQ" version="14.3.1.202003261200">
-  <semanticResources>pathmap://PCM_MODELS/Palladio.resourcetype</semanticResources>
-  <semanticResources>pathmap://PCM_MODELS/PrimitiveTypes.repository</semanticResources>
-  <semanticResources>smarthomedata.allocation</semanticResources>
-  <semanticResources>smarthomedata.repository</semanticResources>
-  <semanticResources>smarthomedata.resourceenvironment</semanticResources>
-  <semanticResources>smarthomedata.usagemodel</semanticResources>
-  <semanticResources>smarthomedata.system</semanticResources>
-</viewpoint:DAnalysis>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:parameter="http://palladiosimulator.org/PalladioComponentModel/Parameter/5.2" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://palladiosimulator.org/PalladioComponentModel/Parameter/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//parameter http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2 http://palladiosimulator.org/PalladioComponentModel/5.2#//usagemodel">
+  <viewpoint:DAnalysis uid="_bu7ScL4UEeqYUuFAJlLCuQ" selectedViews="_eSOiUL7oEeqcVuiriYxRsQ" version="14.3.1.202003261200">
+    <semanticResources>pathmap://PCM_MODELS/Palladio.resourcetype</semanticResources>
+    <semanticResources>pathmap://PCM_MODELS/PrimitiveTypes.repository</semanticResources>
+    <semanticResources>smarthomedata.allocation</semanticResources>
+    <semanticResources>smarthomedata.repository</semanticResources>
+    <semanticResources>smarthomedata.resourceenvironment</semanticResources>
+    <semanticResources>smarthomedata.usagemodel</semanticResources>
+    <semanticResources>smarthomedata.system</semanticResources>
+    <ownedViews xmi:type="viewpoint:DView" uid="_eSOiUL7oEeqcVuiriYxRsQ">
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']"/>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_eWORgL7oEeqcVuiriYxRsQ" name="UsageModel Diagram" repPath="#_eSaIgL7oEeqcVuiriYxRsQ" changeId="3e838708-160e-4f44-88c1-d8920e498e1b">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']"/>
+        <target xmi:type="usagemodel:UsageModel" href="smarthomedata.usagemodel#/"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_ehshsb7oEeqcVuiriYxRsQ" name="new UsageModel Diagram" repPath="#_ehZmwL7oEeqcVuiriYxRsQ" changeId="eca4411c-185a-4719-9dd2-d7a375aacfc9">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']"/>
+        <target xmi:type="usagemodel:UsageModel" href="smarthomedata.usagemodel#/"/>
+      </ownedRepresentationDescriptors>
+    </ownedViews>
+  </viewpoint:DAnalysis>
+  <diagram:DSemanticDiagram uid="_eSaIgL7oEeqcVuiriYxRsQ">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_eWHj0L7oEeqcVuiriYxRsQ" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_eWIK4L7oEeqcVuiriYxRsQ"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_eWrkgL7oEeqcVuiriYxRsQ" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_eWrkgb7oEeqcVuiriYxRsQ" type="Sirius" element="_eSaIgL7oEeqcVuiriYxRsQ" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_eW0ucL7oEeqcVuiriYxRsQ" type="2002" element="_eVppwL7oEeqcVuiriYxRsQ">
+          <children xmi:type="notation:Node" xmi:id="_eW_tkL7oEeqcVuiriYxRsQ" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_eXA7sL7oEeqcVuiriYxRsQ" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_eXGbQL7oEeqcVuiriYxRsQ" type="3008" element="_eV0B0L7oEeqcVuiriYxRsQ">
+              <children xmi:type="notation:Node" xmi:id="_eXGbQ77oEeqcVuiriYxRsQ" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_eXHCUL7oEeqcVuiriYxRsQ" type="7002">
+                <children xmi:type="notation:Node" xmi:id="_eXIQc77oEeqcVuiriYxRsQ" type="3008" element="_eV0o4L7oEeqcVuiriYxRsQ">
+                  <children xmi:type="notation:Node" xmi:id="_eXI3gL7oEeqcVuiriYxRsQ" type="5005"/>
+                  <children xmi:type="notation:Node" xmi:id="_eXI3gb7oEeqcVuiriYxRsQ" type="7002">
+                    <children xmi:type="notation:Node" xmi:id="_eXSogL7oEeqcVuiriYxRsQ" type="3009" element="_eV3FIL7oEeqcVuiriYxRsQ">
+                      <children xmi:type="notation:Node" xmi:id="_eXTPkL7oEeqcVuiriYxRsQ" type="5004"/>
+                      <children xmi:type="notation:Node" xmi:id="_eXTPkb7oEeqcVuiriYxRsQ" type="7003">
+                        <children xmi:type="notation:Node" xmi:id="_eXT2oL7oEeqcVuiriYxRsQ" type="3010" element="_eV6IcL7oEeqcVuiriYxRsQ">
+                          <styles xmi:type="notation:FontStyle" xmi:id="_eXT2ob7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                          <layoutConstraint xmi:type="notation:Location" xmi:id="_eXT2or7oEeqcVuiriYxRsQ"/>
+                        </children>
+                        <styles xmi:type="notation:SortingStyle" xmi:id="_eXTPkr7oEeqcVuiriYxRsQ"/>
+                        <styles xmi:type="notation:FilteringStyle" xmi:id="_eXTPk77oEeqcVuiriYxRsQ"/>
+                      </children>
+                      <styles xmi:type="notation:ShapeStyle" xmi:id="_eXSogb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXSogr7oEeqcVuiriYxRsQ"/>
+                    </children>
+                    <styles xmi:type="notation:SortingStyle" xmi:id="_eXI3gr7oEeqcVuiriYxRsQ"/>
+                    <styles xmi:type="notation:FilteringStyle" xmi:id="_eXI3g77oEeqcVuiriYxRsQ"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_eXIQdL7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXIQdb7oEeqcVuiriYxRsQ"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_eXJekL7oEeqcVuiriYxRsQ" type="3007" element="_eV-Z4L7oEeqcVuiriYxRsQ">
+                  <children xmi:type="notation:Node" xmi:id="_eXKssL7oEeqcVuiriYxRsQ" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_eXKssb7oEeqcVuiriYxRsQ" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_eXT2o77oEeqcVuiriYxRsQ" type="3005" element="_eV_A8L7oEeqcVuiriYxRsQ">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_eXT2pL7oEeqcVuiriYxRsQ" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXT2pb7oEeqcVuiriYxRsQ"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_eXJekb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="7"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXJekr7oEeqcVuiriYxRsQ" width="30" height="30"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_eXRaYL7oEeqcVuiriYxRsQ" type="3007" element="_eV_A8r7oEeqcVuiriYxRsQ">
+                  <children xmi:type="notation:Node" xmi:id="_eXRaY77oEeqcVuiriYxRsQ" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_eXRaZL7oEeqcVuiriYxRsQ" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_eXUdsL7oEeqcVuiriYxRsQ" type="3005" element="_eV_oAL7oEeqcVuiriYxRsQ">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_eXUdsb7oEeqcVuiriYxRsQ" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXUdsr7oEeqcVuiriYxRsQ"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_eXRaYb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXRaYr7oEeqcVuiriYxRsQ" width="40" height="40"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_eXHCUb7oEeqcVuiriYxRsQ"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_eXHCUr7oEeqcVuiriYxRsQ"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_eXGbQb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXGbQr7oEeqcVuiriYxRsQ" width="200"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_eXHpYL7oEeqcVuiriYxRsQ" type="3009" element="_eV_oAr7oEeqcVuiriYxRsQ">
+              <children xmi:type="notation:Node" xmi:id="_eXHpY77oEeqcVuiriYxRsQ" type="5004"/>
+              <children xmi:type="notation:Node" xmi:id="_eXIQcL7oEeqcVuiriYxRsQ" type="7003">
+                <children xmi:type="notation:Node" xmi:id="_eXVEwL7oEeqcVuiriYxRsQ" type="3010" element="_eWAPEL7oEeqcVuiriYxRsQ">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_eXVEwb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_eXVEwr7oEeqcVuiriYxRsQ"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_eXIQcb7oEeqcVuiriYxRsQ"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_eXIQcr7oEeqcVuiriYxRsQ"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_eXHpYb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXHpYr7oEeqcVuiriYxRsQ"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_eXA7sb7oEeqcVuiriYxRsQ"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_eXA7sr7oEeqcVuiriYxRsQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_eW0ucb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eW0ucr7oEeqcVuiriYxRsQ"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_eWrkgr7oEeqcVuiriYxRsQ"/>
+        <edges xmi:type="notation:Edge" xmi:id="_eXhSAL7oEeqcVuiriYxRsQ" type="4001" element="_eWFuoL7oEeqcVuiriYxRsQ" source="_eXJekL7oEeqcVuiriYxRsQ" target="_eXIQc77oEeqcVuiriYxRsQ">
+          <children xmi:type="notation:Node" xmi:id="_eXh5EL7oEeqcVuiriYxRsQ" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXh5Eb7oEeqcVuiriYxRsQ" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_eXh5Er7oEeqcVuiriYxRsQ" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXh5E77oEeqcVuiriYxRsQ" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_eXigIL7oEeqcVuiriYxRsQ" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXigIb7oEeqcVuiriYxRsQ" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_eXhSAb7oEeqcVuiriYxRsQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_eXhSAr7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_eXhSA77oEeqcVuiriYxRsQ" points="[-15, -15, 1, 1]$[-15, -15, 1, 1]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eXs4ML7oEeqcVuiriYxRsQ" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eXs4Mb7oEeqcVuiriYxRsQ" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_eXtfQL7oEeqcVuiriYxRsQ" type="4001" element="_eWG8wr7oEeqcVuiriYxRsQ" source="_eXIQc77oEeqcVuiriYxRsQ" target="_eXRaYL7oEeqcVuiriYxRsQ">
+          <children xmi:type="notation:Node" xmi:id="_eXtfRL7oEeqcVuiriYxRsQ" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXtfRb7oEeqcVuiriYxRsQ" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_eXtfRr7oEeqcVuiriYxRsQ" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXtfR77oEeqcVuiriYxRsQ" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_eXtfSL7oEeqcVuiriYxRsQ" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXtfSb7oEeqcVuiriYxRsQ" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_eXtfQb7oEeqcVuiriYxRsQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_eXtfQr7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_eXtfQ77oEeqcVuiriYxRsQ" points="[1, 1, -20, -20]$[1, 1, -20, -20]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eXuGUL7oEeqcVuiriYxRsQ" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eXuGUb7oEeqcVuiriYxRsQ" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_eVppwL7oEeqcVuiriYxRsQ" name="&lt;&lt;UsageScenario>>&#xA;SmartPlug_0_0_0">
+      <target xmi:type="usagemodel:UsageScenario" href="smarthomedata.usagemodel#SmartPlug_0_0_0.ID"/>
+      <semanticElements xmi:type="usagemodel:UsageScenario" href="smarthomedata.usagemodel#SmartPlug_0_0_0.ID"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_eVt7ML7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom" foregroundColor="255,255,255">
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']"/>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_eV0B0L7oEeqcVuiriYxRsQ" name="&lt;&lt;ScenarioBehaviour>>&#xA;UserA.ScenarioBehaviour" width="20">
+        <target xmi:type="usagemodel:ScenarioBehaviour" href="smarthomedata.usagemodel#UserA.ScenarioBehaviour.ID"/>
+        <semanticElements xmi:type="usagemodel:ScenarioBehaviour" href="smarthomedata.usagemodel#UserA.ScenarioBehaviour.ID"/>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_eV0B0b7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']"/>
+        <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_eV0o4L7oEeqcVuiriYxRsQ" name="&lt;&lt;EntryLevelSystemCall>>&#xA;UserA.ELSC&#xA;IAcceptData.acceptData" outgoingEdges="_eWG8wr7oEeqcVuiriYxRsQ" incomingEdges="_eWFuoL7oEeqcVuiriYxRsQ">
+          <target xmi:type="usagemodel:EntryLevelSystemCall" href="smarthomedata.usagemodel#UserA.ELSC.ID"/>
+          <semanticElements xmi:type="usagemodel:EntryLevelSystemCall" href="smarthomedata.usagemodel#UserA.ELSC.ID"/>
+          <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_eV13AL7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+            <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']"/>
+          <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_eV3FIL7oEeqcVuiriYxRsQ" name="plugId">
+            <target xmi:type="parameter:VariableUsage" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0"/>
+            <semanticElements xmi:type="parameter:VariableUsage" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0"/>
+            <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_eV46UL7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" backgroundColor="136,136,136" foregroundColor="136,136,136">
+              <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@style"/>
+            </ownedStyle>
+            <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']"/>
+            <ownedElements xmi:type="diagram:DNodeListElement" uid="_eV6IcL7oEeqcVuiriYxRsQ" name="VALUE = 1">
+              <target xmi:type="parameter:VariableCharacterisation" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0/@variableCharacterisation_VariableUsage.0"/>
+              <semanticElements xmi:type="parameter:VariableCharacterisation" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0/@variableCharacterisation_VariableUsage.0"/>
+              <ownedStyle xmi:type="diagram:Square" uid="_eV9LwL7oEeqcVuiriYxRsQ" labelPosition="node">
+                <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@subNodeMappings[name='variableCharacterisation']/@style"/>
+              </ownedStyle>
+              <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@subNodeMappings[name='variableCharacterisation']"/>
+            </ownedElements>
+          </ownedDiagramElements>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_eV-Z4L7oEeqcVuiriYxRsQ" outgoingEdges="_eWFuoL7oEeqcVuiriYxRsQ" width="3" height="3">
+          <target xmi:type="usagemodel:Start" href="smarthomedata.usagemodel#UserA.start.ID"/>
+          <semanticElements xmi:type="usagemodel:Start" href="smarthomedata.usagemodel#UserA.start.ID"/>
+          <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_eV_A8L7oEeqcVuiriYxRsQ" labelSize="7" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.usage/icons/start.png">
+            <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='start']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='start']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_eV_A8r7oEeqcVuiriYxRsQ" incomingEdges="_eWG8wr7oEeqcVuiriYxRsQ" width="4" height="4">
+          <target xmi:type="usagemodel:Stop" href="smarthomedata.usagemodel#UserA.stop.ID"/>
+          <semanticElements xmi:type="usagemodel:Stop" href="smarthomedata.usagemodel#UserA.stop.ID"/>
+          <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_eV_oAL7oEeqcVuiriYxRsQ" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.usage/icons/end.png">
+            <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='stop']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='stop']"/>
+        </ownedDiagramElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_eV_oAr7oEeqcVuiriYxRsQ" name="&lt;&lt;OpenWorkload>>">
+        <target xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+        <semanticElements xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_eV_oA77oEeqcVuiriYxRsQ" showIcon="false" borderSize="1" borderSizeComputationExpression="1" backgroundColor="252,233,79" foregroundColor="252,233,79">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']"/>
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_eWAPEL7oEeqcVuiriYxRsQ" name="Interarrival Time: 1">
+          <target xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+          <semanticElements xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+          <ownedStyle xmi:type="diagram:Note" uid="_eWBdML7oEeqcVuiriYxRsQ" labelAlignment="LEFT" color="255,255,255">
+            <description xmi:type="style:NoteDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']/@subNodeMappings[name='interArrivalTime']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']/@subNodeMappings[name='interArrivalTime']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_eWFuoL7oEeqcVuiriYxRsQ" sourceNode="_eV-Z4L7oEeqcVuiriYxRsQ" targetNode="_eV0o4L7oEeqcVuiriYxRsQ">
+      <target xmi:type="usagemodel:Start" href="smarthomedata.usagemodel#UserA.start.ID"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_eWGVsL7oEeqcVuiriYxRsQ" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_eWGVsb7oEeqcVuiriYxRsQ"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_eWG8wr7oEeqcVuiriYxRsQ" sourceNode="_eV0o4L7oEeqcVuiriYxRsQ" targetNode="_eV_A8r7oEeqcVuiriYxRsQ">
+      <target xmi:type="usagemodel:EntryLevelSystemCall" href="smarthomedata.usagemodel#UserA.ELSC.ID"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_eWG8w77oEeqcVuiriYxRsQ" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_eWG8xL7oEeqcVuiriYxRsQ"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_eSg2ML7oEeqcVuiriYxRsQ"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer"/>
+    <target xmi:type="usagemodel:UsageModel" href="smarthomedata.usagemodel#/"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram uid="_ehZmwL7oEeqcVuiriYxRsQ">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_ehrTmr7oEeqcVuiriYxRsQ" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_ehrTm77oEeqcVuiriYxRsQ"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_ehtIwL7oEeqcVuiriYxRsQ" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_ehtIwb7oEeqcVuiriYxRsQ" type="Sirius" element="_ehZmwL7oEeqcVuiriYxRsQ" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_ehtIw77oEeqcVuiriYxRsQ" type="2002" element="_ehlM8L7oEeqcVuiriYxRsQ">
+          <children xmi:type="notation:Node" xmi:id="_ehtIxr7oEeqcVuiriYxRsQ" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_ehtv0L7oEeqcVuiriYxRsQ" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_ehtv077oEeqcVuiriYxRsQ" type="3008" element="_ehl0Ar7oEeqcVuiriYxRsQ">
+              <children xmi:type="notation:Node" xmi:id="_ehtv1r7oEeqcVuiriYxRsQ" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_ehtv177oEeqcVuiriYxRsQ" type="7002">
+                <children xmi:type="notation:Node" xmi:id="_ehuW477oEeqcVuiriYxRsQ" type="3008" element="_ehmbEb7oEeqcVuiriYxRsQ">
+                  <children xmi:type="notation:Node" xmi:id="_ehuW5r7oEeqcVuiriYxRsQ" type="5005"/>
+                  <children xmi:type="notation:Node" xmi:id="_ehuW577oEeqcVuiriYxRsQ" type="7002">
+                    <children xmi:type="notation:Node" xmi:id="_ehu9977oEeqcVuiriYxRsQ" type="3009" element="_ehnpML7oEeqcVuiriYxRsQ">
+                      <children xmi:type="notation:Node" xmi:id="_ehvlAL7oEeqcVuiriYxRsQ" type="5004"/>
+                      <children xmi:type="notation:Node" xmi:id="_ehvlAb7oEeqcVuiriYxRsQ" type="7003">
+                        <children xmi:type="notation:Node" xmi:id="_ehvlBL7oEeqcVuiriYxRsQ" type="3010" element="_ehoQQL7oEeqcVuiriYxRsQ">
+                          <styles xmi:type="notation:FontStyle" xmi:id="_ehvlBb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                          <layoutConstraint xmi:type="notation:Location" xmi:id="_ehvlBr7oEeqcVuiriYxRsQ"/>
+                        </children>
+                        <styles xmi:type="notation:SortingStyle" xmi:id="_ehvlAr7oEeqcVuiriYxRsQ"/>
+                        <styles xmi:type="notation:FilteringStyle" xmi:id="_ehvlA77oEeqcVuiriYxRsQ"/>
+                      </children>
+                      <styles xmi:type="notation:ShapeStyle" xmi:id="_ehu9-L7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehu9-b7oEeqcVuiriYxRsQ" x="19" y="42" width="231" height="63"/>
+                    </children>
+                    <children xmi:type="notation:Node" xmi:id="_njhukL7oEeqcVuiriYxRsQ" type="3009" element="_njX9kL7oEeqcVuiriYxRsQ">
+                      <children xmi:type="notation:Node" xmi:id="_njhuk77oEeqcVuiriYxRsQ" type="5004"/>
+                      <children xmi:type="notation:Node" xmi:id="_njhulL7oEeqcVuiriYxRsQ" type="7003">
+                        <children xmi:type="notation:Node" xmi:id="_qqQO8L7oEeqcVuiriYxRsQ" type="3010" element="_qqL9gL7oEeqcVuiriYxRsQ">
+                          <styles xmi:type="notation:FontStyle" xmi:id="_qqQO8b7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                          <layoutConstraint xmi:type="notation:Location" xmi:id="_qqQO8r7oEeqcVuiriYxRsQ"/>
+                        </children>
+                        <styles xmi:type="notation:SortingStyle" xmi:id="_njhulb7oEeqcVuiriYxRsQ"/>
+                        <styles xmi:type="notation:FilteringStyle" xmi:id="_njhulr7oEeqcVuiriYxRsQ"/>
+                      </children>
+                      <styles xmi:type="notation:ShapeStyle" xmi:id="_njhukb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_njhukr7oEeqcVuiriYxRsQ" x="19" y="114" width="231" height="63"/>
+                    </children>
+                    <styles xmi:type="notation:SortingStyle" xmi:id="_ehuW6L7oEeqcVuiriYxRsQ"/>
+                    <styles xmi:type="notation:FilteringStyle" xmi:id="_ehuW6b7oEeqcVuiriYxRsQ"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_ehuW5L7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehuW5b7oEeqcVuiriYxRsQ" x="91" y="139" width="279" height="207"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_ehuW6r7oEeqcVuiriYxRsQ" type="3007" element="_ehpeYL7oEeqcVuiriYxRsQ">
+                  <children xmi:type="notation:Node" xmi:id="_ehu98L7oEeqcVuiriYxRsQ" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_ehu98b7oEeqcVuiriYxRsQ" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_ehvlB77oEeqcVuiriYxRsQ" type="3005" element="_ehpeYb7oEeqcVuiriYxRsQ">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_ehvlCL7oEeqcVuiriYxRsQ" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehvlCb7oEeqcVuiriYxRsQ"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_ehuW677oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="7"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehuW7L7oEeqcVuiriYxRsQ" x="163" y="55" width="30" height="30"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_ehu98r7oEeqcVuiriYxRsQ" type="3007" element="_ehqFcL7oEeqcVuiriYxRsQ">
+                  <children xmi:type="notation:Node" xmi:id="_ehu99b7oEeqcVuiriYxRsQ" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_ehu99r7oEeqcVuiriYxRsQ" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_ehvlCr7oEeqcVuiriYxRsQ" type="3005" element="_ehqFcb7oEeqcVuiriYxRsQ">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_ehvlC77oEeqcVuiriYxRsQ" fontName="Segoe UI"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehvlDL7oEeqcVuiriYxRsQ"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_ehu9877oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehu99L7oEeqcVuiriYxRsQ" x="158" y="367" width="40" height="40"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_ehtv2L7oEeqcVuiriYxRsQ"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_ehtv2b7oEeqcVuiriYxRsQ"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_ehtv1L7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehtv1b7oEeqcVuiriYxRsQ" x="7" y="54" width="495" height="448"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_ehtv2r7oEeqcVuiriYxRsQ" type="3009" element="_ehqFc77oEeqcVuiriYxRsQ">
+              <children xmi:type="notation:Node" xmi:id="_ehtv3b7oEeqcVuiriYxRsQ" type="5004"/>
+              <children xmi:type="notation:Node" xmi:id="_ehuW4L7oEeqcVuiriYxRsQ" type="7003">
+                <children xmi:type="notation:Node" xmi:id="_ehwMEL7oEeqcVuiriYxRsQ" type="3010" element="_ehqsgL7oEeqcVuiriYxRsQ">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_ehwMEb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_ehwMEr7oEeqcVuiriYxRsQ"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_ehuW4b7oEeqcVuiriYxRsQ"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_ehuW4r7oEeqcVuiriYxRsQ"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_ehtv277oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehtv3L7oEeqcVuiriYxRsQ" x="511" y="54"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_ehtv0b7oEeqcVuiriYxRsQ"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_ehtv0r7oEeqcVuiriYxRsQ"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_ehtIxL7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehtIxb7oEeqcVuiriYxRsQ" x="60" y="48" width="651" height="519"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_ehtIwr7oEeqcVuiriYxRsQ"/>
+        <edges xmi:type="notation:Edge" xmi:id="_ehwME77oEeqcVuiriYxRsQ" type="4001" element="_ehrTkL7oEeqcVuiriYxRsQ" source="_ehuW6r7oEeqcVuiriYxRsQ" target="_ehuW477oEeqcVuiriYxRsQ">
+          <children xmi:type="notation:Node" xmi:id="_ehwMF77oEeqcVuiriYxRsQ" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehwMGL7oEeqcVuiriYxRsQ" x="-9" y="-2"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_ehwMGb7oEeqcVuiriYxRsQ" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehwMGr7oEeqcVuiriYxRsQ" x="7" y="6"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_ehwMG77oEeqcVuiriYxRsQ" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehwMHL7oEeqcVuiriYxRsQ" x="8" y="6"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_ehwMFL7oEeqcVuiriYxRsQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_ehwMFb7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ehwMFr7oEeqcVuiriYxRsQ" points="[0, 0, 7, -54]$[-7, 54, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ehwzIL7oEeqcVuiriYxRsQ" id="(0.5,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ehwzIb7oEeqcVuiriYxRsQ" id="(0.2888086642599278,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_ehwzIr7oEeqcVuiriYxRsQ" type="4001" element="_ehrTlb7oEeqcVuiriYxRsQ" source="_ehuW477oEeqcVuiriYxRsQ" target="_ehu98r7oEeqcVuiriYxRsQ">
+          <children xmi:type="notation:Node" xmi:id="_ehwzJr7oEeqcVuiriYxRsQ" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehwzJ77oEeqcVuiriYxRsQ" x="6" y="-4"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_ehwzKL7oEeqcVuiriYxRsQ" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehwzKb7oEeqcVuiriYxRsQ" x="-8" y="7"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_ehwzKr7oEeqcVuiriYxRsQ" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ehwzK77oEeqcVuiriYxRsQ" x="-7" y="6"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_ehwzI77oEeqcVuiriYxRsQ"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_ehwzJL7oEeqcVuiriYxRsQ" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ehwzJb7oEeqcVuiriYxRsQ" points="[3, 68, -4, -83]$[7, 151, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ehxaML7oEeqcVuiriYxRsQ" id="(0.2888086642599278,0.375609756097561)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ehxaMb7oEeqcVuiriYxRsQ" id="(0.5,0.0)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ehlM8L7oEeqcVuiriYxRsQ" name="&lt;&lt;UsageScenario>>&#xA;SmartPlug_0_0_0">
+      <target xmi:type="usagemodel:UsageScenario" href="smarthomedata.usagemodel#SmartPlug_0_0_0.ID"/>
+      <semanticElements xmi:type="usagemodel:UsageScenario" href="smarthomedata.usagemodel#SmartPlug_0_0_0.ID"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ehl0AL7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom" foregroundColor="255,255,255">
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']"/>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ehl0Ar7oEeqcVuiriYxRsQ" name="&lt;&lt;ScenarioBehaviour>>&#xA;UserA.ScenarioBehaviour" width="20">
+        <target xmi:type="usagemodel:ScenarioBehaviour" href="smarthomedata.usagemodel#UserA.ScenarioBehaviour.ID"/>
+        <semanticElements xmi:type="usagemodel:ScenarioBehaviour" href="smarthomedata.usagemodel#UserA.ScenarioBehaviour.ID"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ehl0A77oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']"/>
+        <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ehmbEb7oEeqcVuiriYxRsQ" name="&lt;&lt;EntryLevelSystemCall>>&#xA;UserA.ELSC&#xA;IAcceptData.acceptData" outgoingEdges="_ehrTlb7oEeqcVuiriYxRsQ" incomingEdges="_ehrTkL7oEeqcVuiriYxRsQ">
+          <target xmi:type="usagemodel:EntryLevelSystemCall" href="smarthomedata.usagemodel#UserA.ELSC.ID"/>
+          <semanticElements xmi:type="usagemodel:EntryLevelSystemCall" href="smarthomedata.usagemodel#UserA.ELSC.ID"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ehnCIL7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+            <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']"/>
+          <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_ehnpML7oEeqcVuiriYxRsQ" name="plugId">
+            <target xmi:type="parameter:VariableUsage" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0"/>
+            <semanticElements xmi:type="parameter:VariableUsage" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0"/>
+            <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+            <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+            <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+            <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ehnpMb7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" backgroundColor="136,136,136" foregroundColor="136,136,136">
+              <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@style"/>
+            </ownedStyle>
+            <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']"/>
+            <ownedElements xmi:type="diagram:DNodeListElement" uid="_ehoQQL7oEeqcVuiriYxRsQ" name="VALUE = 0">
+              <target xmi:type="parameter:VariableCharacterisation" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0/@variableCharacterisation_VariableUsage.0"/>
+              <semanticElements xmi:type="parameter:VariableCharacterisation" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.0/@variableCharacterisation_VariableUsage.0"/>
+              <ownedStyle xmi:type="diagram:Square" uid="_eho3UL7oEeqcVuiriYxRsQ" labelPosition="node">
+                <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@subNodeMappings[name='variableCharacterisation']/@style"/>
+              </ownedStyle>
+              <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@subNodeMappings[name='variableCharacterisation']"/>
+            </ownedElements>
+          </ownedDiagramElements>
+          <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_njX9kL7oEeqcVuiriYxRsQ" name="houseId">
+            <target xmi:type="parameter:VariableUsage" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.1"/>
+            <semanticElements xmi:type="parameter:VariableUsage" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.1"/>
+            <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+            <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+            <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+            <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_njX9kb7oEeqcVuiriYxRsQ" borderSize="1" borderSizeComputationExpression="1" backgroundColor="136,136,136" foregroundColor="136,136,136">
+              <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@style"/>
+            </ownedStyle>
+            <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']"/>
+            <ownedElements xmi:type="diagram:DNodeListElement" uid="_qqL9gL7oEeqcVuiriYxRsQ" name="VALUE = 0">
+              <target xmi:type="parameter:VariableCharacterisation" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.1/@variableCharacterisation_VariableUsage.0"/>
+              <semanticElements xmi:type="parameter:VariableCharacterisation" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@scenarioBehaviour_UsageScenario/@actions_ScenarioBehaviour.1/@inputParameterUsages_EntryLevelSystemCall.1/@variableCharacterisation_VariableUsage.0"/>
+              <ownedStyle xmi:type="diagram:Square" uid="_qqMkkL7oEeqcVuiriYxRsQ" labelPosition="node">
+                <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@subNodeMappings[name='variableCharacterisation']/@style"/>
+              </ownedStyle>
+              <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subContainerMappings[name='entryLevelSystemCall']/@subContainerMappings[name='variableUsage']/@subNodeMappings[name='variableCharacterisation']"/>
+            </ownedElements>
+          </ownedDiagramElements>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_ehpeYL7oEeqcVuiriYxRsQ" outgoingEdges="_ehrTkL7oEeqcVuiriYxRsQ" width="3" height="3">
+          <target xmi:type="usagemodel:Start" href="smarthomedata.usagemodel#UserA.start.ID"/>
+          <semanticElements xmi:type="usagemodel:Start" href="smarthomedata.usagemodel#UserA.start.ID"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_ehpeYb7oEeqcVuiriYxRsQ" labelSize="7" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.usage/icons/start.png">
+            <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='start']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='start']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_ehqFcL7oEeqcVuiriYxRsQ" incomingEdges="_ehrTlb7oEeqcVuiriYxRsQ" width="4" height="4">
+          <target xmi:type="usagemodel:Stop" href="smarthomedata.usagemodel#UserA.stop.ID"/>
+          <semanticElements xmi:type="usagemodel:Stop" href="smarthomedata.usagemodel#UserA.stop.ID"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_ehqFcb7oEeqcVuiriYxRsQ" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.usage/icons/end.png">
+            <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='stop']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='scenarioBehavior']/@subNodeMappings[name='stop']"/>
+        </ownedDiagramElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_ehqFc77oEeqcVuiriYxRsQ" name="&lt;&lt;OpenWorkload>>">
+        <target xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+        <semanticElements xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ehqFdL7oEeqcVuiriYxRsQ" showIcon="false" borderSize="1" borderSizeComputationExpression="1" backgroundColor="252,233,79" foregroundColor="252,233,79">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']"/>
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_ehqsgL7oEeqcVuiriYxRsQ" name="Interarrival Time: 1">
+          <target xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+          <semanticElements xmi:type="usagemodel:OpenWorkload" href="smarthomedata.usagemodel#//@usageScenario_UsageModel.0/@workload_UsageScenario"/>
+          <ownedStyle xmi:type="diagram:Note" uid="_ehqsgb7oEeqcVuiriYxRsQ" labelAlignment="LEFT" color="255,255,255">
+            <description xmi:type="style:NoteDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']/@subNodeMappings[name='interArrivalTime']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@subContainerMappings[name='openWorkload']/@subNodeMappings[name='interArrivalTime']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_ehrTkL7oEeqcVuiriYxRsQ" sourceNode="_ehpeYL7oEeqcVuiriYxRsQ" targetNode="_ehmbEb7oEeqcVuiriYxRsQ">
+      <target xmi:type="usagemodel:Start" href="smarthomedata.usagemodel#UserA.start.ID"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_ehrTkb7oEeqcVuiriYxRsQ" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_ehrTkr7oEeqcVuiriYxRsQ"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_ehrTlb7oEeqcVuiriYxRsQ" sourceNode="_ehmbEb7oEeqcVuiriYxRsQ" targetNode="_ehqFcL7oEeqcVuiriYxRsQ">
+      <target xmi:type="usagemodel:EntryLevelSystemCall" href="smarthomedata.usagemodel#UserA.ELSC.ID"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_ehrTlr7oEeqcVuiriYxRsQ" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_ehrTl77oEeqcVuiriYxRsQ"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@edgeMappings[name='usageFlow']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_ehZmwb7oEeqcVuiriYxRsQ"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer"/>
+    <target xmi:type="usagemodel:UsageModel" href="smarthomedata.usagemodel#/"/>
+  </diagram:DSemanticDiagram>
+</xmi:XMI>

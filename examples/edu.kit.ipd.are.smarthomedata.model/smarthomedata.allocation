@@ -2,12 +2,12 @@
 <allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="allocation.ID" entityName="allocation">
   <targetResourceEnvironment_Allocation href="smarthomedata.resourceenvironment#/"/>
   <system_Allocation href="smarthomedata.system#_myRVALusEeq4r6D5ZG3ytw"/>
-  <allocationContexts_Allocation id="componentA.is-allocated-to.resourceContainer.ID" entityName="componentA.is-allocated-to.resourceContainer">
+  <allocationContexts_Allocation id="Emitter.AssemblyContext.ID" entityName="Emitter.AssemblyContext">
     <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
-    <assemblyContext_AllocationContext href="smarthomedata.system#componentA.AssemblyContext.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#Emitter.AssemblyContext.ID"/>
   </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="componentB.is-allocated-to.resourceContainer.ID" entityName="componentB.is-allocated-to.resourceContainer">
+  <allocationContexts_Allocation id="MedianEachPlug.AssemblyContext.ID" entityName="MedianEachPlug.AssemblyContext">
     <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
-    <assemblyContext_AllocationContext href="smarthomedata.system#componentB.AssemblyContext.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#MedianEachPlug.AssemblyContext.ID"/>
   </allocationContexts_Allocation>
 </allocation:Allocation>

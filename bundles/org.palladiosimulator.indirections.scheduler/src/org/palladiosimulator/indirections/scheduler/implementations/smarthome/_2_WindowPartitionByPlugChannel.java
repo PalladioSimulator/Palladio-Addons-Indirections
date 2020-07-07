@@ -25,7 +25,7 @@ public class _2_WindowPartitionByPlugChannel extends AbstractSimDataChannelResou
     public static final String WINDOW_VALUE_NAME = "WINDOW.VALUE";
     public static final String PLUG_ID_VALUE_NAME = "plugId.VALUE";
 
-    private final Queue<PartitionedIndirectionDate<String, IndirectionDate>> dataOut;
+    private final Queue<PartitionedIndirectionDate<Integer, IndirectionDate>> dataOut;
 
     public _2_WindowPartitionByPlugChannel(JavaClassDataChannel dataChannel, InterpreterDefaultContext context,
             SchedulerModel model) {
@@ -43,8 +43,8 @@ public class _2_WindowPartitionByPlugChannel extends AbstractSimDataChannelResou
 
         var plugIdToWindowedElements = windowingIndirectionDate.getDataInGroup()
             .stream()
-            .collect(Collectors.<IndirectionDate, String> groupingBy(
-                    (IndirectionDate it) -> (String) it.evaluate(PLUG_ID_VALUE_NAME)));
+            .collect(Collectors.<IndirectionDate, Integer> groupingBy(
+                    (IndirectionDate it) -> (Integer) it.evaluate(PLUG_ID_VALUE_NAME)));
 
         Window window = windowingIndirectionDate.window;
         // plugIdToWindowedElements.forEach((plugId, data) -> data.add(new

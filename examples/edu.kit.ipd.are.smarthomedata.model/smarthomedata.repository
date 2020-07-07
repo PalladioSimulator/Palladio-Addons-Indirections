@@ -1,48 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.indirections.actions="http://palladiosimulator.org/Indirections/Actions/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="repository.ID" entityName="repository">
-  <components__Repository xsi:type="repository:BasicComponent" id="componentA.ID" entityName="componentA">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_vj4psbuuEeq6yLif1TQnIQ" entityName="componentA.provides.IAcceptData" providedInterface__OperationProvidedRole="IAcceptData.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="componentA.providesData" entityName="componentA.providesData" eventGroup="DataEventGroup.ID"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="componentA.implements.acceptData" describedService__SEFF="acceptData.Signature.ID">
-      <steps_Behaviour xsi:type="seff:StartAction" id="componentA.acceptData.start.ID" entityName="componentA.acceptData.start" successor_AbstractAction="componentA.acceptData.createDate.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDateAction" id="componentA.acceptData.createDate.ID" entityName="componentA.acceptData.createDate" predecessor_AbstractAction="componentA.acceptData.start.ID" successor_AbstractAction="componentA.acceptData.emitData.ID">
-        <variableReference referenceName="date"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="Emitter.ID" entityName="Emitter">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Emitter.provides.IAcceptSingleReading.ID" entityName="Emitter.provides.IAcceptSingleReading" providedInterface__OperationProvidedRole="IAcceptSingleReading.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Emitter.providesData.ID" entityName="Emitter.providesData" eventGroup="ReadingEventGroup.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="Emitter.implements.acceptData" describedService__SEFF="acceptSingleReading.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="Emitter.acceptData.start.ID" entityName="Emitter.acceptData.start" successor_AbstractAction="Emitter.acceptData.createDate.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDateAction" id="Emitter.acceptData.createDate.ID" entityName="Emitter.acceptData.createDate" predecessor_AbstractAction="Emitter.acceptData.start.ID" successor_AbstractAction="Emitter.acceptData.emitData.ID">
+        <variableReference referenceName="readingDate"/>
         <variableUsages>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="10"/>
+            <specification_VariableCharacterisation specification="reading.plugId.VALUE"/>
           </variableCharacterisation_VariableUsage>
-          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="date"/>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugId"/>
+        </variableUsages>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="reading.houseId.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="houseId"/>
         </variableUsages>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="componentA.acceptData.emitData.ID" entityName="componentA.acceptData.emitData" predecessor_AbstractAction="componentA.acceptData.createDate.ID" successor_AbstractAction="componentA.acceptData.stop.ID" dataSourceRole="componentA.providesData">
-        <variableReference referenceName="date"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="Emitter.acceptData.emitData.ID" entityName="Emitter.acceptData.emitData" predecessor_AbstractAction="Emitter.acceptData.createDate.ID" successor_AbstractAction="Emitter.acceptData.stop.ID" dataSourceRole="Emitter.providesData.ID">
+        <variableReference referenceName="readingDate"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="componentA.acceptData.stop.ID" entityName="componentA.acceptData.stop" predecessor_AbstractAction="componentA.acceptData.emitData.ID"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="Emitter.acceptData.stop.ID" entityName="Emitter.acceptData.stop" predecessor_AbstractAction="Emitter.acceptData.emitData.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="componentB.ID" entityName="componentB">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="componentB.acceptsData.ID" entityName="componentB.acceptsData" eventGroup="DataEventGroup.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="componentB.providesData" entityName="componentB.providesData" eventGroup="DataEventGroup.ID"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="componentB.implements.acceptData" describedService__SEFF="acceptData.Signature.ID">
-      <steps_Behaviour xsi:type="seff:StartAction" id="componentB.acceptData.start.ID" entityName="componentB.acceptData.start" successor_AbstractAction="componentB.acceptData.analyzeStack.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="componentB.acceptData.analyzeStack.ID" entityName="componentB.acceptData.analyzeStack" predecessor_AbstractAction="componentB.acceptData.start.ID" successor_AbstractAction="componentB.acceptData.stop.ID" measurementIdentificationKey="key">
-        <variableReference referenceName="data"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="MedianEachPlug.ID" entityName="MedianEachPlug">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="MedianEachPlug.accepts.ReadingGroup.ID" entityName="MedianEachPlug.accepts.ReadingGroup" eventGroup="PartitionedReadingWindowsEventGroup.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="MedianEachPlug.acceptsData" describedService__SEFF="ReadingGroupEventType.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="MedianEachPlug.acceptsData.start.ID" entityName="MedianEachPlug.acceptsData.start" successor_AbstractAction="MedianEachPlug.acceptData.analyseStack.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="MedianEachPlug.acceptData.analyseStack.ID" entityName="MedianEachPlug.acceptData.analyseStack" predecessor_AbstractAction="MedianEachPlug.acceptsData.start.ID" successor_AbstractAction="MedianEachPlug.acceptsData.stop.ID" measurementIdentificationKey="MedianEachPlug.acceptData.analyseStack.key">
+        <variableReference referenceName="partitionedWindows"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="componentB.acceptData.stop.ID" entityName="componentB.acceptData.stop" predecessor_AbstractAction="componentB.acceptData.analyzeStack.ID"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="MedianEachPlug.acceptsData.stop.ID" entityName="MedianEachPlug.acceptsData.stop" predecessor_AbstractAction="MedianEachPlug.acceptData.analyseStack.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptData.ID" entityName="IAcceptData">
-    <signatures__OperationInterface id="acceptData.Signature.ID" entityName="acceptData">
-      <parameters__OperationSignature parameterName="data">
-        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
-      </parameters__OperationSignature>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptSingleReading.ID" entityName="IAcceptSingleReading">
+    <signatures__OperationInterface id="acceptSingleReading.ID" entityName="acceptSingleReading">
+      <parameters__OperationSignature dataType__Parameter="SmartReadingReadingDataType.ID" parameterName="reading"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="DataEventGroup.ID" entityName="DataEventGroup">
-    <eventTypes__EventGroup id="DataEventType.ID" entityName="DataEventType">
-      <parameter__EventType parameterName="data">
-        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
-      </parameter__EventType>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="ReadingEventGroup.ID" entityName="ReadingEventGroup">
+    <eventTypes__EventGroup id="ReadingEventType.ID" entityName="ReadingEventType">
+      <parameter__EventType dataType__Parameter="SmartReadingReadingDataType.ID" parameterName="reading"/>
     </eventTypes__EventGroup>
   </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="ReadingGroupEventGroup.ID" entityName="ReadingGroupEventGroup">
+    <eventTypes__EventGroup id="ReadingGroupEventType.ID" entityName="ReadingGroupEventType">
+      <parameter__EventType dataType__Parameter="ReadingGroupDataType.ID" parameterName="readings"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="ReadingWindowEventGroup.ID" entityName="ReadingWindowEventGroup">
+    <eventTypes__EventGroup id="ReadingWindowEventType.ID" entityName="ReadingWindowEventType">
+      <parameter__EventType dataType__Parameter="ReadingWindowDataType.ID" parameterName="readings"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:EventGroup" id="PartitionedReadingWindowsEventGroup.ID" entityName="PartitionedReadingWindowsEventGroup">
+    <eventTypes__EventGroup id="PartitionedReadingWindowsEventType.ID" entityName="PartitionedReadingWindowsEventType">
+      <parameter__EventType dataType__Parameter="PartitionedReadingWindowsDataType.ID" parameterName="partitionedWindows"/>
+    </eventTypes__EventGroup>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="SmartReadingReadingDataType.ID" entityName="SmartReadingReadingDataType">
+    <innerDeclaration_CompositeDataType entityName="plugId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="ReadingWindowGroupDataType.ID" entityName="ReadingWindowGroupDataType" innerType_CollectionDataType="ReadingWindowDataType.ID"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="ReadingGroupDataType.ID" entityName="ReadingGroupDataType" innerType_CollectionDataType="SmartReadingReadingDataType.ID"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="ReadingWindowDataType.ID" entityName="ReadingWindowDataType">
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="readings" datatype_InnerDeclaration="ReadingGroupDataType.ID"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="PartitionedReadingWindowsDataType.ID" entityName="PartitionedReadingWindowsDataType">
+    <innerDeclaration_CompositeDataType entityName="plugId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="windows" datatype_InnerDeclaration="ReadingWindowGroupDataType.ID"/>
+  </dataTypes__Repository>
 </repository:Repository>

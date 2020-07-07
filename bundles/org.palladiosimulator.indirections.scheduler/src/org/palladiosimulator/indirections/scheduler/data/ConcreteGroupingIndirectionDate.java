@@ -21,7 +21,7 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
 
     public ConcreteGroupingIndirectionDate(final List<T> dataInGroup, final Map<String, Object> extraData) {
         this.dataInGroup = dataInGroup;
-        this.extraData = extraData;
+        this.extraData = new HashMap<>(extraData);
     }
 
     @Override
@@ -45,10 +45,10 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
     @Override
     public Collection<Double> getTime() {
         return this.getDataInGroup()
-                .stream()
-                .flatMap(it -> it.getTime()
-                    .stream())
-                .collect(Collectors.toList());
+            .stream()
+            .flatMap(it -> it.getTime()
+                .stream())
+            .collect(Collectors.toList());
     }
 
     @Override
