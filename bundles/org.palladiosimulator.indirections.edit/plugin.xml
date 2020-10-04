@@ -126,5 +126,13 @@
                org.eclipse.emf.edit.provider.IItemLabelProvider
                org.eclipse.emf.edit.provider.IItemPropertySource"/>
    </extension>
+   <extension
+         name="Manual child creation extender definitions"
+         point="org.eclipse.emf.edit.childCreationExtenders">
+      <extender
+            class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory$EntityChildCreationExtender"
+            uri="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2">
+      </extender>
+   </extension>
 
 </plugin>
