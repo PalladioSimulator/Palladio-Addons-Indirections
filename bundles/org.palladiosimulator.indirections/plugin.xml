@@ -31,14 +31,6 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated indirection -->
       <package
-            uri="http://palladiosimulator.org/Indirections/Datatypes/1.0"
-            class="org.palladiosimulator.indirections.datatypes.DatatypesPackage"
-            genModel="model/indirections.genmodel"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <!-- @generated indirection -->
-      <package
             uri="http://palladiosimulator.org/Indirections/System/1.0"
             class="org.palladiosimulator.indirections.system.SystemPackage"
             genModel="model/indirections.genmodel"/>
