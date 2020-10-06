@@ -16,8 +16,8 @@ Workflow {
 	}
 
 	component = URISupportingDirectoryCleaner {
+		exclude = ".gitkeep"
 		directory = "platform:/resource/org.palladiosimulator.indirections/src-gen"
 		directory = "platform:/resource/org.palladiosimulator.indirections.edit/src-gen"
-		directory = "platform:/resource/org.palladiosimulator.indirections.editor/src-gen"
 	}
 }

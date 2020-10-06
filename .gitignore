@@ -2,7 +2,7 @@
 bin/
 target/
 xtend-gen/
-#src-gen/
+src-gen/
 
 # Package Files #
 *.jar
