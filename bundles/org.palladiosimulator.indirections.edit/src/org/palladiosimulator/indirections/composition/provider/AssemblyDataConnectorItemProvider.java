@@ -3,16 +3,17 @@ package org.palladiosimulator.indirections.composition.provider;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.palladiosimulator.indirections.composition.provider.impl.DataSinkRoleValueChoiceCalculator;
 import org.palladiosimulator.indirections.composition.provider.impl.DataSourceRoleValueChoiceCalculator;
-import org.palladiosimulator.indirections.composition.provider.impl.SinkDataChannelValueChoiceCalculator;
-import org.palladiosimulator.indirections.composition.provider.impl.SourceDataChannelContextValueChoiceCalculator;
+import org.palladiosimulator.indirections.composition.provider.impl.SinkAssemblyContextValueChoiceCalculator;
+import org.palladiosimulator.indirections.composition.provider.impl.SourceAssemblyContextValueChoiceCalculator;
 import org.palladiosimulator.indirections.util.itempropertydescriptor.ItemPropertyDescriptorUtils;
 
-public class DataChannelToDataChannelConnectorItemProvider extends DataChannelToDataChannelConnectorItemProviderGen {
+public class AssemblyDataConnectorItemProvider
+        extends AssemblyDataConnectorItemProviderGen {
 
     /**
      * {@inheritDoc}
      */
-    public DataChannelToDataChannelConnectorItemProvider(AdapterFactory adapterFactory) {
+    public AssemblyDataConnectorItemProvider(AdapterFactory adapterFactory) {
         super(adapterFactory);
     }
 
@@ -20,20 +21,20 @@ public class DataChannelToDataChannelConnectorItemProvider extends DataChannelTo
      * {@inheritDoc}
      */
     @Override
-    protected void addSinkDataChannelPropertyDescriptor(Object object) {
-        super.addSinkDataChannelPropertyDescriptor(object);
+    protected void addSinkAssemblyContextPropertyDescriptor(Object object) {
+        super.addSinkAssemblyContextPropertyDescriptor(object);
         var decorator = ItemPropertyDescriptorUtils.decorateLastDescriptor(itemPropertyDescriptors);
-        decorator.setValueChoiceCalculator(new SinkDataChannelValueChoiceCalculator());
+        decorator.setValueChoiceCalculator(new SinkAssemblyContextValueChoiceCalculator());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    protected void addSourceDataChannelPropertyDescriptor(Object object) {
-        super.addSourceDataChannelPropertyDescriptor(object);
+    protected void addSourceAssemblyContextPropertyDescriptor(Object object) {
+        super.addSourceAssemblyContextPropertyDescriptor(object);
         var decorator = ItemPropertyDescriptorUtils.decorateLastDescriptor(itemPropertyDescriptors);
-        decorator.setValueChoiceCalculator(new SourceDataChannelContextValueChoiceCalculator());
+        decorator.setValueChoiceCalculator(new SourceAssemblyContextValueChoiceCalculator());
     }
 
     /**

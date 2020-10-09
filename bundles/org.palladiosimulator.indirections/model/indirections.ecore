@@ -48,14 +48,19 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="All connectors for sink/source roles that are either bound to a data channel or to an assembly context, e.g. for a Basic Component"/>
     </eAnnotations>
-    <eClassifiers xsi:type="ecore:EClass" name="DataChannelToAssemblyContextConnector"
-        eSuperTypes="#//composition/abstract/DataChannelSourceConnector #//composition/abstract/AssemblyContextSinkConnector"/>
-    <eClassifiers xsi:type="ecore:EClass" name="AssemblyContextToDataChannelConnector"
-        eSuperTypes="#//composition/abstract/AssemblyContextSourceConnector #//composition/abstract/DataChannelSinkConnector"/>
-    <eClassifiers xsi:type="ecore:EClass" name="DataChannelToDataChannelConnector"
-        eSuperTypes="#//composition/abstract/DataChannelSourceConnector #//composition/abstract/DataChannelSinkConnector"/>
-    <eClassifiers xsi:type="ecore:EClass" name="AssemblyContextToAssemblyContextConnector"
-        eSuperTypes="#//composition/abstract/AssemblyContextSourceConnector #//composition/abstract/AssemblyContextSinkConnector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="AssemblyDataConnector" eSuperTypes="#//composition/abstract/AssemblyContextSinkConnector #//composition/abstract/AssemblyContextSourceConnector"/>
+    <eClassifiers xsi:type="ecore:EClass" name="DataSourceDelegationConnector" eSuperTypes="#//composition/abstract/DataDelegationConnector">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="innerDataSourceRole"
+          lowerBound="1" eType="#//repository/DataSourceRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="outerDataSourceRole"
+          lowerBound="1" eType="#//repository/DataSourceRole"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataSinkDelegationConnector" eSuperTypes="#//composition/abstract/DataDelegationConnector">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="innerDataSinkRole" lowerBound="1"
+          eType="#//repository/DataSinkRole"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="outerDataSinkRole" lowerBound="1"
+          eType="#//repository/DataSinkRole"/>
+    </eClassifiers>
     <eSubpackages name="abstract" nsURI="http://palladiosimulator.org/Indirections/Composition/Abstract/1.0"
         nsPrefix="org.palladiosimulator.indirections.composition.abstract">
       <eClassifiers xsi:type="ecore:EClass" name="DataSourceSinkConnector" abstract="true"
@@ -67,22 +72,6 @@
             lowerBound="1" eType="#//repository/DataSourceRole"/>
         <eStructuralFeatures xsi:type="ecore:EReference" name="dataSinkRole" ordered="false"
             lowerBound="1" eType="#//repository/DataSinkRole"/>
-      </eClassifiers>
-      <eClassifiers xsi:type="ecore:EClass" name="DataChannelSourceConnector" abstract="true"
-          eSuperTypes="#//composition/abstract/DataSourceSinkConnector">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="Connector that has a DataChannel as its source."/>
-        </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDataChannel"
-            ordered="false" lowerBound="1" eType="#//repository/DataChannel"/>
-      </eClassifiers>
-      <eClassifiers xsi:type="ecore:EClass" name="DataChannelSinkConnector" abstract="true"
-          eSuperTypes="#//composition/abstract/DataSourceSinkConnector">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="Connector that has a DataChannel as its sink."/>
-        </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="sinkDataChannel" ordered="false"
-            lowerBound="1" eType="#//repository/DataChannel"/>
       </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="AssemblyContextSourceConnector"
           abstract="true" eSuperTypes="#//composition/abstract/DataSourceSinkConnector">
@@ -111,6 +100,11 @@
             <details key="get" value="return (this.getPushesTo() != null);"/>
           </eAnnotations>
         </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xsi:type="ecore:EClass" name="DataDelegationConnector" abstract="true"
+          eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/DelegationConnector">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" lowerBound="1"
+            eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
       </eClassifiers>
     </eSubpackages>
   </eSubpackages>

@@ -5,12 +5,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
-import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataSourceSinkConnector;
-import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.util.itempropertydescriptor.ValueChoiceCalculatorBase;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -25,7 +22,7 @@ public class DataSourceRoleValueChoiceCalculator
 
     @Override
     protected Collection<?> getValueChoiceTyped(DataSourceSinkConnector object, List<DataSourceRole> typedList) {
-        var assemblyContextCandidates = Optional.of(object)
+        return Optional.of(object)
             .filter(AssemblyContextSourceConnector.class::isInstance)
             .map(AssemblyContextSourceConnector.class::cast)
             .map(AssemblyContextSourceConnector::getSourceAssemblyContext)
@@ -33,20 +30,10 @@ public class DataSourceRoleValueChoiceCalculator
             .map(RepositoryComponent::getRequiredRoles_InterfaceRequiringEntity)
             .map(c -> c.stream()
                 .filter(DataSourceRole.class::isInstance)
-                .map(DataSourceRole.class::cast))
-            .orElseGet(() -> Arrays.asList((DataSourceRole) null)
-                .stream());
-        var dataChannelCandidates = Optional.of(object)
-            .filter(DataChannelSourceConnector.class::isInstance)
-            .map(DataChannelSourceConnector.class::cast)
-            .map(DataChannelSourceConnector::getSourceDataChannel)
-            .map(DataChannel::getDataSourceRoles)
-            .map(Collection::stream)
-            .orElseGet(() -> Arrays.asList((DataSourceRole) null)
-                .stream());
-        return Stream.concat(assemblyContextCandidates, dataChannelCandidates)
-            .filter(typedList::contains)
-            .collect(Collectors.toList());
+                .map(DataSourceRole.class::cast)
+                .filter(typedList::contains)
+                .collect(Collectors.toList()))
+            .orElseGet(() -> Arrays.asList((DataSourceRole) null));
     }
 
 }
