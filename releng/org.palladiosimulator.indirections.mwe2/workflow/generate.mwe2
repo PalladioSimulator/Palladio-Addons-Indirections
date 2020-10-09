@@ -6,6 +6,7 @@ import org.eclipse.emf.mwe2.ecore.EcoreGenerator
 import tools.mdsd.ecoreworkflow.mwe2lib.component.RegexComponent
 import tools.mdsd.ecoreworkflow.mwe2lib.bean.EclipseRCPSupportingStandaloneSetup
 import tools.mdsd.ecoreworkflow.mwe2lib.component.ContextDependentMapping
+import tools.mdsd.ecoreworkflow.mwe2lib.component.GapPatternPostProcessor
 
 var workspaceRoot = "../../"
 var projectName = "org.palladiosimulator.indirections"
@@ -94,5 +95,12 @@ Workflow {
 		genModel = "platform:/resource/${projectName}/model/indirections.genmodel"
 		srcPath = "platform:/resource/${projectName}/src-gen"
 		srcPath = "platform:/resource/${projectName}.edit/src-gen"
+	}
+	
+	component = GapPatternPostProcessor {
+		folders = {
+			gen = "platform:/resource/${projectName}.edit/src-gen"
+			src = "platform:/resource/${projectName}.edit/src"
+		}
 	}
 }
