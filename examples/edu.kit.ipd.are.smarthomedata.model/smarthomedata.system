@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <org.palladiosimulator.indirections.system:IndirectionsAwareSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:org.palladiosimulator.indirections.composition="http://palladiosimulator.org/Indirections/Composition/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:org.palladiosimulator.indirections.system="http://palladiosimulator.org/Indirections/System/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="System.ID" entityName="System">
   <assemblyContexts__ComposedStructure id="Emitter.AssemblyContext.ID" entityName="Emitter.AssemblyContext">
-    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#Emitter.ID"/>
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#EmitterComponent.ID"/>
   </assemblyContexts__ComposedStructure>
   <assemblyContexts__ComposedStructure id="MedianEachPlug.AssemblyContext.ID" entityName="MedianEachPlug.AssemblyContext">
-    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#MedianEachPlug.ID"/>
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#MedianEachPlugComponent.ID"/>
   </assemblyContexts__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyContextToDataChannelConnector" id="Emitter.sends-to.MEPDataChannel1.ID" entityName="Emitter.sends-to.MEPDataChannel1" dataSinkRole="MEPDataChannel1.accepts.Reading.ID" sourceAssemblyContext="Emitter.AssemblyContext.ID" sinkDataChannel="MEPDataChannel1.ID">
-    <dataSourceRole href="smarthomedata.repository#Emitter.providesData.ID"/>
+  <assemblyContexts__ComposedStructure id="AverageAllPlugs.AssemblyContext.ID" entityName="AverageAllPlugs.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#AverageAllPlugsComponent.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="OutlierCalculation.AssemblyContext.ID" entityName="OutlierCalculation.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#OutlierCalculationComponent.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyContextToDataChannelConnector" id="Emitter.sends-to.DataChannel1.ID" entityName="Emitter.sends-to.DataChannel1" dataSinkRole="DataChannel1.accepts.SmartMeterReading.ID" sourceAssemblyContext="Emitter.AssemblyContext.ID" sinkDataChannel="DataChannel1.ID">
+    <dataSourceRole href="smarthomedata.repository#Emitter.provides.SmartMeterReading.ID"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToDataChannelConnector" id="MEPDataChannel1.sends-to.MEPDataChannel2.ID" entityName="MEPDataChannel1.sends-to.MEPDataChannel2" dataSourceRole="MEPDataChannel1.provides.Window.ID" dataSinkRole="MEPDataChannel2.accepts.Window.ID" sourceDataChannel="MEPDataChannel1.ID" sinkDataChannel="MEPDataChannel2.ID"/>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToAssemblyContextConnector" id="MEPDataChannel2.sends-to.MedianEachPlug.ID" entityName="MEPDataChannel2.sends-to.MedianEachPlug" dataSourceRole="MEPDataChannel2.provides.PartitionedWindows.ID" sourceDataChannel="MEPDataChannel2.ID" sinkAssemblyContext="MedianEachPlug.AssemblyContext.ID">
-    <dataSinkRole href="smarthomedata.repository#MedianEachPlug.accepts.ReadingGroup.ID"/>
-    <pushesTo xsi:type="repository:EventType" href="smarthomedata.repository#ReadingGroupEventType.ID"/>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToDataChannelConnector" id="DataChannel1.sends-to.DataChannel2.ID" entityName="DataChannel1.sends-to.DataChannel2" dataSourceRole="DataChannel1.provides.SmartMeterReadingWindow.ID" dataSinkRole="DataChannel2.accepts.SmartMeterReadingWindow.ID" sourceDataChannel="DataChannel1.ID" sinkDataChannel="DataChannel2.ID"/>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToAssemblyContextConnector" id="DataChannel2.sends-to.MedianEachPlug.ID" entityName="DataChannel2.sends-to.MedianEachPlug" dataSourceRole="DataChannel2.provides.SmartMeterReadingWindow.ID" sourceDataChannel="DataChannel2.ID" sinkAssemblyContext="MedianEachPlug.AssemblyContext.ID">
+    <dataSinkRole href="smarthomedata.repository#MedianEachPlug.accepts.SmartMeterReadingWindow.ID"/>
+    <pushesTo xsi:type="org.palladiosimulator.indirections.repository:DataSignature" href="smarthomedata.repository#MedianDataSignature.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyContextToDataChannelConnector" id="MedianEachPlug.sends-to.DataChannel3.ID" entityName="MedianEachPlug.sends-to.DataChannel3" dataSinkRole="DataChannel3.accepts.Median.ID" sourceAssemblyContext="MedianEachPlug.AssemblyContext.ID" sinkDataChannel="DataChannel3.ID">
+    <dataSourceRole href="smarthomedata.repository#MedianEachPlug.provides.Median.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToDataChannelConnector" id="DataChannel3.sends-to.DataChannel4.ID" entityName="DataChannel3.sends-to.DataChannel4" dataSourceRole="DataChannel3.provides.Median.ID" dataSinkRole="DataChannel4.accepts.Median.ID" sourceDataChannel="DataChannel3.ID" sinkDataChannel="DataChannel4.ID"/>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToAssemblyContextConnector" id="DataChannel4.sends-to.AverageAllPlugs.ID" entityName="DataChannel4.sends-to.AverageAllPlugs" dataSourceRole="DataChannel4.provides.MedianWindow.ID" sourceDataChannel="DataChannel4.ID" sinkAssemblyContext="AverageAllPlugs.AssemblyContext.ID">
+    <dataSinkRole href="smarthomedata.repository#AverageAllPlugs.accepts.MedianWindow.ID"/>
+    <pushesTo xsi:type="org.palladiosimulator.indirections.repository:DataSignature" href="smarthomedata.repository#MedianWindowDataSignature.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyContextToDataChannelConnector" id="AverageAllPlugs.sends-to.DataChannel6.ID" entityName="AverageAllPlugs.sends-to.DataChannel6" dataSinkRole="DataChannel6.accepts.MedianAverage.ID" sourceAssemblyContext="AverageAllPlugs.AssemblyContext.ID" sinkDataChannel="DataChannel6.ID">
+    <dataSourceRole href="smarthomedata.repository#AverageAllPlugs.provides.MedianAverage.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToDataChannelConnector" id="DataChannel3.sends-to.DataChannel5.ID" entityName="DataChannel3.sends-to.DataChannel5" dataSourceRole="DataChannel3.provides.Median.ID" dataSinkRole="DataChannel5.accepts.Median.ID" sourceDataChannel="DataChannel3.ID" sinkDataChannel="DataChannel5.ID"/>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToDataChannelConnector" id="DataChannel5.sends-to.DataChannel6.ID" entityName="DataChannel5.sends-to.DataChannel6" dataSourceRole="DataChannel5.provides.MedianWindow.ID" dataSinkRole="DataChannel6.accepts.MedianWindow.ID" sourceDataChannel="DataChannel5.ID" sinkDataChannel="DataChannel6.ID"/>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToAssemblyContextConnector" id="DataChannel6.sends-to.OutlierCalculation.ID" entityName="DataChannel6.sends-to.OutlierCalculation" dataSourceRole="DataChannel6.provides.AverageAndHouseMedians.ID" sourceDataChannel="DataChannel6.ID" sinkAssemblyContext="OutlierCalculation.AssemblyContext.ID">
+    <dataSinkRole href="smarthomedata.repository#OutlierCalculation.accepts.AverageAndHouseMedians.ID"/>
+    <pushesTo xsi:type="org.palladiosimulator.indirections.repository:DataSignature" href="smarthomedata.repository#AverageAndHouseMediansDataSignature.ID"/>
   </connectors__ComposedStructure>
   <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.IAcceptData.to.componentA.AssemblyContext.ID" entityName="System.delegates.IAcceptData.to.componentA.AssemblyContext" outerProvidedRole_ProvidedDelegationConnector="System.provides.IAcceptSingleReading.ID" assemblyContext_ProvidedDelegationConnector="Emitter.AssemblyContext.ID">
     <innerProvidedRole_ProvidedDelegationConnector href="smarthomedata.repository#Emitter.provides.IAcceptSingleReading.ID"/>
@@ -20,24 +43,59 @@
   <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="System.provides.IAcceptSingleReading.ID" entityName="System.provides.IAcceptSingleReading">
     <providedInterface__OperationProvidedRole href="smarthomedata.repository#IAcceptSingleReading.ID"/>
   </providedRoles_InterfaceProvidingEntity>
-  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="MEPDataChannel1.ID" entityName="MEPDataChannel1" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.smarthome._1_ReadingsToWindowChannel">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="MEPDataChannel1.accepts.Reading.ID" entityName="MEPDataChannel1.accepts.Reading">
-      <eventGroup href="smarthomedata.repository#ReadingEventGroup.ID"/>
+  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="DataChannel1.ID" entityName="DataChannel1" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.smarthome._1_ReadingsToWindowChannel">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel1.accepts.SmartMeterReading.ID" entityName="DataChannel1.accepts.SmartMeterReading">
+      <dataInterface href="smarthomedata.repository#SmartMeterReadingDataInterface.ID"/>
     </providedRoles_InterfaceProvidingEntity>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="MEPDataChannel1.provides.Window.ID" entityName="MEPDataChannel1.provides.Window">
-      <eventGroup href="smarthomedata.repository#ReadingWindowEventGroup.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel1.provides.SmartMeterReadingWindow.ID" entityName="DataChannel1.provides.SmartMeterReadingWindow">
+      <dataInterface href="smarthomedata.repository#SmartMeterReadingWindowDataInterface.ID"/>
     </requiredRoles_InterfaceRequiringEntity>
     <configEntries>windowSize->10</configEntries>
     <configEntries>windowShift->10</configEntries>
     <configEntries>emitEmptyWindows->true</configEntries>
     <configEntries>gracePeriod->5</configEntries>
   </dataChannels>
-  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="MEPDataChannel2.ID" entityName="MEPDataChannel2" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.smarthome._2_WindowPartitionByPlugChannel">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="MEPDataChannel2.accepts.Window.ID" entityName="MEPDataChannel2.accepts.Window">
-      <eventGroup href="smarthomedata.repository#ReadingWindowEventGroup.ID"/>
+  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="DataChannel2.ID" entityName="DataChannel2" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.smarthome._2_WindowPartitionByPlugChannel">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel2.accepts.SmartMeterReadingWindow.ID" entityName="DataChannel2.accepts.SmartMeterReadingWindow">
+      <dataInterface href="smarthomedata.repository#SmartMeterReadingWindowDataInterface.ID"/>
     </providedRoles_InterfaceProvidingEntity>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="MEPDataChannel2.provides.PartitionedWindows.ID" entityName="MEPDataChannel2.provides.PartitionedWindows">
-      <eventGroup href="smarthomedata.repository#PartitionedReadingWindowsEventGroup.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel2.provides.SmartMeterReadingWindow.ID" entityName="DataChannel2.provides.SmartMeterReadingWindow">
+      <dataInterface href="smarthomedata.repository#SmartMeterReadingWindowDataInterface.ID"/>
+    </requiredRoles_InterfaceRequiringEntity>
+  </dataChannels>
+  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="DataChannel3.ID" entityName="DataChannel3">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel3.accepts.Median.ID" entityName="DataChannel3.accepts.Median">
+      <dataInterface href="smarthomedata.repository#MedianDataInterface.ID"/>
+    </providedRoles_InterfaceProvidingEntity>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel3.provides.Median.ID" entityName="DataChannel3.provides.Median">
+      <dataInterface href="smarthomedata.repository#MedianDataInterface.ID"/>
+    </requiredRoles_InterfaceRequiringEntity>
+  </dataChannels>
+  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="DataChannel4.ID" entityName="DataChannel4" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.smarthome._3_TimedHoldBackDistributingChannel">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel4.accepts.Median.ID" entityName="DataChannel4.accepts.Median">
+      <dataInterface href="smarthomedata.repository#MedianDataInterface.ID"/>
+    </providedRoles_InterfaceProvidingEntity>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel4.provides.MedianWindow.ID" entityName="DataChannel4.provides.MedianWindow">
+      <dataInterface href="smarthomedata.repository#MedianWindowDataInterface.ID"/>
+    </requiredRoles_InterfaceRequiringEntity>
+  </dataChannels>
+  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="DataChannel5.ID" entityName="DataChannel5" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.smarthome._4_MedianToHouseRepartitioningChannel">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel5.accepts.Median.ID" entityName="DataChannel5.accepts.Median">
+      <dataInterface href="smarthomedata.repository#MedianDataInterface.ID"/>
+    </providedRoles_InterfaceProvidingEntity>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel5.provides.MedianWindow.ID" entityName="DataChannel5.provides.MedianWindow">
+      <dataInterface href="smarthomedata.repository#MedianWindowDataInterface.ID"/>
+    </requiredRoles_InterfaceRequiringEntity>
+  </dataChannels>
+  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="DataChannel6.ID" entityName="DataChannel6">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel6.accepts.MedianWindow.ID" entityName="DataChannel6.accepts.MedianWindow">
+      <dataInterface href="smarthomedata.repository#MedianWindowDataInterface.ID"/>
+    </providedRoles_InterfaceProvidingEntity>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel6.accepts.MedianAverage.ID" entityName="DataChannel6.accepts.MedianAverage">
+      <dataInterface href="smarthomedata.repository#MedianAverageDataInterface.ID"/>
+    </providedRoles_InterfaceProvidingEntity>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel6.provides.AverageAndHouseMedians.ID" entityName="DataChannel6.provides.AverageAndHouseMedians">
+      <dataInterface href="smarthomedata.repository#AverageAndHouseMediansDataInterface.ID"/>
     </requiredRoles_InterfaceRequiringEntity>
   </dataChannels>
 </org.palladiosimulator.indirections.system:IndirectionsAwareSystem>
