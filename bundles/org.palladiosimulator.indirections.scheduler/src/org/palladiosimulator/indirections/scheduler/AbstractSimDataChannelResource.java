@@ -282,8 +282,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
      * @param demandSpecification
      *            a StoEx as String
      */
-    protected final void scheduleDemand(String resourceTypeId, String demandSpecification,
-            IndirectionDate date, Runnable andThen) {
+    protected final void scheduleDemand(String resourceTypeId, String demandSpecification, IndirectionDate date,
+            Runnable andThen) {
 
         DataChannelAllocationContext allocationContext = ((IndirectionsAwareAllocation) allocation)
             .getDataChannelAllocationContexts()
@@ -455,7 +455,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     public boolean put(final ISchedulableProcess schedulableProcess, final DataChannelSinkConnector connector,
             final IndirectionDate date) {
         IndirectionSimulationUtil.validateIndirectionDateStructure(date, connector.getDataSourceRole()
-            .getEventGroup());
+            .getDataInterface());
 
         if (!isSimulationRunning()) {
             return true;
@@ -541,8 +541,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         date.getTime()
             .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
 
-        final String parameterName = IndirectionSimulationUtil.getOneParameter(connector.getDataSinkRole()
-            .getEventGroup())
+        final String parameterName = connector.getDataSinkRole()
+            .getDataInterface()
+            .getParameter()
             .getParameterName();
 
         final CallbackUser user = this.sourceConnectorUserFactories.get(connector)

@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.repository.DataInterface;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.system.DataChannel;
@@ -279,7 +280,7 @@ public final class IndirectionSimulationUtil {
         };
     }
 
-    public static void validateIndirectionDateStructure(final IndirectionDate date, final EventGroup eventGroup) {
+    public static void validateIndirectionDateStructure(final IndirectionDate date, final DataInterface dataInterface) {
         // TODO implement validation
         LOGGER.debug("Not validating indirection date structure");
     }
