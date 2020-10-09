@@ -543,6 +543,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         final String parameterName = connector.getDataSinkRole()
             .getDataInterface()
+            .getDataSignature()
             .getParameter()
             .getParameterName();
 

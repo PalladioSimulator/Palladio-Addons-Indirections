@@ -120,6 +120,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
                     .createAndPushNewStackFrame();
                 final String parameterName = CallbackUserFactory.this.connector.getDataSinkRole()
                     .getDataInterface()
+                    .getDataSignature()
                     .getParameter()
                     .getParameterName();
 
@@ -141,6 +142,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 
             parameterName = CallbackUserFactory.this.connector.getDataSinkRole()
                 .getDataInterface()
+                .getDataSignature()
                 .getParameter()
                 .getParameterName();
 

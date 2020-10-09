@@ -150,6 +150,10 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" eType="#//repository/DataInterface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataInterface" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Interface">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataSignature" lowerBound="1"
+          eType="#//repository/DataSignature" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataSignature" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Signature">
       <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" lowerBound="1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Parameter"
           containment="true"/>
