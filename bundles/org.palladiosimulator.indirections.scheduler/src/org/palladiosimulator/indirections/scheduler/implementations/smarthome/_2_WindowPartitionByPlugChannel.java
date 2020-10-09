@@ -21,6 +21,15 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
+/**
+ * This data channel takes windows with data elements, that have at least values for
+ * <code>plugId.VALUE</code>.
+ * 
+ * The input data is expected to be of type {@link WindowingIndirectionDate}.
+ * 
+ * @author Dominik Werle
+ *
+ */
 public class _2_WindowPartitionByPlugChannel extends AbstractSimDataChannelResource {
     public static final String WINDOW_VALUE_NAME = "WINDOW.VALUE";
     public static final String PLUG_ID_VALUE_NAME = "plugId.VALUE";
@@ -51,7 +60,7 @@ public class _2_WindowPartitionByPlugChannel extends AbstractSimDataChannelResou
         // WindowingIndirectionDate<>(data, window)));
         for (var entry : plugIdToWindowedElements.entrySet()) {
             var plugId = entry.getKey();
-            var<IndirectionDate> data = entry.getValue();
+            var data = entry.getValue();
 
             this.dataOut.add(new PartitionedIndirectionDate<>(plugId, data, Map.of(WINDOW_VALUE_NAME, window)));
         }
