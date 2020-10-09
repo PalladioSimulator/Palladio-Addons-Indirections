@@ -4,9 +4,8 @@ import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimul
 
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.implementations.windowing.ConfigurableSlidingWindowChannel;
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
-import org.palladiosimulator.indirections.util.ObjectUtil;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;

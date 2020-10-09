@@ -16,10 +16,10 @@ import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextS
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
+import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
-import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.system.IndirectionsAwareSystem;
+import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
@@ -37,7 +37,7 @@ public final class IndirectionModelUtil {
             .collect(Collectors.toList());
     }
 
-    public static IndirectionsAwareSystem getSystem(final DataChannel dataChannel) {
+    public static System getSystem(final DataChannel dataChannel) {
         EObject container = dataChannel.eContainer();
         return ObjectUtil.forceCast(container, IndirectionsAwareSystem.class,
                 () -> new PCMModelInterpreterException("Unexpected container for data channel " + dataChannel + ": "
@@ -45,7 +45,7 @@ public final class IndirectionModelUtil {
     }
 
     private static Collection<DataChannelSourceConnector> getDataSourceSinkConnectors(DataSourceRole role,
-            IndirectionsAwareSystem system) {
+            System system) {
         return system.getConnectors__ComposedStructure()
             .stream()
             .filter(DataChannelSourceConnector.class::isInstance)
@@ -211,7 +211,7 @@ public final class IndirectionModelUtil {
      * return sourceConnectorForRole; }
      */
 
-    public static boolean isPushingRole(final DataSourceRole role, final IndirectionsAwareSystem system) {
+    public static boolean isPushingRole(final DataSourceRole role, final System system) {
         return getDataSourceSinkConnectors(role, system).stream()
             .allMatch(IndirectionModelUtil::isPushingConnector);
     }

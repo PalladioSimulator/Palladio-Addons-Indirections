@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.util.itempropertydescriptor.ValueChoiceCalculatorBase;
 
 public class SinkDataChannelValueChoiceCalculator

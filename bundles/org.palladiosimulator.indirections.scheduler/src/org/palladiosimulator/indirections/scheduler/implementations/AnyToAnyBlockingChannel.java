@@ -1,7 +1,7 @@
 package org.palladiosimulator.indirections.scheduler.implementations;
 
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;

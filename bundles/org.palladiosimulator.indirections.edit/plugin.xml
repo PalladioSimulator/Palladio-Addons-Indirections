@@ -45,19 +45,6 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <!-- @generated indirections -->
       <factory
-            uri="http://palladiosimulator.org/Indirections/System/1.0"
-            class="org.palladiosimulator.indirections.system.provider.SystemItemProviderAdapterFactory"
-            supportedTypes=
-              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
-               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
-               org.eclipse.emf.edit.provider.ITreeItemContentProvider
-               org.eclipse.emf.edit.provider.IItemLabelProvider
-               org.eclipse.emf.edit.provider.IItemPropertySource"/>
-   </extension>
-
-   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
-      <!-- @generated indirections -->
-      <factory
             uri="http://palladiosimulator.org/Indirections/Composition/1.0"
             class="org.palladiosimulator.indirections.composition.provider.CompositionItemProviderAdapterFactory"
             supportedTypes=
@@ -117,18 +104,6 @@
             class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory$SystemChildCreationExtender"/>
    </extension>
 
-   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
-      <!-- @generated indirections -->
-      <factory
-            uri="http://palladiosimulator.org/Indirections/Allocation/1.0"
-            class="org.palladiosimulator.indirections.allocation.provider.AllocationItemProviderAdapterFactory"
-            supportedTypes=
-              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
-               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
-               org.eclipse.emf.edit.provider.ITreeItemContentProvider
-               org.eclipse.emf.edit.provider.IItemLabelProvider
-               org.eclipse.emf.edit.provider.IItemPropertySource"/>
-   </extension>
    <extension
          name="Manual child creation extender definitions"
          point="org.eclipse.emf.edit.childCreationExtenders">

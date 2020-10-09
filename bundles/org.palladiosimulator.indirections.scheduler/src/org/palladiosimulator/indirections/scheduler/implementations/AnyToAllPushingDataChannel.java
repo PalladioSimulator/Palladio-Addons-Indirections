@@ -12,11 +12,11 @@ import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkC
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 

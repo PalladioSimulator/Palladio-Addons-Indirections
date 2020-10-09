@@ -7,7 +7,7 @@ import java.util.Map;
 import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
-import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;

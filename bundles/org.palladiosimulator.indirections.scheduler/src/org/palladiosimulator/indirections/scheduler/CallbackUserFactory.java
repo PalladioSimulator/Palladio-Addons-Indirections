@@ -11,7 +11,7 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
-import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;

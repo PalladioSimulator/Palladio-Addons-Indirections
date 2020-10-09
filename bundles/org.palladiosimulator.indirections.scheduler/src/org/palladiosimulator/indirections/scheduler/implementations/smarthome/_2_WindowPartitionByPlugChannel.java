@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
@@ -15,7 +16,6 @@ import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 

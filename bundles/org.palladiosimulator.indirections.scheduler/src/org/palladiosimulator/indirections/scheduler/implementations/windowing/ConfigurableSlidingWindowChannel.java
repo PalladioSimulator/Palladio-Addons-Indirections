@@ -3,7 +3,7 @@ package org.palladiosimulator.indirections.scheduler.implementations.windowing;
 import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getBooleanParameter;
 import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getDoubleParameter;
 
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;

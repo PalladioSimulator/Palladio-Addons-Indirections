@@ -1,6 +1,6 @@
 package org.palladiosimulator.indirections.interfaces;
 
-import org.palladiosimulator.indirections.system.DataChannel;
+import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;

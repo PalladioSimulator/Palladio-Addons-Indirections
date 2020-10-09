@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
-import org.palladiosimulator.indirections.system.DataChannel;
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
+import org.palladiosimulator.indirections.repository.DataChannel;
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 

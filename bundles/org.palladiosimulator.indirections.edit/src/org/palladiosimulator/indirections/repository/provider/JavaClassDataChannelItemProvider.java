@@ -1,9 +1,9 @@
-package org.palladiosimulator.indirections.system.provider;
+package org.palladiosimulator.indirections.repository.provider;
 
 import java.util.Optional;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.palladiosimulator.indirections.system.JavaClassDataChannel;
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 
 public class JavaClassDataChannelItemProvider extends JavaClassDataChannelItemProviderGen {
 
