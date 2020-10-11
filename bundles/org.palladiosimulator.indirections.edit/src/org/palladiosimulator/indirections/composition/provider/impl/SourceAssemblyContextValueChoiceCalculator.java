@@ -28,6 +28,13 @@ public class SourceAssemblyContextValueChoiceCalculator
                     .orElse(false))
                 .collect(Collectors.toList());
         }
+        if (object.getParentStructure__Connector() != null) {
+            var candidates = object.getParentStructure__Connector()
+                .getAssemblyContexts__ComposedStructure();
+            return typedList.stream()
+                .filter(ac -> ac == null || candidates.contains(ac))
+                .collect(Collectors.toList());
+        }
         return typedList;
     }
 
