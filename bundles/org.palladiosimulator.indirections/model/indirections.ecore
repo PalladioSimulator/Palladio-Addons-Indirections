@@ -48,14 +48,39 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="All connectors for sink/source roles that are either bound to a data channel or to an assembly context, e.g. for a Basic Component"/>
     </eAnnotations>
-    <eClassifiers xsi:type="ecore:EClass" name="AssemblyDataConnector" eSuperTypes="#//composition/abstract/AssemblyContextSinkConnector #//composition/abstract/AssemblyContextSourceConnector"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL"/>
+    </eAnnotations>
+    <eClassifiers xsi:type="ecore:EClass" name="AssemblyDataConnector" eSuperTypes="#//composition/abstract/AssemblyContextSinkConnector #//composition/abstract/AssemblyContextSourceConnector">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="sinkRoleAndAssemblyContextMatch sourceRoleAndAssemblyContextMatch"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+        <details key="sinkRoleAndAssemblyContextMatch" value="self.sinkAssemblyContext.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity->includes(self.dataSinkRole)"/>
+        <details key="sourceRoleAndAssemblyContextMatch" value="self.sourceAssemblyContext.encapsulatedComponent__AssemblyContext.requiredRoles_InterfaceRequiringEntity->includes(self.dataSourceRole)"/>
+      </eAnnotations>
+    </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataSourceDelegationConnector" eSuperTypes="#//composition/abstract/DataDelegationConnector">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="innerAndOuterDataInterfacesMatch innerRoleAndAssemblyContextMatch"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+        <details key="innerAndOuterDataInterfacesMatch" value="self.innerDataSourceRole.dataInterface = self.outerDataSourceRole.dataInterface"/>
+        <details key="innerRoleAndAssemblyContextMatch" value="self.assemblyContext.encapsulatedComponent__AssemblyContext.requiredRoles_InterfaceRequiringEntity->includes(self.innerDataSourceRole)"/>
+      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="innerDataSourceRole"
           lowerBound="1" eType="#//repository/DataSourceRole"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="outerDataSourceRole"
           lowerBound="1" eType="#//repository/DataSourceRole"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataSinkDelegationConnector" eSuperTypes="#//composition/abstract/DataDelegationConnector">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="innerAndOuterDataInterfacesMatch innerRoleAndAssemblyContextMatch"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+        <details key="innerAndOuterDataInterfacesMatch" value="self.innerDataSinkRole.dataInterface = self.outerDataSinkRole.dataInterface"/>
+        <details key="innerRoleAndAssemblyContextMatch" value="self.assemblyContext.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity->includes(self.innerDataSinkRole)"/>
+      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="innerDataSinkRole" lowerBound="1"
           eType="#//repository/DataSinkRole"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="outerDataSinkRole" lowerBound="1"
@@ -110,10 +135,27 @@
   </eSubpackages>
   <eSubpackages name="repository" nsURI="http://palladiosimulator.org/Indirections/Repository/1.0"
       nsPrefix="org.palladiosimulator.indirections.repository">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL"/>
+    </eAnnotations>
     <eClassifiers xsi:type="ecore:EClass" name="DataSinkRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/ProvidedRole">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="sinkRoleOfComposedStructureHasExactlyOneDelegationConnector"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+        <details key="sinkRoleOfComposedStructureHasExactlyOneDelegationConnector"
+            value="not self.providingEntity_ProvidedRole.oclIsKindOf(pcm::core::composition::ComposedStructure) or&#xA;self.providingEntity_ProvidedRole.oclAsType(pcm::core::composition::ComposedStructure).connectors__ComposedStructure->selectByKind(indirections::composition::DataSinkDelegationConnector)->select(c | c.outerDataSinkRole = self)->size() = 1"/>
+      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" eType="#//repository/DataInterface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataSourceRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/RequiredRole">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+        <details key="constraints" value="sourceRoleOfComposedStructureHasExactlyOneDelegationConnector"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+        <details key="sourceRoleOfComposedStructureHasExactlyOneDelegationConnector"
+            value="not self.requiringEntity_RequiredRole.oclIsKindOf(pcm::core::composition::ComposedStructure) or&#xA;self.requiringEntity_RequiredRole.oclAsType(pcm::core::composition::ComposedStructure).connectors__ComposedStructure->selectByKind(indirections::composition::DataSourceDelegationConnector)->select(c | c.outerDataSourceRole = self)->size() = 1"/>
+      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" eType="#//repository/DataInterface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataInterface" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Interface">

@@ -52,10 +52,19 @@
     <nestedGenPackages prefix="Composition" basePackage="org.palladiosimulator.indirections"
         disposableProviderFactory="true" generateModelWizard="false" extensibleProviderFactory="true"
         childCreationExtenders="true" fileExtensions="" ecorePackage="indirections.ecore#//composition">
-      <genClasses ecoreClass="indirections.ecore#//composition/DataChannelToAssemblyContextConnector"/>
-      <genClasses ecoreClass="indirections.ecore#//composition/AssemblyContextToDataChannelConnector"/>
-      <genClasses ecoreClass="indirections.ecore#//composition/DataChannelToDataChannelConnector"/>
-      <genClasses ecoreClass="indirections.ecore#//composition/AssemblyContextToAssemblyContextConnector"/>
+      <genClasses ecoreClass="indirections.ecore#//composition/AssemblyDataConnector"/>
+      <genClasses ecoreClass="indirections.ecore#//composition/DataSourceDelegationConnector">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataSourceDelegationConnector/innerDataSourceRole"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataSourceDelegationConnector/outerDataSourceRole"/>
+      </genClasses>
+      <genClasses ecoreClass="indirections.ecore#//composition/DataSinkDelegationConnector">
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataSinkDelegationConnector/innerDataSinkRole"/>
+        <genFeatures notify="false" createChild="false" propertySortChoices="true"
+            ecoreFeature="ecore:EReference indirections.ecore#//composition/DataSinkDelegationConnector/outerDataSinkRole"/>
+      </genClasses>
       <nestedGenPackages prefix="Abstract" basePackage="org.palladiosimulator.indirections.composition"
           disposableProviderFactory="true" ecorePackage="indirections.ecore#//composition/abstract">
         <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataSourceSinkConnector">
@@ -63,14 +72,6 @@
               ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataSourceSinkConnector/dataSourceRole"/>
           <genFeatures notify="false" createChild="false" propertySortChoices="true"
               ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataSourceSinkConnector/dataSinkRole"/>
-        </genClasses>
-        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataChannelSourceConnector">
-          <genFeatures notify="false" createChild="false" propertySortChoices="true"
-              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataChannelSourceConnector/sourceDataChannel"/>
-        </genClasses>
-        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataChannelSinkConnector">
-          <genFeatures notify="false" createChild="false" propertySortChoices="true"
-              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataChannelSinkConnector/sinkDataChannel"/>
         </genClasses>
         <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/AssemblyContextSourceConnector">
           <genFeatures notify="false" createChild="false" propertySortChoices="true"
@@ -83,6 +84,10 @@
               ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/AssemblyContextSinkConnector/pushesTo"/>
           <genFeatures createChild="false" ecoreFeature="ecore:EAttribute indirections.ecore#//composition/abstract/AssemblyContextSinkConnector/pushing"
               get="return (this.getPushesTo() != null);"/>
+        </genClasses>
+        <genClasses image="false" ecoreClass="indirections.ecore#//composition/abstract/DataDelegationConnector">
+          <genFeatures notify="false" createChild="false" propertySortChoices="true"
+              ecoreFeature="ecore:EReference indirections.ecore#//composition/abstract/DataDelegationConnector/assemblyContext"/>
         </genClasses>
       </nestedGenPackages>
     </nestedGenPackages>
