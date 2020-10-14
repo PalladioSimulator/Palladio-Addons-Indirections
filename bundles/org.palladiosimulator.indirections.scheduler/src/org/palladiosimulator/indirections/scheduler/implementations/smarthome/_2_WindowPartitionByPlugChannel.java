@@ -33,8 +33,9 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 public class _2_WindowPartitionByPlugChannel extends AbstractSimDataChannelResource {
     public static final String WINDOW_VALUE_NAME = "WINDOW.VALUE";
     public static final String PLUG_ID_VALUE_NAME = "plugId.VALUE";
+    public static final String HOUSE_ID_VALUE_NAME = "houseId.VALUE";
 
-    private final Queue<PartitionedIndirectionDate<Integer, IndirectionDate>> dataOut;
+    private final Queue<PartitionedIndirectionDate<Map<String, Integer>, IndirectionDate>> dataOut;
 
     public _2_WindowPartitionByPlugChannel(JavaClassDataChannel dataChannel, InterpreterDefaultContext context,
             SchedulerModel model) {
@@ -52,8 +53,10 @@ public class _2_WindowPartitionByPlugChannel extends AbstractSimDataChannelResou
 
         var plugIdToWindowedElements = windowingIndirectionDate.getDataInGroup()
             .stream()
-            .collect(Collectors.<IndirectionDate, Integer> groupingBy(
-                    (IndirectionDate it) -> (Integer) it.evaluate(PLUG_ID_VALUE_NAME)));
+            .collect(Collectors.<IndirectionDate, Map<String, Integer>> groupingBy(
+                    (IndirectionDate it) -> Map.of(
+                            PLUG_ID_VALUE_NAME, (Integer) it.evaluate(PLUG_ID_VALUE_NAME),
+                            HOUSE_ID_VALUE_NAME, (Integer) it.evaluate(HOUSE_ID_VALUE_NAME))));
 
         Window window = windowingIndirectionDate.window;
         // plugIdToWindowedElements.forEach((plugId, data) -> data.add(new

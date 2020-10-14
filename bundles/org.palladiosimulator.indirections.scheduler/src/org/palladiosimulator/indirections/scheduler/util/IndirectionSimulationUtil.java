@@ -35,6 +35,7 @@ import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameExcep
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
+import de.uka.ipd.sdq.stoex.VariableReference;
 import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
 public final class IndirectionSimulationUtil {
@@ -142,11 +143,16 @@ public final class IndirectionSimulationUtil {
     }
 
     public static IndirectionDate createData(final SimulatedStack<Object> contextStack,
-            final Iterable<VariableUsage> variableUsages, final Double time) {
+            final Iterable<VariableUsage> variableUsages, final Iterable<VariableReference> referencedData,
+            final Double time) {
 
         final Map<String, Object> entries = createDataEntries(contextStack, variableUsages);
         final IndirectionDate result = new ConcreteIndirectionDate(entries, time);
 
+        referencedData.forEach(it -> {
+            result.addReferencedData(claimDataFromStack(contextStack, it.getReferenceName()));
+        });
+        
         return result;
     }
 
@@ -163,8 +169,7 @@ public final class IndirectionSimulationUtil {
 
     // TODO: it is not very good to do exception handling checks here. This should be functionality
     // of the StackFrame, if it is really needed. Additionally, it is unclear, whether this should
-    // just
-    // shadow the variable.
+    // just shadow the variable.
     public static void createNewDataOnStack(final SimulatedStack<Object> stack, final String id,
             final IndirectionDate date) {
         Object value = null;
@@ -214,6 +219,10 @@ public final class IndirectionSimulationUtil {
             final int numberOfElements = groupingIndirectionDate.getDataInGroup()
                 .size();
             stackframe.addValue(baseName + ".NUMBER_OF_ELEMENTS", numberOfElements);
+
+            var extraData = groupingIndirectionDate.getData();
+            extraData.forEach((key, value) -> stackframe.addValue(baseName + "." + key, value));
+
         } else {
             throw new PCMModelInterpreterException(
                     baseName + " is not a ConcreteIndirectionDate, but a " + date.getClass()

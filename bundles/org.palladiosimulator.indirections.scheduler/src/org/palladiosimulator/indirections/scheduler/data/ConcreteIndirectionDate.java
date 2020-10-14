@@ -1,8 +1,10 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -18,6 +20,7 @@ public class ConcreteIndirectionDate implements IndirectionDate {
     private final Map<String, Object> data;
     private final double time;
     public final UUID uuid = UUID.randomUUID();
+    private final List<IndirectionDate> referencedData = new ArrayList<>();
 
     public ConcreteIndirectionDate(final Map<String, Object> data, final double time) {
         this.data = Collections.unmodifiableMap(new HashMap<>(data));
@@ -42,7 +45,13 @@ public class ConcreteIndirectionDate implements IndirectionDate {
 
     @Override
     public Collection<Double> getTime() {
-        return Collections.singletonList(this.time);
+        if (referencedData.isEmpty())
+            return Collections.singletonList(this.time);
+        else
+            return referencedData.stream()
+                .flatMap(it -> it.getReferencedData().stream())
+                .flatMap(it -> it.getTime().stream())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -53,6 +62,16 @@ public class ConcreteIndirectionDate implements IndirectionDate {
             .collect(Collectors.joining(","));
         return "<" + this.getClass()
             .getSimpleName() + " (" + this.uuid + "): " + dataToString + ">";
+    }
+
+    @Override
+    public void addReferencedData(IndirectionDate indirectionDate) {
+        this.referencedData.add(indirectionDate);
+    }
+
+    @Override
+    public Collection<IndirectionDate> getReferencedData() {
+        return Collections.unmodifiableCollection(this.referencedData);
     }
 
 }

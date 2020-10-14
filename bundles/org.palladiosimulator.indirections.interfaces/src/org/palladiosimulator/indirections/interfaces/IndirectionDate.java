@@ -31,4 +31,7 @@ public interface IndirectionDate {
     Map<String, Object> getData();
 
     Collection<Double> getTime();
+
+    void addReferencedData(IndirectionDate indirectionDate);
+    Collection<IndirectionDate> getReferencedData();
 }

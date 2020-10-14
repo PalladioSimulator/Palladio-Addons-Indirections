@@ -15,6 +15,7 @@ import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.CreateDateAction;
 import org.palladiosimulator.indirections.actions.DataIteratorAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
+import org.palladiosimulator.indirections.actions.JavaClassRegroupDataAction;
 import org.palladiosimulator.indirections.actions.PutTimeOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
@@ -109,7 +110,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         final IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
                 referenceName);
 
-        data.getTime().forEach(it -> this.measureDataAge(action, it));
+        data.getTime().forEach(
+                it -> this.measureDataAge(action, it)
+        );
 
         return true;
     }
@@ -156,7 +159,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
             .getCurrentSimulationTime();
 
         final IndirectionDate date = IndirectionSimulationUtil.createData(this.context.getStack(),
-                action.getVariableUsages(), currentSimulationTime);
+                action.getVariableUsages(), action.getReferencedData(), currentSimulationTime);
         IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), referenceName, date);
 
         return true;
@@ -253,6 +256,12 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         }
 
         return this;
+    }
+    
+    @Override
+    public Object caseJavaClassRegroupDataAction(JavaClassRegroupDataAction object) {
+        // TODO Auto-generated method stub
+        return super.caseJavaClassRegroupDataAction(object);
     }
 
     private void measureDataAge(final AnalyseStackAction action, final double value) {

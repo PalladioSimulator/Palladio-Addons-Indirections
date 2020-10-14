@@ -23,12 +23,12 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-public class _4_MedianToHouseRepartitioningChannel extends AbstractSimDataChannelResource {
+public class ______4_MedianToHouseRepartitioningChannel extends AbstractSimDataChannelResource {
     public static final String HOUSE_ID_VALUE_NAME = "houseId.VALUE";
 
     public Queue<PartitionedIndirectionDate<Window, IndirectionDate>> dataOut;
 
-    public _4_MedianToHouseRepartitioningChannel(DataChannel dataChannel, InterpreterDefaultContext context,
+    public ______4_MedianToHouseRepartitioningChannel(DataChannel dataChannel, InterpreterDefaultContext context,
             SchedulerModel model) {
         super(dataChannel, context, model);
 

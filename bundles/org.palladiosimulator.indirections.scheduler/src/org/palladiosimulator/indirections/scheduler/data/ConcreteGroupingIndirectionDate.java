@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
@@ -14,6 +16,7 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
     private final List<T> dataInGroup;
     protected final Map<String, Object> extraData;
     public final UUID uuid = UUID.randomUUID();
+    private final List<IndirectionDate> referencedData = new ArrayList<>();
 
     public ConcreteGroupingIndirectionDate(final List<T> dataInGroup) {
         this(dataInGroup, new HashMap<>());
@@ -68,5 +71,19 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
             .collect(Collectors.joining(";"));
         return "<" + this.getClass()
             .getSimpleName() + " (" + this.uuid + "): " + dataToString + ", extra: " + extraDataString + ">";
+    }
+
+    @Override
+    public void addReferencedData(IndirectionDate indirectionDate) {
+        this.referencedData.add(indirectionDate);
+    }
+
+    @Override
+    public Collection<IndirectionDate> getReferencedData() {
+        return Stream.concat(this.referencedData.stream(), this.getDataInGroup()
+            .stream()
+            .flatMap(it -> it.getReferencedData()
+                .stream()))
+            .collect(Collectors.toList());
     }
 }

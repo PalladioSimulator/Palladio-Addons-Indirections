@@ -31,6 +31,9 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableUsages" upperBound="-1"
           eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//parameter/VariableUsage"
           containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="referencedData" upperBound="-1"
+          eType="ecore:EClass platform:/plugin/de.uka.ipd.sdq.stoex/model/stoex.ecore#//VariableReference"
+          containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="AddToDateAction" eSuperTypes="#//actions/DataAction">
       <eStructuralFeatures xsi:type="ecore:EReference" name="variableUsages" upperBound="-1"

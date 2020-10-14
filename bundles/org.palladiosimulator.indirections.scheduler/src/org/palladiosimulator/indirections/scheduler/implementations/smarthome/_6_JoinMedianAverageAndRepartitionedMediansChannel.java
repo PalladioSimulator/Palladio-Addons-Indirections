@@ -1,6 +1,7 @@
 package org.palladiosimulator.indirections.scheduler.implementations.smarthome;
 
 import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getDoubleParameter;
+import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getStringParameter;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.GenericJoinedDate;
 import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.TaggedDate;
@@ -34,20 +36,18 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-// TODO refactor out hardcoded roles etc.
-public class _5_WindowedJoinChannel extends AbstractSimDataChannelResource {
-    private static final Logger logger = LogManager.getLogger(_5_WindowedJoinChannel.class);
-
-    public static final String AAP_ID = "AAPRole.ID";
-    public static final String MEP_GROUP_ID = "MEPGroupRole.ID";
+public class _6_JoinMedianAverageAndRepartitionedMediansChannel extends AbstractSimDataChannelResource {
+    private static final Logger logger = LogManager.getLogger(_6_JoinMedianAverageAndRepartitionedMediansChannel.class);
 
     public static final String WINDOW_SHIFT_PARAMETER_NAME = "windowShift";
     public static final String WINDOW_SIZE_PARAMETER_NAME = "windowSize";
     public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";
 
-    private final Map<DataSinkRole, Collection<IndirectionDate>> dataIn;
-    private final Map<Window, PartitionedIndirectionDate<Window, IndirectionDate>> averageAllIn;
-    private final Map<Window, Collection<IndirectionDate>> groupedByHouseIn;
+    public static final String MEDIAN_AVERAGE_CONNECTOR_ID_PARAMETER_NAME = "medianAverageConnectorId";
+    public static final String MEDIAN_WINDOW_CONNECTOR_ID_PARAMETER_NAME = "medianWindowConnectorId";
+
+    private final Map<Window, IndirectionDate> windowToMedianAverageIn;
+    private final Map<Window, Collection<IndirectionDate>> windowToMedianWindowIn;
 
     private final Queue<IndirectionDate> dataOut;
 
@@ -55,8 +55,11 @@ public class _5_WindowedJoinChannel extends AbstractSimDataChannelResource {
     private final double windowSize;
     private final double gracePeriod;
 
-    public _5_WindowedJoinChannel(JavaClassDataChannel dataChannel, InterpreterDefaultContext context,
-            SchedulerModel model) {
+    private final String medianWindowConnectorId;
+    private final String medianAverageConnectorId;
+
+    public _6_JoinMedianAverageAndRepartitionedMediansChannel(JavaClassDataChannel dataChannel,
+            InterpreterDefaultContext context, SchedulerModel model) {
         super(dataChannel, context, model);
 
         EList<DataSinkRole> dataSinkRoles = dataChannel.getDataSinkRoles();
@@ -69,18 +72,15 @@ public class _5_WindowedJoinChannel extends AbstractSimDataChannelResource {
                 .getName() + " has to have exactly one source role. Found " + dataSourceRoles.size());
 
         // prepare input data
-        dataIn = new HashMap<>();
-        for (var role : dataSinkRoles) {
-            dataIn.put(role, new ArrayDeque<>());
-        }
-
-        // prepare output data
-        averageAllIn = new HashMap<>();
-        groupedByHouseIn = new HashMap<>();
+        windowToMedianAverageIn = new HashMap<>();
+        windowToMedianWindowIn = new HashMap<>();
 
         this.windowShift = getDoubleParameter(dataChannel, WINDOW_SHIFT_PARAMETER_NAME);
         this.windowSize = getDoubleParameter(dataChannel, WINDOW_SIZE_PARAMETER_NAME);
         this.gracePeriod = getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME);
+
+        this.medianWindowConnectorId = getStringParameter(dataChannel, MEDIAN_WINDOW_CONNECTOR_ID_PARAMETER_NAME);
+        this.medianAverageConnectorId = getStringParameter(dataChannel, MEDIAN_AVERAGE_CONNECTOR_ID_PARAMETER_NAME);
 
         // flushes data every INTERVAL time units
         this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
@@ -96,49 +96,49 @@ public class _5_WindowedJoinChannel extends AbstractSimDataChannelResource {
 
     @Override
     protected void acceptData(DataChannelSinkConnector connector, IndirectionDate date) {
-        var partitionedDate = (PartitionedIndirectionDate<Window, IndirectionDate>) date;
-        if (discardDateIfTooOld(partitionedDate))
+        if (discardDateIfTooOld(date))
             return;
-
-        if (isAAPConnector(connector)) {
-            acceptAAPDate(partitionedDate);
-        } else if (isMEPConnector(connector)) {
-            acceptMEPDate(partitionedDate);
+        
+        if ((date instanceof PartitionedIndirectionDate) && isMedianWindowConnector(connector)) {
+            var partitionedDate = (PartitionedIndirectionDate<Window, IndirectionDate>) date;
+            acceptMedianWindowDate(partitionedDate);
+        } else if ((date instanceof ConcreteIndirectionDate) && isMedianAverageConnector(connector)) {
+            acceptMedianAverageDate(date);
         } else {
             throw new PCMModelInterpreterException(
                     "Unexpected connector and sink role: " + connector + ", " + connector.getDataSinkRole());
         }
     }
 
-    private void acceptMEPDate(PartitionedIndirectionDate<Window, IndirectionDate> date) {
+    private void acceptMedianWindowDate(PartitionedIndirectionDate<Window, IndirectionDate> date) {
         var window = date.getPartition();
 
-        Collection<IndirectionDate> data = groupedByHouseIn.computeIfAbsent(window, (it) -> new ArrayList<>());
+        Collection<IndirectionDate> data = windowToMedianWindowIn.computeIfAbsent(window, (it) -> new ArrayList<>());
         data.add(date);
     }
 
-    private void acceptAAPDate(PartitionedIndirectionDate<Window, IndirectionDate> date) {
-        Window window = date.getPartition();
-        if (averageAllIn.containsKey(window)) {
+    private void acceptMedianAverageDate(IndirectionDate date) {
+        Window window = (Window) date.getData().get("WINDOW.VALUE");
+        if (windowToMedianAverageIn.containsKey(window)) {
             discardIncomingDate(date);
-            logger.error("Unexpected AAP date: " + date + ", date already present for window " + window + ": "
-                    + averageAllIn.get(window));
+            logger.error("Unexpected MedianAverage date: " + date + ", date already present for window " + window + ": "
+                    + windowToMedianAverageIn.get(window));
             return;
         }
 
-        averageAllIn.put(window, date);
+        windowToMedianAverageIn.put(window, date);
     }
 
-    private boolean isMEPConnector(DataChannelSinkConnector connector) {
+    private boolean isMedianAverageConnector(DataChannelSinkConnector connector) {
         return connector.getDataSinkRole()
             .getId()
-            .equals(MEP_GROUP_ID);
+            .equals(medianAverageConnectorId);
     }
 
-    private boolean isAAPConnector(DataChannelSinkConnector connector) {
+    private boolean isMedianWindowConnector(DataChannelSinkConnector connector) {
         return connector.getDataSinkRole()
             .getId()
-            .equals(AAP_ID);
+            .equals(medianWindowConnectorId);
     }
 
     @Override
@@ -173,9 +173,9 @@ public class _5_WindowedJoinChannel extends AbstractSimDataChannelResource {
 
         // we could only check one, since both have to be present for eviction, but we want to clean
         // up properly and do error handling.
-        var emittableWindows = Stream.concat(averageAllIn.keySet()
+        var emittableWindows = Stream.concat(windowToMedianAverageIn.keySet()
             .stream(),
-                groupedByHouseIn.keySet()
+                windowToMedianWindowIn.keySet()
                     .stream())
             .filter(it -> it.end + gracePeriod < watermarkTime) // TODO IMPORTANT: check whether
                                                                 // this always works and is the
@@ -184,25 +184,25 @@ public class _5_WindowedJoinChannel extends AbstractSimDataChannelResource {
             .collect(Collectors.toSet());
 
         for (var window : emittableWindows) {
-            PartitionedIndirectionDate<Window, IndirectionDate> averageAll = averageAllIn.get(window);
+            IndirectionDate averageAll = windowToMedianAverageIn.get(window);
             if (averageAll == null) {
                 logger.error("No average all present for " + window);
                 continue;
             }
 
-            Collection<IndirectionDate> grouped = groupedByHouseIn.get(window);
+            Collection<IndirectionDate> grouped = windowToMedianWindowIn.get(window);
             if (grouped == null || grouped.isEmpty()) {
                 logger.error("No grouped data for " + window);
                 continue;
             }
 
-            var taggedAverage = new TaggedDate<IndirectionDate, String>(AAP_ID, averageAll);
-            var taggedMEPGroup = new TaggedDate<IndirectionDate, String>(MEP_GROUP_ID,
+            var taggedMedianAverage = new TaggedDate<IndirectionDate, String>(medianAverageConnectorId, averageAll);
+            var taggedMedianWindow = new TaggedDate<IndirectionDate, String>(medianWindowConnectorId,
                     new PartitionedIndirectionDate<>(window, new ArrayList<>(grouped), Collections.emptyMap()));
 
             var mappedData = new HashMap<String, TaggedDate<IndirectionDate, String>>();
-            mappedData.put(AAP_ID, taggedAverage);
-            mappedData.put(MEP_GROUP_ID, taggedMEPGroup);
+            mappedData.put(medianAverageConnectorId, taggedMedianAverage);
+            mappedData.put(medianWindowConnectorId, taggedMedianWindow);
 
             windowsToRemove.add(window);
             dataOut.add(new GenericJoinedDate<IndirectionDate, String>(mappedData));
@@ -210,8 +210,8 @@ public class _5_WindowedJoinChannel extends AbstractSimDataChannelResource {
         }
 
         for (var window : windowsToRemove) {
-            averageAllIn.remove(window);
-            groupedByHouseIn.remove(window);
+            windowToMedianAverageIn.remove(window);
+            windowToMedianWindowIn.remove(window);
         }
 
         if (newData)

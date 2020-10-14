@@ -1,7 +1,6 @@
-package org.palladiosimulator.indirections.scheduler.implementations.smarthome;
+package org.palladiosimulator.indirections.scheduler.implementations.windowing;
 
 import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getDoubleParameter;
-import static org.palladiosimulator.indirections.util.ObjectUtil.forceCast;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -12,13 +11,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
-import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
@@ -29,20 +27,19 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-// holdback with timer
-public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelResource {
+public abstract class HoldbackWindowedDataWithGracePeriodChannel extends AbstractSimDataChannelResource {
     public static final String WINDOW_SHIFT_PARAMETER_NAME = "windowShift";
     public static final String WINDOW_SIZE_PARAMETER_NAME = "windowSize";
     public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";
 
-    private final Map<Window, List<PartitionedIndirectionDate<Integer, IndirectionDate>>> dataIn;
-    private final Map<DataChannelSourceConnector, Queue<PartitionedIndirectionDate<Window, PartitionedIndirectionDate<Integer, IndirectionDate>>>> dataOut;
+    protected final Map<Window, List<IndirectionDate>> dataIn;
+    protected final Map<DataChannelSourceConnector, Queue<IndirectionDate>> dataOut;
 
     private final double windowShift;
     private final double windowSize;
     private final double gracePeriod;
 
-    public _3_TimedHoldBackDistributingChannel(final JavaClassDataChannel dataChannel,
+    public HoldbackWindowedDataWithGracePeriodChannel(final JavaClassDataChannel dataChannel,
             final InterpreterDefaultContext context, final SchedulerModel model) {
         super(dataChannel, context, model);
 
@@ -67,15 +64,12 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
         return Math.ceil(currentSimulationTime / windowShift) * windowShift + windowSize;
     }
 
+    protected abstract Window getWindowValue(IndirectionDate date);
+
     @SuppressWarnings("unchecked")
     @Override
     protected void acceptData(final DataChannelSinkConnector connector, final IndirectionDate date) {
-        // input: plug -> readings
-        PartitionedIndirectionDate<Integer, IndirectionDate> partitionedDate = forceCast(date,
-                PartitionedIndirectionDate.class);
-        var window = (Window) partitionedDate.evaluate(_2_WindowPartitionByPlugChannel.WINDOW_VALUE_NAME);
-
-        // target type: PartitionedData<House, Reading>
+        var window = getWindowValue(date);
 
         if (window.end < getCurrentWatermarkedTime()) {
             discardIncomingDate(date);
@@ -83,8 +77,8 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
         }
 
         dataIn.computeIfAbsent(window, (it) -> new ArrayList<>())
-            .add(partitionedDate);
-        
+            .add(date);
+
         notifyProcessesCanGetNewData();
     }
 
@@ -109,6 +103,10 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
         throw new PCMModelInterpreterException("This should not happen.");
     }
 
+    protected List<IndirectionDate> createOutputDataForWindow(List<IndirectionDate> dataInWindow, Window window) {
+        return Collections.singletonList(new WindowingIndirectionDate<>(dataInWindow, window));
+    }
+
     @Override
     protected void handleNewWatermarkedTime(final double oldWatermarkTime, final double watermarkTime) {
         boolean newData = false;
@@ -116,18 +114,13 @@ public class _3_TimedHoldBackDistributingChannel extends AbstractSimDataChannelR
 
         for (var entry : this.dataIn.entrySet()) {
             Window window = entry.getKey();
-            List<PartitionedIndirectionDate<Integer, IndirectionDate>> dataInWindow = entry.getValue()
-                .stream()
-                .flatMap(it -> it.getDataInGroup()
-                    .stream()
-                    .map(date -> (PartitionedIndirectionDate<Integer, IndirectionDate>) date))
-                .collect(Collectors.toList());
 
             if (window.end + gracePeriod < watermarkTime) {
-                // PartitionedIndirectionDate<Window, IndirectionDate>
-                dataOut.forEach((connector, queue) -> queue
-                    .add(new PartitionedIndirectionDate<Window, PartitionedIndirectionDate<Integer, IndirectionDate>>(
-                            window, dataInWindow, Collections.emptyMap())));
+                List<IndirectionDate> dataInWindow = entry.getValue();
+
+                var outputData = createOutputDataForWindow(dataInWindow, window);
+
+                dataOut.forEach((connector, queue) -> outputData.forEach(queue::add));
                 newData = true;
                 windowsToRemove.add(window);
             }
