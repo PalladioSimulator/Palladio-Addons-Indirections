@@ -110,6 +110,9 @@
             uri="http://palladiosimulator.org/PalladioComponentModel/Core/Entity/5.2"
             class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory$EntityChildCreationExtender"/>
       <extender
+            uri="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2"
+            class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory$RepositoryChildCreationExtender"/>
+      <extender
             uri="http://palladiosimulator.org/PalladioComponentModel/System/5.2"
             class="org.palladiosimulator.indirections.repository.provider.RepositoryItemProviderAdapterFactory$SystemChildCreationExtender"/>
    </extension>

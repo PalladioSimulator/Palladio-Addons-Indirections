@@ -144,10 +144,19 @@
   <eSubpackages name="repository" nsURI="http://palladiosimulator.org/Indirections/Repository/1.0"
       nsPrefix="org.palladiosimulator.indirections.repository">
     <eClassifiers xsi:type="ecore:EClass" name="DataSinkRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/ProvidedRole">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="eventGroup" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" eType="#//repository/DataInterface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataSourceRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/RequiredRole">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="eventGroup" eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/EventGroup"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" eType="#//repository/DataInterface"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataInterface" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Interface">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataSignature" lowerBound="1"
+          eType="#//repository/DataSignature" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="DataSignature" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Signature">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" lowerBound="1"
+          eType="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Parameter"
+          containment="true"/>
     </eClassifiers>
   </eSubpackages>
   <eSubpackages name="allocation" nsURI="http://palladiosimulator.org/Indirections/Allocation/1.0"

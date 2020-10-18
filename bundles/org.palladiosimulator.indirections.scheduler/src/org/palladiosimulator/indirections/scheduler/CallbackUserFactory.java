@@ -118,9 +118,10 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
                 // TODO: fix helper method to handle data on stack
                 this.context.getStack()
                     .createAndPushNewStackFrame();
-                final String parameterName = IndirectionSimulationUtil
-                    .getOneParameter(CallbackUserFactory.this.connector.getDataSinkRole()
-                        .getEventGroup())
+                final String parameterName = CallbackUserFactory.this.connector.getDataSinkRole()
+                    .getDataInterface()
+                    .getDataSignature()
+                    .getParameter()
                     .getParameterName();
 
                 IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), parameterName,
@@ -139,9 +140,10 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
         public CallbackUser(final SimuComModel owner, final String name) {
             super(owner, name);
 
-            parameterName = IndirectionSimulationUtil
-                .getOneParameter(CallbackUserFactory.this.connector.getDataSinkRole()
-                    .getEventGroup())
+            parameterName = CallbackUserFactory.this.connector.getDataSinkRole()
+                .getDataInterface()
+                .getDataSignature()
+                .getParameter()
                 .getParameterName();
 
             simulationCall = getCallInvocation(CallbackUserFactory.this.connector);
