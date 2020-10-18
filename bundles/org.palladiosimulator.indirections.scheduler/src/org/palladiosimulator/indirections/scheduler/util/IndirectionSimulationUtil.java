@@ -5,15 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionDependencyMeasurements;
 import org.palladiosimulator.indirections.repository.DataInterface;
-import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.system.DataChannel;
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.indirections.util.IterableUtil;
@@ -24,6 +27,7 @@ import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.Parameter;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
+import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
@@ -40,6 +44,7 @@ import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
 public final class IndirectionSimulationUtil {
     private final static Logger LOGGER = Logger.getLogger(IndirectionSimulationUtil.class);
+    public static final String INNER_DATA_NAME_FIELD_NAME = "INNER_DATA_NAME";
 
     /**
      * Same as
@@ -143,16 +148,15 @@ public final class IndirectionSimulationUtil {
     }
 
     public static IndirectionDate createData(final SimulatedStack<Object> contextStack,
-            final Iterable<VariableUsage> variableUsages, final Iterable<VariableReference> referencedData,
-            final Double time) {
+            final Iterable<VariableUsage> variableUsages, final Iterable<VariableReference> referencedData) {
 
         final Map<String, Object> entries = createDataEntries(contextStack, variableUsages);
-        final IndirectionDate result = new ConcreteIndirectionDate(entries, time);
+        final IndirectionDate result = new ConcreteIndirectionDate(entries);
 
         referencedData.forEach(it -> {
-            result.addReferencedData(claimDataFromStack(contextStack, it.getReferenceName()));
+            result.addReferencedDate(claimDataFromStack(contextStack, it.getReferenceName()));
         });
-        
+
         return result;
     }
 
@@ -213,16 +217,15 @@ public final class IndirectionSimulationUtil {
                 .entrySet()) {
                 stackframe.addValue(baseName + "." + dataEntry.getKey(), dataEntry.getValue());
             }
-        } else if (date instanceof ConcreteGroupingIndirectionDate<?>) {
-            final ConcreteGroupingIndirectionDate<?> groupingIndirectionDate = (ConcreteGroupingIndirectionDate<?>) date;
+        } else if (date instanceof GroupingIndirectionDate<?>) {
+            final GroupingIndirectionDate<IndirectionDate> groupingIndirectionDate = (GroupingIndirectionDate<IndirectionDate>) date;
 
-            final int numberOfElements = groupingIndirectionDate.getDataInGroup()
-                .size();
+            List<IndirectionDate> dataInGroup = groupingIndirectionDate.getDataInGroup();
+            final int numberOfElements = dataInGroup.size();
             stackframe.addValue(baseName + ".NUMBER_OF_ELEMENTS", numberOfElements);
 
             var extraData = groupingIndirectionDate.getData();
             extraData.forEach((key, value) -> stackframe.addValue(baseName + "." + key, value));
-
         } else {
             throw new PCMModelInterpreterException(
                     baseName + " is not a ConcreteIndirectionDate, but a " + date.getClass()
@@ -276,14 +279,19 @@ public final class IndirectionSimulationUtil {
         }
     }
 
-    public static PeriodicallyTriggeredSimulationEntity triggerPeriodically(final SimuComModel model,
-            final double firstOccurrence, final double delay, final Runnable taskToRun) {
+    public static PeriodicallyTriggeredSimulationEntity triggerPeriodically(final String label,
+            final SimuComModel model, final double firstOccurrence, final double delay, final Runnable taskToRun) {
 
-        return new PeriodicallyTriggeredSimulationEntity(model, firstOccurrence, delay) {
+        double currentTime = model.getSimulationControl()
+            .getCurrentSimulationTime();
+
+        System.out.println("" + currentTime + ": Scheduling " + label + " periodically (firstOccurence = "
+                + firstOccurrence + ", delay = " + delay + ")");
+        return new PeriodicallyTriggeredSimulationEntity(model, firstOccurrence - currentTime, delay) {
             @Override
             protected void triggerInternal() {
-                System.out.println("Triggering periodic process at " + model.getSimulationControl()
-                    .getCurrentSimulationTime());
+                System.out.println("" + model.getSimulationControl()
+                    .getCurrentSimulationTime() + ": Triggering periodic process " + label);
                 taskToRun.run();
             }
         };
@@ -367,6 +375,21 @@ public final class IndirectionSimulationUtil {
             throw new PCMModelInterpreterException("Cannot split string " + it + " at " + splitter);
 
         return new String[] { it.substring(0, split), it.substring(split + splitter.length()) };
+    }
+
+    public static Stream<UUID> getOriginUUIDs(IndirectionDate date) {
+        // TODO: goes into infinite loop for circular references
+        if (date.hasReferencedData()) {
+            return date.getReferencedData()
+                .flatMap(it -> getOriginUUIDs(it));
+        } else {
+            return Stream.of(date.getUUID());
+        }
+    }
+
+    public static Stream<Double> getOriginTimesForDate(IndirectionDate date, InterpreterDefaultContext context) {
+        IndirectionDependencyMeasurements measurements = IndirectionDependencyMeasurements.getInstanceFor(context);
+        return getOriginUUIDs(date).map(it -> measurements.claimTimeFor(it));
     }
 
 }

@@ -15,6 +15,8 @@ import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUt
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
+import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getOriginTimesForDate;
+
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
 // holds back elements for some time before making them available for consumption
@@ -64,13 +66,18 @@ public class BarrierChannel extends AbstractSimDataChannelResource {
     protected void handleCannotProceedToPut(final ProcessWaitingToPut process) {
         this.blockUntilCanPut(process);
     }
+    
+    @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return false;
+    }
 
     @Override
     protected void handleNewWatermarkedTime(final double oldWatermarkTime, final double watermarkTime) {
         boolean newData = false;
         for (final var iter = this.dataIn.iterator(); iter.hasNext();) {
             final var date = iter.next();
-            if (date.getTime().stream().allMatch(it -> it <= watermarkTime)) {
+            if (getOriginTimesForDate(date, context).allMatch(it -> it <= watermarkTime)) {
                 this.dataOut.add(date);
                 iter.remove();
                 newData = true;

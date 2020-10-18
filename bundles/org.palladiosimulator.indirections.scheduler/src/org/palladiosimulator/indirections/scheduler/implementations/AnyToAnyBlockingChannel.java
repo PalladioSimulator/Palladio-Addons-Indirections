@@ -16,4 +16,9 @@ public class AnyToAnyBlockingChannel extends AnyToAnyChannel {
     protected void handleCannotProceedToGet(final ProcessWaitingToGet process) {
         this.blockUntilCanGet(process);
     }
+    
+    @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return false;
+    }
 }

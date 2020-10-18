@@ -65,10 +65,17 @@ public class _2_WindowPartitionByPlugChannel extends AbstractSimDataChannelResou
             var plugId = entry.getKey();
             var data = entry.getValue();
 
-            this.dataOut.add(new PartitionedIndirectionDate<>(plugId, data, Map.of(WINDOW_VALUE_NAME, window)));
+            PartitionedIndirectionDate<Map<String, Integer>, IndirectionDate> newDate = new PartitionedIndirectionDate<>(plugId, data, Map.of(WINDOW_VALUE_NAME, window));
+            indirectionDependencyMeasurements.recordGeneration(newDate.getUUID());
+            this.dataOut.add(newDate);
         }
 
         notifyProcessesCanGetNewData();
+    }
+    
+    @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return false;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.palladiosimulator.indirections.scheduler.implementations.windowing;
 
+import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getOriginTimesForDate;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +51,33 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
 
         this.emitEmptyWindows = emitEmptyWindows;
 
-        this.windowCalculator = new WindowCalculator(windowSize, windowShift, gracePeriod);
+        this.windowCalculator = new WindowCalculator(windowSize, windowShift, 0);
+
+        System.out.println("" + model.getSimulationControl()
+        .getCurrentSimulationTime() + ": creating "
+            + this.getClass()
+                .getSimpleName()
+            + " (" + this.getName() + "), shift: " + this.windowShift + ", size: " + this.windowSize
+            + ", grace period: " + this.gracePeriod);
 
         // flushes data every INTERVAL time units
-        this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
-            .getCurrentSimulationTime()), windowShift, gracePeriod);
+        double nextWindowEnd = findNextWindowEnd(this.model.getSimulationControl()
+            .getCurrentSimulationTime());
+        System.out.println("-- Next window end: " + nextWindowEnd);
+        this.scheduleAdvance(nextWindowEnd + gracePeriod, windowShift, gracePeriod);
     }
 
+    // TODO remove duplicated code (SlidingWindowChannel)
     private double findNextWindowEnd(double currentSimulationTime) {
-        return Math.ceil(currentSimulationTime / windowShift) * windowShift + windowSize;
+        double currentWindowEnd = windowSize;
+        while (currentSimulationTime > currentWindowEnd + gracePeriod)
+            currentWindowEnd += windowShift;
+        return currentWindowEnd;
+    }
+
+    @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return (timeToCheck < currentTime);
     }
 
     @Override
@@ -66,7 +86,7 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
             return;
         else
             this.dataIn.add(date);
-        
+
         notifyProcessesCanGetNewData();
     }
 
@@ -93,22 +113,31 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
     @Override
     protected void handleNewWatermarkedTime(final double oldWatermarkTime, final double watermarkTime) {
         List<Window> windows = windowCalculator.advanceUntil(watermarkTime);
+        System.out.println("" + model.getSimulationControl()
+            .getCurrentSimulationTime() + ": Advancing " + this.getName() + " to " + watermarkTime + " (was "
+                + oldWatermarkTime + "), windows to emit: " + windows.stream()
+                    .map(it -> it.toString())
+                    .collect(Collectors.joining(", ")));
 
         boolean newData = false;
         for (var window : windows) {
             List<IndirectionDate> data = this.dataIn.stream()
-                    // TODO: is overlap always enough?
-                .filter(it -> it.getTime().stream().anyMatch(time -> window.contains(time)))
+                // TODO: is overlap always enough?
+                .filter(it -> getOriginTimesForDate(it, context).anyMatch(time -> window.contains(time)))
                 .collect(Collectors.toList());
             if (emitEmptyWindows || !data.isEmpty()) {
-                this.dataOut.add(new WindowingIndirectionDate<>(data, window));
+                WindowingIndirectionDate<IndirectionDate> newWindowedDate = new WindowingIndirectionDate<>(data,
+                        window);
+                indirectionDependencyMeasurements.recordGeneration(newWindowedDate.getUUID());
+                this.dataOut.add(newWindowedDate);
                 newData = true;
             }
         }
 
         if (!windows.isEmpty()) {
             var newestWindow = windows.get(windows.size() - 1);
-            dataIn.removeIf(it -> it.getTime().stream().allMatch(time -> time  + gracePeriod < newestWindow.start));
+            dataIn.removeIf(
+                    it -> getOriginTimesForDate(it, context).allMatch(time -> time + gracePeriod < newestWindow.start));
         }
 
         if (newData) {

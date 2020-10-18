@@ -1,8 +1,9 @@
 package org.palladiosimulator.indirections.interfaces;
 
-import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
@@ -30,8 +31,13 @@ public interface IndirectionDate {
 
     Map<String, Object> getData();
 
-    Collection<Double> getTime();
+    void addReferencedDate(IndirectionDate indirectionDate);
 
-    void addReferencedData(IndirectionDate indirectionDate);
-    Collection<IndirectionDate> getReferencedData();
+    Stream<IndirectionDate> getReferencedData();
+    default boolean hasReferencedData() {
+        return getReferencedData().findAny().isPresent();
+    }
+    
+    UUID getUUID();
+
 }

@@ -54,14 +54,26 @@ public abstract class HoldbackWindowedDataWithGracePeriodChannel extends Abstrac
         this.windowSize = getDoubleParameter(dataChannel, WINDOW_SIZE_PARAMETER_NAME);
         this.gracePeriod = getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME);
 
+        System.out.println("" + model.getSimulationControl()
+            .getCurrentSimulationTime() + ": creating "
+                + this.getClass()
+                    .getSimpleName()
+                + " (" + this.getName() + "), shift: " + this.windowShift + ", size: " + this.windowSize
+                + ", grace period: " + this.gracePeriod);
+
         // flushes data every INTERVAL time units
-        this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
-            .getCurrentSimulationTime()), windowShift, gracePeriod);
+        double nextWindowEnd = findNextWindowEnd(this.model.getSimulationControl()
+            .getCurrentSimulationTime());
+        System.out.println("-- Next window end: " + nextWindowEnd);
+        this.scheduleAdvance(nextWindowEnd + gracePeriod, windowShift, gracePeriod);
     }
 
     // TODO remove duplicated code (SlidingWindowChannel)
     private double findNextWindowEnd(double currentSimulationTime) {
-        return Math.ceil(currentSimulationTime / windowShift) * windowShift + windowSize;
+        double currentWindowEnd = windowSize;
+        while (currentSimulationTime > currentWindowEnd + gracePeriod)
+            currentWindowEnd += windowShift;
+        return currentWindowEnd;
     }
 
     protected abstract Window getWindowValue(IndirectionDate date);
@@ -71,7 +83,11 @@ public abstract class HoldbackWindowedDataWithGracePeriodChannel extends Abstrac
     protected void acceptData(final DataChannelSinkConnector connector, final IndirectionDate date) {
         var window = getWindowValue(date);
 
-        if (window.end < getCurrentWatermarkedTime()) {
+        System.out.println("" + model.getSimulationControl()
+            .getCurrentSimulationTime() + " (watermark=" + getCurrentWatermarkedTime() + "): accepting "
+                + date.toString());
+
+        if (shouldDataBeDiscarded(window.end, getCurrentWatermarkedTime())) {
             discardIncomingDate(date);
             return;
         }
@@ -108,17 +124,27 @@ public abstract class HoldbackWindowedDataWithGracePeriodChannel extends Abstrac
     }
 
     @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return (timeToCheck <= currentTime);
+    }
+
+    @Override
     protected void handleNewWatermarkedTime(final double oldWatermarkTime, final double watermarkTime) {
+        System.out.println("" + model.getSimulationControl()
+            .getCurrentSimulationTime() + ": Advancing " + this.getName() + " from " + oldWatermarkTime + " to "
+                + watermarkTime);
         boolean newData = false;
         Collection<Window> windowsToRemove = new HashSet<>();
 
         for (var entry : this.dataIn.entrySet()) {
             Window window = entry.getKey();
 
-            if (window.end + gracePeriod < watermarkTime) {
+            if (shouldDataBeDiscarded(window.end, watermarkTime)) {
                 List<IndirectionDate> dataInWindow = entry.getValue();
+                System.out.println("-- outputting " + window.toString() + ": " + dataInWindow.size() + " values");
 
                 var outputData = createOutputDataForWindow(dataInWindow, window);
+                outputData.forEach(it -> indirectionDependencyMeasurements.recordGeneration(it.getUUID()));
 
                 dataOut.forEach((connector, queue) -> outputData.forEach(queue::add));
                 newData = true;

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionDependencyMeasurements;
 import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.implementations.windowing.HoldbackWindowedDataWithGracePeriodChannel;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
@@ -33,8 +34,11 @@ public class _5_HoldbackMediansAndRepartitionByHouseId extends HoldbackWindowedD
         dataInWindow.stream()
             .collect(Collectors.groupingBy(it -> it.evaluate(HOUSE_ID_VALUE_NAME))) // regroup it by
                                                                                     // houses
-            .forEach((houseId, indirectionDates) -> result
-                .add(new PartitionedIndirectionDate<>(window, indirectionDates, Map.of(HOUSE_ID_VALUE_NAME, houseId))));
+            .forEach((houseId, indirectionDates) -> {
+                var newDate = new PartitionedIndirectionDate<>(window, indirectionDates, Map.of(HOUSE_ID_VALUE_NAME, houseId));
+                result.add(newDate);
+            });
+                
 
         return result;
     }

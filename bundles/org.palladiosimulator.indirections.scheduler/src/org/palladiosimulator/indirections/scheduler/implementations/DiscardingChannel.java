@@ -31,6 +31,11 @@ public class DiscardingChannel extends AbstractSimDataChannelResource {
 	protected boolean canProvideData(final DataChannelSourceConnector connector) {
 		return false;
 	}
+	
+	@Override
+	protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+	    return true;
+	}
 
 	@Override
 	protected void handleCannotProceedToGet(final ProcessWaitingToGet process) {

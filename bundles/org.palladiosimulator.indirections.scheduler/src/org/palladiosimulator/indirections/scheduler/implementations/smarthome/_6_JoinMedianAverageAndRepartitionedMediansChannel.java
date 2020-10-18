@@ -46,6 +46,9 @@ public class _6_JoinMedianAverageAndRepartitionedMediansChannel extends Abstract
     public static final String MEDIAN_AVERAGE_CONNECTOR_ID_PARAMETER_NAME = "medianAverageConnectorId";
     public static final String MEDIAN_WINDOW_CONNECTOR_ID_PARAMETER_NAME = "medianWindowConnectorId";
 
+    public static final String MEDIAN_AVERAGE_DATA_FIELD_NAME = "medianAverage";
+    public static final String MEDIAN_WINDOW_DATA_FIELD_NAME = "medianWindow";
+
     private final Map<Window, IndirectionDate> windowToMedianAverageIn;
     private final Map<Window, Collection<IndirectionDate>> windowToMedianWindowIn;
 
@@ -82,23 +85,40 @@ public class _6_JoinMedianAverageAndRepartitionedMediansChannel extends Abstract
         this.medianWindowConnectorId = getStringParameter(dataChannel, MEDIAN_WINDOW_CONNECTOR_ID_PARAMETER_NAME);
         this.medianAverageConnectorId = getStringParameter(dataChannel, MEDIAN_AVERAGE_CONNECTOR_ID_PARAMETER_NAME);
 
-        // flushes data every INTERVAL time units
-        this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
-            .getCurrentSimulationTime()), windowShift, gracePeriod);
+        System.out.println("" + model.getSimulationControl()
+        .getCurrentSimulationTime() + ": creating "
+            + this.getClass()
+                .getSimpleName()
+            + " (" + this.getName() + "), shift: " + this.windowShift + ", size: " + this.windowSize
+            + ", grace period: " + this.gracePeriod);
 
+        // flushes data every INTERVAL time units
+        double nextWindowEnd = findNextWindowEnd(this.model.getSimulationControl()
+            .getCurrentSimulationTime());
+        System.out.println("-- Next window end: " + nextWindowEnd);
+        this.scheduleAdvance(nextWindowEnd + gracePeriod, windowShift, gracePeriod);
+        
         dataOut = new ArrayDeque<>();
     }
 
     // TODO remove duplicated code (SlidingWindowChannel)
     private double findNextWindowEnd(double currentSimulationTime) {
-        return Math.ceil(currentSimulationTime / windowShift) * windowShift + windowSize;
+        double currentWindowEnd = windowSize;
+        while (currentSimulationTime > currentWindowEnd + gracePeriod)
+            currentWindowEnd += windowShift;
+        return currentWindowEnd;
+    }
+
+    @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return (timeToCheck < currentTime);
     }
 
     @Override
     protected void acceptData(DataChannelSinkConnector connector, IndirectionDate date) {
         if (discardDateIfTooOld(date))
             return;
-        
+
         if ((date instanceof PartitionedIndirectionDate) && isMedianWindowConnector(connector)) {
             var partitionedDate = (PartitionedIndirectionDate<Window, IndirectionDate>) date;
             acceptMedianWindowDate(partitionedDate);
@@ -118,7 +138,8 @@ public class _6_JoinMedianAverageAndRepartitionedMediansChannel extends Abstract
     }
 
     private void acceptMedianAverageDate(IndirectionDate date) {
-        Window window = (Window) date.getData().get("WINDOW.VALUE");
+        Window window = (Window) date.getData()
+            .get("WINDOW.VALUE");
         if (windowToMedianAverageIn.containsKey(window)) {
             discardIncomingDate(date);
             logger.error("Unexpected MedianAverage date: " + date + ", date already present for window " + window + ": "
@@ -168,6 +189,9 @@ public class _6_JoinMedianAverageAndRepartitionedMediansChannel extends Abstract
 
     @Override
     protected void handleNewWatermarkedTime(double oldWatermarkTime, double watermarkTime) {
+        System.out.println("" + this.model.getSimulationControl()
+            .getCurrentSimulationTime() + ": Advancing " + this.getName() + " from " + oldWatermarkTime + " to "
+                + watermarkTime);
         boolean newData = false;
         Collection<Window> windowsToRemove = new HashSet<>();
 
@@ -177,13 +201,14 @@ public class _6_JoinMedianAverageAndRepartitionedMediansChannel extends Abstract
             .stream(),
                 windowToMedianWindowIn.keySet()
                     .stream())
-            .filter(it -> it.end + gracePeriod < watermarkTime) // TODO IMPORTANT: check whether
-                                                                // this always works and is the
-                                                                // intended meaning. Is
-                                                                // watermark time be enough?
+            .filter(it -> it.end <= watermarkTime) // TODO IMPORTANT: check whether
+                                                   // this always works and is the
+                                                   // intended meaning. Is
+                                                   // watermark time be enough?
             .collect(Collectors.toSet());
 
         for (var window : emittableWindows) {
+            System.out.println("-- outputting " + window.toString());
             IndirectionDate averageAll = windowToMedianAverageIn.get(window);
             if (averageAll == null) {
                 logger.error("No average all present for " + window);
@@ -197,15 +222,21 @@ public class _6_JoinMedianAverageAndRepartitionedMediansChannel extends Abstract
             }
 
             var taggedMedianAverage = new TaggedDate<IndirectionDate, String>(medianAverageConnectorId, averageAll);
+            PartitionedIndirectionDate<Window, IndirectionDate> newPartitionedMedianWindow = new PartitionedIndirectionDate<>(
+                    window, new ArrayList<>(grouped), Collections.emptyMap());
+            indirectionDependencyMeasurements.recordGeneration(newPartitionedMedianWindow.getUUID());
             var taggedMedianWindow = new TaggedDate<IndirectionDate, String>(medianWindowConnectorId,
-                    new PartitionedIndirectionDate<>(window, new ArrayList<>(grouped), Collections.emptyMap()));
+                    newPartitionedMedianWindow);
 
             var mappedData = new HashMap<String, TaggedDate<IndirectionDate, String>>();
-            mappedData.put(medianAverageConnectorId, taggedMedianAverage);
-            mappedData.put(medianWindowConnectorId, taggedMedianWindow);
+            mappedData.put(MEDIAN_AVERAGE_DATA_FIELD_NAME, taggedMedianAverage);
+            mappedData.put(MEDIAN_WINDOW_DATA_FIELD_NAME, taggedMedianWindow);
 
             windowsToRemove.add(window);
-            dataOut.add(new GenericJoinedDate<IndirectionDate, String>(mappedData));
+            GenericJoinedDate<IndirectionDate, String> newJoinedDate = new GenericJoinedDate<IndirectionDate, String>(
+                    mappedData);
+            indirectionDependencyMeasurements.recordGeneration(newJoinedDate.getUUID());
+            dataOut.add(newJoinedDate);
             newData = true;
         }
 

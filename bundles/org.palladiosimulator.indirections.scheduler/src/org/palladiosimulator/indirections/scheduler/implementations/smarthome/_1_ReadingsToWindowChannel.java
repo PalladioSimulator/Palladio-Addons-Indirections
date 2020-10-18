@@ -6,14 +6,14 @@ import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkC
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.implementations.windowing.ConfigurableSlidingWindowChannel;
 import org.palladiosimulator.indirections.system.JavaClassDataChannel;
-import org.palladiosimulator.indirections.util.ObjectUtil;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
 /**
- * This channel collects data points in sliding windows.
- * The data points are not yet separated in any way, not partitioned or grouped. 
+ * This channel collects data points in sliding windows. The data points are not yet separated in
+ * any way, not partitioned or grouped.
+ * 
  * @author Dominik Werle
  *
  */
@@ -24,7 +24,7 @@ public class _1_ReadingsToWindowChannel extends ConfigurableSlidingWindowChannel
 
         requireExactNumberOfSinkSourceRoles(dataChannel, 1, 1);
     }
-    
+
     @Override
     protected void acceptData(DataChannelSinkConnector connector, IndirectionDate date) {
         super.acceptData(connector, date);

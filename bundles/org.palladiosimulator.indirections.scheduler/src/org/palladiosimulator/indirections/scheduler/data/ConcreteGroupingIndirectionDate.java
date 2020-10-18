@@ -1,7 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -35,7 +34,7 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
     @Override
     public Map<String, Object> getData() {
         final HashMap<String, Object> result = new HashMap<>(this.extraData);
-        result.put("NUMBER_OF_ELEMENTS.VALUE", this.dataInGroup.size());
+        result.put("NUMBER_OF_ELEMENTS", this.dataInGroup.size());
         result.put("INNER_ELEMENTS.VALUE", this.dataInGroup);
         return result;
     }
@@ -43,15 +42,6 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
     @Override
     public List<T> getDataInGroup() {
         return Collections.unmodifiableList(this.dataInGroup);
-    }
-
-    @Override
-    public Collection<Double> getTime() {
-        return this.getDataInGroup()
-            .stream()
-            .flatMap(it -> it.getTime()
-                .stream())
-            .collect(Collectors.toList());
     }
 
     @Override
@@ -74,16 +64,18 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
     }
 
     @Override
-    public void addReferencedData(IndirectionDate indirectionDate) {
-        this.referencedData.add(indirectionDate);
+    public Stream<IndirectionDate> getReferencedData() {
+        return Stream.concat(referencedData.stream(), this.getDataInGroup()
+            .stream());
     }
 
     @Override
-    public Collection<IndirectionDate> getReferencedData() {
-        return Stream.concat(this.referencedData.stream(), this.getDataInGroup()
-            .stream()
-            .flatMap(it -> it.getReferencedData()
-                .stream()))
-            .collect(Collectors.toList());
+    public void addReferencedDate(IndirectionDate indirectionDate) {
+        referencedData.add(indirectionDate);
+    }
+    
+    @Override
+    public UUID getUUID() {
+        return uuid;
     }
 }

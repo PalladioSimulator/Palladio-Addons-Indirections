@@ -46,6 +46,11 @@ public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
             data.put(connector, new ArrayDeque<>());
         }
     }
+    
+    @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return false;
+    }
 
     @Override
     protected void acceptData(DataChannelSinkConnector connector, IndirectionDate date) {

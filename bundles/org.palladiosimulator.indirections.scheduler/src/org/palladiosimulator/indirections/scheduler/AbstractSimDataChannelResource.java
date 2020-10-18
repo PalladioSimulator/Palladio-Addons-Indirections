@@ -1,5 +1,7 @@
 package org.palladiosimulator.indirections.scheduler;
 
+import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getOriginTimesForDate;
+import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getOriginUUIDs;
 import static org.palladiosimulator.indirections.util.IndirectionModelUtil.getAllConnectorsFromSourceRoles;
 import static org.palladiosimulator.indirections.util.IndirectionModelUtil.getSystem;
 import static org.palladiosimulator.indirections.util.IndirectionModelUtil.isPushingRole;
@@ -7,22 +9,25 @@ import static org.palladiosimulator.indirections.util.IndirectionModelUtil.isPus
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.UUID;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.allocation.DataChannelAllocationContext;
 import org.palladiosimulator.indirections.allocation.IndirectionsAwareAllocation;
 import org.palladiosimulator.indirections.calculators.scheduler.ContextAwareTimeSpanCalculator;
 import org.palladiosimulator.indirections.calculators.scheduler.TriggerableCountingCalculator;
-import org.palladiosimulator.indirections.calculators.scheduler.TriggerableTimeSpanCalculator;
+import org.palladiosimulator.indirections.calculators.scheduler.TriggerableDateUUIDAgeCalculator;
 import org.palladiosimulator.indirections.composition.DataChannelToAssemblyContextConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
+import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionDependencyMeasurements;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.scheduler.CallbackUserFactory.CallbackUser;
@@ -37,7 +42,6 @@ import org.palladiosimulator.indirections.util.StreamUtil;
 import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
-import org.palladiosimulator.pcm.resourcetype.ProcessingResourceType;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
@@ -49,8 +53,8 @@ import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simulation.abstractsimengine.ISimulationControl;
 
 public abstract class AbstractSimDataChannelResource implements IDataChannelResource {
-    protected TriggerableTimeSpanCalculator afterAcceptingAgeCalculator;
-    protected TriggerableTimeSpanCalculator beforeProvidingAgeCalculator;
+    protected TriggerableDateUUIDAgeCalculator afterAcceptingAgeCalculator;
+    protected TriggerableDateUUIDAgeCalculator beforeProvidingAgeCalculator;
     private boolean canGetNewData = false;
 
     private boolean canPutNewData = false;
@@ -59,7 +63,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     private double currentWatermarkedTime = Double.NEGATIVE_INFINITY;
     protected DataChannel dataChannel;
 
-    protected TriggerableTimeSpanCalculator discardedAgeCalculator;
+    protected TriggerableDateUUIDAgeCalculator discardedAgeCalculator;
     protected final String id;
 
     protected SimuComModel model;
@@ -85,6 +89,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToGet> waitingToGetTimeCalculator;
     protected ContextAwareTimeSpanCalculator<ProcessWaitingToPut> waitingToPutTimeCalculator;
     private final Allocation allocation;
+    protected final IndirectionDependencyMeasurements indirectionDependencyMeasurements;
 
     public AbstractSimDataChannelResource(final DataChannel dataChannel, final InterpreterDefaultContext context,
             final SchedulerModel model) {
@@ -103,6 +108,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         this.model = (SimuComModel) model;
         this.context = context;
+
+        this.indirectionDependencyMeasurements = IndirectionDependencyMeasurements.getInstanceFor(context);
 
         this.allocation = context.getLocalPCMModelAtContextCreation()
             .getAllocation();
@@ -123,7 +130,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     @Override
     public final void advance(final double watermarkTime) {
-        final var oldWatermarkTime = watermarkTime;
+        final var oldWatermarkTime = this.currentWatermarkedTime;
         if (watermarkTime < this.currentWatermarkedTime) {
             System.out
                 .println("Not advancing backward. Requested: " + this.currentWatermarkedTime + " to " + watermarkTime);
@@ -142,8 +149,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             this.numberOfStoredOutgoingElementsCalculator.change(1);
 
             final IndirectionDate providedData = this.provideDataAndAdvance(process.connector);
-            providedData.getTime()
-                .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
+
+            getOriginUUIDs(providedData).forEach(beforeProvidingAgeCalculator::doMeasure);
             process.callback.accept(providedData);
 
             this.activateIfWaiting(process);
@@ -157,8 +164,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             this.numberOfStoredIncomingElementsCalculator.change(1);
             this.acceptData(process.connector, process.date);
 
-            process.date.getTime()
-                .forEach(this.afterAcceptingAgeCalculator::doMeasureUntilNow);
+            List<UUID> uuids = getOriginUUIDs(process.date).collect(Collectors.toList());
+            getOriginUUIDs(process.date).forEach(afterAcceptingAgeCalculator::doMeasure);
 
             this.activateIfWaiting(process);
         });
@@ -246,20 +253,21 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     protected final void discardIncomingDate(final IndirectionDate dateToDiscard) {
-        dateToDiscard.getTime()
-            .forEach(this.discardedAgeCalculator::doMeasureUntilNow);
+        getOriginUUIDs(dateToDiscard).forEach(discardedAgeCalculator::doMeasure);
 
         this.numberOfDiscardedIncomingElementsCalculator.change(1);
     }
+
+    protected abstract boolean shouldDataBeDiscarded(double timeToCheck, double currentTime);
 
     /**
      * Finds out whether ALL data in dateToDiscard is too old for this channel. If so, this method
      * returns true and measurements about the discarding are recorded.
      */
     protected final boolean discardDateIfTooOld(IndirectionDate dateToDiscard) {
-        if (dateToDiscard.getTime()
-            .stream()
-            .allMatch(it -> it < currentWatermarkedTime)) {
+        var originTimes = getOriginTimesForDate(dateToDiscard, context).collect(Collectors.toList());
+        if (getOriginTimesForDate(dateToDiscard, context)
+            .allMatch(it -> shouldDataBeDiscarded(it, currentWatermarkedTime))) {
             numberOfDiscardedOutgoingElementsCalculator.change(1);
             discardIncomingDate(dateToDiscard);
             return true;
@@ -474,16 +482,21 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         }
     }
 
-    protected final void scheduleAdvance(final double firstOccurence, final double delay,
+    protected final void scheduleAdvance(final double firstOccurence, final double delayBetweenInvocations,
             final double lagBehindRealTime) {
         if (this.scheduledFlush != null) {
             throw new PCMModelInterpreterException("Cannot schedule advance for " + this + ", already scheduled.");
         }
 
-        this.scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(this.model, firstOccurence, delay, () -> {
-            this.advance(this.model.getSimulationControl()
-                .getCurrentSimulationTime() - lagBehindRealTime);
-        });
+        final String label = this.getName(); // + "[" + this.getClass().getName() + "]";
+
+        this.scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(label, this.model,
+                firstOccurence, delayBetweenInvocations, () -> {
+                    System.out.println("" +  this.model.getSimulationControl().getCurrentSimulationTime() + ": Triggering " + label
+                        + " lagging behind real time with " + lagBehindRealTime);
+                    this.advance(this.model.getSimulationControl()
+                        .getCurrentSimulationTime() - lagBehindRealTime);
+                });
     }
 
     private void setupCalculators() {
@@ -492,7 +505,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     private void setupSinkCalculators() {
-        this.afterAcceptingAgeCalculator = new TriggerableTimeSpanCalculator(
+        this.afterAcceptingAgeCalculator = new TriggerableDateUUIDAgeCalculator(
                 "Data age after accepting date (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
@@ -513,7 +526,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     private void setupSourceCalculators() {
-        this.beforeProvidingAgeCalculator = new TriggerableTimeSpanCalculator(
+        this.beforeProvidingAgeCalculator = new TriggerableDateUUIDAgeCalculator(
                 "Data age before providing (" + this.name + ")", IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
         this.waitingToGetTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToGet>(
@@ -525,7 +538,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
                 IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
-        this.discardedAgeCalculator = new TriggerableTimeSpanCalculator(
+        this.discardedAgeCalculator = new TriggerableDateUUIDAgeCalculator(
                 "Data age before discarding (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
@@ -538,8 +551,10 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     private void spawnNewConsumerUser(final DataChannelSourceConnector connector) {
         final IndirectionDate date = this.provideDataAndAdvance(connector);
-        date.getTime()
-            .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
+
+        List<Double> uuids = getOriginTimesForDate(date, context).collect(Collectors.toList());
+
+        getOriginUUIDs(date).forEach(beforeProvidingAgeCalculator::doMeasure);
 
         final String parameterName = connector.getDataSinkRole()
             .getDataInterface()

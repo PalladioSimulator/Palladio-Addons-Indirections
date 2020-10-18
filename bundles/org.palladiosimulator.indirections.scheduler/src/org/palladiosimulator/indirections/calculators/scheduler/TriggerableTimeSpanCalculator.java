@@ -8,6 +8,7 @@ import org.palladiosimulator.metricspec.BaseMetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
+@Deprecated
 public class TriggerableTimeSpanCalculator extends TriggerableCalculator<Double, Duration> {
     public TriggerableTimeSpanCalculator(final String name, final BaseMetricDescription baseMetric,
             final MetricSetDescription metricSet, final InterpreterDefaultContext context) {

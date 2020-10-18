@@ -1,10 +1,10 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,6 +22,7 @@ public class GenericJoinedDate<T extends IndirectionDate, TAG> implements Groupi
     public Map<TAG, TaggedDate<T, TAG>> data;
     protected final Map<String, Object> extraData;
     private final List<IndirectionDate> referencedData = new ArrayList<>();
+    public UUID uuid = UUID.randomUUID();
 
     public GenericJoinedDate(final Map<TAG, TaggedDate<T, TAG>> dataMap) {
         this.data = dataMap;
@@ -62,25 +63,18 @@ public class GenericJoinedDate<T extends IndirectionDate, TAG> implements Groupi
     }
 
     @Override
-    public Collection<Double> getTime() {
-        return this.getDataInGroup()
-            .stream()
-            .flatMap(it -> it.getTime()
-                .stream())
-            .collect(Collectors.toList());
-    }
-
-    @Override
-    public void addReferencedData(IndirectionDate indirectionDate) {
+    public void addReferencedDate(IndirectionDate indirectionDate) {
         this.referencedData.add(indirectionDate);
     }
 
     @Override
-    public Collection<IndirectionDate> getReferencedData() {
+    public Stream<IndirectionDate> getReferencedData() {
         return Stream.concat(this.referencedData.stream(), this.getDataInGroup()
-                .stream()
-                .flatMap(it -> it.getReferencedData()
-                    .stream()))
-                .collect(Collectors.toList());
+                .stream());
+    }
+    
+    @Override
+    public UUID getUUID() {
+        return uuid;
     }
 }

@@ -60,6 +60,11 @@ public class StrictJoiningChannel extends AbstractSimDataChannelResource {
     protected boolean canAcceptData(DataChannelSinkConnector connector) {
         return !dataIn.containsKey(connector.getDataSinkRole());
     }
+    
+    @Override
+    protected boolean shouldDataBeDiscarded(double timeToCheck, double currentTime) {
+        return false;
+    }
 
     @Override
     protected boolean canProvideData(DataChannelSourceConnector connector) {

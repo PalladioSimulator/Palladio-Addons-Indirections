@@ -1,6 +1,7 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
-import java.util.List;
+import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getOriginTimesForDate;
+
 import java.util.Map;
 
 import javax.measure.Measure;
@@ -23,6 +24,7 @@ import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkC
 import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionDependencyMeasurements;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
@@ -48,6 +50,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     private final InterpreterDefaultContext context;
     private final DataChannelRegistry dataChannelRegistry;
     private final IndirectionMeasuringPointRegistry indirectionMeasuringPointRegistry;
+    private final IndirectionDependencyMeasurements indirectionDependencyMeasurements;
 
     private ExplicitDispatchComposedSwitch<Object> parentSwitch;
     private final SimulatedStackframe<Object> resultStackFrame;
@@ -73,6 +76,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
         this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context);
         this.indirectionMeasuringPointRegistry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
+        this.indirectionDependencyMeasurements = IndirectionDependencyMeasurements.getInstanceFor(context);
     }
 
     public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
@@ -110,9 +114,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         final IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
                 referenceName);
 
-        data.getTime().forEach(
-                it -> this.measureDataAge(action, it)
-        );
+        getOriginTimesForDate(data, context).forEach(it -> this.measureDataAge(action, it));
 
         return true;
     }
@@ -159,8 +161,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
             .getCurrentSimulationTime();
 
         final IndirectionDate date = IndirectionSimulationUtil.createData(this.context.getStack(),
-                action.getVariableUsages(), action.getReferencedData(), currentSimulationTime);
+                action.getVariableUsages(), action.getReferencedData());
         IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), referenceName, date);
+        indirectionDependencyMeasurements.recordGeneration(date.getUUID(), currentSimulationTime);
 
         return true;
     }
@@ -257,7 +260,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
 
         return this;
     }
-    
+
     @Override
     public Object caseJavaClassRegroupDataAction(JavaClassRegroupDataAction object) {
         // TODO Auto-generated method stub
