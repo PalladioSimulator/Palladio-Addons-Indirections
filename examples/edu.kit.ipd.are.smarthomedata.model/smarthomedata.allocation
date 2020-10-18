@@ -1,13 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="allocation.ID" entityName="allocation">
+<org.palladiosimulator.indirections.allocation:IndirectionsAwareAllocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.indirections.allocation="http://palladiosimulator.org/Indirections/Allocation/1.0" xmlns:org.palladiosimulator.indirections.system="http://palladiosimulator.org/Indirections/System/1.0" id="allocation.ID" entityName="allocation">
   <targetResourceEnvironment_Allocation href="smarthomedata.resourceenvironment#/"/>
   <system_Allocation href="smarthomedata.system#_myRVALusEeq4r6D5ZG3ytw"/>
-  <allocationContexts_Allocation id="Emitter.AssemblyContext.ID" entityName="Emitter.AssemblyContext">
+  <allocationContexts_Allocation id="Emitter.AllocationContext.ID" entityName="Emitter.AllocationContext">
     <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
     <assemblyContext_AllocationContext href="smarthomedata.system#Emitter.AssemblyContext.ID"/>
   </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="MedianEachPlug.AssemblyContext.ID" entityName="MedianEachPlug.AssemblyContext">
+  <allocationContexts_Allocation id="MedianEachPlug.AllocationContext.ID" entityName="MedianEachPlug.AllocationContext">
     <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
     <assemblyContext_AllocationContext href="smarthomedata.system#MedianEachPlug.AssemblyContext.ID"/>
   </allocationContexts_Allocation>
-</allocation:Allocation>
+  <allocationContexts_Allocation id="AverageAllPlugs.AllocationContext.ID" entityName="AverageAllPlugs.AllocationContext">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#AverageAllPlugs.AssemblyContext.ID"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="OutlierCalculation.AllocationContext.ID" entityName="OutlierCalculation.AllocationContext">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#OutlierCalculation.AssemblyContext.ID"/>
+  </allocationContexts_Allocation>
+  <dataChannelAllocationContexts id="DataChannel1.AllocationContext.ID" entityName="DataChannel1.AllocationContext">
+    <dataChannel xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" href="smarthomedata.system#DataChannel1.ID"/>
+    <resourceContainer href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+  </dataChannelAllocationContexts>
+  <dataChannelAllocationContexts id="DataChannel2.AllocationContext.ID" entityName="DataChannel2.AllocationContext">
+    <dataChannel xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" href="smarthomedata.system#DataChannel2.ID"/>
+    <resourceContainer href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+  </dataChannelAllocationContexts>
+  <dataChannelAllocationContexts id="DataChannel3.AllocationContext.ID" entityName="DataChannel3.AllocationContext">
+    <dataChannel xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" href="smarthomedata.system#DataChannel3.ID"/>
+    <resourceContainer href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+  </dataChannelAllocationContexts>
+  <dataChannelAllocationContexts id="DataChannel4.AllocationContext.ID" entityName="DataChannel4.AllocationContext">
+    <dataChannel xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" href="smarthomedata.system#DataChannel4.ID"/>
+    <resourceContainer href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+  </dataChannelAllocationContexts>
+  <dataChannelAllocationContexts id="DataChannel5.AllocationContext.ID" entityName="DataChannel5.AllocationContext">
+    <dataChannel xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" href="smarthomedata.system#DataChannel5.ID"/>
+    <resourceContainer href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+  </dataChannelAllocationContexts>
+  <dataChannelAllocationContexts id="DataChannel6.AllocationContext.ID" entityName="DataChannel6.AllocationContext">
+    <dataChannel xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" href="smarthomedata.system#DataChannel6.ID"/>
+    <resourceContainer href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+  </dataChannelAllocationContexts>
+</org.palladiosimulator.indirections.allocation:IndirectionsAwareAllocation>

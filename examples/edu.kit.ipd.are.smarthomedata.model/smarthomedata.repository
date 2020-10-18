@@ -30,41 +30,99 @@
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="MedianEachPlug.accepts.SmartMeterReadingWindow.ID" entityName="MedianEachPlug.accepts.SmartMeterReadingWindow" dataInterface="SmartMeterReadingWindowDataInterface.ID"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="MedianEachPlug.provides.Median.ID" entityName="MedianEachPlug.provides.Median" dataInterface="MedianDataInterface.ID"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="MedianEachPlug.acceptData.ID" describedService__SEFF="SmartMeterReadingWindowDataSignature.ID">
-      <steps_Behaviour xsi:type="seff:StartAction" id="MedianEachPlug.acceptData.start.ID" entityName="MedianEachPlug.acceptData.start" successor_AbstractAction="MedianEachPlug.acceptData.analyseStack.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="MedianEachPlug.acceptData.analyseStack.ID" entityName="MedianEachPlug.acceptData.analyseStack" predecessor_AbstractAction="MedianEachPlug.acceptData.start.ID" successor_AbstractAction="MedianEachPlug.acceptData.emitData.ID" measurementIdentificationKey="MedianEachPlug.acceptData.analyseStack.key">
+      <steps_Behaviour xsi:type="seff:StartAction" id="MedianEachPlug.acceptData.start.ID" entityName="MedianEachPlug.acceptData.start" successor_AbstractAction="MedianEachPlug.acceptData.analyseSmartMeterReadingWindow.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="MedianEachPlug.acceptData.analyseSmartMeterReadingWindow.ID" entityName="MedianEachPlug.acceptData.analyseSmartMeterReadingWindow" predecessor_AbstractAction="MedianEachPlug.acceptData.start.ID" successor_AbstractAction="MedianEachPlug.acceptData.RD.ID" measurementIdentificationKey="MedianEachPlug.acceptData.analyseSmartMeterReadingWindow.key">
         <variableReference referenceName="smartMeterReadingWindow"/>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="MedianEachPlug.acceptData.emitData.ID" entityName="MedianEachPlug.acceptData.emitData" predecessor_AbstractAction="MedianEachPlug.acceptData.analyseStack.ID" successor_AbstractAction="MedianEachPlug.acceptsData.stop.ID" dataSourceRole="MedianEachPlug.provides.Median.ID">
-        <variableReference referenceName="smartMeterReadingWindow"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="MedianEachPlug.acceptData.RD.ID" entityName="MedianEachPlug.acceptData.RD" predecessor_AbstractAction="MedianEachPlug.acceptData.analyseSmartMeterReadingWindow.ID" successor_AbstractAction="MedianEachPlug.acceptData.createMedian.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="smartMeterReadingWindow.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="MedianEachPlug.acceptsData.stop.ID" entityName="MedianEachPlug.acceptsData.stop" predecessor_AbstractAction="MedianEachPlug.acceptData.emitData.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDateAction" id="MedianEachPlug.acceptData.createMedian.ID" entityName="MedianEachPlug.acceptData.createMedian" predecessor_AbstractAction="MedianEachPlug.acceptData.RD.ID" successor_AbstractAction="MedianEachPlug.acceptData.analyseMedian.ID">
+        <variableReference referenceName="median"/>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="smartMeterReadingWindow.WINDOW.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="WINDOW"/>
+        </variableUsages>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="smartMeterReadingWindow.PARTITION.plugId.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="PARTITION.plugId"/>
+        </variableUsages>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="smartMeterReadingWindow.PARTITION.houseId.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="PARTITION.houseId"/>
+        </variableUsages>
+        <referencedData referenceName="smartMeterReadingWindow"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="MedianEachPlug.acceptData.analyseMedian.ID" entityName="MedianEachPlug.acceptData.analyseMedian" predecessor_AbstractAction="MedianEachPlug.acceptData.createMedian.ID" successor_AbstractAction="MedianEachPlug.acceptData.emitData.ID" measurementIdentificationKey="MedianEachPlug.acceptData.analyseMedian.key">
+        <variableReference referenceName="median"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="MedianEachPlug.acceptData.emitData.ID" entityName="MedianEachPlug.acceptData.emitData" predecessor_AbstractAction="MedianEachPlug.acceptData.analyseMedian.ID" successor_AbstractAction="MedianEachPlug.acceptData.stop.ID" dataSourceRole="MedianEachPlug.provides.Median.ID">
+        <variableReference referenceName="median"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="MedianEachPlug.acceptData.stop.ID" entityName="MedianEachPlug.acceptData.stop" predecessor_AbstractAction="MedianEachPlug.acceptData.emitData.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="AverageAllPlugsComponent.ID" entityName="AverageAllPlugs">
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="AverageAllPlugs.accepts.MedianWindow.ID" entityName="AverageAllPlugs.accepts.MedianWindow" dataInterface="MedianWindowDataInterface.ID"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="AverageAllPlugs.provides.MedianAverage.ID" entityName="AverageAllPlugs.provides.MedianAverage" dataInterface="MedianAverageDataInterface.ID"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="AverageAllPlugs.acceptData.ID" describedService__SEFF="MedianWindowDataSignature.ID">
-      <steps_Behaviour xsi:type="seff:StartAction" id="AverageAllPlugs.acceptData.start.ID" entityName="AverageAllPlugs.acceptData.start" successor_AbstractAction="AverageAllPlugs.acceptData.emitData.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="AverageAllPlugs.acceptData.emitData.ID" entityName="AverageAllPlugs.acceptData.emitData" predecessor_AbstractAction="AverageAllPlugs.acceptData.start.ID" successor_AbstractAction="AverageAllPlugs.acceptData.stop.ID" dataSourceRole="AverageAllPlugs.provides.MedianAverage.ID"/>
+      <steps_Behaviour xsi:type="seff:StartAction" id="AverageAllPlugs.acceptData.start.ID" entityName="AverageAllPlugs.acceptData.start" successor_AbstractAction="AverageAllPlugs.acceptData.analyseMedianWindow.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="AverageAllPlugs.acceptData.analyseMedianWindow.ID" entityName="AverageAllPlugs.acceptData.analyseMedianWindow" predecessor_AbstractAction="AverageAllPlugs.acceptData.start.ID" successor_AbstractAction="AverageAllPlugs.acceptData.RD.ID" measurementIdentificationKey="AverageAllPlugs.acceptData.analyseMedianWindow.key">
+        <variableReference referenceName="medianWindow"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="AverageAllPlugs.acceptData.RD.ID" entityName="AverageAllPlugs.acceptData.RD" predecessor_AbstractAction="AverageAllPlugs.acceptData.analyseMedianWindow.ID" successor_AbstractAction="AverageAllPlugs.acceptData.createAverage.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="medianWindow.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDateAction" id="AverageAllPlugs.acceptData.createAverage.ID" entityName="AverageAllPlugs.acceptData.createAverage" predecessor_AbstractAction="AverageAllPlugs.acceptData.RD.ID" successor_AbstractAction="AverageAllPlugs.acceptData.analyseAverage.ID">
+        <variableReference referenceName="medianAverage"/>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="medianWindow.WINDOW.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="WINDOW"/>
+        </variableUsages>
+        <referencedData referenceName="medianWindow"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="AverageAllPlugs.acceptData.analyseAverage.ID" entityName="AverageAllPlugs.acceptData.analyseAverage" predecessor_AbstractAction="AverageAllPlugs.acceptData.createAverage.ID" successor_AbstractAction="AverageAllPlugs.acceptData.emitData.ID" measurementIdentificationKey="AverageAllPlugs.acceptData.analyseAverage.key">
+        <variableReference referenceName="medianAverage"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="AverageAllPlugs.acceptData.emitData.ID" entityName="AverageAllPlugs.acceptData.emitData" predecessor_AbstractAction="AverageAllPlugs.acceptData.analyseAverage.ID" successor_AbstractAction="AverageAllPlugs.acceptData.stop.ID" dataSourceRole="AverageAllPlugs.provides.MedianAverage.ID">
+        <variableReference referenceName="medianAverage"/>
+      </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:StopAction" id="AverageAllPlugs.acceptData.stop.ID" entityName="AverageAllPlugs.acceptData.stop" predecessor_AbstractAction="AverageAllPlugs.acceptData.emitData.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculationComponent.ID" entityName="OutlierCalculation">
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="OutlierCalculation.accepts.AverageAndHouseMedians.ID" entityName="OutlierCalculation.accepts.AverageAndHouseMedians" dataInterface="AverageAndHouseMediansDataInterface.ID"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dMPdZwplEeuQvu4n8OHGSw">
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="OutlierCalculation.acceptData.ID" describedService__SEFF="AverageAndHouseMediansDataSignature.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="OutlierCalculation.acceptData.start.ID" entityName="OutlierCalculation.acceptData.start" successor_AbstractAction="OutlierCalculation.acceptData.RD.ID"/>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="OutlierCalculation.acceptData.RD.ID" entityName="OutlierCalculation.acceptData.RD" predecessor_AbstractAction="OutlierCalculation.acceptData.start.ID" successor_AbstractAction="OutlierCalculation.acceptData.stop.ID">
+      <steps_Behaviour xsi:type="seff:InternalAction" id="OutlierCalculation.acceptData.RD.ID" entityName="OutlierCalculation.acceptData.RD" predecessor_AbstractAction="OutlierCalculation.acceptData.start.ID" successor_AbstractAction="OutlierCalculation.acceptData.analyseOutlier.ID">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="5"/>
+          <specification_ParametericResourceDemand specification="averageAndHouseMedians.medianWindow.NUMBER_OF_ELEMENTS"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="OutlierCalculation.acceptData.stop.ID" entityName="OutlierCalculation.acceptData.stop" predecessor_AbstractAction="OutlierCalculation.acceptData.RD.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="OutlierCalculation.acceptData.analyseOutlier.ID" entityName="OutlierCalculation.acceptData.analyseOutlier" predecessor_AbstractAction="OutlierCalculation.acceptData.RD.ID" successor_AbstractAction="OutlierCalculation.acceptData.stop.ID" measurementIdentificationKey="OutlierCalculation.acceptData.analyseOutlier.key">
+        <variableReference referenceName="averageAndHouseMedians"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="OutlierCalculation.acceptData.stop.ID" entityName="OutlierCalculation.acceptData.stop" predecessor_AbstractAction="OutlierCalculation.acceptData.analyseOutlier.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptSingleReading.ID" entityName="IAcceptSingleReading">
     <signatures__OperationInterface id="acceptSingleReading.ID" entityName="acceptSingleReading">
-      <parameters__OperationSignature dataType__Parameter="SmartReadingReadingDataType.ID" parameterName="reading"/>
+      <parameters__OperationSignature dataType__Parameter="SmartReadingReadingDataType.ID" parameterName="smartMeterReading"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="SmartMeterReadingDataInterface.ID" entityName="SmartMeterReadingDataInterface">
@@ -124,5 +182,8 @@
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianAverageDataType.ID" entityName="MedianAverageDataType"/>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="AverageAndHouseMediansDataType.ID" entityName="AverageAndHouseMediansDataType">
     <innerDeclaration_CompositeDataType entityName="houseMedians" datatype_InnerDeclaration="MedianWindowDataType.ID"/>
+    <innerDeclaration_CompositeDataType entityName="average">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.3"/>
+    </innerDeclaration_CompositeDataType>
   </dataTypes__Repository>
 </repository:Repository>
