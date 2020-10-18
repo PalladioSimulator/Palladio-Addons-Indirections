@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="System.ID" entityName="System">
+  <assemblyContexts__ComposedStructure id="MedianEachPlug.AssemblyContext.ID" entityName="MedianEachPlug.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#MedianEachPlugComponent.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="AverageAllPlugs.AssemblyContext.ID" entityName="AverageAllPlugs.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#AverageAllPlugsComponent.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="OutlierCalculation.AssemblyContext.ID" entityName="OutlierCalculation.AssemblyContext">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#OutlierCalculationComponent.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.IAcceptReadingWindow.to.MedianEachPlug.AssemblyContext.ID" entityName="System.delegates.IAcceptReadingWindow.to.MedianEachPlug.AssemblyContext" outerProvidedRole_ProvidedDelegationConnector="System.provides.IAcceptReadingWindow.ID" assemblyContext_ProvidedDelegationConnector="MedianEachPlug.AssemblyContext.ID">
+    <innerProvidedRole_ProvidedDelegationConnector href="smarthomedata.repository#MedianEachPlug.provides.IAcceptReadingWindow.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="AverageAllPlugs.provides.IAcceptMedianWindow.to.MedianEachPlug.ID" entityName="AverageAllPlugs.provides.IAcceptMedianWindow.to.MedianEachPlug" requiringAssemblyContext_AssemblyConnector="MedianEachPlug.AssemblyContext.ID" providingAssemblyContext_AssemblyConnector="AverageAllPlugs.AssemblyContext.ID">
+    <providedRole_AssemblyConnector href="smarthomedata.repository#AverageAllPlugs.provides.IAcceptMedianWindow.ID"/>
+    <requiredRole_AssemblyConnector href="smarthomedata.repository#MedianEachPlug.requires.IAcceptMedianWindow.ID"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="OutlierCalculation.provides.IAcceptAverageWindow.to.AverageAllPlugs.ID" entityName="OutlierCalculation.provides.IAcceptAverageWindow.to.AverageAllPlugs" requiringAssemblyContext_AssemblyConnector="AverageAllPlugs.AssemblyContext.ID" providingAssemblyContext_AssemblyConnector="OutlierCalculation.AssemblyContext.ID">
+    <providedRole_AssemblyConnector href="smarthomedata.repository#OutlierCalculation.provides.IAcceptAverageWindow.ID"/>
+    <requiredRole_AssemblyConnector href="smarthomedata.repository#AverageAllPlugs.requires.IAcceptAverageWindow.ID"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="System.provides.IAcceptReadingWindow.ID" entityName="System.provides.IAcceptReadingWindow">
+    <providedInterface__OperationProvidedRole href="smarthomedata.repository#IAcceptReadingWindow.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

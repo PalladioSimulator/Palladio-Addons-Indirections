@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="allocation.ID" entityName="allocation">
+  <targetResourceEnvironment_Allocation href="smarthomedata.resourceenvironment#/"/>
+  <system_Allocation href="smarthomedata.system#_myRVALusEeq4r6D5ZG3ytw"/>
+  <allocationContexts_Allocation id="Emitter.AllocationContext.ID" entityName="Emitter.AllocationContext">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#Emitter.AssemblyContext.ID"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="MedianEachPlug.AllocationContext.ID" entityName="MedianEachPlug.AllocationContext">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#MedianEachPlug.AssemblyContext.ID"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="AverageAllPlugs.AllocationContext.ID" entityName="AverageAllPlugs.AllocationContext">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#AverageAllPlugs.AssemblyContext.ID"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="OutlierCalculation.AllocationContext.ID" entityName="OutlierCalculation.AllocationContext">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#OutlierCalculation.AssemblyContext.ID"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>

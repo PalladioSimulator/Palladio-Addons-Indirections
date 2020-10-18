@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="repository.ID" entityName="repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculationComponent.ID" entityName="OutlierCalculation">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="OutlierCalculation.provides.IAcceptAverageWindow.ID" entityName="OutlierCalculation.provides.IAcceptAverageWindow"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="OutlierCalculation.acceptData.ID" describedService__SEFF="acceptAverageWindow.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="OutlierCalculation.acceptAverageWindow.start.ID" entityName="OutlierCalculation.acceptAverageWindow.start" successor_AbstractAction="OutlierCalculation.acceptAverageWindow.RD.ID"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="OutlierCalculation.acceptAverageWindow.RD.ID" entityName="OutlierCalculation.acceptAverageWindow.RD" predecessor_AbstractAction="OutlierCalculation.acceptAverageWindow.start.ID" successor_AbstractAction="OutlierCalculation.acceptAverageWindow.stop.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="averageAndHouseMedians.medianWindow.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="OutlierCalculation.acceptAverageWindow.stop.ID" entityName="OutlierCalculation.acceptAverageWindow.stop" predecessor_AbstractAction="OutlierCalculation.acceptAverageWindow.RD.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptAverageWindow.ID" entityName="IAcceptAverageWindow">
+    <signatures__OperationInterface id="acceptAverageWindow.ID" entityName="acceptAverageWindow">
+      <parameters__OperationSignature dataType__Parameter="AverageWindowDataType.ID" parameterName="averageWindow"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="AverageWindowDataType.ID" entityName="AverageWindowDataType"/>
+</repository:Repository>

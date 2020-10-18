@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="repository.ID" entityName="repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="MedianEachPlugComponent.ID" entityName="MedianEachPlug">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="MedianEachPlug.provides.IAcceptReadingWindow.ID" entityName="MedianEachPlug.provides.IAcceptReadingWindow" providedInterface__OperationProvidedRole="IAcceptReadingWindow.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="MedianEachPlug.requires.IAcceptMedianWindow.ID" entityName="MedianEachPlug.requires.IAcceptMedianWindow" requiredInterface__OperationRequiredRole="IAcceptMedianWindow.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="MedianEachPlug.acceptData.ID" describedService__SEFF="acceptReadingWindow.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="MedianEachPlug.acceptReadingWindow.start.ID" entityName="MedianEachPlug.acceptReadingWindow.start" successor_AbstractAction="MedianEachPlug.acceptReadingWindow.RD.ID"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="MedianEachPlug.acceptReadingWindow.RD.ID" entityName="MedianEachPlug.acceptReadingWindow.RD" predecessor_AbstractAction="MedianEachPlug.acceptReadingWindow.start.ID" successor_AbstractAction="MedianEachPlug.acceptReadingWindow.emitMedianWindow.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="smartMeterReadingWindow.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="MedianEachPlug.acceptReadingWindow.emitMedianWindow.ID" entityName="MedianEachPlug.acceptReadingWindow.emitMedianWindow" predecessor_AbstractAction="MedianEachPlug.acceptReadingWindow.RD.ID" successor_AbstractAction="MedianEachPlug.acceptReadingWindow.stop.ID" calledService_ExternalService="acceptMedianWindow.ID" role_ExternalService="MedianEachPlug.requires.IAcceptMedianWindow.ID">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
+            <specification_VariableCharacterisation/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="medianWindow"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="MedianEachPlug.acceptReadingWindow.stop.ID" entityName="MedianEachPlug.acceptReadingWindow.stop" predecessor_AbstractAction="MedianEachPlug.acceptReadingWindow.emitMedianWindow.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="AverageAllPlugsComponent.ID" entityName="AverageAllPlugs">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="AverageAllPlugs.provides.IAcceptMedianWindow.ID" entityName="AverageAllPlugs.provides.IAcceptMedianWindow" providedInterface__OperationProvidedRole="IAcceptMedianWindow.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="AverageAllPlugs.requires.IAcceptAverageWindow.ID" entityName="AverageAllPlugs.requires.IAcceptAverageWindow" requiredInterface__OperationRequiredRole="IAcceptAverageWindow.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="AverageAllPlugs.acceptData.ID" describedService__SEFF="acceptMedianWindow.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="AverageAllPlugs.acceptMedianWindow.start.ID" entityName="AverageAllPlugs.acceptMedianWindow.start" successor_AbstractAction="AverageAllPlugs.acceptMedianWindow.RD.ID"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="AverageAllPlugs.acceptMedianWindow.RD.ID" entityName="AverageAllPlugs.acceptMedianWindow.RD" predecessor_AbstractAction="AverageAllPlugs.acceptMedianWindow.start.ID" successor_AbstractAction="AverageAllPlugs.acceptMedianWindow.emitAverageWindow.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="medianWindow.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="AverageAllPlugs.acceptMedianWindow.emitAverageWindow.ID" entityName="AverageAllPlugs.acceptMedianWindow.emitAverageWindow" predecessor_AbstractAction="AverageAllPlugs.acceptMedianWindow.RD.ID" successor_AbstractAction="AverageAllPlugs.acceptMedianWindow.stop.ID" calledService_ExternalService="acceptAverageWindow.ID" role_ExternalService="AverageAllPlugs.requires.IAcceptAverageWindow.ID">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage>
+            <specification_VariableCharacterisation/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="averageWindow"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="AverageAllPlugs.acceptMedianWindow.stop.ID" entityName="AverageAllPlugs.acceptMedianWindow.stop" predecessor_AbstractAction="AverageAllPlugs.acceptMedianWindow.emitAverageWindow.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculationComponent.ID" entityName="OutlierCalculation">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="OutlierCalculation.provides.IAcceptAverageWindow.ID" entityName="OutlierCalculation.provides.IAcceptAverageWindow"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="OutlierCalculation.acceptData.ID" describedService__SEFF="acceptAverageWindow.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="OutlierCalculation.acceptAverageWindow.start.ID" entityName="OutlierCalculation.acceptAverageWindow.start" successor_AbstractAction="OutlierCalculation.acceptAverageWindow.RD.ID"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="OutlierCalculation.acceptAverageWindow.RD.ID" entityName="OutlierCalculation.acceptAverageWindow.RD" predecessor_AbstractAction="OutlierCalculation.acceptAverageWindow.start.ID" successor_AbstractAction="OutlierCalculation.acceptAverageWindow.stop.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="averageAndHouseMedians.medianWindow.NUMBER_OF_ELEMENTS"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="OutlierCalculation.acceptAverageWindow.stop.ID" entityName="OutlierCalculation.acceptAverageWindow.stop" predecessor_AbstractAction="OutlierCalculation.acceptAverageWindow.RD.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptReadingWindow.ID" entityName="IAcceptReadingWindow">
+    <signatures__OperationInterface id="acceptReadingWindow.ID" entityName="acceptReadingWindow">
+      <parameters__OperationSignature dataType__Parameter="SmartMeterReadingWindowDataType.ID" parameterName="readingWindow"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptMedianWindow.ID" entityName="IAcceptMedianWindow">
+    <signatures__OperationInterface id="acceptMedianWindow.ID" entityName="acceptMedianWindow">
+      <parameters__OperationSignature dataType__Parameter="MedianWindowDataType.ID" parameterName="medianWindow"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptAverageWindow.ID" entityName="IAcceptAverageWindow">
+    <signatures__OperationInterface id="acceptAverageWindow.ID" entityName="acceptAverageWindow">
+      <parameters__OperationSignature dataType__Parameter="AverageWindowDataType.ID" parameterName="averageWindow"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="SmartMeterReadingWindowDataType.ID" entityName="SmartMeterReadingWindowDataType"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianWindowDataType.ID" entityName="MedianWindowDataType"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="AverageWindowDataType.ID" entityName="AverageWindowDataType"/>
+</repository:Repository>
