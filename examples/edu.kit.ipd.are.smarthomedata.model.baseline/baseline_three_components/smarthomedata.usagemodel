@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<usagemodel:UsageModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+<usagemodel:UsageModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
   <usageScenario_UsageModel id="SmartMeterReadingWindowUser.ID" entityName="SmartMeterReadingWindowUser">
     <scenarioBehaviour_UsageScenario id="SmartMeterReadingWindowUser.ScenarioBehavior.ID" entityName="SmartMeterReadingWindowUser.ScenarioBehavior">
       <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="SmartMeterReadingWindowUser.start.ID" entityName="SmartMeterReadingWindowUser.start" successor="SmartMeterReadingWindowUser.ELSC.ID"/>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="SmartMeterReadingWindowUser.ELSC.ID" entityName="SmartMeterReadingWindowUser.ELSC" successor="SmartMeterReadingWindowUser.stop.ID" predecessor="SmartMeterReadingWindowUser.start.ID">
         <providedRole_EntryLevelSystemCall href="smarthomedata.system#System.provides.IAcceptReadingWindow.ID"/>
         <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptReadingWindow.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
+            <specification_VariableCharacterisation specification="DoublePMF[(82701.0; 0.00990099)(82716.0; 0.00990099)(82819.0; 0.00990099)(82836.0; 0.00990099)(82851.0; 0.00990099)(82856.0; 0.00990099)(82952.0; 0.00990099)(82953.0; 0.00990099)(82970.0; 0.00990099)(82980.0; 0.00990099)(82982.0; 0.00990099)(82984.0; 0.00990099)(82987.0; 0.01980198)(82993.0; 0.00990099)(82995.0; 0.00990099)(82998.0; 0.00990099)(83004.0; 0.02970297)(83007.0; 0.00990099)(83012.0; 0.01980198)(83017.0; 0.00990099)(83024.0; 0.01980198)(83046.0; 0.00990099)(83049.0; 0.00990099)(83077.0; 0.00990099)(83084.0; 0.00990099)(83101.0; 0.01980198)(83129.0; 0.00990099)(83132.0; 0.01980198)(83133.0; 0.00990099)(83135.0; 0.01980198)(83137.0; 0.00990099)(83142.0; 0.00990099)(83143.0; 0.00990099)(83144.0; 0.00990099)(83154.0; 0.00990099)(83162.0; 0.01980198)(83164.0; 0.01980198)(83166.0; 0.00990099)(83169.0; 0.00990099)(83171.0; 0.00990099)(83172.0; 0.00990099)(83173.0; 0.01980198)(83180.0; 0.00990099)(83183.0; 0.00990099)(83189.0; 0.00990099)(83197.0; 0.00990099)(83199.0; 0.00990099)(83207.0; 0.00990099)(83256.0; 0.00990099)(83264.0; 0.00990099)(83273.0; 0.00990099)(83291.0; 0.00990099)(83292.0; 0.00990099)(83297.0; 0.00990099)(83304.0; 0.00990099)(83310.0; 0.00990099)(83315.0; 0.00990099)(83321.0; 0.00990099)(83322.0; 0.00990099)(83329.0; 0.00990099)(83332.0; 0.00990099)(83352.0; 0.00990099)(83357.0; 0.00990099)(83359.0; 0.00990099)(83381.0; 0.00990099)(83418.0; 0.01980198)(83429.0; 0.00990099)(83446.0; 0.00990099)(83447.0; 0.00990099)(83448.0; 0.00990099)(83455.0; 0.00990099)(83471.0; 0.01980198)(83474.0; 0.00990099)(83477.0; 0.01980198)(83482.0; 0.00990099)(83483.0; 0.00990099)(83485.0; 0.00990099)(83491.0; 0.00990099)(83494.0; 0.00990099)(83588.0; 0.00990099)(83603.0; 0.00990099)(83631.0; 0.01980198)(83644.0; 0.00990099)(83645.0; 0.00990099)(83647.0; 0.00990099)(83650.0; 0.00990099)]"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="readingWindow"/>
+        </inputParameterUsages_EntryLevelSystemCall>
       </actions_ScenarioBehaviour>
       <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="SmartMeterReadingWindowUser.stop.ID" entityName="SmartMeterReadingWindowUser.stop" predecessor="SmartMeterReadingWindowUser.ELSC.ID"/>
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
-      <interArrivalTime_OpenWorkload/>
+      <interArrivalTime_OpenWorkload specification="10"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
 </usagemodel:UsageModel>

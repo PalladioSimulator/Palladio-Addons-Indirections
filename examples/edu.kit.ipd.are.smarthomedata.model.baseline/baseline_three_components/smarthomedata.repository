@@ -7,14 +7,14 @@
       <steps_Behaviour xsi:type="seff:StartAction" id="MedianEachPlug.acceptReadingWindow.start.ID" entityName="MedianEachPlug.acceptReadingWindow.start" successor_AbstractAction="MedianEachPlug.acceptReadingWindow.RD.ID"/>
       <steps_Behaviour xsi:type="seff:InternalAction" id="MedianEachPlug.acceptReadingWindow.RD.ID" entityName="MedianEachPlug.acceptReadingWindow.RD" predecessor_AbstractAction="MedianEachPlug.acceptReadingWindow.start.ID" successor_AbstractAction="MedianEachPlug.acceptReadingWindow.emitMedianWindow.ID">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="smartMeterReadingWindow.NUMBER_OF_ELEMENTS"/>
+          <specification_ParametericResourceDemand specification="readingWindow.NUMBER_OF_ELEMENTS"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="MedianEachPlug.acceptReadingWindow.emitMedianWindow.ID" entityName="MedianEachPlug.acceptReadingWindow.emitMedianWindow" predecessor_AbstractAction="MedianEachPlug.acceptReadingWindow.RD.ID" successor_AbstractAction="MedianEachPlug.acceptReadingWindow.stop.ID" calledService_ExternalService="acceptMedianWindow.ID" role_ExternalService="MedianEachPlug.requires.IAcceptMedianWindow.ID">
         <inputVariableUsages__CallAction>
           <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
-            <specification_VariableCharacterisation/>
+            <specification_VariableCharacterisation specification="readingWindow.NUMBER_OF_ELEMENTS / 1956.0"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="medianWindow"/>
         </inputVariableUsages__CallAction>
@@ -35,8 +35,8 @@
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="AverageAllPlugs.acceptMedianWindow.emitAverageWindow.ID" entityName="AverageAllPlugs.acceptMedianWindow.emitAverageWindow" predecessor_AbstractAction="AverageAllPlugs.acceptMedianWindow.RD.ID" successor_AbstractAction="AverageAllPlugs.acceptMedianWindow.stop.ID" calledService_ExternalService="acceptAverageWindow.ID" role_ExternalService="AverageAllPlugs.requires.IAcceptAverageWindow.ID">
         <inputVariableUsages__CallAction>
-          <variableCharacterisation_VariableUsage>
-            <specification_VariableCharacterisation/>
+          <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
+            <specification_VariableCharacterisation specification="medianWindow.NUMBER_OF_ELEMENTS"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="averageWindow"/>
         </inputVariableUsages__CallAction>
@@ -50,7 +50,7 @@
       <steps_Behaviour xsi:type="seff:StartAction" id="OutlierCalculation.acceptAverageWindow.start.ID" entityName="OutlierCalculation.acceptAverageWindow.start" successor_AbstractAction="OutlierCalculation.acceptAverageWindow.RD.ID"/>
       <steps_Behaviour xsi:type="seff:InternalAction" id="OutlierCalculation.acceptAverageWindow.RD.ID" entityName="OutlierCalculation.acceptAverageWindow.RD" predecessor_AbstractAction="OutlierCalculation.acceptAverageWindow.start.ID" successor_AbstractAction="OutlierCalculation.acceptAverageWindow.stop.ID">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="averageAndHouseMedians.medianWindow.NUMBER_OF_ELEMENTS"/>
+          <specification_ParametericResourceDemand specification="averageWindow.NUMBER_OF_ELEMENTS"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
