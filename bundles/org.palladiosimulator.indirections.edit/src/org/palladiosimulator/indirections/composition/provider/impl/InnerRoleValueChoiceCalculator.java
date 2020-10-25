@@ -9,11 +9,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.palladiosimulator.indirections.composition.abstract_.DataDelegationConnector;
-import org.palladiosimulator.indirections.util.itempropertydescriptor.ValueChoiceCalculatorBase;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.ComposedStructure;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.repository.Role;
+
+import tools.mdsd.library.emfeditutils.itempropertydescriptor.ValueChoiceCalculatorBase;
 
 public class InnerRoleValueChoiceCalculator extends ValueChoiceCalculatorBase<DataDelegationConnector, Role> {
 

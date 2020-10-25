@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.indirections.util.itempropertydescriptor.ValueChoiceCalculatorBase;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
+
+import tools.mdsd.library.emfeditutils.itempropertydescriptor.ValueChoiceCalculatorBase;
 
 public class AbstractActionValueChoiceCalculator extends ValueChoiceCalculatorBase<AbstractAction, AbstractAction> {
 

@@ -6,9 +6,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
-import org.palladiosimulator.indirections.util.itempropertydescriptor.ValueChoiceCalculatorBase;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
+
+import tools.mdsd.library.emfeditutils.itempropertydescriptor.ValueChoiceCalculatorBase;
 
 public class SourceAssemblyContextValueChoiceCalculator
         extends ValueChoiceCalculatorBase<AssemblyContextSourceConnector, AssemblyContext> {

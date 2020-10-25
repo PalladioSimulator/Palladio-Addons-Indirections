@@ -5,7 +5,8 @@ import org.palladiosimulator.indirections.composition.provider.impl.DataSinkRole
 import org.palladiosimulator.indirections.composition.provider.impl.DataSourceRoleValueChoiceCalculator;
 import org.palladiosimulator.indirections.composition.provider.impl.SinkAssemblyContextValueChoiceCalculator;
 import org.palladiosimulator.indirections.composition.provider.impl.SourceAssemblyContextValueChoiceCalculator;
-import org.palladiosimulator.indirections.util.itempropertydescriptor.ItemPropertyDescriptorUtils;
+
+import tools.mdsd.library.emfeditutils.itempropertydescriptor.ItemPropertyDescriptorUtils;
 
 public class AssemblyDataConnectorItemProvider
         extends AssemblyDataConnectorItemProviderGen {

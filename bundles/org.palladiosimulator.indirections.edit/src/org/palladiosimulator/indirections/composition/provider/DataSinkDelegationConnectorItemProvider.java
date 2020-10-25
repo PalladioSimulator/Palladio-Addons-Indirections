@@ -4,7 +4,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.palladiosimulator.indirections.composition.provider.impl.AssemblyContextValueChoiceCalculator;
 import org.palladiosimulator.indirections.composition.provider.impl.InnerRoleValueChoiceCalculator;
 import org.palladiosimulator.indirections.composition.provider.impl.OuterRoleValueChoiceCalculator;
-import org.palladiosimulator.indirections.util.itempropertydescriptor.ItemPropertyDescriptorUtils;
+
+import tools.mdsd.library.emfeditutils.itempropertydescriptor.ItemPropertyDescriptorUtils;
 
 public class DataSinkDelegationConnectorItemProvider extends DataSinkDelegationConnectorItemProviderGen {
 

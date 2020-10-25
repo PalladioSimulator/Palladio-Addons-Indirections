@@ -9,11 +9,12 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.palladiosimulator.indirections.actions.ConsumeDataAction;
 import org.palladiosimulator.indirections.actions.provider.impl.AbstractActionValueChoiceCalculator;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
-import org.palladiosimulator.indirections.util.itempropertydescriptor.ItemPropertyDescriptorUtils;
-import org.palladiosimulator.indirections.util.itempropertydescriptor.ValueChoiceCalculatorBase;
 import org.palladiosimulator.indirections.util.modelquery.ModelQueryUtils;
 import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
+
+import tools.mdsd.library.emfeditutils.itempropertydescriptor.ItemPropertyDescriptorUtils;
+import tools.mdsd.library.emfeditutils.itempropertydescriptor.ValueChoiceCalculatorBase;
 
 public class ConsumeDataActionItemProvider extends ConsumeDataActionItemProviderGen {
 
