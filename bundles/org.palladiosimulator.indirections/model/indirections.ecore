@@ -146,7 +146,8 @@
         <details key="sinkRoleOfComposedStructureHasExactlyOneDelegationConnector"
             value="not self.providingEntity_ProvidedRole.oclIsKindOf(pcm::core::composition::ComposedStructure) or&#xA;self.providingEntity_ProvidedRole.oclAsType(pcm::core::composition::ComposedStructure).connectors__ComposedStructure->selectByKind(indirections::composition::DataSinkDelegationConnector)->select(c | c.outerDataSinkRole = self)->size() = 1"/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" eType="#//repository/DataInterface"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" lowerBound="1"
+          eType="#//repository/DataInterface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataSourceRole" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/RequiredRole">
       <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
@@ -156,7 +157,8 @@
         <details key="sourceRoleOfComposedStructureHasExactlyOneDelegationConnector"
             value="not self.requiringEntity_RequiredRole.oclIsKindOf(pcm::core::composition::ComposedStructure) or&#xA;self.requiringEntity_RequiredRole.oclAsType(pcm::core::composition::ComposedStructure).connectors__ComposedStructure->selectByKind(indirections::composition::DataSourceDelegationConnector)->select(c | c.outerDataSourceRole = self)->size() = 1"/>
       </eAnnotations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" eType="#//repository/DataInterface"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="dataInterface" lowerBound="1"
+          eType="#//repository/DataInterface"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="DataInterface" eSuperTypes="../../org.palladiosimulator.pcm/model/pcm.ecore#//repository/Interface">
       <eStructuralFeatures xsi:type="ecore:EReference" name="dataSignature" lowerBound="1"
