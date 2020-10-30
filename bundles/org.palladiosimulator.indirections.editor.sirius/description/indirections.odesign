@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="indirections" version="12.0.0.2017041100">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:properties-ext-widgets-reference="http://www.eclipse.org/sirius/properties/1.0.0/ext/widgets/reference" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="indirections" version="12.0.0.2017041100">
   <ownedViewpoints name="PCM-Indirections">
     <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="PCM Indirections Repository" viewpointURI="viewpoint:/org.palladiosimulator.editors.sirius.repository/Repository" representationName="Repository Diagram">
       <metamodel href="http://palladiosimulator.org/PalladioComponentModel/5.2#/"/>
+      <metamodel href="../../org.palladiosimulator.indirections/model/indirections.ecore#/"/>
+      <metamodel href="http://palladiosimulator.org/PalladioComponentModel/5.2#//repository"/>
       <layers name="org.palladiosimulator.indirections.editor.sirius.Indirections" label="PCM Indirections" activeByDefault="true" optional="false">
-        <edgeMappings name="DataSourceRole" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']" targetFinderExpression="feature:dataInterface" sourceFinderExpression="feature:requiringEntity_RequiredRole" domainClass="DataSourceRole" useDomainElement="true">
+        <edgeMappings name="DataSourceRole" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']" targetFinderExpression="feature:dataInterface" sourceFinderExpression="feature:requiringEntity_RequiredRole" domainClass="DataSourceRole" useDomainElement="true" reconnections="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataSourceRole%20Target'] //@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataSourceRole%20Source']">
           <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='BasicComponent']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='CompositeComponent']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='SubSystem']"/>
-          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataChannel']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='JavaClassDataChannel']"/>
           <style>
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription showIcon="false" labelExpression="aql: '&lt;&lt;Requires>>\n' + self.entityName">
@@ -16,10 +18,10 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="DataSinkRole" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']" targetFinderExpression="feature:dataInterface" sourceFinderExpression="feature:providingEntity_ProvidedRole" domainClass="DataSinkRole" useDomainElement="true">
+        <edgeMappings name="DataSinkRole" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']" targetFinderExpression="feature:dataInterface" sourceFinderExpression="feature:providingEntity_ProvidedRole" domainClass="DataSinkRole" useDomainElement="true" reconnections="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataSinkRole%20Target'] //@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataSinkRole%20Source']">
           <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='BasicComponent']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='CompositeComponent']"/>
-          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataChannel']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='JavaClassDataChannel']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='SubSystem']"/>
           <style>
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
@@ -28,8 +30,8 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <containerMappings name="DataInterface" semanticCandidatesExpression="feature:interfaces__Repository" domainClass="repository::DataInterface" childrenPresentation="List">
-          <subNodeMappings name="DataSignature" semanticCandidatesExpression="feature:dataSignature" domainClass="DataSignature">
+        <containerMappings name="DataInterface" deletionDescription="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataInterface%20Deletion']" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='Edit%20DataInterface']" semanticCandidatesExpression="feature:interfaces__Repository" domainClass="repository::DataInterface" childrenPresentation="List">
+          <subNodeMappings name="DataSignature" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='Edit%20DataSignature']" semanticCandidatesExpression="feature:dataSignature" domainClass="DataSignature">
             <style xsi:type="style:SquareDescription" labelExpression="aql:self.entityName + '(' + self.parameter.parameterName + ':' + self.parameter.dataType__Parameter->select(p | p.oclIsKindOf(entity::Entity)).entityName + self.parameter.dataType__Parameter->select(p | p.oclIsKindOf(repository::PrimitiveDataType)).type + ')'" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -43,14 +45,218 @@
             <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </containerMappings>
-        <containerMappings name="DataChannel" semanticCandidatesExpression="feature:components__Repository" domainClass="JavaClassDataChannel">
+        <containerMappings name="JavaClassDataChannel" semanticCandidatesExpression="feature:components__Repository" domainClass="JavaClassDataChannel">
           <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="aql: '&lt;&lt;DataChannel>>\n'.concat(self.entityName)">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </containerMappings>
+        <toolSections name="Indirections">
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="DataInterface" containerMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataInterface" referenceName="interfaces__Repository">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="aql:'DataInterface' + container.eContents()->filter(repository::DataInterface)->size()"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="JavaClassDataChannel" containerMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='JavaClassDataChannel']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="JavaClassDataChannel" referenceName="components__Repository">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="aql:'DataChannel' + container.eContents()->filter(repository::DataChannel)->size()"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="DataSignature" precondition="aql:container.dataSignature = null" nodeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']/@subNodeMappings[name='DataSignature']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataSignature" referenceName="dataSignature" variableName="signature">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:signature">
+                    <subModelOperations xsi:type="tool_1:CreateInstance" typeName="repository::Parameter" referenceName="parameter" variableName="parameter">
+                      <subModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Data Signature Creation">
+                        <buttons labelExpression="Cancel" closeDialogOnClick="true" rollbackChangesOnClose="true">
+                          <initialOperation/>
+                        </buttons>
+                        <buttons labelExpression="OK" isEnabledExpression="aql:parameter.dataType__Parameter &lt;> null and signature.entityName &lt;> ''" default="true" closeDialogOnClick="true">
+                          <initialOperation/>
+                        </buttons>
+                        <page name="DataSignatureCreationPage" labelExpression="Data Signature Creation" semanticCandidateExpression="var:self" groups="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataSignature']/@initialOperation/@firstModelOperations/@subModelOperations.0/@subModelOperations.0/@subModelOperations.0/@subModelOperations.0/@groups.0"/>
+                        <groups name="DataSignatureCreationGroup" labelExpression="Mandatory Properties">
+                          <controls xsi:type="properties:TextDescription" name="DataSignatureName" labelExpression="Name" valueExpression="aql:self.parameterName">
+                            <initialOperation>
+                              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+                                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:parameter">
+                                  <subModelOperations xsi:type="tool_1:SetValue" featureName="parameterName" valueExpression="var:newValue"/>
+                                </subModelOperations>
+                                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:signature">
+                                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="var:newValue"/>
+                                </subModelOperations>
+                              </firstModelOperations>
+                            </initialOperation>
+                          </controls>
+                          <controls xsi:type="properties-ext-widgets-reference:ExtReferenceDescription" name="DataSignatureTypeReference" labelExpression="Data Type" referenceNameExpression="dataType__Parameter" referenceOwnerExpression="var:parameter"/>
+                        </groups>
+                      </subModelOperations>
+                    </subModelOperations>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="Edit DataInterface" inputLabelExpression="feature:entityName">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:If" conditionExpression="service:self.isJavaIdentifier(0)">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="var:0"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="Edit DataSignature" inputLabelExpression="feature:entityName">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:If" conditionExpression="service:self.isJavaIdentifier(0)">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="var:0">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.parameter">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="parameterName" valueExpression="var:0"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:PopupMenu" name="DataSignatureMenu" label="Data Signature Operations" precondition="aql:self.oclIsKindOf(repository::DataSignature)">
+            <menuItemDescription xsi:type="tool_1:OperationAction" name="Data Signature Parameter Data Type Change" label="Change signature">
+              <view name="views"/>
+              <initialOperation>
+                <firstModelOperations xsi:type="tool_1:Let" variableName="signature" valueExpression="aql:self">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.parameter">
+                    <subModelOperations xsi:type="tool_1:Let" variableName="parameter" valueExpression="aql:self">
+                      <subModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Change Data Interface Signature">
+                        <buttons labelExpression="Cancel" closeDialogOnClick="true" rollbackChangesOnClose="true">
+                          <initialOperation/>
+                        </buttons>
+                        <buttons labelExpression="OK" isEnabledExpression="aql:parameter.dataType__Parameter &lt;> null and signature.entityName &lt;> ''" default="true" closeDialogOnClick="true">
+                          <initialOperation/>
+                        </buttons>
+                        <page name="Data Interface Signature Properties" labelExpression="Change Data Interface Signature" semanticCandidateExpression="var:self" groups="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataSignature']/@initialOperation/@firstModelOperations/@subModelOperations.0/@subModelOperations.0/@subModelOperations.0/@subModelOperations.0/@groups.0"/>
+                      </subModelOperations>
+                    </subModelOperations>
+                  </subModelOperations>
+                </firstModelOperations>
+              </initialOperation>
+            </menuItemDescription>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="DataSinkRole" edgeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@edgeMappings[name='DataSinkRole']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:source">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataSinkRole" referenceName="providedRoles_InterfaceProvidingEntity">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="dataInterface" valueExpression="var:target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="aql:self.providingEntity_ProvidedRole.entityName + '.' + self.dataInterface.entityName + '.DataSinkRole' + source.eContents()->filter(repository::DataSourceRole)->size()"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="DataSourceRole" edgeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@edgeMappings[name='DataSourceRole']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:source">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataSourceRole" referenceName="requiredRoles_InterfaceRequiringEntity">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="dataInterface" valueExpression="var:target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="aql:self.requiringEntity_RequiredRole.entityName + '.' + self.dataInterface.entityName + '.DataSourceRole' + source.eContents()->filter(repository::DataSourceRole)->size()"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="DataInterface Deletion">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:For" expression="aql:elementView.eInverse().target->filter(repository::DataSinkRole)">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:i">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:For" expression="aql:elementView.eInverse().target->filter(repository::DataSourceRole)">
+                  <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:i">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:RemoveElement"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="DataSinkRole Target">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="dataInterface" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="DataSinkRole Source" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="providingEntity_ProvidedRole" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="DataSourceRole Target">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="dataInterface" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="DataSourceRole Source" reconnectionKind="RECONNECT_SOURCE">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="requiringEntity_RequiredRole" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+        </toolSections>
       </layers>
     </ownedRepresentationExtensions>
     <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="PCM Indirections Assembly" viewpointURI="viewpoint:/org.palladiosimulator.editors.sirius.assembly/Assembly" representationName="Assembly Diagram">
