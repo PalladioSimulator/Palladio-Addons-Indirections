@@ -16,6 +16,13 @@
 	<feature id="org.palladiosimulator.indirections.editor.tree.feature.source">
 	   <category name="org.palladiosimulator.addons.source.category"/>
 	</feature>
+
+	<feature id="org.palladiosimulator.indirections.editor.sirius.feature">
+	   <category name="org.palladiosimulator.addons.category"/>
+	</feature>
+	<feature id="org.palladiosimulator.indirections.editor.sirius.feature.source">
+	   <category name="org.palladiosimulator.addons.source.category"/>
+	</feature>
 	
 	<!-- category definitions -->
 	<category-def name="org.palladiosimulator.addons.category" label="Palladio Bench Addons">

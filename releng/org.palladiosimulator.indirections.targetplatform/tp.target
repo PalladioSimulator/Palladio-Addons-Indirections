@@ -242,6 +242,39 @@
 			<unit id="org.storydriven.storydiagrams.interpreter.feature.feature.group" version="tbd"/>
 			<repository location="https://sdqweb.ipd.kit.edu/eclipse/storydiagraminterpreter/nightly/"/>
 		</location>
+
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="org.palladiosimulator.editors.sirius.assembly" version="0.0.0"/>
+			<unit id="org.palladiosimulator.editors.sirius.repository" version="0.0.0"/>
+			<unit id="org.palladiosimulator.editors.sirius.seff" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-editors-sirius/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="org.palladiosimulator.editors.sirius.assembly" version="0.0.0"/>
+			<unit id="org.palladiosimulator.editors.sirius.repository" version="0.0.0"/>
+			<unit id="org.palladiosimulator.editors.sirius.seff" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-editors-sirius/nightly/"/>
+		</location>
+
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="org.palladiosimulator.architecturaltemplates.api" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-addon-architecturaltemplates/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="org.palladiosimulator.architecturaltemplates.api" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-addon-architecturaltemplates/nightly/"/>
+		</location>
+
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="org.yakindu.base.xtext.utils.gmf.feature.group" version="0.0.0"/>
+			<unit id="org.yakindu.base.xtext.utils.jface.feature.group" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-thirdparty-yakindustatecharts/releases/latest/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="org.yakindu.base.xtext.utils.gmf.feature.group" version="0.0.0"/>
+			<unit id="org.yakindu.base.xtext.utils.jface.feature.group" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-thirdparty-yakindustatecharts/nightly/"/>
+		</location>
 		
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
 			<unit id="org.palladiosimulator.experimentanalysis.tests.feature.feature.group" version="tbd"/>

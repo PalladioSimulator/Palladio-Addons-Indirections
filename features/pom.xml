@@ -13,6 +13,7 @@
 	
 	<modules>
 		<module>org.palladiosimulator.indirections.editor.tree.feature</module>
+		<module>org.palladiosimulator.indirections.editor.sirius.feature</module>
 	</modules>
 	
 </project>

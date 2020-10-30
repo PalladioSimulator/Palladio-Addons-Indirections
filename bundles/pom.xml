@@ -14,6 +14,7 @@
 	<modules>
 		<module>org.palladiosimulator.indirections</module>
 		<module>org.palladiosimulator.indirections.edit</module>
+		<module>org.palladiosimulator.indirections.editor.sirius</module>
 	</modules>
 	
 </project>

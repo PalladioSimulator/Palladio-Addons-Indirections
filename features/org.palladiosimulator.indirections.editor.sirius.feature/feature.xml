@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.palladiosimulator.indirections.editor.sirius.feature"
+      label="Indirections Sirius Editor Feature"
+      version="4.3.0.qualifier"
+      provider-name="palladiosimulator.org"
+      plugin="org.palladiosimulator.branding"
+      license-feature="org.palladiosimulator.license"
+      license-feature-version="1.0.0">
+
+   <includes
+         id="org.palladiosimulator.indirections.editor.tree.feature"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.palladiosimulator.branding"/>
+      <import plugin="org.palladiosimulator.pcm"/>
+   </requires>
+
+   <plugin
+         id="org.palladiosimulator.indirections.editor.sirius"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
