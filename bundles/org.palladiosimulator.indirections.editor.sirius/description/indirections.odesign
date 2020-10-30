@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="indirections" version="12.0.0.2017041100">
+  <ownedViewpoints name="PCM-Indirections">
+    <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="PCM Indirections Repository" viewpointURI="viewpoint:/org.palladiosimulator.editors.sirius.repository/Repository" representationName="Repository Diagram">
+      <metamodel href="http://palladiosimulator.org/PalladioComponentModel/5.2#/"/>
+      <layers name="org.palladiosimulator.indirections.editor.sirius.Indirections" label="PCM Indirections" activeByDefault="true" optional="false">
+        <edgeMappings name="DataSourceRole" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']" targetFinderExpression="feature:dataInterface" sourceFinderExpression="feature:requiringEntity_RequiredRole" domainClass="DataSourceRole" useDomainElement="true">
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='BasicComponent']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='CompositeComponent']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='SubSystem']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataChannel']"/>
+          <style>
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription showIcon="false" labelExpression="aql: '&lt;&lt;Requires>>\n' + self.entityName">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="DataSinkRole" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataInterface']" targetFinderExpression="feature:dataInterface" sourceFinderExpression="feature:providingEntity_ProvidedRole" domainClass="DataSinkRole" useDomainElement="true">
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='BasicComponent']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='CompositeComponent']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='DataChannel']"/>
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='SubSystem']"/>
+          <style>
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription showIcon="false" labelExpression="aql: '&lt;&lt;Provides>>\n' + self.entityName">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="DataInterface" semanticCandidatesExpression="feature:interfaces__Repository" domainClass="repository::DataInterface" childrenPresentation="List">
+          <subNodeMappings name="DataSignature" semanticCandidatesExpression="feature:dataSignature" domainClass="DataSignature">
+            <style xsi:type="style:SquareDescription" labelExpression="aql:self.entityName + '(' + self.parameter.parameterName + ':' + self.parameter.dataType__Parameter->select(p | p.oclIsKindOf(entity::Entity)).entityName + self.parameter.dataType__Parameter->select(p | p.oclIsKindOf(repository::PrimitiveDataType)).type + ')'" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="aql: '&lt;&lt;DataInterface>>\n'.concat(self.entityName)" widthComputationExpression="20" heightComputationExpression="10">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="DataChannel" semanticCandidatesExpression="feature:components__Repository" domainClass="JavaClassDataChannel">
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="aql: '&lt;&lt;DataChannel>>\n'.concat(self.entityName)">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+      </layers>
+    </ownedRepresentationExtensions>
+    <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="PCM Indirections Assembly" viewpointURI="viewpoint:/org.palladiosimulator.editors.sirius.assembly/Assembly" representationName="Assembly Diagram">
+      <metamodel href="http://palladiosimulator.org/PalladioComponentModel/5.2#/"/>
+      <metamodel href="http://palladiosimulator.org/PalladioComponentModel/5.2#//core/composition"/>
+      <metamodel href="http://www.eclipse.org/sirius/diagram/1.1.0#/"/>
+      <layers name="org.palladiosimulator.indirections.editor.sirius.Indirections.assembly" label="PCM Indirections" activeByDefault="true" optional="false">
+        <edgeMappings name="AssemblyDataConnector" preconditionExpression="aql:sourceView.ancestors()->filter(diagram::DNodeContainer).target->includes(self.sourceAssemblyContext) and targetView.ancestors()->filter(diagram::DNodeContainer).target->includes(self.sinkAssemblyContext)" semanticCandidatesExpression="feature:connectors__ComposedStructure" sourceMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='ExternalDataSourceRole%20Node']" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='ExternalDataSinkRole%20Node']" targetFinderExpression="feature:dataSinkRole" sourceFinderExpression="feature:dataSourceRole" domainClass="AssemblyDataConnector" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="DataSinkDelegationConnector Edge" preconditionExpression="aql:targetView.ancestors()->filter(diagram::DNodeContainer).target->includes(self.assemblyContext)" semanticCandidatesExpression="feature:connectors__ComposedStructure" sourceMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalDataSinkRole%20Node']" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='ExternalDataSinkRole%20Node']" targetFinderExpression="feature:innerDataSinkRole" sourceFinderExpression="feature:outerDataSinkRole" domainClass="DataSinkDelegationConnector" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="DataSourceDelegationConnector Edge" preconditionExpression="aql:sourceView.ancestors()->filter(diagram::DNodeContainer).target->includes(self.assemblyContext)" semanticCandidatesExpression="feature:connectors__ComposedStructure" sourceMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='ExternalDataSourceRole%20Node']" targetMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalDataSourceRole%20Node']" targetFinderExpression="feature:outerDataSourceRole" sourceFinderExpression="feature:innerDataSourceRole" domainClass="DataSourceDelegationConnector" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings xsi:type="description_1:ContainerMappingImport" name="ComposedProvidingRequiringEntity Node" semanticCandidatesExpression="var:self">
+          <borderedNodeMappings name="ExternalDataSourceRole Node" semanticCandidatesExpression="[requiredRoles_InterfaceRequiringEntity/]" domainClass="DataSourceRole">
+            <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" sizeComputationExpression="5" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sourceRole">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </borderedNodeMappings>
+          <borderedNodeMappings name="ExternalDataSinkRole Node" semanticCandidatesExpression="[providedRoles_InterfaceProvidingEntity/]" domainClass="DataSinkRole">
+            <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" sizeComputationExpression="5" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sinkRole">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </style>
+          </borderedNodeMappings>
+          <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']"/>
+          <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalSinkRole%20Node']"/>
+          <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalSourceRole%20Node']"/>
+          <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalInfrastructureProvidedRole%20Node']"/>
+          <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalInfrastructureRequiredRole%20Node']"/>
+          <reusedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subNodeMappings[name='EventChannel%20Node']"/>
+          <reusedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subNodeMappings[name='StereotypeApplication%20Node']"/>
+          <subContainerMappings xsi:type="description_1:ContainerMappingImport" name="AssemblyContext Container" semanticCandidatesExpression="[self.assemblyContexts__ComposedStructure/]" domainClass="composition.AssemblyContext">
+            <borderedNodeMappings name="ExternalDataSourceRole Node" semanticCandidatesExpression="[self.encapsulatedComponent__AssemblyContext.requiredRoles_InterfaceRequiringEntity/]" domainClass="DataSourceRole">
+              <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sourceRole">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </style>
+            </borderedNodeMappings>
+            <borderedNodeMappings name="ExternalDataSinkRole Node" semanticCandidatesExpression="[self.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity/]" domainClass="DataSinkRole">
+              <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sinkRole">
+                <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </style>
+            </borderedNodeMappings>
+            <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+            <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationRequiredRole%20Node']"/>
+            <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='SinkRole%20Node']"/>
+            <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='SourceRole%20Node']"/>
+            <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='InfrastructureProvidedRole%20Node']"/>
+            <reusedBorderedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='InfrastructureRequiredRole%20Node']"/>
+            <reusedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@subNodeMappings[name='StereotypeApplication%20Node']"/>
+            <reusedContainerMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@subContainerMappings[name='Role%20Container']"/>
+            <reusedContainerMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@subContainerMappings[name='VariableUsage%20Container']"/>
+            <importedMapping href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+          </subContainerMappings>
+          <reusedContainerMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='System%20Role%20Container']"/>
+          <importedMapping href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']"/>
+        </containerMappings>
+      </layers>
+    </ownedRepresentationExtensions>
+    <ownedJavaExtensions qualifiedClassName="org.palladiosimulator.indirections.editor.sirius.Services"/>
+  </ownedViewpoints>
+</description:Group>
