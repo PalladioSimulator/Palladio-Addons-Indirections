@@ -289,14 +289,14 @@
           </style>
         </edgeMappings>
         <containerMappings xsi:type="description_1:ContainerMappingImport" name="ComposedProvidingRequiringEntity Node" semanticCandidatesExpression="var:self">
-          <borderedNodeMappings name="ExternalDataSourceRole Node" semanticCandidatesExpression="[requiredRoles_InterfaceRequiringEntity/]" domainClass="DataSourceRole">
-            <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" sizeComputationExpression="5" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sourceRole">
+          <borderedNodeMappings name="ExternalDataSourceRole Node" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@toolSections.0/@ownedTools[name='EntityNameEdit']" semanticCandidatesExpression="[requiredRoles_InterfaceRequiringEntity/]" domainClass="DataSourceRole">
+            <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" sizeComputationExpression="5" id="org.palladiosimulator.editors.sirius.assembly.custom.sourceRole">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </borderedNodeMappings>
-          <borderedNodeMappings name="ExternalDataSinkRole Node" semanticCandidatesExpression="[providedRoles_InterfaceProvidingEntity/]" domainClass="DataSinkRole">
-            <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" sizeComputationExpression="5" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sinkRole">
+          <borderedNodeMappings name="ExternalDataSinkRole Node" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@toolSections.0/@ownedTools[name='EntityNameEdit']" semanticCandidatesExpression="[providedRoles_InterfaceProvidingEntity/]" domainClass="DataSinkRole">
+            <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" sizeComputationExpression="5" id="org.palladiosimulator.editors.sirius.assembly.custom.sinkRole">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
@@ -310,13 +310,13 @@
           <reusedNodeMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subNodeMappings[name='StereotypeApplication%20Node']"/>
           <subContainerMappings xsi:type="description_1:ContainerMappingImport" name="AssemblyContext Container" semanticCandidatesExpression="[self.assemblyContexts__ComposedStructure/]" domainClass="composition.AssemblyContext">
             <borderedNodeMappings name="ExternalDataSourceRole Node" semanticCandidatesExpression="[self.encapsulatedComponent__AssemblyContext.requiredRoles_InterfaceRequiringEntity/]" domainClass="DataSourceRole">
-              <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sourceRole">
+              <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" id="org.palladiosimulator.editors.sirius.assembly.custom.sourceRole">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               </style>
             </borderedNodeMappings>
             <borderedNodeMappings name="ExternalDataSinkRole Node" semanticCandidatesExpression="[self.encapsulatedComponent__AssemblyContext.providedRoles_InterfaceProvidingEntity/]" domainClass="DataSinkRole">
-              <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" labelPosition="node" id="org.palladiosimulator.editors.sirius.assembly.custom.sinkRole">
+              <style xsi:type="style:CustomStyleDescription" showIcon="false" labelExpression="feature:entityName" id="org.palladiosimulator.editors.sirius.assembly.custom.sinkRole">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               </style>
@@ -335,6 +335,95 @@
           <reusedContainerMappings href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='System%20Role%20Container']"/>
           <importedMapping href="../../org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']"/>
         </containerMappings>
+        <toolSections name="Indirections">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="SystemDataSourceRole" nodeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalDataSourceRole%20Node']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataSourceRole" referenceName="requiredRoles_InterfaceRequiringEntity">
+                  <subModelOperations xsi:type="tool_1:ExternalJavaAction" name="Add DataSourceRole" id="AddDataSourceRole">
+                    <parameters name="instance" value="var:instance"/>
+                  </subModelOperations>
+                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:instance.dataInterface = null">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="SystemDataSinkRole" nodeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalDataSinkRole%20Node']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataSinkRole" referenceName="providedRoles_InterfaceProvidingEntity">
+                  <subModelOperations xsi:type="tool_1:ExternalJavaAction" name="Add DataSinkRole" id="AddDataSinkRole">
+                    <parameters name="instance" value="var:instance"/>
+                  </subModelOperations>
+                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:instance.dataInterface = null">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="EntityNameEdit" inputLabelExpression="feature:entityName">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="var:0"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="DataAssemblyConnector" edgeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@edgeMappings[name='AssemblyDataConnector']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:sourceView.eContainer().eContainer(diagram::DDiagramElement).target">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="AssemblyDataConnector" referenceName="connectors__ComposedStructure">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="newAssemblyDataConnector"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="dataSinkRole" valueExpression="aql:target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="dataSourceRole" valueExpression="aql:source"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="sinkAssemblyContext" valueExpression="aql:targetView.eContainer(diagram::DDiagramElement).target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="sourceAssemblyContext" valueExpression="aql:sourceView.eContainer(diagram::DDiagramElement).target"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="DataSinkDelegationConnector" edgeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@edgeMappings[name='DataSinkDelegationConnector%20Edge']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:source.eContainer()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataSinkDelegationConnector" referenceName="connectors__ComposedStructure">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="newDataSinkDelegationConnector"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="assemblyContext" valueExpression="aql:targetView.eContainer(diagram::DDiagramElement).target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="innerDataSinkRole" valueExpression="var:target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="outerDataSinkRole" valueExpression="var:source"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="DataSourceDelegationConnector" edgeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Assembly']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.assembly']/@edgeMappings[name='DataSourceDelegationConnector%20Edge']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:target.eContainer()">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="DataSourceDelegationConnector" referenceName="connectors__ComposedStructure">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="newDataSourceDelegationConnector"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="assemblyContext" valueExpression="aql:sourceView.eContainer(diagram::DDiagramElement).target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="innerDataSourceRole" valueExpression="var:source"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="outerDataSourceRole" valueExpression="var:target"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
       </layers>
     </ownedRepresentationExtensions>
     <ownedRepresentationExtensions xsi:type="description_1:DiagramExtensionDescription" name="PCM Indirections SEFF" viewpointURI="viewpoint:/org.palladiosimulator.editors.sirius.seff/Seff" representationName="Seff Diagram">
