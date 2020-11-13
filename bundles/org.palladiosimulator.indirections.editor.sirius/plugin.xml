@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="org.palladiosimulator.indirections.editor.sirius.Activator"
+               id="org.palladiosimulator.indirections.editor.sirius"
+	       name="indirections">
+    </component>
+  </extension>
+  <extension
+        point="org.eclipse.sirius.externalJavaAction">
+     <javaActions
+           actionClass="org.palladiosimulator.indirections.editor.sirius.javaactions.AddDataSinkRole"
+           id="AddDataSinkRole">
+     </javaActions>
+     <javaActions
+           actionClass="org.palladiosimulator.indirections.editor.sirius.javaactions.AddDataSourceRole"
+           id="AddDataSourceRole">
+     </javaActions>
+  </extension>
+</plugin>

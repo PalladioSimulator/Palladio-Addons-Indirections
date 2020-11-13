@@ -8,7 +8,7 @@ public final class IndirectionMeasurements implements IModelObserver {
     private static final Logger LOGGER = Logger.getLogger(IndirectionMeasurements.class);
 
     @Override
-    public void initialize(AbstractSimuLizarRuntimeState runtimeState) {
+    public void initialize(final AbstractSimuLizarRuntimeState runtimeState) {
     }
 
     @Override

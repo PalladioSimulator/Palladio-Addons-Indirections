@@ -32,31 +32,6 @@ public class IndirectionsmeasuringpointPackageImpl extends EPackageImpl implemen
      *
      * @generated
      */
-    private EClass abstractActionDataMeasuringPointEClass = null;
-
-    /**
-     * Creates an instance of the model <b>Package</b>, registered with
-     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package package URI
-     * value.
-     * <p>
-     * Note: the correct way to create the package is via the static factory method {@link #init
-     * init()}, which also performs initialization of the package, or returns the registered
-     * package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @see org.eclipse.emf.ecore.EPackage.Registry
-     * @see org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointPackage#eNS_URI
-     * @see #init()
-     * @generated
-     */
-    private IndirectionsmeasuringpointPackageImpl() {
-        super(eNS_URI, IndirectionsmeasuringpointFactory.eINSTANCE);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
     private static boolean isInited = false;
 
     /**
@@ -76,7 +51,7 @@ public class IndirectionsmeasuringpointPackageImpl extends EPackageImpl implemen
     public static IndirectionsmeasuringpointPackage init() {
         if (isInited) {
             return (IndirectionsmeasuringpointPackage) EPackage.Registry.INSTANCE
-                    .getEPackage(IndirectionsmeasuringpointPackage.eNS_URI);
+                .getEPackage(IndirectionsmeasuringpointPackage.eNS_URI);
         }
 
         // Obtain or create and register package
@@ -117,30 +92,7 @@ public class IndirectionsmeasuringpointPackageImpl extends EPackageImpl implemen
      *
      * @generated
      */
-    @Override
-    public EClass getAbstractActionDataMeasuringPoint() {
-        return this.abstractActionDataMeasuringPointEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public EReference getAbstractActionDataMeasuringPoint_AbstractAction() {
-        return (EReference) this.abstractActionDataMeasuringPointEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public IndirectionsmeasuringpointFactory getIndirectionsmeasuringpointFactory() {
-        return (IndirectionsmeasuringpointFactory) this.getEFactoryInstance();
-    }
+    private EClass abstractActionDataMeasuringPointEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -148,6 +100,31 @@ public class IndirectionsmeasuringpointPackageImpl extends EPackageImpl implemen
      * @generated
      */
     private boolean isCreated = false;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    private boolean isInitialized = false;
+
+    /**
+     * Creates an instance of the model <b>Package</b>, registered with
+     * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package package URI
+     * value.
+     * <p>
+     * Note: the correct way to create the package is via the static factory method {@link #init
+     * init()}, which also performs initialization of the package, or returns the registered
+     * package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @see org.eclipse.emf.ecore.EPackage.Registry
+     * @see org.palladiosimulator.indirectionsmeasuringpoint.IndirectionsmeasuringpointPackage#eNS_URI
+     * @see #init()
+     * @generated
+     */
+    private IndirectionsmeasuringpointPackageImpl() {
+        super(eNS_URI, IndirectionsmeasuringpointFactory.eINSTANCE);
+    }
 
     /**
      * Creates the meta-model objects for the package. This method is guarded to have no affect on
@@ -172,7 +149,31 @@ public class IndirectionsmeasuringpointPackageImpl extends EPackageImpl implemen
      *
      * @generated
      */
-    private boolean isInitialized = false;
+    @Override
+    public EClass getAbstractActionDataMeasuringPoint() {
+        return this.abstractActionDataMeasuringPointEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public EReference getAbstractActionDataMeasuringPoint_AbstractAction() {
+        return (EReference) this.abstractActionDataMeasuringPointEClass.getEStructuralFeatures()
+            .get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public IndirectionsmeasuringpointFactory getIndirectionsmeasuringpointFactory() {
+        return (IndirectionsmeasuringpointFactory) this.getEFactoryInstance();
+    }
 
     /**
      * Complete the initialization of the package and its meta-model. This method is guarded to have
@@ -193,7 +194,7 @@ public class IndirectionsmeasuringpointPackageImpl extends EPackageImpl implemen
 
         // Obtain other dependent packages
         final MeasuringpointPackage theMeasuringpointPackage = (MeasuringpointPackage) EPackage.Registry.INSTANCE
-                .getEPackage(MeasuringpointPackage.eNS_URI);
+            .getEPackage(MeasuringpointPackage.eNS_URI);
         final SeffPackage theSeffPackage = (SeffPackage) EPackage.Registry.INSTANCE.getEPackage(SeffPackage.eNS_URI);
 
         // Create type parameters
@@ -201,7 +202,8 @@ public class IndirectionsmeasuringpointPackageImpl extends EPackageImpl implemen
         // Set bounds for type parameters
 
         // Add supertypes to classes
-        this.abstractActionDataMeasuringPointEClass.getESuperTypes().add(theMeasuringpointPackage.getMeasuringPoint());
+        this.abstractActionDataMeasuringPointEClass.getESuperTypes()
+            .add(theMeasuringpointPackage.getMeasuringPoint());
 
         // Initialize classes and features; add operations and parameters
         this.initEClass(this.abstractActionDataMeasuringPointEClass, AbstractActionDataMeasuringPoint.class,

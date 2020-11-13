@@ -18,12 +18,11 @@
 	</properties>
 	
 	<modules>
-		<!--<module>releng/org.palladiosimulator.indirections.mwe2</module>-->
 		<module>bundles</module>
-		<module>features</module>
-		<module>tests</module>
-		<module>releng</module>
 		<module>examples</module>
+		<module>features</module>
+		<!--<module>tests</module>-->
+		<module>releng</module>
 	</modules>
 	
 </project>

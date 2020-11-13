@@ -12,17 +12,21 @@ import org.palladiosimulator.metricspec.BaseMetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;
 
 public class IndirectionsMetricDescriptionConstants {
-    public static final String INDIRECTIONS_METRICSPEC_URI = "platform:/plugin/org.palladiosimulator.indirections.monitoring/model/indirectionMetrics.metricspec";
-    private static final Map<?, ?> OPTIONS = Collections.emptyMap();
-
     public final static BaseMetricDescription DATA_AGE_METRIC;
     public final static MetricSetDescription DATA_AGE_METRIC_TUPLE;
 
-    public final static BaseMetricDescription SIZE_OF_GROUPED_DATE_METRIC;
-    public final static MetricSetDescription SIZE_OF_GROUPED_DATE_METRIC_TUPLE;
-
     public final static BaseMetricDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC;
     public final static MetricSetDescription DATA_CHANNEL_QUEUE_LENGTH_METRIC_TUPLE;
+
+    public static final String INDIRECTIONS_METRICSPEC_URI = "platform:/plugin/org.palladiosimulator.indirections.monitoring/model/indirectionMetrics.metricspec";
+    public final static BaseMetricDescription NUMBER_OF_ELEMENTS_METRIC;
+
+    public final static MetricSetDescription NUMBER_OF_ELEMENTS_METRIC_TUPLE;
+    private static final Map<?, ?> OPTIONS = Collections.emptyMap();
+
+    public final static BaseMetricDescription SIZE_OF_GROUPED_DATE_METRIC;
+    public final static MetricSetDescription SIZE_OF_GROUPED_DATE_METRIC_TUPLE;
+    public final static MetricSetDescription TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE;
 
     static {
         final ResourceSet resourceSet = new ResourceSetImpl();
@@ -43,6 +47,10 @@ public class IndirectionsMetricDescriptionConstants {
 
         DATA_CHANNEL_QUEUE_LENGTH_METRIC = (BaseMetricDescription) resource.getEObject("_ijKZchCIEeqqi6TqVNRPhw");
         DATA_CHANNEL_QUEUE_LENGTH_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_fapT4RCJEeqqi6TqVNRPhw");
+
+        NUMBER_OF_ELEMENTS_METRIC = (BaseMetricDescription) resource.getEObject("_6zV-AloBEeqic-uc8rDY3Q");
+        NUMBER_OF_ELEMENTS_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_jSXxkVoCEeqic-uc8rDY3Q");
+        TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE = (MetricSetDescription) resource.getEObject("_rVWwkVoCEeqic-uc8rDY3Q");
     }
 
     /**

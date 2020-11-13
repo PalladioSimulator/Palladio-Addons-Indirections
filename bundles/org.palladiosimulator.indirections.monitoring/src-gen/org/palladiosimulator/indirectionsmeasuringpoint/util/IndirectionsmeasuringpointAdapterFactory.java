@@ -26,36 +26,6 @@ public class IndirectionsmeasuringpointAdapterFactory extends AdapterFactoryImpl
     protected static IndirectionsmeasuringpointPackage modelPackage;
 
     /**
-     * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    public IndirectionsmeasuringpointAdapterFactory() {
-        if (modelPackage == null) {
-            modelPackage = IndirectionsmeasuringpointPackage.eINSTANCE;
-        }
-    }
-
-    /**
-     * Returns whether this factory is applicable for the type of the object. <!-- begin-user-doc
-     * --> This implementation returns <code>true</code> if the object is either the model's package
-     * or is an instance object of the model. <!-- end-user-doc -->
-     *
-     * @return whether this factory is applicable for the type of the object.
-     * @generated
-     */
-    @Override
-    public boolean isFactoryForType(final Object object) {
-        if (object == modelPackage) {
-            return true;
-        }
-        if (object instanceof EObject) {
-            return ((EObject) object).eClass().getEPackage() == modelPackage;
-        }
-        return false;
-    }
-
-    /**
      * The switch that delegates to the <code>createXXX</code> methods. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      *
@@ -79,16 +49,14 @@ public class IndirectionsmeasuringpointAdapterFactory extends AdapterFactoryImpl
     };
 
     /**
-     * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
-     * @param target
-     *            the object to adapt.
-     * @return the adapter for the <code>target</code>.
      * @generated
      */
-    @Override
-    public Adapter createAdapter(final Notifier target) {
-        return this.modelSwitch.doSwitch((EObject) target);
+    public IndirectionsmeasuringpointAdapterFactory() {
+        if (modelPackage == null) {
+            modelPackage = IndirectionsmeasuringpointPackage.eINSTANCE;
+        }
     }
 
     /**
@@ -103,6 +71,30 @@ public class IndirectionsmeasuringpointAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createAbstractActionDataMeasuringPointAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @param target
+     *            the object to adapt.
+     * @return the adapter for the <code>target</code>.
+     * @generated
+     */
+    @Override
+    public Adapter createAdapter(final Notifier target) {
+        return this.modelSwitch.doSwitch((EObject) target);
+    }
+
+    /**
+     * Creates a new adapter for the default case. <!-- begin-user-doc --> This default
+     * implementation returns null. <!-- end-user-doc -->
+     *
+     * @return the new adapter.
+     * @generated
+     */
+    public Adapter createEObjectAdapter() {
         return null;
     }
 
@@ -122,14 +114,23 @@ public class IndirectionsmeasuringpointAdapterFactory extends AdapterFactoryImpl
     }
 
     /**
-     * Creates a new adapter for the default case. <!-- begin-user-doc --> This default
-     * implementation returns null. <!-- end-user-doc -->
+     * Returns whether this factory is applicable for the type of the object. <!-- begin-user-doc
+     * --> This implementation returns <code>true</code> if the object is either the model's package
+     * or is an instance object of the model. <!-- end-user-doc -->
      *
-     * @return the new adapter.
+     * @return whether this factory is applicable for the type of the object.
      * @generated
      */
-    public Adapter createEObjectAdapter() {
-        return null;
+    @Override
+    public boolean isFactoryForType(final Object object) {
+        if (object == modelPackage) {
+            return true;
+        }
+        if (object instanceof EObject) {
+            return ((EObject) object).eClass()
+                .getEPackage() == modelPackage;
+        }
+        return false;
     }
 
 } // IndirectionsmeasuringpointAdapterFactory

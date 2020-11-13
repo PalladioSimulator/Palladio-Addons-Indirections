@@ -8,23 +8,21 @@ Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Automatic-Module-Name: org.palladiosimulator.indirections
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: org.palladiosimulator.indirections.actions,
+Export-Package: org.palladiosimulator.indirections,
+ org.palladiosimulator.indirections.actions,
  org.palladiosimulator.indirections.actions.impl,
  org.palladiosimulator.indirections.actions.util,
  org.palladiosimulator.indirections.composition,
+ org.palladiosimulator.indirections.composition.abstract_,
+ org.palladiosimulator.indirections.composition.abstract_.impl,
+ org.palladiosimulator.indirections.composition.abstract_.util,
  org.palladiosimulator.indirections.composition.impl,
  org.palladiosimulator.indirections.composition.util,
- org.palladiosimulator.indirections.datatypes,
- org.palladiosimulator.indirections.datatypes.impl,
- org.palladiosimulator.indirections.partitioning,
- org.palladiosimulator.indirections.partitioning.impl,
- org.palladiosimulator.indirections.partitioning.util,
+ org.palladiosimulator.indirections.impl,
  org.palladiosimulator.indirections.repository,
  org.palladiosimulator.indirections.repository.impl,
  org.palladiosimulator.indirections.repository.util,
- org.palladiosimulator.indirections.system,
- org.palladiosimulator.indirections.system.impl,
- org.palladiosimulator.indirections.system.util
+ org.palladiosimulator.indirections.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.ocl;visibility:=reexport,
@@ -35,5 +33,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm;visibility:=reexport,
  de.uka.ipd.sdq.probfunction;visibility:=reexport,
  de.uka.ipd.sdq.stoex;visibility:=reexport,
- de.uka.ipd.sdq.units;visibility:=reexport
+ de.uka.ipd.sdq.units;visibility:=reexport,
+ org.palladiosimulator.indirections.mwe2;bundle-version="0.1.0";resolution:=optional
 Bundle-ActivationPolicy: lazy

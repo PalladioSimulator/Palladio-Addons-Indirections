@@ -3,17 +3,17 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.palladiosimulator.indirections.edit;singleton:=true
 Automatic-Module-Name: org.palladiosimulator.indirections.edit
-Bundle-Version: 4.3.0.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.palladiosimulator.indirections.actions.provider.IndirectionsEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.palladiosimulator.indirections.actions.provider,
+ org.palladiosimulator.indirections.composition.abstract_.provider,
  org.palladiosimulator.indirections.composition.provider,
- org.palladiosimulator.indirections.partitioning.provider,
- org.palladiosimulator.indirections.repository.provider,
- org.palladiosimulator.indirections.system.provider
+ org.palladiosimulator.indirections.provider,
+ org.palladiosimulator.indirections.repository.provider
 Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.indirections;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
@@ -26,5 +26,6 @@ Require-Bundle: org.eclipse.core.runtime,
  de.uka.ipd.sdq.stoex;visibility:=reexport,
  de.uka.ipd.sdq.stoex.edit;visibility:=reexport,
  de.uka.ipd.sdq.units;visibility:=reexport,
- de.uka.ipd.sdq.units.edit;visibility:=reexport
+ de.uka.ipd.sdq.units.edit;visibility:=reexport,
+ tools.mdsd.library.emfeditutils;bundle-version="0.1.0"
 Bundle-ActivationPolicy: lazy

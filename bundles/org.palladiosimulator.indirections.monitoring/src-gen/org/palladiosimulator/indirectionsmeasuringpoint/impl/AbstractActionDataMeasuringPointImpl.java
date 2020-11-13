@@ -51,9 +51,79 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
      *
      * @generated
      */
+    public AbstractAction basicGetAbstractAction() {
+        return this.abstractAction;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
+        switch (featureID) {
+        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
+            if (resolve) {
+                return this.getAbstractAction();
+            }
+            return this.basicGetAbstractAction();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public boolean eIsSet(final int featureID) {
+        switch (featureID) {
+        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
+            return this.abstractAction != null;
+        }
+        return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void eSet(final int featureID, final Object newValue) {
+        switch (featureID) {
+        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
+            this.setAbstractAction((AbstractAction) newValue);
+            return;
+        }
+        super.eSet(featureID, newValue);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
     @Override
     protected EClass eStaticClass() {
         return IndirectionsmeasuringpointPackage.Literals.ABSTRACT_ACTION_DATA_MEASURING_POINT;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    @Override
+    public void eUnset(final int featureID) {
+        switch (featureID) {
+        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
+            this.setAbstractAction((AbstractAction) null);
+            return;
+        }
+        super.eUnset(featureID);
     }
 
     /**
@@ -82,15 +152,6 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
      *
      * @generated
      */
-    public AbstractAction basicGetAbstractAction() {
-        return this.abstractAction;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
     @Override
     public void setAbstractAction(final AbstractAction newAbstractAction) {
         final AbstractAction oldAbstractAction = this.abstractAction;
@@ -100,67 +161,6 @@ public class AbstractActionDataMeasuringPointImpl extends MeasuringPointImpl
                     IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION,
                     oldAbstractAction, this.abstractAction));
         }
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public Object eGet(final int featureID, final boolean resolve, final boolean coreType) {
-        switch (featureID) {
-        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
-            if (resolve) {
-                return this.getAbstractAction();
-            }
-            return this.basicGetAbstractAction();
-        }
-        return super.eGet(featureID, resolve, coreType);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public void eSet(final int featureID, final Object newValue) {
-        switch (featureID) {
-        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
-            this.setAbstractAction((AbstractAction) newValue);
-            return;
-        }
-        super.eSet(featureID, newValue);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public void eUnset(final int featureID) {
-        switch (featureID) {
-        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
-            this.setAbstractAction((AbstractAction) null);
-            return;
-        }
-        super.eUnset(featureID);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    @Override
-    public boolean eIsSet(final int featureID) {
-        switch (featureID) {
-        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION:
-            return this.abstractAction != null;
-        }
-        return super.eIsSet(featureID);
     }
 
 } // AbstractActionDataMeasuringPointImpl

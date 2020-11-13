@@ -17,10 +17,10 @@ import org.palladiosimulator.probeframework.probes.listener.IProbeListener;
 
 public class TriggeredCombiningProbe<V, Q extends Quantity> extends Probe implements IProbeListener {
     private final List<TriggeredProbe> subsumedProbes;
-    private TriggeredProbe triggerProbe;
+    private final TriggeredProbe triggerProbe;
 
-    public TriggeredCombiningProbe(MetricDescription metricDesciption, List<TriggeredProbe> subsumedProbes,
-            TriggeredProbe triggerProbe) {
+    public TriggeredCombiningProbe(final MetricDescription metricDesciption, final List<TriggeredProbe> subsumedProbes,
+            final TriggeredProbe triggerProbe) {
         super(metricDesciption);
         this.subsumedProbes = subsumedProbes;
         this.triggerProbe = triggerProbe;
@@ -33,19 +33,20 @@ public class TriggeredCombiningProbe<V, Q extends Quantity> extends Probe implem
     }
 
     @Override
-    public void newProbeMeasurementAvailable(ProbeMeasurement triggerMeasurement) {
-        RequestContext measurementContext = triggerMeasurement.getProbeAndContext().getRequestContext();
+    public void newProbeMeasurementAvailable(final ProbeMeasurement triggerMeasurement) {
+        final RequestContext measurementContext = triggerMeasurement.getProbeAndContext()
+            .getRequestContext();
 
         final List<MeasuringValue> childMeasurements = new LinkedList<MeasuringValue>();
 
-        for (final TriggeredProbe childProbe : subsumedProbes) {
-            if (childProbe.equals(triggerProbe)) {
+        for (final TriggeredProbe childProbe : this.subsumedProbes) {
+            if (childProbe.equals(this.triggerProbe)) {
                 childMeasurements.add((MeasuringValue) triggerMeasurement.getMeasureProvider());
                 continue;
             }
 
             final IMeasureProvider subsumedMeasureProvider = childProbe.takeMeasurement(measurementContext)
-                    .getMeasureProvider();
+                .getMeasureProvider();
 
             if (!(subsumedMeasureProvider instanceof MeasuringValue)) {
                 throw new IllegalArgumentException("Subsumed measure providers have to be measurements");
@@ -57,8 +58,8 @@ public class TriggeredCombiningProbe<V, Q extends Quantity> extends Probe implem
         }
 
         final IMeasureProvider measureProvider = new MeasurementListMeasureProvider(childMeasurements);
-        ProbeMeasurement newMeasurement = new ProbeMeasurement(measureProvider, this, measurementContext);
+        final ProbeMeasurement newMeasurement = new ProbeMeasurement(measureProvider, this, measurementContext);
 
-        notifyMeasurementSourceListener(newMeasurement);
+        this.notifyMeasurementSourceListener(newMeasurement);
     }
 }

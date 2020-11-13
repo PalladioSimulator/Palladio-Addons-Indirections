@@ -18,7 +18,7 @@ public interface IndirectionsmeasuringpointFactory extends EFactory {
      * @generated
      */
     IndirectionsmeasuringpointFactory eINSTANCE = org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointFactoryImpl
-            .init();
+        .init();
 
     /**
      * Returns a new object of class '<em>Abstract Action Data Measuring Point</em>'. <!--

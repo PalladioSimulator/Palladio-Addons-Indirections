@@ -39,46 +39,6 @@ public class IndirectionsmeasuringpointSwitch<T> extends Switch<T> {
     }
 
     /**
-     * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     *
-     * @param ePackage
-     *            the package in question.
-     * @return whether this is a switch for the given package.
-     * @generated
-     */
-    @Override
-    protected boolean isSwitchFor(final EPackage ePackage) {
-        return ePackage == modelPackage;
-    }
-
-    /**
-     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result;
-     * it yields that result. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @return the first non-null result returned by a <code>caseXXX</code> call.
-     * @generated
-     */
-    @Override
-    protected T doSwitch(final int classifierID, final EObject theEObject) {
-        switch (classifierID) {
-        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT: {
-            final AbstractActionDataMeasuringPoint abstractActionDataMeasuringPoint = (AbstractActionDataMeasuringPoint) theEObject;
-            T result = this.caseAbstractActionDataMeasuringPoint(abstractActionDataMeasuringPoint);
-            if (result == null) {
-                result = this.caseMeasuringPoint(abstractActionDataMeasuringPoint);
-            }
-            if (result == null) {
-                result = this.defaultCase(theEObject);
-            }
-            return result;
-        }
-        default:
-            return this.defaultCase(theEObject);
-        }
-    }
-
-    /**
      * Returns the result of interpreting the object as an instance of '<em>Abstract Action Data
      * Measuring Point</em>'. <!-- begin-user-doc --> This implementation returns null; returning a
      * non-null result will terminate the switch. <!-- end-user-doc -->
@@ -123,6 +83,46 @@ public class IndirectionsmeasuringpointSwitch<T> extends Switch<T> {
     @Override
     public T defaultCase(final EObject object) {
         return null;
+    }
+
+    /**
+     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result;
+     * it yields that result. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @return the first non-null result returned by a <code>caseXXX</code> call.
+     * @generated
+     */
+    @Override
+    protected T doSwitch(final int classifierID, final EObject theEObject) {
+        switch (classifierID) {
+        case IndirectionsmeasuringpointPackage.ABSTRACT_ACTION_DATA_MEASURING_POINT: {
+            final AbstractActionDataMeasuringPoint abstractActionDataMeasuringPoint = (AbstractActionDataMeasuringPoint) theEObject;
+            T result = this.caseAbstractActionDataMeasuringPoint(abstractActionDataMeasuringPoint);
+            if (result == null) {
+                result = this.caseMeasuringPoint(abstractActionDataMeasuringPoint);
+            }
+            if (result == null) {
+                result = this.defaultCase(theEObject);
+            }
+            return result;
+        }
+        default:
+            return this.defaultCase(theEObject);
+        }
+    }
+
+    /**
+     * Checks whether this is a switch for the given package. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     *
+     * @param ePackage
+     *            the package in question.
+     * @return whether this is a switch for the given package.
+     * @generated
+     */
+    @Override
+    protected boolean isSwitchFor(final EPackage ePackage) {
+        return ePackage == modelPackage;
     }
 
 } // IndirectionsmeasuringpointSwitch

@@ -18,6 +18,17 @@ import org.palladiosimulator.indirectionsmeasuringpoint.Indirectionsmeasuringpoi
  */
 public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implements IndirectionsmeasuringpointFactory {
     /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @deprecated
+     * @generated
+     */
+    @Deprecated
+    public static IndirectionsmeasuringpointPackage getPackage() {
+        return IndirectionsmeasuringpointPackage.eINSTANCE;
+    }
+
+    /**
      * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
      *
      * @generated
@@ -25,7 +36,7 @@ public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implemen
     public static IndirectionsmeasuringpointFactory init() {
         try {
             final IndirectionsmeasuringpointFactory theIndirectionsmeasuringpointFactory = (IndirectionsmeasuringpointFactory) EPackage.Registry.INSTANCE
-                    .getEFactory(IndirectionsmeasuringpointPackage.eNS_URI);
+                .getEFactory(IndirectionsmeasuringpointPackage.eNS_URI);
             if (theIndirectionsmeasuringpointFactory != null) {
                 return theIndirectionsmeasuringpointFactory;
             }
@@ -78,17 +89,6 @@ public class IndirectionsmeasuringpointFactoryImpl extends EFactoryImpl implemen
     @Override
     public IndirectionsmeasuringpointPackage getIndirectionsmeasuringpointPackage() {
         return (IndirectionsmeasuringpointPackage) this.getEPackage();
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @deprecated
-     * @generated
-     */
-    @Deprecated
-    public static IndirectionsmeasuringpointPackage getPackage() {
-        return IndirectionsmeasuringpointPackage.eINSTANCE;
     }
 
 } // IndirectionsmeasuringpointFactoryImpl

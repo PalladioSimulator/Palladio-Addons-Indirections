@@ -11,25 +11,31 @@ import org.palladiosimulator.metricspec.Scale;
 import org.palladiosimulator.metricspec.util.builder.NumericalBaseMetricDescriptionBuilder;
 
 public final class MeasuringUtil {
-    private MeasuringUtil() {
+    public static NumericalBaseMetricDescriptionBuilder createBaseMetricDescription(final String name) {
+        return createBaseMetricDescription(name, name);
     }
 
-    public static StringMeasuringPoint createStringMeasuringPoint(MeasuringPointRepository measuringPointRepository,
-            final String value) {
+    public static NumericalBaseMetricDescriptionBuilder createBaseMetricDescription(final String name,
+            final String textualDescription) {
+        return NumericalBaseMetricDescriptionBuilder.newNumericalBaseMetricDescriptionBuilder()
+            .id(EcoreUtil.generateUUID())
+            .name(name)
+            .textualDescription(textualDescription)
+            .scale(Scale.RATIO)
+            .defaultUnit(Dimensionless.UNIT)
+            .captureType(CaptureType.REAL_NUMBER);
+    }
+
+    public static StringMeasuringPoint createStringMeasuringPoint(
+            final MeasuringPointRepository measuringPointRepository, final String value) {
         final StringMeasuringPoint newStringMeasuringPoint = MeasuringpointFactory.eINSTANCE
-                .createStringMeasuringPoint();
+            .createStringMeasuringPoint();
         newStringMeasuringPoint.setMeasuringPoint(value);
-        measuringPointRepository.getMeasuringPoints().add(newStringMeasuringPoint);
+        measuringPointRepository.getMeasuringPoints()
+            .add(newStringMeasuringPoint);
         return newStringMeasuringPoint;
     }
 
-    public static NumericalBaseMetricDescriptionBuilder createBaseMetricDescription(String name, String textualDescription) {
-        return NumericalBaseMetricDescriptionBuilder.newNumericalBaseMetricDescriptionBuilder()
-                .id(EcoreUtil.generateUUID()).name(name).textualDescription(textualDescription)
-                .scale(Scale.RATIO).defaultUnit(Dimensionless.UNIT).captureType(CaptureType.REAL_NUMBER);
-    }
-    
-    public static NumericalBaseMetricDescriptionBuilder createBaseMetricDescription(String name) {
-        return createBaseMetricDescription(name, name);
+    private MeasuringUtil() {
     }
 }

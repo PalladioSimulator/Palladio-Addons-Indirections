@@ -24,33 +24,40 @@ import org.palladiosimulator.edp2.models.measuringpoint.MeasuringpointPackage;
  */
 public interface IndirectionsmeasuringpointPackage extends EPackage {
     /**
-     * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
+     * <ul>
+     * <li>each class,</li>
+     * <li>each feature of each class,</li>
+     * <li>each enum,</li>
+     * <li>and each data type</li>
+     * </ul>
+     * <!-- end-user-doc -->
      *
      * @generated
      */
-    String eNAME = "indirectionsmeasuringpoint";
+    interface Literals {
+        /**
+         * The meta object literal for the
+         * '{@link org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
+         * <em>Abstract Action Data Measuring Point</em>}' class. <!-- begin-user-doc --> <!--
+         * end-user-doc -->
+         *
+         * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
+         * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointPackageImpl#getAbstractActionDataMeasuringPoint()
+         * @generated
+         */
+        EClass ABSTRACT_ACTION_DATA_MEASURING_POINT = eINSTANCE.getAbstractActionDataMeasuringPoint();
 
-    /**
-     * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    String eNS_URI = "http://palladiosimulator.org/Indirections/Monitoring/Measuringpoints/1.0";
+        /**
+         * The meta object literal for the '<em><b>Abstract Action</b></em>' reference feature. <!--
+         * begin-user-doc --> <!-- end-user-doc -->
+         *
+         * @generated
+         */
+        EReference ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION = eINSTANCE
+            .getAbstractActionDataMeasuringPoint_AbstractAction();
 
-    /**
-     * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    String eNS_PREFIX = "org.palladiosimulator.indirections.monitoring.measuringpoints";
-
-    /**
-     * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    IndirectionsmeasuringpointPackage eINSTANCE = org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointPackageImpl
-            .init();
+    }
 
     /**
      * The meta object id for the
@@ -65,6 +72,15 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     int ABSTRACT_ACTION_DATA_MEASURING_POINT = 0;
 
     /**
+     * The feature id for the '<em><b>Abstract Action</b></em>' reference. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     *
+     * @generated
+     * @ordered
+     */
+    int ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION = MeasuringpointPackage.MEASURING_POINT_FEATURE_COUNT + 0;
+
+    /**
      * The feature id for the '<em><b>Measuring Point Repository</b></em>' container reference. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      *
@@ -72,15 +88,6 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
      * @ordered
      */
     int ABSTRACT_ACTION_DATA_MEASURING_POINT__MEASURING_POINT_REPOSITORY = MeasuringpointPackage.MEASURING_POINT__MEASURING_POINT_REPOSITORY;
-
-    /**
-     * The feature id for the '<em><b>String Representation</b></em>' attribute. <!-- begin-user-doc
-     * --> <!-- end-user-doc -->
-     *
-     * @generated
-     * @ordered
-     */
-    int ABSTRACT_ACTION_DATA_MEASURING_POINT__STRING_REPRESENTATION = MeasuringpointPackage.MEASURING_POINT__STRING_REPRESENTATION;
 
     /**
      * The feature id for the '<em><b>Resource URI Representation</b></em>' attribute. <!--
@@ -92,13 +99,13 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
     int ABSTRACT_ACTION_DATA_MEASURING_POINT__RESOURCE_URI_REPRESENTATION = MeasuringpointPackage.MEASURING_POINT__RESOURCE_URI_REPRESENTATION;
 
     /**
-     * The feature id for the '<em><b>Abstract Action</b></em>' reference. <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The feature id for the '<em><b>String Representation</b></em>' attribute. <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      *
      * @generated
      * @ordered
      */
-    int ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION = MeasuringpointPackage.MEASURING_POINT_FEATURE_COUNT + 0;
+    int ABSTRACT_ACTION_DATA_MEASURING_POINT__STRING_REPRESENTATION = MeasuringpointPackage.MEASURING_POINT__STRING_REPRESENTATION;
 
     /**
      * The number of structural features of the '<em>Abstract Action Data Measuring Point</em>'
@@ -108,6 +115,35 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
      * @ordered
      */
     int ABSTRACT_ACTION_DATA_MEASURING_POINT_FEATURE_COUNT = MeasuringpointPackage.MEASURING_POINT_FEATURE_COUNT + 1;
+
+    /**
+     * The singleton instance of the package. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    IndirectionsmeasuringpointPackage eINSTANCE = org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointPackageImpl
+        .init();
+
+    /**
+     * The package name. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    String eNAME = "indirectionsmeasuringpoint";
+
+    /**
+     * The package namespace name. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    String eNS_PREFIX = "org.palladiosimulator.indirections.monitoring.measuringpoints";
+
+    /**
+     * The package namespace URI. <!-- begin-user-doc --> <!-- end-user-doc -->
+     *
+     * @generated
+     */
+    String eNS_URI = "http://palladiosimulator.org/Indirections/Monitoring/Measuringpoints/1.0";
 
     /**
      * Returns the meta object for class
@@ -141,41 +177,5 @@ public interface IndirectionsmeasuringpointPackage extends EPackage {
      * @generated
      */
     IndirectionsmeasuringpointFactory getIndirectionsmeasuringpointFactory();
-
-    /**
-     * <!-- begin-user-doc --> Defines literals for the meta objects that represent
-     * <ul>
-     * <li>each class,</li>
-     * <li>each feature of each class,</li>
-     * <li>each enum,</li>
-     * <li>and each data type</li>
-     * </ul>
-     * <!-- end-user-doc -->
-     *
-     * @generated
-     */
-    interface Literals {
-        /**
-         * The meta object literal for the
-         * '{@link org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
-         * <em>Abstract Action Data Measuring Point</em>}' class. <!-- begin-user-doc --> <!--
-         * end-user-doc -->
-         *
-         * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.AbstractActionDataMeasuringPointImpl
-         * @see org.palladiosimulator.indirectionsmeasuringpoint.impl.IndirectionsmeasuringpointPackageImpl#getAbstractActionDataMeasuringPoint()
-         * @generated
-         */
-        EClass ABSTRACT_ACTION_DATA_MEASURING_POINT = eINSTANCE.getAbstractActionDataMeasuringPoint();
-
-        /**
-         * The meta object literal for the '<em><b>Abstract Action</b></em>' reference feature. <!--
-         * begin-user-doc --> <!-- end-user-doc -->
-         *
-         * @generated
-         */
-        EReference ABSTRACT_ACTION_DATA_MEASURING_POINT__ABSTRACT_ACTION = eINSTANCE
-                .getAbstractActionDataMeasuringPoint_AbstractAction();
-
-    }
 
 } // IndirectionsmeasuringpointPackage

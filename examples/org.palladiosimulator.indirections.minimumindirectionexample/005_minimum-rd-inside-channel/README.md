@@ -1,0 +1,1 @@
+* Repository with two users, two components and a AnyToAnyBlockingChannel data channel between them.
