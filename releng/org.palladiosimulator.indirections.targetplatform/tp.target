@@ -293,6 +293,13 @@
 			<unit id="tools.mdsd.library.emfeditutils.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.mdsd.tools/library-emfeditutils/nightly/"/>
 		</location>
-
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="com.google.auto.factory-annotations.feature.feature.group" version="1.0.0"/>
+			<repository location="https://updatesite.mdsd.tools/thirdparty-library/nightly"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="release" refresh="true">
+			<unit id="com.google.auto.factory-annotations.feature.feature.group" version="1.0.0"/>
+			<repository location="https://updatesite.mdsd.tools/thirdparty-library/releases/latest/"/>
+		</location>
 </locations>
 </target>
