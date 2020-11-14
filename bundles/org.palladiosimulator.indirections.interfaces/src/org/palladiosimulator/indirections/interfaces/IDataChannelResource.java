@@ -2,8 +2,8 @@ package org.palladiosimulator.indirections.interfaces;
 
 import java.util.function.Consumer;
 
-import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
+import org.palladiosimulator.indirections.repository.DataSinkRole;
+import org.palladiosimulator.indirections.repository.DataSourceRole;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 
@@ -13,8 +13,7 @@ import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 public interface IDataChannelResource {
     void advance(double simulationTime);
 
-    boolean get(ISchedulableProcess process, DataChannelSourceConnector sinkConnector,
-            Consumer<IndirectionDate> callback);
+    boolean get(ISchedulableProcess process, DataSourceRole sourceRole, Consumer<IndirectionDate> callback);
 
     /**
      * Unique identifier of the resource.
@@ -30,5 +29,5 @@ public interface IDataChannelResource {
      */
     String getName();
 
-    boolean put(ISchedulableProcess process, DataChannelSinkConnector sourceConnector, IndirectionDate date);
+    boolean put(ISchedulableProcess process, DataSinkRole sinkRole, IndirectionDate date);
 }

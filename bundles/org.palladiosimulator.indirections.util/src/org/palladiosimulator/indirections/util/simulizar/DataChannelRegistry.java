@@ -8,7 +8,9 @@ import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
 import org.palladiosimulator.indirections.repository.DataChannel;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
@@ -17,8 +19,11 @@ public class DataChannelRegistry {
     private static final String EXTENSION_POINT_ID = "org.palladiosimulator.indirections.interfaces.datachannelresourcefactory";
 
     private static Map<SimuComModel, DataChannelRegistry> registries = new HashMap<>();
-    public static DataChannelRegistry getInstanceFor(final InterpreterDefaultContext context) {
-        registries.computeIfAbsent(context.getModel(), (model) -> new DataChannelRegistry(context, model));
+
+    public static DataChannelRegistry getInstanceFor(InterpreterDefaultContext context,
+            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+        registries.computeIfAbsent(context.getModel(),
+                (model) -> new DataChannelRegistry(context, model, repositoryComponentSwitchFactory));
 
         return registries.get(context.getModel());
     }
@@ -26,25 +31,35 @@ public class DataChannelRegistry {
     private final InterpreterDefaultContext context;
     private IDataChannelResourceFactory dataChannelResourceFactory;
 
-    private final Map<DataChannel, IDataChannelResource> dataChannelToDataChannelResource = new HashMap<DataChannel, IDataChannelResource>();
+    private final Map<AssemblyContext, Map<DataChannel, IDataChannelResource>> assemblyContextToDataChannelToDataChannelResource = new HashMap<>();
 
     private final SimuComModel model;
+    private final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory;
 
-    private DataChannelRegistry(final InterpreterDefaultContext ctx, final SimuComModel myModel) {
+    private DataChannelRegistry(final InterpreterDefaultContext ctx, final SimuComModel myModel,
+            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         this.context = ctx;
         this.model = myModel;
+        this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;
     }
 
-    public IDataChannelResource getOrCreateDataChannelResource(final DataChannel dataChannel) {
+    public IDataChannelResource getOrCreateDataChannelResource(DataChannel dataChannel,
+            AssemblyContext assemblyContext) {
         if (this.dataChannelResourceFactory == null) {
             this.initializeDataChannelResourceFactory();
         }
 
-        if (!this.dataChannelToDataChannelResource.containsKey(dataChannel)) {
-            this.dataChannelToDataChannelResource.put(dataChannel,
-                    this.dataChannelResourceFactory.createDataChannelResource(dataChannel, this.context, this.model));
+        if (!assemblyContextToDataChannelToDataChannelResource.containsKey(assemblyContext)) {
+            assemblyContextToDataChannelToDataChannelResource.put(assemblyContext, new HashMap<>());
         }
-        return this.dataChannelToDataChannelResource.get(dataChannel);
+
+        var dataChannelToDataChannelResource = assemblyContextToDataChannelToDataChannelResource.get(assemblyContext);
+        if (!dataChannelToDataChannelResource.containsKey(dataChannel)) {
+            dataChannelToDataChannelResource.put(dataChannel, this.dataChannelResourceFactory.createDataChannelResource(
+                    dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory));
+        }
+
+        return dataChannelToDataChannelResource.get(dataChannel);
     }
 
     private void initializeDataChannelResourceFactory() {

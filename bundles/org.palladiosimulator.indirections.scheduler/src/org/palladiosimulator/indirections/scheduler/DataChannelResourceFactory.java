@@ -7,16 +7,19 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
 import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
 public class DataChannelResourceFactory implements IDataChannelResourceFactory {
     @SuppressWarnings("unchecked")
     @Override
-    public IDataChannelResource createDataChannelResource(final DataChannel dataChannel,
-            final InterpreterDefaultContext context, final SchedulerModel model) {
+    public IDataChannelResource createDataChannelResource(DataChannel dataChannel, AssemblyContext assemblyContext,
+            InterpreterDefaultContext context, SchedulerModel model,
+            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
 
         if (!(dataChannel instanceof JavaClassDataChannel)) {
             throw new PCMModelInterpreterException("Currently only " + JavaClassDataChannel.class
@@ -42,9 +45,10 @@ public class DataChannelResourceFactory implements IDataChannelResourceFactory {
         // InterpreterDefaultContext context, final SchedulerModel model)
         Constructor<IDataChannelResource> constructor;
         try {
-            constructor = clazz.getDeclaredConstructor(JavaClassDataChannel.class, InterpreterDefaultContext.class,
-                    SchedulerModel.class);
-            final IDataChannelResource instance = constructor.newInstance(javaClassDataChannel, context, model);
+            constructor = clazz.getDeclaredConstructor(JavaClassDataChannel.class, AssemblyContext.class,
+                    InterpreterDefaultContext.class, SchedulerModel.class, RepositoryComponentSwitchFactory.class);
+            final IDataChannelResource instance = constructor.newInstance(javaClassDataChannel, assemblyContext,
+                    context, model, repositoryComponentSwitchFactory);
             return instance;
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException e) {

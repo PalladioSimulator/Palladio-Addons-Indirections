@@ -1,6 +1,5 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.measure.Measure;
@@ -17,13 +16,13 @@ import org.palladiosimulator.indirections.actions.DataIteratorAction;
 import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.PutTimeOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
+import org.palladiosimulator.indirections.composition.AssemblyDataConnector;
 import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
-import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
 import org.palladiosimulator.indirections.monitoring.simulizar.TriggeredProxyProbe;
+import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.scheduler.data.GroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
@@ -34,6 +33,7 @@ import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.exceptions.SimulatedStackAccessException;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
@@ -51,6 +51,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     private ExplicitDispatchComposedSwitch<Object> parentSwitch;
     private final SimulatedStackframe<Object> resultStackFrame;
 
+    private final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory;
+
     /**
      * copied from
      * {@link org.palladiosimulator.simulizar.interpreter.RDSeffSwitch#RDSeffSwitch(InterpreterDefaultContext, SimulatedBasicComponentInstance)}
@@ -59,10 +61,12 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
      * @param basicComponentInstance
      */
     public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
-            final SimulatedBasicComponentInstance basicComponentInstance) {
+            final SimulatedBasicComponentInstance basicComponentInstance,
+            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super();
 
         this.context = context;
+        this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;
         this.allocation = context.getLocalPCMModelAtContextCreation()
             .getAllocation();
         this.assemblyContext = context.getAssemblyContextStack()
@@ -70,14 +74,15 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         this.resultStackFrame = new SimulatedStackframe<Object>();
         this.basicComponentInstance = basicComponentInstance;
 
-        this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context);
+        this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context, repositoryComponentSwitchFactory);
         this.indirectionMeasuringPointRegistry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
     }
 
     public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
             final SimulatedBasicComponentInstance basicComponentInstance,
-            final ExplicitDispatchComposedSwitch<Object> parentSwitch) {
-        this(context, basicComponentInstance);
+            final ExplicitDispatchComposedSwitch<Object> parentSwitch,
+            final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+        this(context, basicComponentInstance, repositoryComponentSwitchFactory);
         this.parentSwitch = parentSwitch;
     }
 
@@ -109,7 +114,8 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         final IndirectionDate data = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
                 referenceName);
 
-        data.getTime().forEach(it -> this.measureDataAge(action, it));
+        data.getTime()
+            .forEach(it -> this.measureDataAge(action, it));
 
         return true;
     }
@@ -118,31 +124,90 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseConsumeDataAction(final ConsumeDataAction action) {
         LOGGER.trace("Consume data action: " + action.getEntityName());
 
-        final DataChannelSourceConnector dataChannelSinkConnector = IndirectionModelUtil.getSinkConnector(this.context,
-                action);
-        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
-                action);
+        final AssemblyDataConnector assemblyDataConnector = IndirectionModelUtil
+            .getExactlyOneAssemblyDataConnector(assemblyContext, action.getDataSinkRole());
+
+        var sourceComponent = assemblyDataConnector.getSourceAssemblyContext()
+            .getEncapsulatedComponent__AssemblyContext();
+        var sinkComponent = assemblyDataConnector.getSinkAssemblyContext()
+            .getEncapsulatedComponent__AssemblyContext();
+        if (!(sourceComponent instanceof DataChannel)) {
+            throw new PCMModelInterpreterException(
+                    "Currently, only direct connections between BasicComponents and DataChannels are supported. "
+                            + "Found connector " + assemblyDataConnector.getId() + " that points from "
+                            + sourceComponent.getId() + " (" + sourceComponent.getClass()
+                                .getName()
+                            + ") to " + sinkComponent.getId() + " (" + sinkComponent.getClass()
+                                .getName()
+                            + ")");
+        }
+
+        var dataChannel = (DataChannel) sourceComponent;
+
+        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context,
+                repositoryComponentSwitchFactory, assemblyDataConnector.getSourceAssemblyContext(), action);
 
         final String threadName = Thread.currentThread()
             .getName();
 
-        LOGGER.trace("Trying to get (" + threadName + ")");
+        LOGGER.trace("Trying to get from " + dataChannel.getEntityName() + ", resource: "
+                + dataChannelResource.getName() + " (" + threadName + ")");
 
         // might block
-        final boolean result = dataChannelResource.get(this.context.getThread(), dataChannelSinkConnector, (date) -> {
-            this.context.getStack()
-                .currentStackFrame()
-                .addValue(action.getVariableReference()
-                    .getReferenceName(), date);
-            IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(),
-                    action.getVariableReference()
-                        .getReferenceName());
-        });
+        final boolean result = dataChannelResource.get(this.context.getThread(),
+                assemblyDataConnector.getDataSourceRole(), (date) -> {
+                    this.context.getStack()
+                        .currentStackFrame()
+                        .addValue(action.getVariableReference()
+                            .getReferenceName(), date);
+                    IndirectionSimulationUtil.makeDateInformationAvailableOnStack(this.context.getStack(),
+                            action.getVariableReference()
+                                .getReferenceName());
+                });
 
         LOGGER.trace("Continuing with " + this.context.getStack()
             .currentStackFrame() + " (" + threadName + ")");
 
         return result;
+    }
+
+    @Override
+    public Object caseEmitDataAction(final EmitDataAction action) {
+        LOGGER.trace("Emit event action: " + action.getEntityName());
+
+        final AssemblyDataConnector assemblyDataConnector = IndirectionModelUtil
+            .getExactlyOneAssemblyDataConnector(assemblyContext, action.getDataSourceRole());
+
+        var sourceComponent = assemblyDataConnector.getSourceAssemblyContext()
+            .getEncapsulatedComponent__AssemblyContext();
+        var sinkComponent = assemblyDataConnector.getSinkAssemblyContext()
+            .getEncapsulatedComponent__AssemblyContext();
+        if (!(sinkComponent instanceof DataChannel)) {
+            throw new PCMModelInterpreterException(
+                    "Currently, only direct connections between BasicComponents and DataChannels are supported. "
+                            + "Found connector " + assemblyDataConnector.getId() + " that points from "
+                            + sourceComponent.getId() + " (" + sourceComponent.getClass()
+                                .getName()
+                            + ") to " + sinkComponent.getId() + " (" + sinkComponent.getClass()
+                                .getName()
+                            + ")");
+        }
+
+        final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
+                repositoryComponentSwitchFactory, assemblyDataConnector.getSinkAssemblyContext(), action);
+
+        final String referenceName = action.getVariableReference()
+            .getReferenceName();
+        final IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
+                referenceName);
+
+        LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
+                + dataChannelResource.getId());
+
+        // might block
+        dataChannelResource.put(this.context.getThread(), assemblyDataConnector.getDataSinkRole(), date);
+
+        return true;
     }
 
     @Override
@@ -210,35 +275,6 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         }
 
         return true;
-    }
-
-    @Override
-    public Object caseEmitDataAction(final EmitDataAction action) {
-        LOGGER.trace("Emit event action: " + action.getEntityName());
-
-        final AssemblyContextSourceConnector sourceConnector = IndirectionModelUtil.getSourceConnector(this.context,
-                action);
-
-        if (sourceConnector instanceof DataChannelSinkConnector) {
-            final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
-                    action);
-
-            final String referenceName = action.getVariableReference()
-                .getReferenceName();
-            final IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(this.context.getStack(),
-                    referenceName);
-
-            LOGGER.trace("Trying to emit data " + date + " to " + dataChannelResource.getName() + " - "
-                    + dataChannelResource.getId());
-
-            // might block
-            dataChannelResource.put(this.context.getThread(), (DataChannelSinkConnector) sourceConnector, date);
-
-            return true;
-        } else {
-            throw new PCMModelInterpreterException(
-                    "Unknown " + AssemblyContextSourceConnector.class.getName() + " type: " + sourceConnector);
-        }
     }
 
     @Override
