@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Queue;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
+import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
@@ -21,7 +21,7 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
     protected final Map<DataSourceRole, Queue<IndirectionDate>> data;
 
-    public AnyToAllPushingDataChannel(DataChannel dataChannel, AssemblyContext assemblyContext,
+    public AnyToAllPushingDataChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
             RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
@@ -67,13 +67,13 @@ public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
 
     @Override
     protected void handleNewWatermarkedTime(double oldWatermarkTime, double watermarkTime) {
-     // do nothing. everything will be emitted immediately
+        // do nothing. everything will be emitted immediately
     }
 
     @Override
     protected IndirectionDate provideDataAndAdvance(DataSourceRole role) {
         return data.get(role)
-                .remove();
+            .remove();
     }
 
 }

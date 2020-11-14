@@ -145,7 +145,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         var dataChannel = (DataChannel) sourceComponent;
 
         final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(context,
-                repositoryComponentSwitchFactory, assemblyDataConnector.getSourceAssemblyContext(), action);
+                repositoryComponentSwitchFactory, assemblyDataConnector.getSourceAssemblyContext());
 
         final String threadName = Thread.currentThread()
             .getName();
@@ -194,7 +194,7 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         }
 
         final IDataChannelResource dataChannelResource = IndirectionModelUtil.getDataChannelResource(this.context,
-                repositoryComponentSwitchFactory, assemblyDataConnector.getSinkAssemblyContext(), action);
+                repositoryComponentSwitchFactory, assemblyDataConnector.getSinkAssemblyContext());
 
         final String referenceName = action.getVariableReference()
             .getReferenceName();

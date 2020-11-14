@@ -49,32 +49,12 @@ public final class IndirectionModelUtil {
     }
 
     public static IDataChannelResource getDataChannelResource(InterpreterDefaultContext context,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory, AssemblyContext assemblyContext,
-            ConsumeDataAction action) {
-        final DataChannel dataChannel = claimDataChannelToConsumeFrom(action);
+            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory, AssemblyContext assemblyContext) {
+        final DataChannel dataChannel = ObjectUtil
+            .forceCast(assemblyContext.getEncapsulatedComponent__AssemblyContext(), DataChannel.class);
         final IDataChannelResource dataChannelResource = DataChannelRegistry
             .getInstanceFor(context, repositoryComponentSwitchFactory)
             .getOrCreateDataChannelResource(dataChannel, assemblyContext);
         return dataChannelResource;
-    }
-
-    public static IDataChannelResource getDataChannelResource(InterpreterDefaultContext context,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory, AssemblyContext assemblyContext,
-            EmitDataAction action) {
-        final DataChannel dataChannel = claimDataChannelToEmitTo(action);
-        final IDataChannelResource dataChannelResource = DataChannelRegistry
-            .getInstanceFor(context, repositoryComponentSwitchFactory)
-            .getOrCreateDataChannelResource(dataChannel, assemblyContext);
-        return dataChannelResource;
-    }
-
-    private static DataChannel claimDataChannelToEmitTo(EmitDataAction action) {
-        return ObjectUtil.forceCast(action.getDataSourceRole()
-            .getRequiringEntity_RequiredRole(), DataChannel.class);
-    }
-
-    private static DataChannel claimDataChannelToConsumeFrom(ConsumeDataAction action) {
-        return ObjectUtil.forceCast(action.getDataSinkRole()
-            .getProvidingEntity_ProvidedRole(), DataChannel.class);
     }
 }
