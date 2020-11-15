@@ -104,13 +104,13 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.allocation = context.getLocalPCMModelAtContextCreation()
             .getAllocation();
 
+        this.resourceTableManager = context.getResourceTableManager();
+        this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;
+        
         this.initializeQueues();
         this.createPushingUserFactories();
 
         this.setupCalculators();
-
-        this.resourceTableManager = context.getResourceTableManager();
-        this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;
     }
 
     protected abstract void acceptData(DataSinkRole role, IndirectionDate date);
