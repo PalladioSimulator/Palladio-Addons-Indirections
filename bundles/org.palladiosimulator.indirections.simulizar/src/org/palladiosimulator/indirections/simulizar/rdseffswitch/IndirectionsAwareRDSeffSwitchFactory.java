@@ -6,8 +6,6 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 
-import de.uka.ipd.sdq.scheduler.resources.active.IResourceTableManager;
-
 public class IndirectionsAwareRDSeffSwitchFactory
         extends org.palladiosimulator.simulizar.interpreter.AbstractRDSeffSwitchFactory {
 
