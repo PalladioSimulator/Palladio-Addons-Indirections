@@ -4,11 +4,11 @@
   <system_Allocation href="000_minimum-channel.system#_myRVALusEeq4r6D5ZG3ytw"/>
   <allocationContexts_Allocation id="componentA.is-allocated-to.resourceContainer.ID" entityName="componentA.is-allocated-to.resourceContainer">
     <resourceContainer_AllocationContext href="000_minimum-channel.resourceenvironment#resourceContainer.ID"/>
-    <assemblyContext_AllocationContext href="000_minimum-channel.system#componentA.AssemblyContext.ID"/>
+    <assemblyContext_AllocationContext href="000_minimum-channel.system#_czSqYCbLEeulNqChKeSAOg"/>
   </allocationContexts_Allocation>
   <allocationContexts_Allocation id="componentB.is-allocated-to.resourceContainer.ID" entityName="componentB.is-allocated-to.resourceContainer">
     <resourceContainer_AllocationContext href="000_minimum-channel.resourceenvironment#resourceContainer.ID"/>
-    <assemblyContext_AllocationContext href="000_minimum-channel.system#componentB.AssemblyContext.ID"/>
+    <assemblyContext_AllocationContext href="000_minimum-channel.system#_dXC3sCbLEeulNqChKeSAOg"/>
   </allocationContexts_Allocation>
   <allocationContexts_Allocation id="_tk4_UCbLEeulNqChKeSAOg" entityName="Allocation_Assembly_DataChannel1">
     <resourceContainer_AllocationContext href="000_minimum-channel.resourceenvironment#resourceContainer.ID"/>
