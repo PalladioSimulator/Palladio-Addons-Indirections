@@ -1,39 +1,52 @@
 package org.palladiosimulator.indirections.tests;
 
-import java.util.List;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import javax.measure.unit.SI;
 
-public class DataChannelTests extends SimuLizarRunConfigTestBase {
+import org.junit.jupiter.api.Test;
+import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
+import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
+import org.palladiosimulator.simulizar.test.commons.annotation.LoadPCMInstanceFromBundle;
+import org.palladiosimulator.simulizar.test.commons.annotation.RunSimuLizar;
+import org.palladiosimulator.simulizar.test.commons.util.MeasurementTestUtils;
 
-    @Test
-    public void testMinimumDataMeasurements() {
-        getSimulizarConfiguration().setUsageModelFile(
-                "platform:/plugin/org.palladiosimulator.indirections.minimumindirectionexample/001_minimum/001_minimum.usagemodel");
-        getSimulizarConfiguration().setAllocationFiles(List.of(
-                "platform:/plugin/org.palladiosimulator.indirections.minimumindirectionexample/001_minimum/001_minimum.allocation"));
-        runSuccessfulSimulation();
-        System.out.println("Done");
-    }
+import tools.mdsd.junit5utils.annotations.PluginTestOnly;
 
-    @Test
-    public void testMinimumDataChannel() {
-        getSimulizarConfiguration().setUsageModelFile(
-                "platform:/plugin/org.palladiosimulator.indirections.minimumindirectionexample/002_minimum_datachannel/002_minimum_datachannel.usagemodel");
-        getSimulizarConfiguration().setAllocationFiles(List.of(
-                "platform:/plugin/org.palladiosimulator.indirections.minimumindirectionexample/002_minimum_datachannel/002_minimum_datachannel.allocation"));
-        runSuccessfulSimulation();
-        System.out.println("Done");
-    }
+@PluginTestOnly
+public class DataChannelTests {
 
     @Test
-    public void testWindowing() {
-        getSimulizarConfiguration().setUsageModelFile(
-                "platform:/plugin/org.palladiosimulator.indirections.minimumindirectionexample/003_datachannel_windowing/003_datachannel_windowing.usagemodel");
-        getSimulizarConfiguration().setAllocationFiles(List.of(
-                "platform:/plugin/org.palladiosimulator.indirections.minimumindirectionexample/003_datachannel_windowing/003_datachannel_windowing.allocation"));
-        runSuccessfulSimulation();
-        System.out.println("Done");
+    @LoadPCMInstanceFromBundle(bundleName = "org.palladiosimulator.indirections.minimumindirectionexample", basePath = "000_minimum-channel", modelFiles = {
+            "000_minimum-channel.allocation", "000_minimum-channel.measuringpoint",
+            "000_minimum-channel.monitorrepository", "000_minimum-channel.repository",
+            "000_minimum-channel.resourceenvironment", "000_minimum-channel.slo", "000_minimum-channel.system",
+            "000_minimum-channel.usagemodel" })
+    @RunSimuLizar
+    void testDataPassesThroughSimpleDataChannel(ExperimentRun expRun, ResourceEnvironment resourceEnvironment) {
+        var delayResource = resourceEnvironment.getResourceContainer_ResourceEnvironment()
+            .stream()
+            .flatMap(it -> it.getActiveResourceSpecifications_ResourceContainer()
+                .stream())
+            .filter(it -> it.getActiveResourceType_ActiveResourceSpecification()
+                .getEntityName()
+                .equals("DELAY"))
+            .findAny()
+            .get();
+
+        var measurement = MeasurementTestUtils.getMeasurementOfAt(expRun.getMeasurement(),
+                MetricDescriptionConstants.RESOURCE_DEMAND_METRIC_TUPLE, delayResource);
+
+        assertTrue(measurement.isPresent());
+
+        // must be equal to 42 because:
+        // * it is given in the first component, packaged into a date.
+        // * it is then sent via the channel.
+        // * the second component takes the value and creates a resource demand from the value.
+        MeasurementTestUtils.allDoubleMeasurementValuesMatch(measurement.get(),
+                MetricDescriptionConstants.RESOURCE_DEMAND_METRIC, SI.SECOND, equalTo(42.0));
     }
 
 }
