@@ -2,6 +2,8 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
@@ -17,7 +19,6 @@ import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.actions.PutTimeOnStackAction;
 import org.palladiosimulator.indirections.actions.util.ActionsSwitch;
 import org.palladiosimulator.indirections.composition.AssemblyDataConnector;
-import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSourceConnector;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.simulizar.IndirectionMeasuringPointRegistry;
@@ -31,24 +32,30 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.exceptions.SimulatedStackAccessException;
+import org.palladiosimulator.simulizar.interpreter.AbstractRDSeffSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.ComposedRDSeffSwitchFactory;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInstance;
 
+import com.google.auto.factory.AutoFactory;
+import com.google.auto.factory.Provided;
+
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
-public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
-    private static final Logger LOGGER = Logger.getLogger(IndirectionsAwareRDSeffSwitch.class);
+@AutoFactory(extending = AbstractRDSeffSwitchFactory.class)
+public class IndirectionsRDSeffSwitch extends ActionsSwitch<Object> {
+    private ExplicitDispatchComposedSwitch<Object> parentSwitch;
+
+    private static final Logger LOGGER = Logger.getLogger(IndirectionsRDSeffSwitch.class);
 
     private final Allocation allocation;
     private final AssemblyContext assemblyContext;
-    private final SimulatedBasicComponentInstance basicComponentInstance;
     private final InterpreterDefaultContext context;
     private final DataChannelRegistry dataChannelRegistry;
     private final IndirectionMeasuringPointRegistry indirectionMeasuringPointRegistry;
 
-    private ExplicitDispatchComposedSwitch<Object> parentSwitch;
     private final SimulatedStackframe<Object> resultStackFrame;
 
     private final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory;
@@ -60,10 +67,13 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
      * @param context
      * @param basicComponentInstance
      */
-    public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
-            final SimulatedBasicComponentInstance basicComponentInstance,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+    @Inject
+    public IndirectionsRDSeffSwitch(InterpreterDefaultContext context,
+            ExplicitDispatchComposedSwitch<Object> parentSwitch,
+            @Provided RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super();
+
+        this.parentSwitch = parentSwitch;
 
         this.context = context;
         this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;
@@ -72,18 +82,9 @@ public class IndirectionsAwareRDSeffSwitch extends ActionsSwitch<Object> {
         this.assemblyContext = context.getAssemblyContextStack()
             .lastElement();
         this.resultStackFrame = new SimulatedStackframe<Object>();
-        this.basicComponentInstance = basicComponentInstance;
 
         this.dataChannelRegistry = DataChannelRegistry.getInstanceFor(context, repositoryComponentSwitchFactory);
         this.indirectionMeasuringPointRegistry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
-    }
-
-    public IndirectionsAwareRDSeffSwitch(final InterpreterDefaultContext context,
-            final SimulatedBasicComponentInstance basicComponentInstance,
-            final ExplicitDispatchComposedSwitch<Object> parentSwitch,
-            final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
-        this(context, basicComponentInstance, repositoryComponentSwitchFactory);
-        this.parentSwitch = parentSwitch;
     }
 
     @Override

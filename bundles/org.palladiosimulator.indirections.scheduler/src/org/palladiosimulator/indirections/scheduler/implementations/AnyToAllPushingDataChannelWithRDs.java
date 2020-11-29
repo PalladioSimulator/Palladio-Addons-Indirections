@@ -13,16 +13,25 @@ import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
+public class AnyToAllPushingDataChannelWithRDs extends AbstractSimDataChannelResource {
+    public static final String CPU_ID = "_oro4gG3fEdy4YaaT-RYrLQ"; // from Palladio.resourcetype
+
     protected final Map<DataSourceRole, Queue<IndirectionDate>> data;
 
-    public AnyToAllPushingDataChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
+    private static final String ACCEPT_RESOURCE_DEMAND_PARAMETER_NAME = "acceptResourceDemand";
+    private static final String EMIT_RESOURCE_DEMAND_PARAMETER_NAME = "emitResourceDemand";
+
+    private final String acceptResourceDemand;
+    private final String emitResourceDemand;
+
+    public AnyToAllPushingDataChannelWithRDs(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
             RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
@@ -31,18 +40,26 @@ public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
         for (var connector : dataChannel.getDataSourceRoles()) {
             data.put(connector, new ArrayDeque<>());
         }
+
+        this.acceptResourceDemand = IndirectionSimulationUtil.getStringParameter(dataChannel,
+                ACCEPT_RESOURCE_DEMAND_PARAMETER_NAME);
+        this.emitResourceDemand = IndirectionSimulationUtil.getStringParameter(dataChannel,
+                EMIT_RESOURCE_DEMAND_PARAMETER_NAME);
     }
 
     @Override
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
-        data.values()
-            .forEach(it -> it.add(date));
-        this.notifyProcessesCanGetNewData();
+        scheduleDemand(CPU_ID, acceptResourceDemand, date, (indirectionDate) -> {
+            data.values()
+                .forEach(it -> it.add(indirectionDate));
+            this.notifyProcessesCanGetNewData();
+        });
     }
     
     @Override
     protected void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation) {
-        continuation.accept(data.get(role).remove());
+        var date = data.get(role).remove();
+        scheduleDemand(CPU_ID, emitResourceDemand, date, continuation);
     }
 
     @Override

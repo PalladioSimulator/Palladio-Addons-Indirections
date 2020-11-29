@@ -141,12 +141,13 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
             this.numberOfStoredOutgoingElementsCalculator.change(1);
 
-            IndirectionDate providedData = this.provideDataAndAdvance(process.role);
-            providedData.getTime()
-                .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
-            process.callback.accept(providedData);
-
-            this.activateIfWaiting(process);
+            this.provideDataAndAdvance(process.role, (providedData) -> {
+                providedData.getTime()
+                    .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
+                process.callback.accept(providedData);
+    
+                this.activateIfWaiting(process);
+            });
         });
     }
 
@@ -284,7 +285,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
      *            a StoEx as String
      */
     protected void scheduleDemand(String resourceTypeId, String demandSpecification, IndirectionDate date,
-            Runnable andThen) {
+            Consumer<IndirectionDate> andThen) {
 
         AllocationContext allocationContext = allocation.getAllocationContexts_Allocation()
             .stream()
@@ -449,7 +450,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
      * Calling {@link #provideDataAndAdvance(DataChannelSourceConnector)} in a loop must eventually
      * lead to {@link #canProvideData(DataChannelSourceConnector)} returning {@code false}.
      */
-    protected abstract IndirectionDate provideDataAndAdvance(DataSourceRole role);
+    protected abstract void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation);
 
     @Override
     public boolean put(ISchedulableProcess schedulableProcess, DataSinkRole role, IndirectionDate date) {
@@ -534,23 +535,24 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     private void spawnNewConsumerUser(DataSourceRole role) {
-        IndirectionDate date = this.provideDataAndAdvance(role);
-        date.getTime()
-            .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
-
-        String parameterName = role.getDataInterface()
-            .getDataSignature()
-            .getParameter()
-            .getParameterName();
-
-        CallbackUser user = this.sourceRoleUserFactories.get(role)
-            .createUser();
-
-        InterpreterDefaultContext newContext = new InterpreterDefaultContext(this.context.getRuntimeState()
-            .getMainContext(), user);
-
-        this.numberOfStoredOutgoingElementsCalculator.change(1);
-        user.setDataAndStartUserLife(parameterName, date, newContext);
+        provideDataAndAdvance(role, (date) -> {
+            date.getTime()
+                .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
+    
+            String parameterName = role.getDataInterface()
+                .getDataSignature()
+                .getParameter()
+                .getParameterName();
+    
+            CallbackUser user = this.sourceRoleUserFactories.get(role)
+                .createUser();
+    
+            InterpreterDefaultContext newContext = new InterpreterDefaultContext(this.context.getRuntimeState()
+                .getMainContext(), user);
+    
+            this.numberOfStoredOutgoingElementsCalculator.change(1);
+            user.setDataAndStartUserLife(parameterName, date, newContext);
+        });
     }
 
     protected void unscheduleAdvance() {
