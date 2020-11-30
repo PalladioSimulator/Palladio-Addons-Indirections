@@ -5,7 +5,7 @@
       <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="UserA.start.ID" entityName="UserA.start" successor="UserA.ELSC.ID"/>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="UserA.ELSC.ID" entityName="UserA.ELSC" successor="UserA.stop.ID" predecessor="UserA.start.ID">
         <providedRole_EntryLevelSystemCall href="smarthomedata.system#System.provides.IAcceptSingleReading.ID"/>
-        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.ID"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
         <inputParameterUsages_EntryLevelSystemCall>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="0"/>
