@@ -3,7 +3,6 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 import javax.measure.Measure;
 import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
@@ -33,7 +32,6 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.exceptions.SimulatedStackAccessException;
 import org.palladiosimulator.simulizar.interpreter.AbstractRDSeffSwitchFactory;
-import org.palladiosimulator.simulizar.interpreter.ComposedRDSeffSwitchFactory;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
@@ -44,7 +42,7 @@ import com.google.auto.factory.Provided;
 
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
-@AutoFactory(extending = AbstractRDSeffSwitchFactory.class)
+@AutoFactory
 public class IndirectionsRDSeffSwitch extends ActionsSwitch<Object> {
     private ExplicitDispatchComposedSwitch<Object> parentSwitch;
 

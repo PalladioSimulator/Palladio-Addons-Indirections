@@ -4,8 +4,14 @@
    <extension
    		 point="org.palladiosimulator.simulizar.extension">
       <simulizarExtension
-      		simulizarExtension="org.palladiosimulator.indirections.simulizar.rdseffswitch.IndirectionsExtension$Factory">
+      		simulizarExtension="org.palladiosimulator.indirections.simulizar.rdseffswitch.IndirectionsExtension">
       </simulizarExtension>
+   </extension>
+   <extension
+         point="org.palladiosimulator.simulizar.interpreter.rdseffswitch">
+      <rdseffswitch
+            rdseffswitch="org.palladiosimulator.indirections.simulizar.rdseffswitch.IndirectionsExtension$LegacyIndirectionsRDSeffSwitchFactory">
+      </rdseffswitch>
    </extension>
 
 </plugin>
