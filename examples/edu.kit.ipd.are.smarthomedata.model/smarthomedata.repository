@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.indirections.actions="http://palladiosimulator.org/Indirections/Actions/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="repository.ID" entityName="repository">
   <components__Repository xsi:type="repository:BasicComponent" id="Emitter.ID" entityName="Emitter">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="Emitter.provides.IAcceptSingleReading.ID" entityName="Emitter.provides.IAcceptSingleReading" providedInterface__OperationProvidedRole="IAcceptSingleReading.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="Emitter.providesData.ID" entityName="Emitter.providesData" eventGroup="ReadingEventGroup.ID"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="Emitter.implements.acceptData" describedService__SEFF="acceptSingleReading.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="Emitter.acceptData.start.ID" entityName="Emitter.acceptData.start" successor_AbstractAction="Emitter.acceptData.createDate.ID"/>
       <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDateAction" id="Emitter.acceptData.createDate.ID" entityName="Emitter.acceptData.createDate" predecessor_AbstractAction="Emitter.acceptData.start.ID" successor_AbstractAction="Emitter.acceptData.emitData.ID">
@@ -20,48 +18,55 @@
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="houseId"/>
         </variableUsages>
       </steps_Behaviour>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="Emitter.acceptData.emitData.ID" entityName="Emitter.acceptData.emitData" predecessor_AbstractAction="Emitter.acceptData.createDate.ID" successor_AbstractAction="Emitter.acceptData.stop.ID" dataSourceRole="Emitter.providesData.ID">
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="Emitter.acceptData.emitData.ID" entityName="Emitter.acceptData.emitData" predecessor_AbstractAction="Emitter.acceptData.createDate.ID" successor_AbstractAction="Emitter.acceptData.stop.ID">
         <variableReference referenceName="readingDate"/>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:StopAction" id="Emitter.acceptData.stop.ID" entityName="Emitter.acceptData.stop" predecessor_AbstractAction="Emitter.acceptData.emitData.ID"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="MedianEachPlug.ID" entityName="MedianEachPlug">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="MedianEachPlug.accepts.ReadingGroup.ID" entityName="MedianEachPlug.accepts.ReadingGroup" eventGroup="PartitionedReadingWindowsEventGroup.ID"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="MedianEachPlug.acceptsData" describedService__SEFF="ReadingGroupEventType.ID">
-      <steps_Behaviour xsi:type="seff:StartAction" id="MedianEachPlug.acceptsData.start.ID" entityName="MedianEachPlug.acceptsData.start" successor_AbstractAction="MedianEachPlug.acceptData.analyseStack.ID"/>
-      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="MedianEachPlug.acceptData.analyseStack.ID" entityName="MedianEachPlug.acceptData.analyseStack" predecessor_AbstractAction="MedianEachPlug.acceptsData.start.ID" successor_AbstractAction="MedianEachPlug.acceptsData.stop.ID" measurementIdentificationKey="MedianEachPlug.acceptData.analyseStack.key">
-        <variableReference referenceName="partitionedWindows"/>
-      </steps_Behaviour>
-      <steps_Behaviour xsi:type="seff:StopAction" id="MedianEachPlug.acceptsData.stop.ID" entityName="MedianEachPlug.acceptsData.stop" predecessor_AbstractAction="MedianEachPlug.acceptData.analyseStack.ID"/>
-    </serviceEffectSpecifications__BasicComponent>
-  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="MedianEachPlug.ID" entityName="MedianEachPlug"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="AverageAllMedians.ID" entityName="AverageAllMedians"/>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="ReadingWindowing.ID" entityName="ReadingWindowing" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D1_ReadingWindowing"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculation.ID" entityName="OutlierCalculation"/>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="Distribution.ID" entityName="Distribution" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D3_Distribution"/>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="MedianWindowing.ID" entityName="MedianWindowing" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D4_MedianWindowing"/>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="MedianWindowingAndPartitioning.ID" entityName="MedianWindowingAndPartitioning" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D5_MedianWindowingAndPartitioning"/>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="WindowedReadingRepartitioning.ID" entityName="WindowedReadingRepartitioning" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D2_WindowedReadingRepartitioning"/>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="Joining.ID" entityName="Joining" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D6_Joining"/>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptSingleReading.ID" entityName="IAcceptSingleReading">
     <signatures__OperationInterface id="acceptSingleReading.ID" entityName="acceptSingleReading">
-      <parameters__OperationSignature dataType__Parameter="SmartReadingReadingDataType.ID" parameterName="reading"/>
+      <parameters__OperationSignature dataType__Parameter="ReadingDataType.ID" parameterName="reading"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="ReadingEventGroup.ID" entityName="ReadingEventGroup">
-    <eventTypes__EventGroup id="ReadingEventType.ID" entityName="ReadingEventType">
-      <parameter__EventType dataType__Parameter="SmartReadingReadingDataType.ID" parameterName="reading"/>
-    </eventTypes__EventGroup>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="ReadingWindow.ID" entityName="ReadingWindow">
+    <dataSignature id="_EVyfEDMTEeuOIo32JW6c4g" entityName="readingWindow">
+      <parameter dataType__Parameter="ReadingWindowDataType.ID" parameterName="readingWindow"/>
+    </dataSignature>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="ReadingGroupEventGroup.ID" entityName="ReadingGroupEventGroup">
-    <eventTypes__EventGroup id="ReadingGroupEventType.ID" entityName="ReadingGroupEventType">
-      <parameter__EventType dataType__Parameter="ReadingGroupDataType.ID" parameterName="readings"/>
-    </eventTypes__EventGroup>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="Reading.ID" entityName="Reading">
+    <dataSignature id="_lBvNUDMSEeuOIo32JW6c4g" entityName="reading">
+      <parameter dataType__Parameter="ReadingDataType.ID" parameterName="reading"/>
+    </dataSignature>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="ReadingWindowEventGroup.ID" entityName="ReadingWindowEventGroup">
-    <eventTypes__EventGroup id="ReadingWindowEventType.ID" entityName="ReadingWindowEventType">
-      <parameter__EventType dataType__Parameter="ReadingWindowDataType.ID" parameterName="readings"/>
-    </eventTypes__EventGroup>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="Median.ID" entityName="Median">
+    <dataSignature id="_J4v74DMUEeuOIo32JW6c4g" entityName="median">
+      <parameter dataType__Parameter="MedianDataType.ID" parameterName="median"/>
+    </dataSignature>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:EventGroup" id="PartitionedReadingWindowsEventGroup.ID" entityName="PartitionedReadingWindowsEventGroup">
-    <eventTypes__EventGroup id="PartitionedReadingWindowsEventType.ID" entityName="PartitionedReadingWindowsEventType">
-      <parameter__EventType dataType__Parameter="PartitionedReadingWindowsDataType.ID" parameterName="partitionedWindows"/>
-    </eventTypes__EventGroup>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="MedianWindow.ID" entityName="MedianWindow">
+    <dataSignature id="_Rx0pkDMXEeuOIo32JW6c4g" entityName="medianWindow">
+      <parameter dataType__Parameter="MedianWindowDataType.ID" parameterName="medianWindow"/>
+    </dataSignature>
   </interfaces__Repository>
-  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="SmartReadingReadingDataType.ID" entityName="SmartReadingReadingDataType">
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="MedianAverage.ID" entityName="MedianAverage"/>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="AverageAndHouseMedian.ID" entityName="AverageAndHouseMedian"/>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="MedianWindowPerHouse.ID" entityName="MedianWindowPerHouse">
+    <dataSignature id="_W71QUDMXEeuOIo32JW6c4g" entityName="medianWindowPerHouse">
+      <parameter dataType__Parameter="MedianWindowPerHouseDataType.ID" parameterName="medianWindowPerHouse"/>
+    </dataSignature>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="PartitionedReadingWindows.ID" entityName="PartitionedReadingWindows"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="ReadingDataType.ID" entityName="ReadingDataType">
     <innerDeclaration_CompositeDataType entityName="plugId">
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
     </innerDeclaration_CompositeDataType>
@@ -70,7 +75,7 @@
     </innerDeclaration_CompositeDataType>
   </dataTypes__Repository>
   <dataTypes__Repository xsi:type="repository:CollectionDataType" id="ReadingWindowGroupDataType.ID" entityName="ReadingWindowGroupDataType" innerType_CollectionDataType="ReadingWindowDataType.ID"/>
-  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="ReadingGroupDataType.ID" entityName="ReadingGroupDataType" innerType_CollectionDataType="SmartReadingReadingDataType.ID"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="ReadingGroupDataType.ID" entityName="ReadingGroupDataType" innerType_CollectionDataType="ReadingDataType.ID"/>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="ReadingWindowDataType.ID" entityName="ReadingWindowDataType">
     <innerDeclaration_CompositeDataType entityName="window">
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
@@ -82,5 +87,32 @@
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
     </innerDeclaration_CompositeDataType>
     <innerDeclaration_CompositeDataType entityName="windows" datatype_InnerDeclaration="ReadingWindowGroupDataType.ID"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianDataType.ID" entityName="MedianDataType">
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="plugId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="MedianGroupDataType.ID" entityName="MedianGroupDataType" innerType_CollectionDataType="MedianDataType.ID"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianWindowDataType.ID" entityName="MedianWindowDataType">
+    <innerDeclaration_CompositeDataType entityName="medians" datatype_InnerDeclaration="MedianGroupDataType.ID"/>
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianWindowPerHouseDataType.ID" entityName="MedianWindowPerHouseDataType">
+    <innerDeclaration_CompositeDataType entityName="medians" datatype_InnerDeclaration="MedianGroupDataType.ID"/>
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
   </dataTypes__Repository>
 </repository:Repository>
