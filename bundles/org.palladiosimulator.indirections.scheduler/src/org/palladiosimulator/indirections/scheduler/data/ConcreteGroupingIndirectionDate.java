@@ -32,7 +32,7 @@ public class ConcreteGroupingIndirectionDate<T extends IndirectionDate> implemen
     @Override
     public Map<String, Object> getData() {
         final HashMap<String, Object> result = new HashMap<>(this.extraData);
-        result.put("NUMBER_OF_ELEMENTS.VALUE", this.dataInGroup.size());
+        result.put("INNER_ELEMENTS.NUMBER_OF_ELEMENTS", this.dataInGroup.size());
         result.put("INNER_ELEMENTS.VALUE", this.dataInGroup);
         return result;
     }

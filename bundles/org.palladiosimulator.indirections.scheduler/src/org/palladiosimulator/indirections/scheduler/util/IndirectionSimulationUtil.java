@@ -16,6 +16,7 @@ import org.palladiosimulator.indirections.repository.DataInterface;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.GenericJoinedDate;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -28,6 +29,7 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.identifier.Identifier;
+import de.uka.ipd.sdq.simucomframework.entities.SimuComEntity;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.EvaluationProxy;
 import de.uka.ipd.sdq.simucomframework.variables.StackContext;
@@ -38,6 +40,37 @@ import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
 public final class IndirectionSimulationUtil {
+    public final static class Pair<A, B> {
+        public final A a;
+        public final B b;
+
+        public Pair(A a, B b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(a, b);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Pair other = (Pair) obj;
+            return Objects.equals(a, other.a) && Objects.equals(b, other.b);
+        }
+
+        public static <A, B> Pair<A, B> of(A a, B b) {
+            return new Pair<>(a, b);
+        }
+    }
+
     private final static Logger LOGGER = Logger.getLogger(IndirectionSimulationUtil.class);
 
     /**
@@ -211,9 +244,16 @@ public final class IndirectionSimulationUtil {
         } else if (date instanceof ConcreteGroupingIndirectionDate<?>) {
             final ConcreteGroupingIndirectionDate<?> groupingIndirectionDate = (ConcreteGroupingIndirectionDate<?>) date;
 
-            final int numberOfElements = groupingIndirectionDate.getDataInGroup()
-                .size();
-            stackframe.addValue(baseName + ".NUMBER_OF_ELEMENTS", numberOfElements);
+            for (final Entry<String, Object> dataEntry : groupingIndirectionDate.getData()
+                .entrySet()) {
+                stackframe.addValue(baseName + "." + dataEntry.getKey(), dataEntry.getValue());
+            }
+        } else if (date instanceof GenericJoinedDate) {
+            final GenericJoinedDate<?, ?> genericJoinedDate = (GenericJoinedDate<?, ?>) date;
+
+            for (var entry : genericJoinedDate.data.entrySet()) {
+                flattenDataOnStackframe(stackframe, baseName + "." + entry.getKey(), entry.getValue().date);
+            }
         } else {
             throw new PCMModelInterpreterException(
                     baseName + " is not a ConcreteIndirectionDate, but a " + date.getClass()
@@ -276,6 +316,20 @@ public final class IndirectionSimulationUtil {
                 System.out.println("Triggering periodic process at " + model.getSimulationControl()
                     .getCurrentSimulationTime());
                 taskToRun.run();
+            }
+        };
+    }
+
+    // TODO: rewrite so it doesn't misuse a periodically triggered event
+    public static SimuComEntity triggerOnce(SimuComModel model, double delay, Runnable taskToRun) {
+        // 1000.0 is a random number. will be unscheduled before it becomes relevant.
+        return new PeriodicallyTriggeredSimulationEntity(model, delay, 1000.0) {
+            @Override
+            protected void triggerInternal() {
+                System.out.println("Triggering single process at " + model.getSimulationControl()
+                    .getCurrentSimulationTime());
+                taskToRun.run();
+                this.stopScheduling();
             }
         };
     }

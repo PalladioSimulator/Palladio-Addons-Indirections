@@ -11,6 +11,7 @@ import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
+import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -35,6 +36,7 @@ public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
 
     @Override
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
+        System.out.println(this.dataChannel.getEntityName() + ": Accepting " + date + ", now=" + this.model.getSimulationControl().getCurrentSimulationTime());
         data.values()
             .forEach(it -> it.add(date));
         this.notifyProcessesCanGetNewData();
@@ -42,7 +44,9 @@ public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
     
     @Override
     protected void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation) {
-        continuation.accept(data.get(role).remove());
+        IndirectionDate dataToProvide = data.get(role).remove();
+        System.out.println(this.dataChannel.getEntityName() + ": Providing data " + dataToProvide + ", now=" + this.model.getSimulationControl().getCurrentSimulationTime());
+        continuation.accept(dataToProvide);
     }
 
     @Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:org.palladiosimulator.indirections.composition="http://palladiosimulator.org/Indirections/Composition/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_LrYWIDMfEeuOIo32JW6c4g">
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:org.palladiosimulator.indirections.composition="http://palladiosimulator.org/Indirections/Composition/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_LrYWIDMfEeuOIo32JW6c4g" entityName="SmartHomeData">
   <assemblyContexts__ComposedStructure id="_bo47sDMfEeuOIo32JW6c4g" entityName="Assembly_Emitter">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#Emitter.ID"/>
   </assemblyContexts__ComposedStructure>
@@ -18,8 +18,8 @@
   <assemblyContexts__ComposedStructure id="_IW6fQDMgEeuOIo32JW6c4g" entityName="Assembly_MedianWindowing">
     <encapsulatedComponent__AssemblyContext xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" href="smarthomedata.repository#MedianWindowing.ID"/>
   </assemblyContexts__ComposedStructure>
-  <assemblyContexts__ComposedStructure id="_JHUBcDMgEeuOIo32JW6c4g" entityName="Assembly_MedianWindowingAndPartitioning">
-    <encapsulatedComponent__AssemblyContext xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" href="smarthomedata.repository#MedianWindowingAndPartitioning.ID"/>
+  <assemblyContexts__ComposedStructure id="_JHUBcDMgEeuOIo32JW6c4g" entityName="Assembly_MedianWindowPartitioning">
+    <encapsulatedComponent__AssemblyContext xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" href="smarthomedata.repository#MedianWindowPartitioning.ID"/>
   </assemblyContexts__ComposedStructure>
   <assemblyContexts__ComposedStructure id="_TimUkDMgEeuOIo32JW6c4g" entityName="Assembly_Joining">
     <encapsulatedComponent__AssemblyContext xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" href="smarthomedata.repository#Joining.ID"/>
@@ -30,46 +30,46 @@
   <assemblyContexts__ComposedStructure id="_iLtTADMgEeuOIo32JW6c4g" entityName="Assembly_OutlierCalculation">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="smarthomedata.repository#OutlierCalculation.ID"/>
   </assemblyContexts__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_3vQJcDMfEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_kwL3YDMfEeuOIo32JW6c4g" sourceAssemblyContext="_bo47sDMfEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="__ZXGkDStEeuR47Ep8Ig1Gw" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_bIrxoDMfEeuOIo32JW6c4g" assemblyContext_ProvidedDelegationConnector="_bo47sDMfEeuOIo32JW6c4g">
+    <innerProvidedRole_ProvidedDelegationConnector href="smarthomedata.repository#_njsywDMdEeuOIo32JW6c4g"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_ATw5UDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_kwL3YDMfEeuOIo32JW6c4g" sourceAssemblyContext="_bo47sDMfEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_pVij0DMdEeuOIo32JW6c4g"/>
     <dataSinkRole href="smarthomedata.repository#_qGsT8DMdEeuOIo32JW6c4g"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_4clJgDMfEeuOIo32JW6c4g" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_bIrxoDMfEeuOIo32JW6c4g" assemblyContext_ProvidedDelegationConnector="_bo47sDMfEeuOIo32JW6c4g">
-    <innerProvidedRole_ProvidedDelegationConnector href="smarthomedata.repository#_njsywDMdEeuOIo32JW6c4g"/>
-  </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_5-b90DMfEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_wkvDgDMfEeuOIo32JW6c4g" sourceAssemblyContext="_kwL3YDMfEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_An9nsDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_wkvDgDMfEeuOIo32JW6c4g" sourceAssemblyContext="_kwL3YDMfEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_qljaMDMdEeuOIo32JW6c4g"/>
     <dataSinkRole href="smarthomedata.repository#_1yM40DMdEeuOIo32JW6c4g"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_6Suy0DMfEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_pfzoMDMfEeuOIo32JW6c4g" sourceAssemblyContext="_wkvDgDMfEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_A9l5cDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_pfzoMDMfEeuOIo32JW6c4g" sourceAssemblyContext="_wkvDgDMfEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_3VNjsDMdEeuOIo32JW6c4g"/>
     <dataSinkRole href="smarthomedata.repository#_2-j-QDMdEeuOIo32JW6c4g"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_-B1h0DMfEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_762AIDMfEeuOIo32JW6c4g" sourceAssemblyContext="_pfzoMDMfEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_BQWdYDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_IW6fQDMgEeuOIo32JW6c4g" sourceAssemblyContext="_pfzoMDMfEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_ubABwDMdEeuOIo32JW6c4g"/>
-    <dataSinkRole href="smarthomedata.repository#_zNBmUDMdEeuOIo32JW6c4g"/>
-  </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_KPH-EDMgEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_JHUBcDMgEeuOIo32JW6c4g" sourceAssemblyContext="_762AIDMfEeuOIo32JW6c4g">
-    <dataSourceRole href="smarthomedata.repository#_0TamoDMdEeuOIo32JW6c4g"/>
-    <dataSinkRole href="smarthomedata.repository#_Q04cADMeEeuOIo32JW6c4g"/>
-  </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_K5yrsDMgEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_IW6fQDMgEeuOIo32JW6c4g" sourceAssemblyContext="_762AIDMfEeuOIo32JW6c4g">
-    <dataSourceRole href="smarthomedata.repository#_z4tnoDMdEeuOIo32JW6c4g"/>
     <dataSinkRole href="smarthomedata.repository#_xAHC0DMdEeuOIo32JW6c4g"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_YIYM4DMgEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_WI1-EDMgEeuOIo32JW6c4g" sourceAssemblyContext="_IW6fQDMgEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_BmnBQDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_762AIDMfEeuOIo32JW6c4g" sourceAssemblyContext="_IW6fQDMgEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_xht7EDMdEeuOIo32JW6c4g"/>
+    <dataSinkRole href="smarthomedata.repository#_NNahwDStEeuR47Ep8Ig1Gw"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_B6jQ8DSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_JHUBcDMgEeuOIo32JW6c4g" sourceAssemblyContext="_762AIDMfEeuOIo32JW6c4g">
+    <dataSourceRole href="smarthomedata.repository#_PY2ekDStEeuR47Ep8Ig1Gw"/>
+    <dataSinkRole href="smarthomedata.repository#_Iuk-8DStEeuR47Ep8Ig1Gw"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_CQPNEDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_WI1-EDMgEeuOIo32JW6c4g" sourceAssemblyContext="_762AIDMfEeuOIo32JW6c4g">
+    <dataSourceRole href="smarthomedata.repository#_OmPV4DStEeuR47Ep8Ig1Gw"/>
     <dataSinkRole href="smarthomedata.repository#_O3WYUDMeEeuOIo32JW6c4g"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_Ze7JEDMgEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_TimUkDMgEeuOIo32JW6c4g" sourceAssemblyContext="_WI1-EDMgEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_CpDVsDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_TimUkDMgEeuOIo32JW6c4g" sourceAssemblyContext="_WI1-EDMgEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_TYu40DMeEeuOIo32JW6c4g"/>
-    <dataSinkRole href="smarthomedata.repository#_S7zsQDMeEeuOIo32JW6c4g"/>
+    <dataSinkRole href="smarthomedata.repository#Joining.MedianAverage.DataSinkRole1.ID"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_bEWOwDMgEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_TimUkDMgEeuOIo32JW6c4g" sourceAssemblyContext="_JHUBcDMgEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_DFc90DSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_TimUkDMgEeuOIo32JW6c4g" sourceAssemblyContext="_JHUBcDMgEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_RWWxYDMeEeuOIo32JW6c4g"/>
-    <dataSinkRole href="smarthomedata.repository#_SiX4kDMeEeuOIo32JW6c4g"/>
+    <dataSinkRole href="smarthomedata.repository#Joining.MedianWindowPerHouse.DataSinkRole0.ID"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_jcV0cDMgEeuOIo32JW6c4g" entityName="newAssemblyDataConnector" sinkAssemblyContext="_iLtTADMgEeuOIo32JW6c4g" sourceAssemblyContext="_TimUkDMgEeuOIo32JW6c4g">
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_DjVMoDSuEeuR47Ep8Ig1Gw" entityName="newAssemblyDataConnector" sinkAssemblyContext="_iLtTADMgEeuOIo32JW6c4g" sourceAssemblyContext="_TimUkDMgEeuOIo32JW6c4g">
     <dataSourceRole href="smarthomedata.repository#_6dIW4DMdEeuOIo32JW6c4g"/>
     <dataSinkRole href="smarthomedata.repository#_63DSwDMdEeuOIo32JW6c4g"/>
   </connectors__ComposedStructure>

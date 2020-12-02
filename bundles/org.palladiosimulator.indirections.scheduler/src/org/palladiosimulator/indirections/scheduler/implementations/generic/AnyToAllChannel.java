@@ -1,5 +1,9 @@
-package org.palladiosimulator.indirections.scheduler.implementations;
+package org.palladiosimulator.indirections.scheduler.implementations.generic;
 
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
@@ -9,36 +13,47 @@ import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-public class D5_MedianWindowingAndPartitioning extends AbstractSimDataChannelResource {
+public class AnyToAllChannel extends AbstractSimDataChannelResource {
 
-    public D5_MedianWindowingAndPartitioning(DataChannel dataChannel, AssemblyContext assemblyContext, InterpreterDefaultContext context,
+    protected final Map<DataSourceRole, Queue<IndirectionDate>> data;
+
+    public AnyToAllChannel(DataChannel dataChannel, AssemblyContext assemblyContext, InterpreterDefaultContext context,
             SchedulerModel model, RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
-        // TODO Auto-generated constructor stub
+
+        IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it >= 1,
+                ">= 1");
+
+        this.data = new HashMap<>();
+        for (var sourceRole : dataChannel.getDataSourceRoles()) {
+            data.put(sourceRole, new ArrayDeque<>());
+        }
+
     }
 
     @Override
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
-        // TODO Auto-generated method stub
-
+        data.values()
+            .forEach(it -> it.add(date));
+        this.notifyProcessesCanGetNewData();
     }
 
     @Override
     protected boolean canAcceptData(DataSinkRole role) {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     protected boolean canProvideData(DataSourceRole role) {
-        // TODO Auto-generated method stub
-        return false;
+        return data.get(role)
+            .size() > 0;
     }
 
     @Override
@@ -49,26 +64,24 @@ public class D5_MedianWindowingAndPartitioning extends AbstractSimDataChannelRes
 
     @Override
     protected void handleCannotProceedToGet(ProcessWaitingToGet process) {
-        // TODO Auto-generated method stub
-
+        throw new AssertionError("This should never happen, since the channel only supports pushing.");
     }
 
     @Override
     protected void handleCannotProceedToPut(ProcessWaitingToPut process) {
-        // TODO Auto-generated method stub
-
+        throw new AssertionError("This should never happen, since the channel always returns true for canAcceptData");
     }
 
     @Override
     protected void handleNewWatermarkedTime(double oldWatermarkTime, double watermarkTime) {
-        // TODO Auto-generated method stub
-
+        // do nothing. everything will be emitted immediately
     }
 
     @Override
     protected void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation) {
-        // TODO Auto-generated method stub
-
+        IndirectionDate date = data.get(role)
+            .remove();
+        continuation.accept(date);
     }
 
 }

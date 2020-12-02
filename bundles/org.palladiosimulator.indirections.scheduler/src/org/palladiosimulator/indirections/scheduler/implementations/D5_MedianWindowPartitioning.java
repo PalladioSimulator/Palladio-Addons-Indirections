@@ -7,17 +7,10 @@ import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFact
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-public class D3_Distribution extends AnyToAllPushingDataChannel {
-
-    public D3_Distribution(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
+public class D5_MedianWindowPartitioning extends D2_WindowedReadingRepartitioning {
+    public D5_MedianWindowPartitioning(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
             RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
-    }
-    
-    @Override
-    protected void processDataAvailableToGet() {
-        // TODO Auto-generated method stub
-        super.processDataAvailableToGet();
     }
 }

@@ -45,26 +45,26 @@
         <variableReference referenceName="median"/>
         <variableUsages>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="&quot;&quot;"/>
+            <specification_VariableCharacterisation specification="partitionedReadingWindows.window.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="window"/>
         </variableUsages>
         <variableUsages>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="0"/>
+            <specification_VariableCharacterisation specification="partitionedReadingWindows.plugId.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="plugId"/>
         </variableUsages>
         <variableUsages>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="0"/>
+            <specification_VariableCharacterisation specification="partitionedReadingWindows.houseId.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="houseId"/>
         </variableUsages>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:InternalAction" id="_nSgKsDNBEeuKJdohUfjnxw" entityName="InternalAction1" predecessor_AbstractAction="_8Srq0DM_EeuKJdohUfjnxw" successor_AbstractAction="_8_B-ADNAEeuKJdohUfjnxw">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="0"/>
+          <specification_ParametericResourceDemand specification="0 * partitionedReadingWindows.INNER_ELEMENTS.NUMBER_OF_ELEMENTS"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
@@ -83,14 +83,14 @@
         <variableReference referenceName="medianAverage"/>
         <variableUsages>
           <variableCharacterisation_VariableUsage type="VALUE">
-            <specification_VariableCharacterisation specification="&quot;&quot;"/>
+            <specification_VariableCharacterisation specification="medianWindow.WINDOW.VALUE"/>
           </variableCharacterisation_VariableUsage>
           <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="window"/>
         </variableUsages>
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:InternalAction" id="_Bpiv4DNCEeuKJdohUfjnxw" entityName="InternalAction1" predecessor_AbstractAction="_UGqdYDNAEeuKJdohUfjnxw" successor_AbstractAction="__kOpMDNBEeuKJdohUfjnxw">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="0"/>
+          <specification_ParametericResourceDemand specification="medianWindow.INNER_ELEMENTS.NUMBER_OF_ELEMENTS"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
@@ -99,6 +99,10 @@
   <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="ReadingWindowing.ID" entityName="ReadingWindowing" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D1_ReadingWindowing">
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_qGsT8DMdEeuOIo32JW6c4g" entityName="ReadingWindowing.Reading.DataSinkRole0" dataInterface="Reading.ID"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_qljaMDMdEeuOIo32JW6c4g" entityName="ReadingWindowing.ReadingWindow.DataSourceRole1" dataInterface="ReadingWindow.ID"/>
+    <configEntries>windowSize->10</configEntries>
+    <configEntries>windowShift->10</configEntries>
+    <configEntries>gracePeriod->10</configEntries>
+    <configEntries>emitEmptyWindows->true</configEntries>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculation.ID" entityName="OutlierCalculation">
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_63DSwDMdEeuOIo32JW6c4g" entityName="OutlierCalculation.AverageAndHouseMedian.DataSinkRole0" dataInterface="AverageAndHouseMedian.ID"/>
@@ -110,33 +114,37 @@
       </steps_Behaviour>
       <steps_Behaviour xsi:type="seff:InternalAction" id="_Y0HZEDNCEeuKJdohUfjnxw" entityName="InternalAction1" predecessor_AbstractAction="_XUZksDNAEeuKJdohUfjnxw" successor_AbstractAction="_hFgSbzNAEeuKJdohUfjnxw">
         <resourceDemand_Action>
-          <specification_ParametericResourceDemand specification="0"/>
+          <specification_ParametericResourceDemand specification="averageAndHouseMedian.medianWindowPerHouse.INNER_ELEMENTS.NUMBER_OF_ELEMENTS"/>
           <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
         </resourceDemand_Action>
       </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="Distribution.ID" entityName="Distribution" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D3_Distribution">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_zNBmUDMdEeuOIo32JW6c4g" entityName="Distribution.Median.DataSinkRole0" dataInterface="Median.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_z4tnoDMdEeuOIo32JW6c4g" entityName="Distribution.Median.DataSourceRole1" dataInterface="Median.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_0TamoDMdEeuOIo32JW6c4g" entityName="Distribution.Median.DataSourceRole2" dataInterface="Median.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_NNahwDStEeuR47Ep8Ig1Gw" entityName="Distribution.MedianWindow.DataSinkRole0" dataInterface="MedianWindow.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_OmPV4DStEeuR47Ep8Ig1Gw" entityName="Distribution.MedianWindow.DataSourceRole1" dataInterface="MedianWindow.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_PY2ekDStEeuR47Ep8Ig1Gw" entityName="Distribution.MedianWindow.DataSourceRole2" dataInterface="MedianWindow.ID"/>
   </components__Repository>
   <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="MedianWindowing.ID" entityName="MedianWindowing" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D4_MedianWindowing">
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_xAHC0DMdEeuOIo32JW6c4g" entityName="MedianWindowing.Median.DataSinkRole0" dataInterface="Median.ID"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_xht7EDMdEeuOIo32JW6c4g" entityName="MedianWindowing.MedianWindow.DataSourceRole1" dataInterface="MedianWindow.ID"/>
+    <configEntries>gracePeriod->20</configEntries>
   </components__Repository>
-  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="MedianWindowingAndPartitioning.ID" entityName="MedianWindowingAndPartitioning" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D5_MedianWindowingAndPartitioning">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_Q04cADMeEeuOIo32JW6c4g" entityName="MedianWindowingAndPartitioning.Median.DataSinkRole0" dataInterface="Median.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_RWWxYDMeEeuOIo32JW6c4g" entityName="MedianWindowingAndPartitioning.MedianWindowPerHouse.DataSourceRole1" dataInterface="MedianWindowPerHouse.ID"/>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="MedianWindowPartitioning.ID" entityName="MedianWindowPartitioning" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D5_MedianWindowPartitioning">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_Iuk-8DStEeuR47Ep8Ig1Gw" entityName="MedianWindowingAndPartitioning.MedianWindow.DataSinkRole1" dataInterface="MedianWindow.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_RWWxYDMeEeuOIo32JW6c4g" entityName="MedianWindowPartitioning.MedianWindowPerHouse.DataSourceRole1" dataInterface="MedianWindowPerHouse.ID"/>
   </components__Repository>
   <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="WindowedReadingRepartitioning.ID" entityName="WindowedReadingRepartitioning" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D2_WindowedReadingRepartitioning">
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_1yM40DMdEeuOIo32JW6c4g" entityName="WindowedReadingRepartitioning.ReadingWindow.DataSinkRole0" dataInterface="ReadingWindow.ID"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_3VNjsDMdEeuOIo32JW6c4g" entityName="WindowedReadingRepartitioning.PartitionedReadingWindows.DataSourceRole1" dataInterface="PartitionedReadingWindows.ID"/>
   </components__Repository>
   <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="Joining.ID" entityName="Joining" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.D6_Joining">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_SiX4kDMeEeuOIo32JW6c4g" entityName="Joining.MedianWindowPerHouse.DataSinkRole1" dataInterface="MedianWindowPerHouse.ID"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_S7zsQDMeEeuOIo32JW6c4g" entityName="Joining.MedianAverage.DataSinkRole1" dataInterface="MedianAverage.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Joining.MedianWindowPerHouse.DataSinkRole0.ID" entityName="Joining.MedianWindowPerHouse.DataSinkRole0" dataInterface="MedianWindowPerHouse.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="Joining.MedianAverage.DataSinkRole1.ID" entityName="Joining.MedianAverage.DataSinkRole1" dataInterface="MedianAverage.ID"/>
     <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="_6dIW4DMdEeuOIo32JW6c4g" entityName="Joining.AverageAndHouseMedian.DataSourceRole1" dataInterface="AverageAndHouseMedian.ID"/>
+    <configEntries>medianWindowPerHouseRoleId->Joining.MedianWindowPerHouse.DataSinkRole0.ID</configEntries>
+    <configEntries>medianAverageRoleId->Joining.MedianAverage.DataSinkRole1.ID</configEntries>
+    <configEntries>gracePeriod->30</configEntries>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptSingleReading.ID" entityName="IAcceptSingleReading">
     <signatures__OperationInterface id="acceptSingleReading.Signature.ID" entityName="acceptSingleReading">
@@ -203,6 +211,12 @@
     <innerDeclaration_CompositeDataType entityName="plugId">
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
     </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
     <innerDeclaration_CompositeDataType entityName="windows" datatype_InnerDeclaration="ReadingWindowGroupDataType.ID"/>
   </dataTypes__Repository>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianDataType.ID" entityName="MedianDataType">
@@ -241,5 +255,7 @@
     <innerDeclaration_CompositeDataType entityName="window">
       <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
     </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="medianAverage" datatype_InnerDeclaration="MedianAverageDataType.ID"/>
+    <innerDeclaration_CompositeDataType entityName="medianWindowPerHouse" datatype_InnerDeclaration="MedianWindowPerHouseDataType.ID"/>
   </dataTypes__Repository>
 </repository:Repository>

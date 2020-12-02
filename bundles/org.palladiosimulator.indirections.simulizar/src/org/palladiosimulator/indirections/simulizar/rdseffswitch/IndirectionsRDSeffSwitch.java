@@ -31,7 +31,6 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.exceptions.SimulatedStackAccessException;
-import org.palladiosimulator.simulizar.interpreter.AbstractRDSeffSwitchFactory;
 import org.palladiosimulator.simulizar.interpreter.ExplicitDispatchComposedSwitch;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
@@ -172,7 +171,11 @@ public class IndirectionsRDSeffSwitch extends ActionsSwitch<Object> {
 
     @Override
     public Object caseEmitDataAction(final EmitDataAction action) {
-        LOGGER.trace("Emit event action: " + action.getEntityName());
+        double currentSimulationTime = context.getModel()
+            .getSimulationControl()
+            .getCurrentSimulationTime();
+        
+        LOGGER.trace("Emit event action: " + action.getEntityName() + ", " + currentSimulationTime);
 
         final AssemblyDataConnector assemblyDataConnector = IndirectionModelUtil
             .getExactlyOneAssemblyDataConnector(assemblyContext, action.getDataSourceRole());
