@@ -45,7 +45,7 @@
             <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </containerMappings>
-        <containerMappings name="JavaClassDataChannel" semanticCandidatesExpression="feature:components__Repository" domainClass="JavaClassDataChannel">
+        <containerMappings name="JavaClassDataChannel" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='Edit%20DataChannel']" semanticCandidatesExpression="feature:components__Repository" domainClass="JavaClassDataChannel">
           <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="aql: '&lt;&lt;DataChannel>>\n'.concat(self.entityName)">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -220,6 +220,14 @@
               </firstModelOperations>
             </initialOperation>
             <edgeView name="edgeView"/>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DirectEditLabel" name="Edit DataChannel" inputLabelExpression="feature:entityName">
+            <mask mask="{0}"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:If" conditionExpression="service:self.isJavaIdentifier(0)">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="var:0"/>
+              </firstModelOperations>
+            </initialOperation>
           </ownedTools>
         </toolSections>
       </layers>
