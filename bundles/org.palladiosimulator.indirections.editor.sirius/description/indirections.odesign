@@ -224,9 +224,7 @@
           <ownedTools xsi:type="tool:DirectEditLabel" name="Edit DataChannel" inputLabelExpression="feature:entityName">
             <mask mask="{0}"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:If" conditionExpression="service:self.isJavaIdentifier(0)">
-                <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="var:0"/>
-              </firstModelOperations>
+              <firstModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="var:0"/>
             </initialOperation>
           </ownedTools>
         </toolSections>
