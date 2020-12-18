@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="repository.ID" entityName="repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="MedianEachPlug.ID" entityName="MedianEachPlug">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_dT9hYEFMEeuLNaVZK2IiYQ" entityName="MedianEachPlug.IAcceptPartitionedReadingWindows.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptPartitionedReadingWindows.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_j369oEFMEeuLNaVZK2IiYQ" entityName="MedianEachPlug.IAcceptMedianWindowPerHouse.OperationRequiredRole1" requiredInterface__OperationRequiredRole="IAcceptMedianWindowPerHouse.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dUIggEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptPartitionedReadingWindows.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_dUJHkEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_ne5EUEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dUJHkUFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_lWSZEEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_lWSZEEFMEeuLNaVZK2IiYQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_ne5EUEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_dUJHkUFMEeuLNaVZK2IiYQ" calledService_ExternalService="acceptMedianWindowPerHouse.ID" role_ExternalService="_j369oEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_ne5EUEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_dUJHkEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_lWSZEEFMEeuLNaVZK2IiYQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="AverageAllMedians.ID" entityName="AverageAllMedians">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_dzlcoEFMEeuLNaVZK2IiYQ" entityName="AverageAllMedians.IAcceptMedianWindowPerHouse.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptMedianWindowPerHouse.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_kgPh4EFMEeuLNaVZK2IiYQ" entityName="AverageAllMedians.IAcceptAverageAndHouseMedianGroup.OperationRequiredRole1" requiredInterface__OperationRequiredRole="IAcceptAverageAndHouseMedianGroup.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dzmDsEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptMedianWindowPerHouse.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_dzmDsUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_quNgAEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dzmDskFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_rCnCsEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_quNgAEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_dzmDsUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_rCnCsEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_rCnCsEFMEeuLNaVZK2IiYQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_quNgAEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_dzmDskFMEeuLNaVZK2IiYQ" calledService_ExternalService="acceptAverageAndHouseMedianGroup.ID" role_ExternalService="_kgPh4EFMEeuLNaVZK2IiYQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculation.ID" entityName="OutlierCalculation">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_eNMPcEFMEeuLNaVZK2IiYQ" entityName="OutlierCalculation.IAcceptAverageAndHouseMedianGroup.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptAverageAndHouseMedianGroup.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_eNM2gEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptAverageAndHouseMedianGroup.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_eNM2gUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_t_JsUEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_eNM2gkFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_t_JsUEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_t_JsUEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_eNM2gUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_eNM2gkFMEeuLNaVZK2IiYQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_02c7UEFMEeuLNaVZK2IiYQ" entityName="IsolatedMedianEachPlug">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_7xkTUEFMEeuLNaVZK2IiYQ" entityName="IsolatedMedianEachPlug.IAcceptPartitionedReadingWindows.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptPartitionedReadingWindows.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_7xs2MEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptPartitionedReadingWindows.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_7xs2MUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_8v3uoEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_7xs2MkFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_8v3uoEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_8v3uoEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_7xs2MUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_7xs2MkFMEeuLNaVZK2IiYQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_1FA7wEFMEeuLNaVZK2IiYQ" entityName="IsolatedAverageAllMedians">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_8WiBkEFMEeuLNaVZK2IiYQ" entityName="IsolatedAverageAllMedians.IAcceptMedianWindowPerHouse.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptMedianWindowPerHouse.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_8WiooEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptMedianWindowPerHouse.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_8WiooUFMEeuLNaVZK2IiYQ" successor_AbstractAction="__EEl4EFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_8WiookFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="__EEl4EFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="__EEl4EFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_8WiooUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_8WiookFMEeuLNaVZK2IiYQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptPartitionedReadingWindows.ID" entityName="IAcceptPartitionedReadingWindows">
+    <signatures__OperationInterface id="acceptPartitionedReadingWindows.ID" entityName="acceptPartitionedReadingWindows">
+      <parameters__OperationSignature dataType__Parameter="PartitionedReadingWindowsDataType.ID" parameterName="partitionedReadingWindows"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptMedianWindowPerHouse.ID" entityName="IAcceptMedianWindowPerHouse">
+    <signatures__OperationInterface id="acceptMedianWindowPerHouse.ID" entityName="acceptMedianWindowPerHouse">
+      <parameters__OperationSignature dataType__Parameter="MedianWindowPerHouseDataType.ID" parameterName="medianWindowPerHouse"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptAverageAndHouseMedianGroup.ID" entityName="IAcceptAverageAndHouseMedianGroup">
+    <signatures__OperationInterface id="acceptAverageAndHouseMedianGroup.ID" entityName="acceptAverageAndHouseMedianGroup">
+      <parameters__OperationSignature dataType__Parameter="AverageAndHouseMedianGroupDataType.ID" parameterName="averageAndHouseMedianGroup"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="ReadingDataType.ID" entityName="ReadingDataType">
+    <innerDeclaration_CompositeDataType entityName="plugId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="ReadingWindowGroupDataType.ID" entityName="ReadingWindowGroupDataType" innerType_CollectionDataType="ReadingWindowDataType.ID"/>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="ReadingGroupDataType.ID" entityName="ReadingGroupDataType" innerType_CollectionDataType="ReadingDataType.ID"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="ReadingWindowDataType.ID" entityName="ReadingWindowDataType">
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="readings" datatype_InnerDeclaration="ReadingGroupDataType.ID"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="PartitionedReadingWindowsDataType.ID" entityName="PartitionedReadingWindowsDataType">
+    <innerDeclaration_CompositeDataType entityName="plugId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="windows" datatype_InnerDeclaration="ReadingWindowGroupDataType.ID"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianDataType.ID" entityName="MedianDataType">
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="plugId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="MedianGroupDataType.ID" entityName="MedianGroupDataType" innerType_CollectionDataType="MedianDataType.ID"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianWindowDataType.ID" entityName="MedianWindowDataType">
+    <innerDeclaration_CompositeDataType entityName="medians" datatype_InnerDeclaration="MedianGroupDataType.ID"/>
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianWindowPerHouseDataType.ID" entityName="MedianWindowPerHouseDataType">
+    <innerDeclaration_CompositeDataType entityName="medians" datatype_InnerDeclaration="MedianGroupDataType.ID"/>
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="houseId">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="MedianAverageDataType.ID" entityName="MedianAverageDataType">
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="AverageAndHouseMedianDataType.ID" entityName="AverageAndHouseMedianDataType">
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="medianAverage" datatype_InnerDeclaration="MedianAverageDataType.ID"/>
+    <innerDeclaration_CompositeDataType entityName="medianWindowPerHouse" datatype_InnerDeclaration="MedianWindowPerHouseDataType.ID"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="AverageAndHouseMedianGroupDataType.ID" entityName="AverageAndHouseMedianGroupDataType">
+    <innerDeclaration_CompositeDataType entityName="window">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="medians" datatype_InnerDeclaration="_-WQXkDYdEeuyPKnz7MoCyQ"/>
+    <innerDeclaration_CompositeDataType entityName="medianAverage" datatype_InnerDeclaration="MedianAverageDataType.ID"/>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CollectionDataType" id="_-WQXkDYdEeuyPKnz7MoCyQ" entityName="MedianWindowPerHouseGroupDataType" innerType_CollectionDataType="MedianWindowPerHouseDataType.ID"/>
+</repository:Repository>
