@@ -24,14 +24,14 @@
     <stringAttribute key="fixedSeed4" value="4"/>
     <stringAttribute key="fixedSeed5" value="5"/>
     <stringAttribute key="maximum" value=""/>
-    <stringAttribute key="maximumMeasurementCount" value="10000"/>
+    <stringAttribute key="maximumMeasurementCount" value="999999"/>
     <stringAttribute key="minimum" value=""/>
     <stringAttribute key="monitorRepositoryFile" value=""/>
     <stringAttribute key="outpath" value="org.palladiosimulator.temporary"/>
     <stringAttribute key="persistenceFramework" value="Experiment Data Persistency &amp; Presentation (EDP2)"/>
     <stringAttribute key="reconfigurationRulesFolder" value=""/>
     <stringAttribute key="serviceLevelObjectiveRepositoryFile" value=""/>
-    <stringAttribute key="simTime" value="150"/>
+    <stringAttribute key="simTime" value="300"/>
     <booleanAttribute key="simulateAccuracy" value="false"/>
     <booleanAttribute key="simulateEvents" value="false"/>
     <booleanAttribute key="simulateFailures" value="false"/>
@@ -42,7 +42,7 @@
     <stringAttribute key="storageProject" value="org.palladiosimulator.temporary"/>
     <booleanAttribute key="storeTransformedModels" value="true"/>
     <stringAttribute key="usageEvolutionFile" value=""/>
-    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/smarthomedata.usagemodel"/>
+    <stringAttribute key="usageFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model/generated.usagemodel"/>
     <booleanAttribute key="useConfidenceStopCondition" value="false"/>
     <booleanAttribute key="useFixedSeed" value="false"/>
     <stringAttribute key="variable" value=""/>
