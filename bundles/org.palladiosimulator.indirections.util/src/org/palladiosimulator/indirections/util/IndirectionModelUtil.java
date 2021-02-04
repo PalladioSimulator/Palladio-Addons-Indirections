@@ -13,7 +13,7 @@ import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 public final class IndirectionModelUtil {
     private IndirectionModelUtil() {
@@ -49,7 +49,7 @@ public final class IndirectionModelUtil {
     }
 
     public static IDataChannelResource getDataChannelResource(InterpreterDefaultContext context,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory, AssemblyContext assemblyContext) {
+    		RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, AssemblyContext assemblyContext) {
         final DataChannel dataChannel = ObjectUtil
             .forceCast(assemblyContext.getEncapsulatedComponent__AssemblyContext(), DataChannel.class);
         final IDataChannelResource dataChannelResource = DataChannelRegistry

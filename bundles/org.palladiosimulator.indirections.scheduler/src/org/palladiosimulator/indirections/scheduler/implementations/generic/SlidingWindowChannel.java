@@ -23,7 +23,7 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToP
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -42,9 +42,9 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
 
     public SlidingWindowChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory, double windowSize, double windowShift,
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext, double windowSize, double windowShift,
             double gracePeriod, boolean scheduledAdvance, boolean advanceOnData, boolean emitEmptyWindows) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
+        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it == 1,
                 "== 1");

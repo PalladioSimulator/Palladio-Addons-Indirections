@@ -23,7 +23,7 @@ import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUt
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.entities.SimuComEntity;
@@ -38,8 +38,8 @@ public class D4_MedianWindowing extends AbstractSimDataChannelResource {
 
     public D4_MedianWindowing(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
+        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
 
         this.gracePeriod = getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME);
         this.windowToDates = new HashMap<>();

@@ -311,7 +311,7 @@ public final class IndirectionSimulationUtil {
     public static PeriodicallyTriggeredSimulationEntity triggerPeriodically(final SimuComModel model,
             final double firstOccurrence, final double delay, final Runnable taskToRun) {
 
-        return new PeriodicallyTriggeredSimulationEntity(model, firstOccurrence, delay) {
+        return new PeriodicallyTriggeredSimulationEntity(model.getSimEngineFactory(), firstOccurrence, delay) {
             @Override
             protected void triggerInternal() {
                 System.out.println("Triggering periodic process at " + model.getSimulationControl()

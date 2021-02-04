@@ -21,7 +21,7 @@ import org.palladiosimulator.indirections.util.ObjectUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -30,8 +30,8 @@ public class D2_WindowedReadingRepartitioning extends AbstractSimDataChannelReso
 
     public D2_WindowedReadingRepartitioning(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
+        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it == 1,
                 "== 1");

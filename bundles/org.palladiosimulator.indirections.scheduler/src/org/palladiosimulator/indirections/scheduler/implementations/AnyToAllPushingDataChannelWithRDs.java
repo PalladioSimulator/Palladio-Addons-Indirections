@@ -16,7 +16,7 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToP
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -33,8 +33,8 @@ public class AnyToAllPushingDataChannelWithRDs extends AbstractSimDataChannelRes
 
     public AnyToAllPushingDataChannelWithRDs(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
+        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
 
         data = new HashMap<>();
         for (var connector : dataChannel.getDataSourceRoles()) {

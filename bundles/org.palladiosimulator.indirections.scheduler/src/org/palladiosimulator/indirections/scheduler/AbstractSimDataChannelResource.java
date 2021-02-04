@@ -27,10 +27,11 @@ import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
@@ -79,11 +80,13 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     protected final IResourceTableManager resourceTableManager;
     protected final AssemblyContext assemblyContext;
-    protected final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory;
+    protected final RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory;
+	protected final InterpreterDefaultContext mainContext;
 
     public AbstractSimDataChannelResource(DataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory,
+            InterpreterDefaultContext mainContext) {
         if (!(model instanceof SimuComModel)) {
             throw new IllegalArgumentException(
                     "Currently only works with " + SimuComModel.class.getName() + ", got " + model.getClass()
@@ -100,7 +103,9 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         this.model = (SimuComModel) model;
         this.context = context;
+        this.mainContext = mainContext;
 
+       
         this.allocation = context.getLocalPCMModelAtContextCreation()
             .getAllocation();
 
@@ -500,45 +505,45 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         this.afterAcceptingAgeCalculator = new TriggerableTimeSpanCalculator(
                 "Data age after accepting date (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
-                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.mainContext);
         this.waitingToPutTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToPut>(
                 "Waiting time to put (" + this.name + ")", MetricDescriptionConstants.WAITING_TIME_METRIC,
-                MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, this.context);
+                MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, this.mainContext);
         this.numberOfDiscardedOutgoingElementsCalculator = new TriggerableCountingCalculator(
                 "Discarded outgoing elements (" + this.name + ")",
                 "Total discarded outgoing elements (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.mainContext);
         this.numberOfStoredOutgoingElementsCalculator = new TriggerableCountingCalculator(
                 "Stored outgoing elements (" + this.name + ")", "Total stored outgoing elements (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.mainContext);
     }
 
     private void setupSourceCalculators() {
         this.beforeProvidingAgeCalculator = new TriggerableTimeSpanCalculator(
                 "Data age before providing (" + this.name + ")", IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
-                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.mainContext);
         this.waitingToGetTimeCalculator = new ContextAwareTimeSpanCalculator<ProcessWaitingToGet>(
                 "Waiting time to get (" + this.name + ")", MetricDescriptionConstants.WAITING_TIME_METRIC,
-                MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, this.context);
+                MetricDescriptionConstants.WAITING_TIME_METRIC_TUPLE, this.mainContext);
         this.numberOfDiscardedIncomingElementsCalculator = new TriggerableCountingCalculator(
                 "Discarded incoming elements (" + this.name + ")",
                 "Total discarded incoming elements (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.mainContext);
         this.discardedAgeCalculator = new TriggerableTimeSpanCalculator(
                 "Data age before discarding (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC,
-                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.context);
+                IndirectionsMetricDescriptionConstants.DATA_AGE_METRIC_TUPLE, this.mainContext);
         this.numberOfStoredIncomingElementsCalculator = new TriggerableCountingCalculator(
                 "Stored incoming elements (" + this.name + ")", "Total stored incoming elements (" + this.name + ")",
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC,
                 IndirectionsMetricDescriptionConstants.NUMBER_OF_ELEMENTS_METRIC_TUPLE,
-                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.context);
+                IndirectionsMetricDescriptionConstants.TOTAL_NUMBER_OF_ELEMENTS_METRIC_TUPLE, this.mainContext);
     }
 
     private void spawnNewConsumerUser(DataSourceRole role) {
@@ -554,8 +559,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             CallbackUser user = this.sourceRoleUserFactories.get(role)
                 .createUser();
     
-            InterpreterDefaultContext newContext = new InterpreterDefaultContext(this.context.getRuntimeState()
-                .getMainContext(), user);
+            InterpreterDefaultContext newContext = InterpreterDefaultContext.createChildContext(mainContext, user);
+           
     
             this.numberOfStoredOutgoingElementsCalculator.change(1);
             user.setDataAndStartUserLife(parameterName, date, newContext);

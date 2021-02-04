@@ -63,14 +63,14 @@ public class IndirectionMeasuringPointRegistry {
         .createMeasuringPointRepository();
 
     /** Default EMF factory for measuring points. */
-    private static Map<SimuLizarRuntimeState, IndirectionMeasuringPointRegistry> registries = new HashMap<>();
+    private static Map<InterpreterDefaultContext, IndirectionMeasuringPointRegistry> registries = new HashMap<>();
 
     // TODO: really static?
-    public static IndirectionMeasuringPointRegistry getInstanceFor(final InterpreterDefaultContext context) {
-        registries.computeIfAbsent(context.getRuntimeState(),
+    public static IndirectionMeasuringPointRegistry getInstanceFor(final InterpreterDefaultContext mainContext) {
+        registries.computeIfAbsent(mainContext,
                 (ctx) -> new IndirectionMeasuringPointRegistry(ctx.getModel()));
 
-        return registries.get(context.getRuntimeState());
+        return registries.get(mainContext);
     }
 
     private final Map<AllocatedAction, TriggeredProxyProbe<Double, Duration>> actionToProbe = new HashMap<>();

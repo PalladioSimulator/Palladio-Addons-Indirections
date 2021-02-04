@@ -19,7 +19,8 @@ Require-Bundle: org.palladiosimulator.simulizar,
  org.palladiosimulator.analyzer.workflow,
  de.uka.ipd.sdq.simucomframework,
  de.uka.ipd.sdq.simulation.abstractsimengine,
- org.palladiosimulator.probeframework
+ org.palladiosimulator.probeframework,
+ com.google.dagger
 Export-Package: org.palladiosimulator.indirections.simulizar.rdseffswitch
 Import-Package: com.google.auto.factory;version="1.0.0",
  com.google.common.collect;version="27.1.0",

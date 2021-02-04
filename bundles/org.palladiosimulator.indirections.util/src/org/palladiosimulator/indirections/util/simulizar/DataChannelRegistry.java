@@ -10,7 +10,7 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory
 import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
@@ -21,7 +21,7 @@ public class DataChannelRegistry {
     private static Map<SimuComModel, DataChannelRegistry> registries = new HashMap<>();
 
     public static DataChannelRegistry getInstanceFor(InterpreterDefaultContext context,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+    		RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory) {
         registries.computeIfAbsent(context.getModel(),
                 (model) -> new DataChannelRegistry(context, model, repositoryComponentSwitchFactory));
 
@@ -34,10 +34,10 @@ public class DataChannelRegistry {
     private final Map<AssemblyContext, Map<DataChannel, IDataChannelResource>> assemblyContextToDataChannelToDataChannelResource = new HashMap<>();
 
     private final SimuComModel model;
-    private final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory;
+    private final RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory;
 
     private DataChannelRegistry(final InterpreterDefaultContext ctx, final SimuComModel myModel,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+    		RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory) {
         this.context = ctx;
         this.model = myModel;
         this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;

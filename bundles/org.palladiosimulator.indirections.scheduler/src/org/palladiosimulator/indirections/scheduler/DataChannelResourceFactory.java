@@ -10,7 +10,7 @@ import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -19,7 +19,7 @@ public class DataChannelResourceFactory implements IDataChannelResourceFactory {
     @Override
     public IDataChannelResource createDataChannelResource(DataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory) {
 
         if (!(dataChannel instanceof JavaClassDataChannel)) {
             throw new PCMModelInterpreterException("Currently only " + JavaClassDataChannel.class
@@ -46,7 +46,7 @@ public class DataChannelResourceFactory implements IDataChannelResourceFactory {
         Constructor<IDataChannelResource> constructor;
         try {
             constructor = clazz.getDeclaredConstructor(JavaClassDataChannel.class, AssemblyContext.class,
-                    InterpreterDefaultContext.class, SchedulerModel.class, RepositoryComponentSwitchFactory.class);
+                    InterpreterDefaultContext.class, SchedulerModel.class, RepositoryComponentSwitch.Factory.class);
             final IDataChannelResource instance = constructor.newInstance(javaClassDataChannel, assemblyContext,
                     context, model, repositoryComponentSwitchFactory);
             return instance;

@@ -21,7 +21,6 @@ import org.palladiosimulator.probeframework.probes.TriggeredProbe;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
 import org.palladiosimulator.simulizar.interpreter.UsageScenarioSwitch;
 
 import de.uka.ipd.sdq.scheduler.resources.active.IResourceTableManager;
@@ -166,7 +165,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 
     public static CallbackUserFactory createPushingUserFactory(final SimuComModel model, DataSourceRole sourceRole,
             DataSinkRole sinkRole, AssemblyContext sinkAssemblyContext, IResourceTableManager resourceTableManager,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory) {
         return new CallbackUserFactory(model, sourceRole, sinkRole, sinkAssemblyContext, resourceTableManager,
                 repositoryComponentSwitchFactory);
     }
@@ -223,12 +222,12 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
     private final DataSourceRole sourceRole;
     private final DataSinkRole sinkRole;
     private final IResourceTableManager resourceTableManager;
-    private final RepositoryComponentSwitchFactory repositoryComponentSwitchFactory;
+    private final RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory;
     private final AssemblyContext sinkAssemblyContext;
 
     public CallbackUserFactory(SimuComModel model, DataSourceRole sourceRole, DataSinkRole sinkRole,
             AssemblyContext sinkAssemblyContext, IResourceTableManager resourceTableManager,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory) {
         super(model, initNewUsageScenario(sourceRole));
         this.sourceRole = sourceRole;
         this.sinkRole = sinkRole;

@@ -7,7 +7,7 @@ import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFactory;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -21,8 +21,8 @@ public class ConfigurableSlidingWindowChannel extends SlidingWindowChannel {
 
     public ConfigurableSlidingWindowChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory,
+            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
+        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext,
                 getDoubleParameter(dataChannel, WINDOW_SIZE_PARAMETER_NAME),
                 getDoubleParameter(dataChannel, WINDOW_SHIFT_PARAMETER_NAME),
                 getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME),

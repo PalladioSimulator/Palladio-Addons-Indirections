@@ -24,10 +24,10 @@ public class TriggerableCalculator<V, Q extends Quantity> {
     protected final IndirectionMeasuringPointRegistry registry;
 
     public TriggerableCalculator(final String name, final BaseMetricDescription baseMetric,
-            final MetricSetDescription metricSet, final InterpreterDefaultContext context) {
+            final MetricSetDescription metricSet, final InterpreterDefaultContext mainContext) {
 
-        this.model = context.getModel();
-        this.registry = IndirectionMeasuringPointRegistry.getInstanceFor(context);
+        this.model = mainContext.getModel();
+        this.registry = IndirectionMeasuringPointRegistry.getInstanceFor(mainContext);
 
         final StringMeasuringPoint measuringPoint = MeasuringUtil
             .createStringMeasuringPoint(IndirectionMeasuringPointRegistry.MEASURING_POINT_REPOSITORY, name);
