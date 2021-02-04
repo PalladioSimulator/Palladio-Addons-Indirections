@@ -1,5 +1,7 @@
 package org.palladiosimulator.indirections.scheduler.implementations;
 
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
+import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -16,8 +18,10 @@ public class D3_Distribution extends AnyToAllPushingDataChannel {
     }
     
     @Override
-    protected void processDataAvailableToGet() {
-        // TODO Auto-generated method stub
-        super.processDataAvailableToGet();
+    protected void acceptData(DataSinkRole role, IndirectionDate date) {
+        if (discardDateIfTooOld(date))
+            return;
+        
+        super.acceptData(role, date);
     }
 }

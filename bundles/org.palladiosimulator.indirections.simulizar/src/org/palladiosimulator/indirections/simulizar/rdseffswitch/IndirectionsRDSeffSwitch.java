@@ -1,6 +1,9 @@
 package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.measure.Measure;
@@ -8,6 +11,7 @@ import javax.measure.quantity.Duration;
 import javax.measure.unit.SI;
 
 import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.Switch;
 import org.palladiosimulator.indirections.actions.AddToDateAction;
 import org.palladiosimulator.indirections.actions.AnalyseStackAction;
@@ -28,6 +32,7 @@ import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUt
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.exceptions.SimulatedStackAccessException;
@@ -39,6 +44,7 @@ import org.palladiosimulator.simulizar.runtimestate.SimulatedBasicComponentInsta
 import com.google.auto.factory.AutoFactory;
 import com.google.auto.factory.Provided;
 
+import de.uka.ipd.sdq.simucomframework.variables.StackContext;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 @AutoFactory
@@ -174,7 +180,7 @@ public class IndirectionsRDSeffSwitch extends ActionsSwitch<Object> {
         double currentSimulationTime = context.getModel()
             .getSimulationControl()
             .getCurrentSimulationTime();
-        
+
         LOGGER.trace("Emit event action: " + action.getEntityName() + ", " + currentSimulationTime);
 
         final AssemblyDataConnector assemblyDataConnector = IndirectionModelUtil
@@ -216,14 +222,29 @@ public class IndirectionsRDSeffSwitch extends ActionsSwitch<Object> {
     public Object caseCreateDateAction(final CreateDateAction action) {
         LOGGER.trace("Creating date: " + action.getEntityName());
 
-        final String referenceName = action.getVariableReference()
+        String referenceName = action.getVariableReference()
             .getReferenceName();
-        final double currentSimulationTime = this.context.getModel()
-            .getSimulationControl()
-            .getCurrentSimulationTime();
 
-        final IndirectionDate date = IndirectionSimulationUtil.createData(this.context.getStack(),
-                action.getVariableUsages(), currentSimulationTime);
+        Collection<Double> time = new ArrayList<>();
+        EList<PCMRandomVariable> dependsOn = action.getDependsOn();
+
+        if (dependsOn.isEmpty()) {
+            time.add(this.context.getModel()
+                .getSimulationControl()
+                .getCurrentSimulationTime());
+        } else {
+            var timeDependencies = dependsOn.stream()
+                .map(it -> StackContext.evaluateStatic(it.getSpecification(), context.getStack()
+                    .currentStackFrame()))
+                .collect(Collectors.toList());
+            
+            var times = IndirectionSimulationUtil.flatResolveTimes(timeDependencies);
+
+            time.addAll(times);
+        }
+
+        IndirectionDate date = IndirectionSimulationUtil.createData(this.context.getStack(), action.getVariableUsages(),
+                time);
         IndirectionSimulationUtil.createNewDataOnStack(this.context.getStack(), referenceName, date);
 
         return true;

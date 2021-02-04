@@ -15,6 +15,8 @@ public class ConfigurableSlidingWindowChannel extends SlidingWindowChannel {
     public static final String WINDOW_SIZE_PARAMETER_NAME = "windowSize";
     public static final String WINDOW_SHIFT_PARAMETER_NAME = "windowShift";
     public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";
+    public static final String SCHEDULED_ADVANCE_PARAMETER_NAME = "scheduledAdvance";
+    public static final String ADVANCE_ON_DATA_PARAMETER_NAME = "advanceOnData";
     public static final String EMIT_EMPTY_WINDOWS_PARAMETER_NAME = "emitEmptyWindows";
 
     public ConfigurableSlidingWindowChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
@@ -24,6 +26,8 @@ public class ConfigurableSlidingWindowChannel extends SlidingWindowChannel {
                 getDoubleParameter(dataChannel, WINDOW_SIZE_PARAMETER_NAME),
                 getDoubleParameter(dataChannel, WINDOW_SHIFT_PARAMETER_NAME),
                 getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME),
+                getBooleanParameter(dataChannel, SCHEDULED_ADVANCE_PARAMETER_NAME),
+                getBooleanParameter(dataChannel, ADVANCE_ON_DATA_PARAMETER_NAME),
                 getBooleanParameter(dataChannel, EMIT_EMPTY_WINDOWS_PARAMETER_NAME));
     }
 

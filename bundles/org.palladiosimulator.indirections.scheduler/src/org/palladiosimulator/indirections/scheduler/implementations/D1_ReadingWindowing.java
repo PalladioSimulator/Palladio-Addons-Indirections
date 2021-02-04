@@ -15,4 +15,5 @@ public class D1_ReadingWindowing extends ConfigurableSlidingWindowChannel {
             RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
     }
+
 }

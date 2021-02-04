@@ -40,6 +40,7 @@
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/CreateDateAction">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDateAction/variableUsages"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/CreateDateAction/dependsOn"/>
       </genClasses>
       <genClasses ecoreClass="indirections.ecore#//actions/AddToDateAction">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference indirections.ecore#//actions/AddToDateAction/variableUsages"/>

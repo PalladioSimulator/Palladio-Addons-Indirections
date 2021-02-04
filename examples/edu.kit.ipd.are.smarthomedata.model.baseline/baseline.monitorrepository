@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monitorrepository:MonitorRepository xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:monitorrepository="http://palladiosimulator.org/MonitorRepository/1.0" id="_9pUskEK0EeuLNaVZK2IiYQ">
+  <monitors id="_Ibq00EK1EeuLNaVZK2IiYQ">
+    <measurementSpecifications id="_JGzcgEK1EeuLNaVZK2IiYQ">
+      <processingType xsi:type="monitorrepository:FeedThrough" id="_TZJ2EEK1EeuLNaVZK2IiYQ"/>
+    </measurementSpecifications>
+  </monitors>
+</monitorrepository:MonitorRepository>

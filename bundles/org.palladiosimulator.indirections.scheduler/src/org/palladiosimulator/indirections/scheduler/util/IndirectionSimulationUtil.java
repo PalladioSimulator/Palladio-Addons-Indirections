@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -175,7 +176,7 @@ public final class IndirectionSimulationUtil {
     }
 
     public static IndirectionDate createData(final SimulatedStack<Object> contextStack,
-            final Iterable<VariableUsage> variableUsages, final Double time) {
+            final Iterable<VariableUsage> variableUsages, Collection<Double> time) {
 
         final Map<String, Object> entries = createDataEntries(contextStack, variableUsages);
         final IndirectionDate result = new ConcreteIndirectionDate(entries, time);
@@ -320,16 +321,13 @@ public final class IndirectionSimulationUtil {
         };
     }
 
-    // TODO: rewrite so it doesn't misuse a periodically triggered event
     public static SimuComEntity triggerOnce(SimuComModel model, double delay, Runnable taskToRun) {
-        // 1000.0 is a random number. will be unscheduled before it becomes relevant.
-        return new PeriodicallyTriggeredSimulationEntity(model, delay, 1000.0) {
+        return new OneShotSimulationEntity(model, delay) {
             @Override
             protected void triggerInternal() {
                 System.out.println("Triggering single process at " + model.getSimulationControl()
                     .getCurrentSimulationTime());
                 taskToRun.run();
-                this.stopScheduling();
             }
         };
     }
@@ -412,6 +410,25 @@ public final class IndirectionSimulationUtil {
             throw new PCMModelInterpreterException("Cannot split string " + it + " at " + splitter);
 
         return new String[] { it.substring(0, split), it.substring(split + splitter.length()) };
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void flatResolveTimes(Object timeDependency, List<Double> times) {
+        if (timeDependency instanceof Collection) {
+            ((Collection<Object>) timeDependency).forEach(it -> flatResolveTimes(it, times));
+        } else if (timeDependency instanceof ConcreteIndirectionDate) {
+            times.addAll(((ConcreteIndirectionDate) timeDependency).getTime());
+        } else {
+            throw new PCMModelInterpreterException("Error when getting date for " + timeDependency);
+        }
+    }
+    
+    public static List<Double> flatResolveTimes(List<Object> timeDependencies) {
+        List<Double> result = new ArrayList<Double>();
+        for (var it : timeDependencies) {
+            flatResolveTimes(it, result);
+        }
+        return result;
     }
 
 }

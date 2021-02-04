@@ -1,6 +1,7 @@
 package org.palladiosimulator.indirections.scheduler.implementations;
 
 import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getDoubleParameter;
+import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil.getStringParameter;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -15,7 +16,8 @@ import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
-import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.GenericJoinedDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
@@ -28,21 +30,50 @@ import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitchFact
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.simucomframework.entities.SimuComEntity;
 
-public class D4_MedianWindowing extends AbstractSimDataChannelResource {
+public class D6_JoiningToGroup extends AbstractSimDataChannelResource {
     public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";
     private final double gracePeriod;
 
-    protected final Map<Window, List<IndirectionDate>> windowToDates;
-    private final Map<Window, SimuComEntity> scheduledToEmit;
-    protected final Queue<IndirectionDate> data;
+    public static final String MEDIAN_WINDOW_PER_HOUSE_ROLE_ID_PARAMETER_NAME = "medianWindowPerHouseRoleId";
+    private final String medianWindowPerHouseRoleId;
+    private final DataSinkRole medianWindowPerHouseRole;
 
-    public D4_MedianWindowing(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
+    public static final String MEDIAN_AVERAGE_ROLE_ID_PARAMETER_NAME = "medianAverageRoleId";
+    private final String medianAverageRoleId;
+    private final DataSinkRole medianAverageRole;
+
+    protected final Map<DataSinkRole, Map<Window, List<IndirectionDate>>> roleToWindowToDates;
+    private final Map<Window, SimuComEntity> scheduledToEmit;
+    private Queue<IndirectionDate> data;
+
+    public D6_JoiningToGroup(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
             RepositoryComponentSwitchFactory repositoryComponentSwitchFactory) {
         super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
 
         this.gracePeriod = getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME);
-        this.windowToDates = new HashMap<>();
+        this.medianWindowPerHouseRoleId = getStringParameter(dataChannel,
+                MEDIAN_WINDOW_PER_HOUSE_ROLE_ID_PARAMETER_NAME);
+        this.medianAverageRoleId = getStringParameter(dataChannel, MEDIAN_AVERAGE_ROLE_ID_PARAMETER_NAME);
+
+        this.medianWindowPerHouseRole = dataChannel.getDataSinkRoles()
+            .stream()
+            .filter(it -> it.getId()
+                .equals(medianWindowPerHouseRoleId))
+            .findFirst()
+            .get();
+        this.medianAverageRole = dataChannel.getDataSinkRoles()
+            .stream()
+            .filter(it -> it.getId()
+                .equals(medianAverageRoleId))
+            .findFirst()
+            .get();
+
+        this.roleToWindowToDates = new HashMap<>();
+        for (var role : dataChannel.getDataSinkRoles()) {
+            this.roleToWindowToDates.put(role, new HashMap<>());
+        }
+
         this.scheduledToEmit = new HashMap<>();
         this.data = new ArrayDeque<>();
     }
@@ -53,14 +84,11 @@ public class D4_MedianWindowing extends AbstractSimDataChannelResource {
 
     @Override
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
-        // <ConcreteIndirectionDate (e724501e-f968-4c9b-b427-a321ca58114a):
-        // houseId.VALUE->1,
-        // plugId.VALUE->1,
-        // window.VALUE->W[0.0->10.0]>
-
-        System.out.println(this.dataChannel.getEntityName() + ": Accepting data to " + role.getEntityName() + " ("
-                + role.getId() + "): " + date + ", now = " + model.getSimulationControl()
+        System.out.println(dataChannel.getEntityName() + ": Accepting data to " + role.getEntityName() + " (" + role.getId() + "): " + date + ", now="
+                + this.model.getSimulationControl()
                     .getCurrentSimulationTime());
+
+        var windowToDates = roleToWindowToDates.get(role);
 
         Window window = (Window) date.getData()
             .get("window.VALUE");
@@ -86,22 +114,43 @@ public class D4_MedianWindowing extends AbstractSimDataChannelResource {
                 System.out.println(
                         dataChannel.getEntityName() + ": emitting " + window + ", now = " + model.getSimulationControl()
                             .getCurrentSimulationTime());
-                System.out.println("Delay: " + delay + ", timeNow = " + timeNow + ", timeToEmit = " + timeToEmit);
                 emit(window);
 
-                scheduledToEmit.remove(window);
+                var process = scheduledToEmit.remove(window);
             }));
         }
     }
 
     protected void emit(Window window) {
-        var dataInGroup = windowToDates.get(window);
-        if (dataInGroup.isEmpty()) {
-            System.out.println("Emitting empty window");
+        var medianWindowsPerHouse = roleToWindowToDates.get(medianWindowPerHouseRole)
+            .remove(window);
+        var medianAverages = roleToWindowToDates.get(medianAverageRole)
+            .remove(window);
+        
+        if (medianAverages == null) {
+            System.out.println("Error, no average found for " + window);
+            return;
+        }
+        
+        if (medianWindowsPerHouse == null) {
+            System.out.println("Error, no house medians found for " + window);
+            return;
         }
 
-        var dateToEmit = new WindowingIndirectionDate<>(dataInGroup, window, Map.of());
-        data.add(dateToEmit);
+        if (medianAverages.size() != 1) {
+            System.out.println("Expected exactly one average for " + window + ", got: " + medianAverages.size());
+            return;
+        }
+
+        if (medianWindowsPerHouse.isEmpty()) {
+            System.out.println("Didn't find any house medians for " + window);
+            return;
+        }
+
+        for (var medianAverage : medianAverages) {
+            var joinedDate = GenericJoinedDate.of(Map.of("medianAverage", medianAverage, "medianWindowPerHouseGroup", new ConcreteGroupingIndirectionDate<>(medianWindowsPerHouse)));
+            data.add(joinedDate);
+        }
         notifyProcessesCanGetNewData();
     }
 
@@ -112,7 +161,7 @@ public class D4_MedianWindowing extends AbstractSimDataChannelResource {
 
     @Override
     protected boolean canProvideData(DataSourceRole role) {
-        return data.size() > 0;
+        return this.data.size() > 0;
     }
 
     @Override
@@ -132,7 +181,7 @@ public class D4_MedianWindowing extends AbstractSimDataChannelResource {
 
     @Override
     protected void handleNewWatermarkedTime(double oldWatermarkTime, double watermarkTime) {
-        System.out.println("Moving " + this + " from " + oldWatermarkTime + " to " + watermarkTime);
+        //
     }
 
     @Override

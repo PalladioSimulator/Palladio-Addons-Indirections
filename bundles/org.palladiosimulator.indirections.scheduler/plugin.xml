@@ -7,4 +7,10 @@
             dataChannelResourceFactory="org.palladiosimulator.indirections.scheduler.DataChannelResourceFactory">
       </dataChannelResourceFactory>
    </extension>
+<extension
+      point="org.palladiosimulator.simulizar.runtimestate.runtimestateaccessor">
+   <runtimeStateAccessor
+         accessor="org.palladiosimulator.indirections.scheduler.implementations.RuntimeReconfigurator">
+   </runtimeStateAccessor>
+</extension>
 </plugin>

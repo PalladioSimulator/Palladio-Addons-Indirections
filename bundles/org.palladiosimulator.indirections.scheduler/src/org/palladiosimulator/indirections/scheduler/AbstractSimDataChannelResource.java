@@ -255,18 +255,25 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     }
 
     /**
-     * Finds out whether ALL data in dateToDiscard is too old for this channel. If so, this method
-     * returns true and measurements about the discarding are recorded.
+     * If so, this method returns true and measurements about the discarding are recorded.
      */
     protected boolean discardDateIfTooOld(IndirectionDate dateToDiscard) {
-        if (dateToDiscard.getTime()
-            .stream()
-            .allMatch(it -> it < currentWatermarkedTime)) {
+        if (isDateTooOld(dateToDiscard)) {
             numberOfDiscardedOutgoingElementsCalculator.change(1);
             discardIncomingDate(dateToDiscard);
             return true;
         }
         return false;
+    }
+
+    
+    /**
+     * Finds out whether ALL data in dateToDiscard is too old for this channel.
+     */
+    protected boolean isDateTooOld(IndirectionDate date) {
+        return date.getTime()
+            .stream()
+            .allMatch(it -> it < currentWatermarkedTime);
     }
 
     /**
@@ -478,7 +485,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             throw new PCMModelInterpreterException("Cannot schedule advance for " + this + ", already scheduled.");
         }
 
-        this.scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(this.model, firstOccurence, delay, () -> {
+        this.scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(this.model, firstOccurence + lagBehindRealTime, delay, () -> {
             this.advance(this.model.getSimulationControl()
                 .getCurrentSimulationTime() - lagBehindRealTime);
         });

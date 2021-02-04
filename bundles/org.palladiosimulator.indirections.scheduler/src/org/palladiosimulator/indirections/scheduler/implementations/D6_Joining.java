@@ -116,24 +116,34 @@ public class D6_Joining extends AbstractSimDataChannelResource {
                 emit(window);
 
                 var process = scheduledToEmit.remove(window);
-                if (process == null)
-                    throw new NullPointerException();
             }));
         }
     }
 
     protected void emit(Window window) {
         var medianWindowsPerHouse = roleToWindowToDates.get(medianWindowPerHouseRole)
-            .get(window);
+            .remove(window);
         var medianAverages = roleToWindowToDates.get(medianAverageRole)
-            .get(window);
+            .remove(window);
+        
+        if (medianAverages == null) {
+            System.out.println("Error, no average found for " + window);
+            return;
+        }
+        
+        if (medianWindowsPerHouse == null) {
+            System.out.println("Error, no house medians found for " + window);
+            return;
+        }
 
         if (medianAverages.size() != 1) {
             System.out.println("Expected exactly one average for " + window + ", got: " + medianAverages.size());
+            return;
         }
 
         if (medianWindowsPerHouse.isEmpty()) {
             System.out.println("Didn't find any house medians for " + window);
+            return;
         }
 
         for (var medianAverage : medianAverages) {

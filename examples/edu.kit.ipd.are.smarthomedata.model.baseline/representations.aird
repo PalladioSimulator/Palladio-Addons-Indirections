@@ -12,9 +12,11 @@
     <semanticResources>baseline-independent.usagemodel</semanticResources>
     <semanticResources>baseline.allocation</semanticResources>
     <semanticResources>baseline-independent.allocation</semanticResources>
+    <semanticResources>baseline.measuringpoint</semanticResources>
+    <semanticResources>baseline.monitorrepository</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_xZJ8wEFGEeuLNaVZK2IiYQ">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_xZO1QUFGEeuLNaVZK2IiYQ" name="UsageModel Diagram" repPath="#_xZOOMEFGEeuLNaVZK2IiYQ" changeId="ff97e5ec-dfdd-45f0-9902-0c504d3140b4">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_xZO1QUFGEeuLNaVZK2IiYQ" name="UsageModel Diagram" repPath="#_xZOOMEFGEeuLNaVZK2IiYQ" changeId="626e2ec3-76e1-4918-a34b-ea659483d95a">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']"/>
         <target xmi:type="usagemodel:UsageModel" href="baseline.usagemodel#/"/>
       </ownedRepresentationDescriptors>
@@ -174,13 +176,13 @@
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_5tAlJkFNEeuLNaVZK2IiYQ"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_5tAlIUFNEeuLNaVZK2IiYQ" fontName="Segoe UI" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5tAlIkFNEeuLNaVZK2IiYQ" x="7" y="42" width="351" height="399"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5tAlIkFNEeuLNaVZK2IiYQ" x="7" y="42" width="447" height="399"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_34deVUFNEeuLNaVZK2IiYQ"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_34deVkFNEeuLNaVZK2IiYQ"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_34deUUFNEeuLNaVZK2IiYQ" fontName="Segoe UI" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_34deUkFNEeuLNaVZK2IiYQ" x="120" y="132" width="399" height="519"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_34deUkFNEeuLNaVZK2IiYQ" x="36" y="36" width="471" height="519"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_xZO1REFGEeuLNaVZK2IiYQ"/>
         <edges xmi:type="notation:Edge" xmi:id="_C67GMEFOEeuLNaVZK2IiYQ" type="4001" element="_5sirFkFNEeuLNaVZK2IiYQ" source="_5tAlJ0FNEeuLNaVZK2IiYQ" target="_CTcPcEFOEeuLNaVZK2IiYQ">
@@ -223,6 +225,9 @@
     <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_31aKUEFNEeuLNaVZK2IiYQ" name="&lt;&lt;UsageScenario>>&#xA;UsageScenario">
       <target xmi:type="usagemodel:UsageScenario" href="baseline.usagemodel#_308QQEFNEeuLNaVZK2IiYQ"/>
       <semanticElements xmi:type="usagemodel:UsageScenario" href="baseline.usagemodel#_308QQEFNEeuLNaVZK2IiYQ"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_31aKUUFNEeuLNaVZK2IiYQ" borderSize="1" borderSizeComputationExpression="1" backgroundStyle="GradientTopToBottom" foregroundColor="255,255,255">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.usage/description/usage.odesign#//@ownedViewpoints[name='UsageModel']/@ownedRepresentations[name='UsageModel%20Diagram']/@defaultLayer/@containerMappings[name='usageScenario']/@style"/>
       </ownedStyle>

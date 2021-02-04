@@ -36,7 +36,7 @@
     <booleanAttribute key="simulateEvents" value="false"/>
     <booleanAttribute key="simulateFailures" value="false"/>
     <booleanAttribute key="simulateLinkingResources" value="false"/>
-    <booleanAttribute key="simulateThroughputOfLinkingResources" value="true"/>
+    <booleanAttribute key="simulateThroughputOfLinkingResources" value="false"/>
     <stringAttribute key="simulatorId" value="de.uka.ipd.sdq.codegen.simucontroller.simucom"/>
     <stringAttribute key="stepwidth" value=""/>
     <stringAttribute key="storageProject" value="org.palladiosimulator.temporary"/>

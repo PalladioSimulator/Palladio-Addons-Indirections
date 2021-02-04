@@ -39,6 +39,9 @@ public class D2_WindowedReadingRepartitioning extends AbstractSimDataChannelReso
 
     @Override
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
+        if (discardDateIfTooOld(date))
+            return;
+        
         System.out.println(this.dataChannel.getEntityName() + ": Accepting date " + date + ", now="
                 + this.model.getSimulationControl()
                     .getCurrentSimulationTime());

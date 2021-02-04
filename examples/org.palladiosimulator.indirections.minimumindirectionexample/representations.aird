@@ -21,6 +21,7 @@
     <semanticResources>000_minimum-channel-with-rds/000_minimum-channel-with-rds.monitorrepository</semanticResources>
     <semanticResources>000_minimum-channel-with-rds/000_minimum-channel-with-rds.slo</semanticResources>
     <semanticResources>000_minimum-channel-with-rds/000_minimum-channel-with-rds.usagemodel</semanticResources>
+    <semanticResources>000_minimum-channel/tmp..runtimemeasurement</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_R0aXcCbKEeulNqChKeSAOg">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_R15lMSbKEeulNqChKeSAOg" name="Assembly Diagram" repPath="#_R0hFICbKEeulNqChKeSAOg" changeId="2e2477d8-2402-4d60-889c-a06979c3bc1b">

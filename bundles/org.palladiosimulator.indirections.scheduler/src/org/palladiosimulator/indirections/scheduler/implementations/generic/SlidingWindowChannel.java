@@ -3,9 +3,12 @@ package org.palladiosimulator.indirections.scheduler.implementations.generic;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.Queue;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
@@ -28,6 +31,9 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
     private final double windowSize;
     private final double windowShift;
     private final double gracePeriod;
+    
+    private final boolean scheduledAdvance;
+    private final boolean advanceOnData;
 
     private final List<IndirectionDate> dataIn;
     private final Queue<WindowingIndirectionDate<IndirectionDate>> dataOut;
@@ -37,7 +43,7 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
     public SlidingWindowChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext context, SchedulerModel model,
             RepositoryComponentSwitchFactory repositoryComponentSwitchFactory, double windowSize, double windowShift,
-            double gracePeriod, boolean emitEmptyWindows) {
+            double gracePeriod, boolean scheduledAdvance, boolean advanceOnData, boolean emitEmptyWindows) {
         super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it == 1,
@@ -49,28 +55,46 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
         this.windowSize = windowSize;
         this.windowShift = windowShift;
         this.gracePeriod = gracePeriod;
+        
+        this.scheduledAdvance = scheduledAdvance;
+        this.advanceOnData = advanceOnData;
 
         this.emitEmptyWindows = emitEmptyWindows;
 
         this.windowCalculator = new WindowCalculator(windowSize, windowShift, 0);
 
-        // flushes data every INTERVAL time units
-        this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
-            .getCurrentSimulationTime()), windowShift, gracePeriod);
+        if (this.scheduledAdvance) {
+            // flushes data every INTERVAL time units
+            this.scheduleAdvance(findNextWindowEnd(this.model.getSimulationControl()
+                .getCurrentSimulationTime()), windowShift, gracePeriod);
+        }
     }
 
     private double findNextWindowEnd(double currentSimulationTime) {
-        return Math.ceil(currentSimulationTime / windowShift) * windowShift + windowSize;
+        return Math.floor(currentSimulationTime / windowShift) * windowShift + windowSize;
+    }
+    
+    protected OptionalDouble getDateWatermark(IndirectionDate date) {
+        if (date instanceof WindowingIndirectionDate<?>) {
+            return OptionalDouble.of(((WindowingIndirectionDate<?>) date).window.start);
+        } else {
+            return date.getTime().stream().mapToDouble(it -> it).max();
+        }
     }
 
     @Override
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
-        //System.out.println("Accepting date " + date + ", now=" + this.model.getSimulationControl().getCurrentSimulationTime());
+        // System.out.println("Accepting date " + date + ", now=" +
+        // this.model.getSimulationControl().getCurrentSimulationTime());
         if (discardDateIfTooOld(date))
             return;
-        else
-            this.dataIn.add(date);
+        
+        this.dataIn.add(date);
 
+        if (this.advanceOnData) {
+            getDateWatermark(date).ifPresent(this::advance);
+        }
+        
         notifyProcessesCanGetNewData();
     }
 
@@ -96,6 +120,9 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
 
     @Override
     protected void handleNewWatermarkedTime(double oldWatermarkTime, double watermarkTime) {
+        System.out.println(dataChannel.getEntityName() + ": watermark: " + oldWatermarkTime + " to " + watermarkTime
+                + ", now=" + this.model.getSimulationControl()
+                    .getCurrentSimulationTime());
         List<Window> windows = windowCalculator.advanceUntil(watermarkTime);
 
         boolean newData = false;
@@ -127,7 +154,9 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
     @Override
     protected void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation) {
         WindowingIndirectionDate<IndirectionDate> dataToProvide = this.dataOut.remove();
-        System.out.println(dataChannel.getEntityName() + ": Providing sliding window " + dataToProvide.window + ", now=" + this.model.getSimulationControl().getCurrentSimulationTime());
+        System.out.println(dataChannel.getEntityName() + ": Providing sliding window " + dataToProvide.window + ", now="
+                + this.model.getSimulationControl()
+                    .getCurrentSimulationTime());
         continuation.accept(dataToProvide);
     }
 }
