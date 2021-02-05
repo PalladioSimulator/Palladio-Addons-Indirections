@@ -3,16 +3,11 @@ package org.palladiosimulator.indirections.util;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.palladiosimulator.indirections.actions.ConsumeDataAction;
-import org.palladiosimulator.indirections.actions.EmitDataAction;
 import org.palladiosimulator.indirections.composition.AssemblyDataConnector;
-import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 public final class IndirectionModelUtil {
     private IndirectionModelUtil() {
@@ -47,14 +42,14 @@ public final class IndirectionModelUtil {
             .collect(Collectors.toList()));
     }
 
-    /*public static IDataChannelResource getDataChannelResource(InterpreterDefaultContext context,
-    		RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, AssemblyContext assemblyContext) {
-        final DataChannel dataChannel = getDataChannel(assemblyContext);
-        final IDataChannelResource dataChannelResource = DataChannelRegistry
-            .getInstanceFor(context, repositoryComponentSwitchFactory)
-            .getOrCreateDataChannelResource(dataChannel, assemblyContext);
-        return dataChannelResource;
-    }*/
+    /*
+     * public static IDataChannelResource getDataChannelResource(InterpreterDefaultContext context,
+     * RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, AssemblyContext
+     * assemblyContext) { final DataChannel dataChannel = getDataChannel(assemblyContext); final
+     * IDataChannelResource dataChannelResource = DataChannelRegistry .getInstanceFor(context,
+     * repositoryComponentSwitchFactory) .getOrCreateDataChannelResource(dataChannel,
+     * assemblyContext); return dataChannelResource; }
+     */
 
     public static DataChannel getDataChannel(AssemblyContext assemblyContext) {
         final DataChannel dataChannel = ObjectUtil

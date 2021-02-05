@@ -13,6 +13,7 @@ import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.AbstractSimDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -24,8 +25,8 @@ public class AnyToAllPushingDataChannel extends AbstractSimDataChannelResource {
 
     public AnyToAllPushingDataChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext mainContext, SchedulerModel model,
-            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
-        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory);
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory, DataChannelResourceRegistry dataChannelResourceRegistry) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory, dataChannelResourceRegistry);
 
         data = new HashMap<>();
         for (var connector : dataChannel.getDataSourceRoles()) {

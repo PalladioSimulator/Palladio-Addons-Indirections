@@ -4,14 +4,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
-import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.ObjectUtil;
-import org.palladiosimulator.indirections.util.simulizar.DataChannelResourceRegistry;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;

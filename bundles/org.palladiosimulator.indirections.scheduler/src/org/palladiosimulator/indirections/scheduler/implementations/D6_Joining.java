@@ -20,6 +20,7 @@ import org.palladiosimulator.indirections.scheduler.data.GenericJoinedDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
@@ -48,8 +49,8 @@ public class D6_Joining extends AbstractSimDataChannelResource {
 
     public D6_Joining(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext mainContext, SchedulerModel model,
-            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
-        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory);
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory, DataChannelResourceRegistry dataChannelResourceRegistry) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory, dataChannelResourceRegistry);
 
         this.gracePeriod = getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME);
         this.medianWindowPerHouseRoleId = getStringParameter(dataChannel,

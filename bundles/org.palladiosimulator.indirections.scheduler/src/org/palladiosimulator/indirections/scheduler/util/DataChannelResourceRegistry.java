@@ -1,4 +1,4 @@
-package org.palladiosimulator.indirections.util.simulizar;
+package org.palladiosimulator.indirections.scheduler.util;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,9 +7,9 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
-import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
-import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
 import org.palladiosimulator.indirections.repository.DataChannel;
+import org.palladiosimulator.indirections.scheduler.IDataChannelResource;
+import org.palladiosimulator.indirections.scheduler.IDataChannelResourceFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
@@ -52,8 +52,9 @@ public class DataChannelResourceRegistry implements RuntimeStateEntityManager {
 
         var dataChannelToDataChannelResource = assemblyContextToDataChannelToDataChannelResource.get(assemblyContext);
         if (!dataChannelToDataChannelResource.containsKey(dataChannel)) {
-            dataChannelToDataChannelResource.put(dataChannel, this.dataChannelResourceFactory.createDataChannelResource(
-                    dataChannel, assemblyContext, context, model, simulatedThreadComponentFactory));
+            dataChannelToDataChannelResource.put(dataChannel,
+                    this.dataChannelResourceFactory.createDataChannelResource(dataChannel, assemblyContext, context,
+                            model, simulatedThreadComponentFactory, this));
         }
 
         return dataChannelToDataChannelResource.get(dataChannel);

@@ -2,10 +2,9 @@ package org.palladiosimulator.indirections.simulizar.rdseffswitch;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IExecutableExtensionFactory;
-import org.palladiosimulator.indirections.util.simulizar.DataChannelResourceRegistry;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
 import org.palladiosimulator.simulizar.di.component.core.SimuLizarRuntimeComponent;
 import org.palladiosimulator.simulizar.di.component.dependency.SimuComFrameworkComponent;
-import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.di.extension.ExtensionComponent;
 import org.palladiosimulator.simulizar.scopes.RuntimeExtensionScope;
 
@@ -19,8 +18,6 @@ public interface IndirectionsExtensionComponent extends ExtensionComponent {
     IndirectionsRDSeffSwitch.Factory rdseffExtensionFactory();
 
     DataChannelResourceRegistry dataChannelResourceRegistry();
-
-    SimulatedThreadComponent.Factory interpreterThreadComponentFactory();
 
     @Component.Factory
     public static interface Factory extends ExtensionComponent.Factory {

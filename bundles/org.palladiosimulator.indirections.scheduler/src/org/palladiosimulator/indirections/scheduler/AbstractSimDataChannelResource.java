@@ -10,7 +10,6 @@ import java.util.function.Consumer;
 import org.palladiosimulator.indirections.calculators.scheduler.ContextAwareTimeSpanCalculator;
 import org.palladiosimulator.indirections.calculators.scheduler.TriggerableCountingCalculator;
 import org.palladiosimulator.indirections.calculators.scheduler.TriggerableTimeSpanCalculator;
-import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.monitoring.IndirectionsMetricDescriptionConstants;
 import org.palladiosimulator.indirections.repository.DataChannel;
@@ -20,6 +19,7 @@ import org.palladiosimulator.indirections.scheduler.CallbackUserFactory.Callback
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.scheduler.scheduling.SuspendableSchedulerEntity;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.IndirectionModelUtil;
 import org.palladiosimulator.indirections.util.StreamUtil;
@@ -80,10 +80,12 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     protected final AssemblyContext assemblyContext;
     protected final SimulatedThreadComponent.Factory simulatedThreadComponentFactory;
     protected final InterpreterDefaultContext mainContext;
+    protected final DataChannelResourceRegistry dataChannelResourceRegistry;
 
     public AbstractSimDataChannelResource(DataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext mainContext, SchedulerModel model,
-            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory,
+            DataChannelResourceRegistry dataChannelResourceRegistry) {
         if (!(model instanceof SimuComModel)) {
             throw new IllegalArgumentException(
                     "Currently only works with " + SimuComModel.class.getName() + ", got " + model.getClass()
@@ -106,6 +108,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
         this.resourceTableManager = mainContext.getResourceTableManager();
         this.simulatedThreadComponentFactory = simulatedThreadComponentFactory;
+        this.dataChannelResourceRegistry = dataChannelResourceRegistry;
 
         this.initializeQueues();
         this.createPushingUserFactories();
@@ -233,8 +236,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
             this.sourceRoleUserFactories.put(sourceRole,
                     CallbackUserFactory.createPushingUserFactory(this.model, sourceRole, sinkRole,
-                            assemblyDataConnector.getSinkAssemblyContext(), resourceTableManager, null,
-                            simulatedThreadComponentFactory));
+                            assemblyDataConnector.getSinkAssemblyContext(), resourceTableManager,
+                            dataChannelResourceRegistry, simulatedThreadComponentFactory));
         }
     }
 

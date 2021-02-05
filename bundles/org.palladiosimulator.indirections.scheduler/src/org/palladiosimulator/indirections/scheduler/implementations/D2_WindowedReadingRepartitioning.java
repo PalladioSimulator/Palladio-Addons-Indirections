@@ -16,6 +16,7 @@ import org.palladiosimulator.indirections.scheduler.data.PartitionedIndirectionD
 import org.palladiosimulator.indirections.scheduler.data.WindowingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToGet;
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.ObjectUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -30,8 +31,8 @@ public class D2_WindowedReadingRepartitioning extends AbstractSimDataChannelReso
 
     public D2_WindowedReadingRepartitioning(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
             InterpreterDefaultContext mainContext, SchedulerModel model,
-            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
-        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory);
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory, DataChannelResourceRegistry dataChannelResourceRegistry) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory, dataChannelResourceRegistry);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it == 1,
                 "== 1");

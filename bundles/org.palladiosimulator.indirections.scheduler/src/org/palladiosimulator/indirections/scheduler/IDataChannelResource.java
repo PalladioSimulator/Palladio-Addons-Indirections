@@ -1,7 +1,8 @@
-package org.palladiosimulator.indirections.interfaces;
+package org.palladiosimulator.indirections.scheduler;
 
 import java.util.function.Consumer;
 
+import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 

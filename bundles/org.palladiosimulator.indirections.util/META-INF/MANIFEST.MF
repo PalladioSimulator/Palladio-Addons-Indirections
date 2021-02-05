@@ -15,6 +15,5 @@ Require-Bundle: org.palladiosimulator.pcm,
  org.apache.log4j,
  com.google.auto.factory-annotations;bundle-version="1.0.0",
  javax.inject.javax.inject
-Export-Package: org.palladiosimulator.indirections.util,
- org.palladiosimulator.indirections.util.simulizar
+Export-Package: org.palladiosimulator.indirections.util
 Import-Package: org.palladiosimulator.commons.eclipseutils
