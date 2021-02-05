@@ -4,28 +4,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.palladiosimulator.commons.eclipseutils.ExtensionHelper;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
 import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
+import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext.MainContext;
+import org.palladiosimulator.simulizar.runtimestate.RuntimeStateEntityManager;
+import org.palladiosimulator.simulizar.scopes.RuntimeExtensionScope;
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 
-public class DataChannelRegistry {
+@RuntimeExtensionScope
+public class DataChannelResourceRegistry implements RuntimeStateEntityManager {
     private static final String ATTRIBUTE_NAME = "dataChannelResourceFactory";
     private static final String EXTENSION_POINT_ID = "org.palladiosimulator.indirections.interfaces.datachannelresourcefactory";
+    private SimulatedThreadComponent.Factory simulatedThreadComponentFactory;
 
-    private static Map<SimuComModel, DataChannelRegistry> registries = new HashMap<>();
-
-    public static DataChannelRegistry getInstanceFor(InterpreterDefaultContext context,
-    		RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory) {
-        registries.computeIfAbsent(context.getModel(),
-                (model) -> new DataChannelRegistry(context, model, repositoryComponentSwitchFactory));
-
-        return registries.get(context.getModel());
+    @Inject
+    public DataChannelResourceRegistry(@MainContext InterpreterDefaultContext ctx, final SimuComModel myModel,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+        this.context = ctx;
+        this.model = myModel;
+        this.simulatedThreadComponentFactory = simulatedThreadComponentFactory;
     }
 
     private final InterpreterDefaultContext context;
@@ -34,14 +39,6 @@ public class DataChannelRegistry {
     private final Map<AssemblyContext, Map<DataChannel, IDataChannelResource>> assemblyContextToDataChannelToDataChannelResource = new HashMap<>();
 
     private final SimuComModel model;
-    private final RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory;
-
-    private DataChannelRegistry(final InterpreterDefaultContext ctx, final SimuComModel myModel,
-    		RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory) {
-        this.context = ctx;
-        this.model = myModel;
-        this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;
-    }
 
     public IDataChannelResource getOrCreateDataChannelResource(DataChannel dataChannel,
             AssemblyContext assemblyContext) {
@@ -56,7 +53,7 @@ public class DataChannelRegistry {
         var dataChannelToDataChannelResource = assemblyContextToDataChannelToDataChannelResource.get(assemblyContext);
         if (!dataChannelToDataChannelResource.containsKey(dataChannel)) {
             dataChannelToDataChannelResource.put(dataChannel, this.dataChannelResourceFactory.createDataChannelResource(
-                    dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory));
+                    dataChannel, assemblyContext, context, model, simulatedThreadComponentFactory));
         }
 
         return dataChannelToDataChannelResource.get(dataChannel);
@@ -71,5 +68,4 @@ public class DataChannelRegistry {
             .orElseThrow(
                     () -> new IllegalStateException("No " + IDataChannelResourceFactory.class.getName() + " found."));
     }
-
 }

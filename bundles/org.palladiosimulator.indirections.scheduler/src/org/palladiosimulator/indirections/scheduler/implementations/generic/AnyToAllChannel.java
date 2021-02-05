@@ -15,8 +15,8 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToG
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -24,9 +24,9 @@ public class AnyToAllChannel extends AbstractSimDataChannelResource {
 
     protected final Map<DataSourceRole, Queue<IndirectionDate>> data;
 
-    public AnyToAllChannel(DataChannel dataChannel, AssemblyContext assemblyContext, InterpreterDefaultContext context,
-            SchedulerModel model, RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
+    public AnyToAllChannel(DataChannel dataChannel, AssemblyContext assemblyContext, InterpreterDefaultContext mainContext,
+            SchedulerModel model, SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it >= 1,
                 ">= 1");

@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.OptionalDouble;
 import java.util.Queue;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
@@ -22,8 +20,8 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToG
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -31,7 +29,7 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
     private final double windowSize;
     private final double windowShift;
     private final double gracePeriod;
-    
+
     private final boolean scheduledAdvance;
     private final boolean advanceOnData;
 
@@ -41,10 +39,10 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
     private final WindowCalculator windowCalculator;
 
     public SlidingWindowChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
-            InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext, double windowSize, double windowShift,
+            InterpreterDefaultContext mainContext, SchedulerModel model,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory, double windowSize, double windowShift,
             double gracePeriod, boolean scheduledAdvance, boolean advanceOnData, boolean emitEmptyWindows) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it == 1,
                 "== 1");
@@ -55,7 +53,7 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
         this.windowSize = windowSize;
         this.windowShift = windowShift;
         this.gracePeriod = gracePeriod;
-        
+
         this.scheduledAdvance = scheduledAdvance;
         this.advanceOnData = advanceOnData;
 
@@ -73,12 +71,15 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
     private double findNextWindowEnd(double currentSimulationTime) {
         return Math.floor(currentSimulationTime / windowShift) * windowShift + windowSize;
     }
-    
+
     protected OptionalDouble getDateWatermark(IndirectionDate date) {
         if (date instanceof WindowingIndirectionDate<?>) {
             return OptionalDouble.of(((WindowingIndirectionDate<?>) date).window.start);
         } else {
-            return date.getTime().stream().mapToDouble(it -> it).max();
+            return date.getTime()
+                .stream()
+                .mapToDouble(it -> it)
+                .max();
         }
     }
 
@@ -88,13 +89,13 @@ public abstract class SlidingWindowChannel extends AbstractSimDataChannelResourc
         // this.model.getSimulationControl().getCurrentSimulationTime());
         if (discardDateIfTooOld(date))
             return;
-        
+
         this.dataIn.add(date);
 
         if (this.advanceOnData) {
             getDateWatermark(date).ifPresent(this::advance);
         }
-        
+
         notifyProcessesCanGetNewData();
     }
 

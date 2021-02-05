@@ -10,7 +10,6 @@ import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.DataSinkRole;
 import org.palladiosimulator.indirections.repository.DataSourceRole;
-import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
@@ -48,13 +47,18 @@ public final class IndirectionModelUtil {
             .collect(Collectors.toList()));
     }
 
-    public static IDataChannelResource getDataChannelResource(InterpreterDefaultContext context,
+    /*public static IDataChannelResource getDataChannelResource(InterpreterDefaultContext context,
     		RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, AssemblyContext assemblyContext) {
-        final DataChannel dataChannel = ObjectUtil
-            .forceCast(assemblyContext.getEncapsulatedComponent__AssemblyContext(), DataChannel.class);
+        final DataChannel dataChannel = getDataChannel(assemblyContext);
         final IDataChannelResource dataChannelResource = DataChannelRegistry
             .getInstanceFor(context, repositoryComponentSwitchFactory)
             .getOrCreateDataChannelResource(dataChannel, assemblyContext);
         return dataChannelResource;
+    }*/
+
+    public static DataChannel getDataChannel(AssemblyContext assemblyContext) {
+        final DataChannel dataChannel = ObjectUtil
+            .forceCast(assemblyContext.getEncapsulatedComponent__AssemblyContext(), DataChannel.class);
+        return dataChannel;
     }
 }

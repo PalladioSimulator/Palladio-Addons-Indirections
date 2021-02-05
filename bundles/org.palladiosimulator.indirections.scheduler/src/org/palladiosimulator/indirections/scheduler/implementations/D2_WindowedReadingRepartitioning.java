@@ -19,9 +19,9 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToP
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.ObjectUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -29,9 +29,9 @@ public class D2_WindowedReadingRepartitioning extends AbstractSimDataChannelReso
     private final Queue<IndirectionDate> data = new ArrayDeque<IndirectionDate>();
 
     public D2_WindowedReadingRepartitioning(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
-            InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
+            InterpreterDefaultContext mainContext, SchedulerModel model,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it == 1,
                 "== 1");
@@ -41,7 +41,7 @@ public class D2_WindowedReadingRepartitioning extends AbstractSimDataChannelReso
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
         if (discardDateIfTooOld(date))
             return;
-        
+
         System.out.println(this.dataChannel.getEntityName() + ": Accepting date " + date + ", now="
                 + this.model.getSimulationControl()
                     .getCurrentSimulationTime());

@@ -27,11 +27,10 @@ import org.palladiosimulator.metricspec.constants.MetricDescriptionConstants;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
@@ -46,7 +45,6 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
     private boolean canGetNewData = false;
 
     private boolean canPutNewData = false;
-    protected InterpreterDefaultContext context;
 
     private double currentWatermarkedTime = Double.NEGATIVE_INFINITY;
     protected DataChannel dataChannel;
@@ -80,13 +78,12 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
     protected final IResourceTableManager resourceTableManager;
     protected final AssemblyContext assemblyContext;
-    protected final RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory;
-	protected final InterpreterDefaultContext mainContext;
+    protected final SimulatedThreadComponent.Factory simulatedThreadComponentFactory;
+    protected final InterpreterDefaultContext mainContext;
 
     public AbstractSimDataChannelResource(DataChannel dataChannel, AssemblyContext assemblyContext,
-            InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory,
-            InterpreterDefaultContext mainContext) {
+            InterpreterDefaultContext mainContext, SchedulerModel model,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
         if (!(model instanceof SimuComModel)) {
             throw new IllegalArgumentException(
                     "Currently only works with " + SimuComModel.class.getName() + ", got " + model.getClass()
@@ -102,16 +99,14 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             .getSimpleName();
 
         this.model = (SimuComModel) model;
-        this.context = context;
         this.mainContext = mainContext;
 
-       
-        this.allocation = context.getLocalPCMModelAtContextCreation()
+        this.allocation = mainContext.getLocalPCMModelAtContextCreation()
             .getAllocation();
 
-        this.resourceTableManager = context.getResourceTableManager();
-        this.repositoryComponentSwitchFactory = repositoryComponentSwitchFactory;
-        
+        this.resourceTableManager = mainContext.getResourceTableManager();
+        this.simulatedThreadComponentFactory = simulatedThreadComponentFactory;
+
         this.initializeQueues();
         this.createPushingUserFactories();
 
@@ -150,7 +145,7 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
                 providedData.getTime()
                     .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
                 process.callback.accept(providedData);
-    
+
                 this.activateIfWaiting(process);
             });
         });
@@ -238,8 +233,8 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
 
             this.sourceRoleUserFactories.put(sourceRole,
                     CallbackUserFactory.createPushingUserFactory(this.model, sourceRole, sinkRole,
-                            assemblyDataConnector.getSinkAssemblyContext(), resourceTableManager,
-                            repositoryComponentSwitchFactory));
+                            assemblyDataConnector.getSinkAssemblyContext(), resourceTableManager, null,
+                            simulatedThreadComponentFactory));
         }
     }
 
@@ -271,7 +266,6 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         return false;
     }
 
-    
     /**
      * Finds out whether ALL data in dateToDiscard is too old for this channel.
      */
@@ -490,10 +484,11 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
             throw new PCMModelInterpreterException("Cannot schedule advance for " + this + ", already scheduled.");
         }
 
-        this.scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(this.model, firstOccurence + lagBehindRealTime, delay, () -> {
-            this.advance(this.model.getSimulationControl()
-                .getCurrentSimulationTime() - lagBehindRealTime);
-        });
+        this.scheduledFlush = IndirectionSimulationUtil.triggerPeriodically(this.model,
+                firstOccurence + lagBehindRealTime, delay, () -> {
+                    this.advance(this.model.getSimulationControl()
+                        .getCurrentSimulationTime() - lagBehindRealTime);
+                });
     }
 
     private void setupCalculators() {
@@ -550,18 +545,17 @@ public abstract class AbstractSimDataChannelResource implements IDataChannelReso
         provideDataAndAdvance(role, (date) -> {
             date.getTime()
                 .forEach(this.beforeProvidingAgeCalculator::doMeasureUntilNow);
-    
+
             String parameterName = role.getDataInterface()
                 .getDataSignature()
                 .getParameter()
                 .getParameterName();
-    
+
             CallbackUser user = this.sourceRoleUserFactories.get(role)
                 .createUser();
-    
+
             InterpreterDefaultContext newContext = InterpreterDefaultContext.createChildContext(mainContext, user);
-           
-    
+
             this.numberOfStoredOutgoingElementsCalculator.change(1);
             user.setDataAndStartUserLife(parameterName, date, newContext);
         });

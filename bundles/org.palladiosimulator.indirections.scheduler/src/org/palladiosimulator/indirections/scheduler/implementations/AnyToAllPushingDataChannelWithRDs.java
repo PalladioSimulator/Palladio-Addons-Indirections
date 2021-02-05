@@ -15,8 +15,8 @@ import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToG
 import org.palladiosimulator.indirections.scheduler.scheduling.ProcessWaitingToPut;
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
@@ -32,9 +32,9 @@ public class AnyToAllPushingDataChannelWithRDs extends AbstractSimDataChannelRes
     private final String emitResourceDemand;
 
     public AnyToAllPushingDataChannelWithRDs(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
-            InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext);
+            InterpreterDefaultContext mainContext, SchedulerModel model,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory);
 
         data = new HashMap<>();
         for (var connector : dataChannel.getDataSourceRoles()) {
@@ -55,10 +55,11 @@ public class AnyToAllPushingDataChannelWithRDs extends AbstractSimDataChannelRes
             this.notifyProcessesCanGetNewData();
         });
     }
-    
+
     @Override
     protected void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation) {
-        var date = data.get(role).remove();
+        var date = data.get(role)
+            .remove();
         scheduleDemand(CPU_ID, emitResourceDemand, date, continuation);
     }
 

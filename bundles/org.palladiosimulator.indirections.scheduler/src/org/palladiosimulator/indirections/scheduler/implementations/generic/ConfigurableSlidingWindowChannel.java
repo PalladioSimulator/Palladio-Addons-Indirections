@@ -6,6 +6,7 @@ import static org.palladiosimulator.indirections.scheduler.util.IndirectionSimul
 import org.palladiosimulator.indirections.repository.DataSourceRole;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
@@ -20,9 +21,9 @@ public class ConfigurableSlidingWindowChannel extends SlidingWindowChannel {
     public static final String EMIT_EMPTY_WINDOWS_PARAMETER_NAME = "emitEmptyWindows";
 
     public ConfigurableSlidingWindowChannel(JavaClassDataChannel dataChannel, AssemblyContext assemblyContext,
-            InterpreterDefaultContext context, SchedulerModel model,
-            RepositoryComponentSwitch.Factory repositoryComponentSwitchFactory, InterpreterDefaultContext mainContext) {
-        super(dataChannel, assemblyContext, context, model, repositoryComponentSwitchFactory, mainContext,
+            InterpreterDefaultContext mainContext, SchedulerModel model,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory,
                 getDoubleParameter(dataChannel, WINDOW_SIZE_PARAMETER_NAME),
                 getDoubleParameter(dataChannel, WINDOW_SHIFT_PARAMETER_NAME),
                 getDoubleParameter(dataChannel, GRACE_PERIOD_PARAMETER_NAME),
