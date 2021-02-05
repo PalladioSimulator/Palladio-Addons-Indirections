@@ -149,9 +149,10 @@ public class IndirectionsRDSeffSwitch extends ActionsSwitch<InterpreterResult> {
         }
 
         var dataChannel = (DataChannel) sourceComponent;
+        var sourceAssemblyContext = assemblyDataConnector.getSourceAssemblyContext();
 
         final IDataChannelResource dataChannelResource = dataChannelResourceRegistry
-            .getOrCreateDataChannelResource(dataChannel, assemblyContext);
+            .getOrCreateDataChannelResource(dataChannel, sourceAssemblyContext);
 
         final String threadName = Thread.currentThread()
             .getName();
@@ -218,9 +219,10 @@ public class IndirectionsRDSeffSwitch extends ActionsSwitch<InterpreterResult> {
                             + ")");
         }
 
-        var dataChannel = IndirectionModelUtil.getDataChannel(assemblyContext);
+        var sinkAssemblyContext = assemblyDataConnector.getSinkAssemblyContext();
+        var dataChannel = IndirectionModelUtil.getDataChannel(sinkAssemblyContext);
         final IDataChannelResource dataChannelResource = dataChannelResourceRegistry
-            .getOrCreateDataChannelResource(dataChannel, assemblyContext);
+            .getOrCreateDataChannelResource(dataChannel, sinkAssemblyContext);
 
         final String referenceName = action.getVariableReference()
             .getReferenceName();

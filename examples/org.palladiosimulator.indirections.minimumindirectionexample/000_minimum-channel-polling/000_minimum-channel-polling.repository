@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.palladiosimulator.indirections.actions="http://palladiosimulator.org/Indirections/Actions/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="repository-000_minimum-channel-polling.ID" entityName="repository-000_minimum-channel-polling">
+  <components__Repository xsi:type="repository:BasicComponent" id="componentA.ID" entityName="componentA">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="componentA.provides.IAcceptData.ID" entityName="componentA.provides.IAcceptData" providedInterface__OperationProvidedRole="IAcceptData.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="componentA.is-source-for.DataInterfaceA.ID" entityName="componentA.is-source-for.DataInterfaceA" dataInterface="DataInterfaceA.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="componentA.implements.acceptData" describedService__SEFF="acceptData.Signature.ID">
+      <steps_Behaviour xsi:type="seff:StartAction" id="componentA.acceptData.start.ID" entityName="componentA.acceptData.start" successor_AbstractAction="componentA.acceptData.createDate.ID"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:CreateDateAction" id="componentA.acceptData.createDate.ID" entityName="componentA.acceptData.createDate" predecessor_AbstractAction="componentA.acceptData.start.ID" successor_AbstractAction="componentA.acceptData.emitData.ID">
+        <variableReference referenceName="data"/>
+        <variableUsages>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="42"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="data"/>
+        </variableUsages>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:EmitDataAction" id="componentA.acceptData.emitData.ID" entityName="componentA.acceptData.emitData" predecessor_AbstractAction="componentA.acceptData.createDate.ID" successor_AbstractAction="componentA.acceptData.stop.ID" dataSourceRole="componentA.is-source-for.DataInterfaceA.ID">
+        <variableReference referenceName="data"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="componentA.acceptData.stop.ID" entityName="componentA.acceptData.stop" predecessor_AbstractAction="componentA.acceptData.emitData.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="componentB.ID" entityName="componentB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="componentB.is-sink-for.DataInterfaceA.ID" entityName="componentB.is-sink-for.DataInterfaceA" dataInterface="DataInterfaceA.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_aKZusGfIEeu0JqHJffcXiQ" entityName="componentB.IProcessData.OperationProvidedRole1" providedInterface__OperationProvidedRole="_VPX_IGfIEeu0JqHJffcXiQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="componentB.implements.acceptData" describedService__SEFF="DataSignatureA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="componentB.acceptData.start.ID" entityName="componentB.acceptData.start" successor_AbstractAction="componentB.acceptData.RD.ID"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="componentB.acceptData.RD.ID" entityName="componentB.acceptData.RD" predecessor_AbstractAction="componentB.acceptData.start.ID" successor_AbstractAction="componentB.acceptData.analyzeStack.ID">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="data.data.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:AnalyseStackAction" id="componentB.acceptData.analyzeStack.ID" entityName="componentB.acceptData.analyzeStack" predecessor_AbstractAction="componentB.acceptData.RD.ID" successor_AbstractAction="componentB.acceptData.stop.ID" measurementIdentificationKey="key">
+        <variableReference referenceName="data"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:StopAction" id="componentB.acceptData.stop.ID" entityName="componentB.acceptData.stop" predecessor_AbstractAction="componentB.acceptData.analyzeStack.ID"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_aKspoGfIEeu0JqHJffcXiQ" describedService__SEFF="_WRe8YGfIEeu0JqHJffcXiQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_aKtQsGfIEeu0JqHJffcXiQ" successor_AbstractAction="_eTtGYGfIEeu0JqHJffcXiQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_aKtQsWfIEeu0JqHJffcXiQ" predecessor_AbstractAction="_habmwGfIEeu0JqHJffcXiQ"/>
+      <steps_Behaviour xsi:type="org.palladiosimulator.indirections.actions:ConsumeDataAction" id="_eTtGYGfIEeu0JqHJffcXiQ" entityName="newConsumeDataAction" predecessor_AbstractAction="_aKtQsGfIEeu0JqHJffcXiQ" successor_AbstractAction="_habmwGfIEeu0JqHJffcXiQ" dataSinkRole="componentB.is-sink-for.DataInterfaceA.ID">
+        <variableReference referenceName="data"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_habmwGfIEeu0JqHJffcXiQ" entityName="InternalAction1" predecessor_AbstractAction="_eTtGYGfIEeu0JqHJffcXiQ" successor_AbstractAction="_aKtQsWfIEeu0JqHJffcXiQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="data.data.VALUE"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" id="DataChannel1.ID" entityName="DataChannel1" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.AnyToAllPollingDataChannel">
+    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel1.is-sink-for.DataInterfaceA.ID" entityName="DataChannel1.is-sink-for.DataInterfaceA" dataInterface="DataInterfaceA.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel1.is-source-for.DataInterfaceA.ID" entityName="DataChannel1.is-source-for.DataInterfaceA" dataInterface="DataInterfaceA.ID"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptData.ID" entityName="IAcceptData">
+    <signatures__OperationInterface id="acceptData.Signature.ID" entityName="acceptData">
+      <parameters__OperationSignature parameterName="data">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="org.palladiosimulator.indirections.repository:DataInterface" id="DataInterfaceA.ID" entityName="DataInterfaceA">
+    <dataSignature id="DataSignatureA" entityName="data">
+      <parameter parameterName="data">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+      </parameter>
+    </dataSignature>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_VPX_IGfIEeu0JqHJffcXiQ" entityName="IProcessData">
+    <signatures__OperationInterface id="_WRe8YGfIEeu0JqHJffcXiQ" entityName="processData"/>
+  </interfaces__Repository>
+</repository:Repository>

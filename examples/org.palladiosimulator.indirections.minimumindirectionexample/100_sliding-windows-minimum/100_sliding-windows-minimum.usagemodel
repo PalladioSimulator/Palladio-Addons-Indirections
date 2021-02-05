@@ -4,8 +4,8 @@
     <scenarioBehaviour_UsageScenario id="UserA.ScenarioBehaviour.ID" entityName="UserA.ScenarioBehaviour">
       <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="UserA.start.ID" entityName="UserA.start" successor="UserA.ELSC.ID"/>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="UserA.ELSC.ID" entityName="UserA.ELSC" successor="UserA.stop.ID" predecessor="UserA.start.ID">
-        <providedRole_EntryLevelSystemCall href="000_minimum-channel.system#System.provides.IAcceptData.ID"/>
-        <operationSignature__EntryLevelSystemCall href="000_minimum-channel.repository#acceptData.Signature.ID"/>
+        <providedRole_EntryLevelSystemCall href="100_sliding-windows-minimum.system#System.provides.IAcceptData.ID"/>
+        <operationSignature__EntryLevelSystemCall href="100_sliding-windows-minimum.repository#acceptData.Signature.ID"/>
         <outputParameterUsages_EntryLevelSystemCall>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="0"/>
@@ -22,7 +22,7 @@
       <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="UserA.stop.ID" entityName="UserA.stop" predecessor="UserA.ELSC.ID"/>
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
-      <interArrivalTime_OpenWorkload specification="5"/>
+      <interArrivalTime_OpenWorkload specification="1"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
 </usagemodel:UsageModel>

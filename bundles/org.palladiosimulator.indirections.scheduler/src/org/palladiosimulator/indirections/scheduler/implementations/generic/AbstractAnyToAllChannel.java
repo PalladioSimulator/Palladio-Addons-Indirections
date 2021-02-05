@@ -21,26 +21,30 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 
-public class AnyToAllChannel extends AbstractSimDataChannelResource {
-
+public abstract class AbstractAnyToAllChannel extends AbstractSimDataChannelResource {
     protected final Map<DataSourceRole, Queue<IndirectionDate>> data;
 
-    public AnyToAllChannel(DataChannel dataChannel, AssemblyContext assemblyContext, InterpreterDefaultContext mainContext,
-            SchedulerModel model, SimulatedThreadComponent.Factory simulatedThreadComponentFactory, DataChannelResourceRegistry dataChannelResourceRegistry) {
-        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory, dataChannelResourceRegistry);
+    public AbstractAnyToAllChannel(DataChannel dataChannel, AssemblyContext assemblyContext,
+            InterpreterDefaultContext mainContext, SchedulerModel model,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory,
+            DataChannelResourceRegistry dataChannelResourceRegistry) {
+        super(dataChannel, assemblyContext, mainContext, model, simulatedThreadComponentFactory,
+                dataChannelResourceRegistry);
 
         IndirectionSimulationUtil.requireNumberOfSinkSourceRoles(dataChannel, it -> it == 1, "== 1", it -> it >= 1,
                 ">= 1");
 
-        this.data = new HashMap<>();
+        data = new HashMap<>();
         for (var sourceRole : dataChannel.getDataSourceRoles()) {
             data.put(sourceRole, new ArrayDeque<>());
         }
-
     }
 
     @Override
     protected void acceptData(DataSinkRole role, IndirectionDate date) {
+        System.out.println(
+                this.dataChannel.getEntityName() + ": Accepting " + date + ", now=" + this.model.getSimulationControl()
+                    .getCurrentSimulationTime());
         data.values()
             .forEach(it -> it.add(date));
         this.notifyProcessesCanGetNewData();
@@ -58,11 +62,15 @@ public class AnyToAllChannel extends AbstractSimDataChannelResource {
     }
 
     @Override
-    protected boolean isPushingRole(DataSourceRole role) {
-        // TODO Auto-generated method stub
-        return false;
+    protected void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation) {
+        IndirectionDate dataToProvide = data.get(role)
+            .remove();
+        System.out.println(this.dataChannel.getEntityName() + ": Providing data " + dataToProvide + ", now="
+                + this.model.getSimulationControl()
+                    .getCurrentSimulationTime());
+        continuation.accept(dataToProvide);
     }
-
+    
     @Override
     protected void handleCannotProceedToGet(ProcessWaitingToGet process) {
         throw new AssertionError("This should never happen, since the channel only supports pushing.");
@@ -77,12 +85,4 @@ public class AnyToAllChannel extends AbstractSimDataChannelResource {
     protected void handleNewWatermarkedTime(double oldWatermarkTime, double watermarkTime) {
         // do nothing. everything will be emitted immediately
     }
-
-    @Override
-    protected void provideDataAndAdvance(DataSourceRole role, Consumer<IndirectionDate> continuation) {
-        IndirectionDate date = data.get(role)
-            .remove();
-        continuation.accept(date);
-    }
-
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="allocation.ID" entityName="allocation">
+  <targetResourceEnvironment_Allocation href="000_minimum-channel-two-receivers.resourceenvironment#/"/>
+  <system_Allocation href="000_minimum-channel-two-receivers.system#_myRVALusEeq4r6D5ZG3ytw"/>
+  <allocationContexts_Allocation id="componentA.is-allocated-to.resourceContainer.ID" entityName="componentA.is-allocated-to.resourceContainer">
+    <resourceContainer_AllocationContext href="000_minimum-channel-two-receivers.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="000_minimum-channel-two-receivers.system#_czSqYCbLEeulNqChKeSAOg"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="componentB.is-allocated-to.resourceContainer.ID" entityName="componentB.is-allocated-to.resourceContainer">
+    <resourceContainer_AllocationContext href="000_minimum-channel-two-receivers.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="000_minimum-channel-two-receivers.system#_dXC3sCbLEeulNqChKeSAOg"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_tk4_UCbLEeulNqChKeSAOg" entityName="Allocation_Assembly_DataChannel1">
+    <resourceContainer_AllocationContext href="000_minimum-channel-two-receivers.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="000_minimum-channel-two-receivers.system#_beTNYCbLEeulNqChKeSAOg"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_cfmBQGfEEeue6Za7n6CDtA" entityName="Allocation_Assembly_componentC">
+    <resourceContainer_AllocationContext href="000_minimum-channel-two-receivers.resourceenvironment#resourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="000_minimum-channel-two-receivers.system#_YM5dAGfEEeue6Za7n6CDtA"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>

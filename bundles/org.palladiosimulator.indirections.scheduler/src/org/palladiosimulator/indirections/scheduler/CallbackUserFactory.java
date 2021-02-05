@@ -12,7 +12,9 @@ import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegi
 import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.util.ObjectUtil;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.CompositionFactory;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
@@ -20,7 +22,10 @@ import org.palladiosimulator.probeframework.probes.TriggeredProbe;
 import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
+import org.palladiosimulator.simulizar.interpreter.InterpreterFacade;
+import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 import org.palladiosimulator.simulizar.interpreter.UsageScenarioSwitch;
+import org.palladiosimulator.simulizar.usagemodel.IScenarioRunnerFactory;
 
 import de.uka.ipd.sdq.scheduler.resources.active.IResourceTableManager;
 import de.uka.ipd.sdq.simucomframework.SimuComSimProcess;
@@ -28,7 +33,15 @@ import de.uka.ipd.sdq.simucomframework.exceptions.FailureException;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.usage.AbstractWorkloadUserFactory;
 import de.uka.ipd.sdq.simucomframework.usage.IUser;
+import de.uka.ipd.sdq.simucomframework.usage.OpenWorkloadUser;
 
+/**
+ * This class is currently a bit of a hacky solution. It would probably be better to create {@link OpenWorkloadUser OpenWorkloadUsers} with a
+ * custom Scenario Runner.
+ * <br />
+ * @see InterpreterFacade
+ * @see IScenarioRunnerFactory
+ */
 public class CallbackUserFactory extends AbstractWorkloadUserFactory {
     /**
      * @param <T>
@@ -187,6 +200,17 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
         usageScenario.setEntityName(role.getEntityName() + "_pushing_UsageScenario");
         return usageScenario;
     }
+    
+    /**
+     * This is a duplicate of {@link RepositoryComponentSwitch#generateSystemAssemblyContext(ProvidedRole)}.
+     * It should be factored out, or the mechanism should be changed.
+     */
+    private AssemblyContext generateSystemAssemblyContext(ProvidedRole providedRole) {
+        final AssemblyContext result = CompositionFactory.eINSTANCE.createAssemblyContext();
+        result.setEntityName(providedRole.getProvidingEntity_ProvidedRole().getEntityName());
+        result.setId(RepositoryComponentSwitch.SYSTEM_ASSEMBLY_CONTEXT.getId());
+        return result;
+    }
 
     /**
      * @see UsageScenarioSwitch#caseEntryLevelSystemCall(EntryLevelSystemCall)
@@ -197,6 +221,8 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
     private void simulateComponentCall(final InterpreterDefaultContext context, final DataSinkRole sinkRole,
             String parameterName, SimuComSimProcess user) {
 
+        context.getAssemblyContextStack().add(generateSystemAssemblyContext(sinkRole));
+        
         var simulatedThreadComponent = this.simulatedThreadComponentFactory.create(context, user);
         var repositoryComponentSwitch = simulatedThreadComponent.repositoryComponentSwitchFactory()
             .create(context, CallbackUserFactory.this.sinkAssemblyContext, sinkRole.getDataInterface()
@@ -205,6 +231,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
         repositoryComponentSwitch.doSwitch(sinkRole);
         context.getStack()
             .removeStackFrame();
+        context.getAssemblyContextStack().pop();
     }
 
     private void simulateDataChannelCall(final InterpreterDefaultContext context, DataSinkRole sinkRole,

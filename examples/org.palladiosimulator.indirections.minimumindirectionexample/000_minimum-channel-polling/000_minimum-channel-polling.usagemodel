@@ -4,8 +4,8 @@
     <scenarioBehaviour_UsageScenario id="UserA.ScenarioBehaviour.ID" entityName="UserA.ScenarioBehaviour">
       <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="UserA.start.ID" entityName="UserA.start" successor="UserA.ELSC.ID"/>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="UserA.ELSC.ID" entityName="UserA.ELSC" successor="UserA.stop.ID" predecessor="UserA.start.ID">
-        <providedRole_EntryLevelSystemCall href="000_minimum-channel.system#System.provides.IAcceptData.ID"/>
-        <operationSignature__EntryLevelSystemCall href="000_minimum-channel.repository#acceptData.Signature.ID"/>
+        <providedRole_EntryLevelSystemCall href="000_minimum-channel-polling.system#System.provides.IAcceptData.ID"/>
+        <operationSignature__EntryLevelSystemCall href="000_minimum-channel-polling.repository#acceptData.Signature.ID"/>
         <outputParameterUsages_EntryLevelSystemCall>
           <variableCharacterisation_VariableUsage type="VALUE">
             <specification_VariableCharacterisation specification="0"/>
@@ -23,6 +23,19 @@
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
       <interArrivalTime_OpenWorkload specification="5"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_2vFQIGfIEeu0JqHJffcXiQ" entityName="UsageScenario">
+    <scenarioBehaviour_UsageScenario id="_5iOtMGfIEeu0JqHJffcXiQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_5iOtMWfIEeu0JqHJffcXiQ" successor="_6QZawGfIEeu0JqHJffcXiQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_5iOtMmfIEeu0JqHJffcXiQ" predecessor="_6QZawGfIEeu0JqHJffcXiQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_6QZawGfIEeu0JqHJffcXiQ" entityName="EntryLevelSystemCall1" successor="_5iOtMmfIEeu0JqHJffcXiQ" predecessor="_5iOtMWfIEeu0JqHJffcXiQ">
+        <providedRole_EntryLevelSystemCall href="000_minimum-channel-polling.system#_yu7NYGfIEeu0JqHJffcXiQ"/>
+        <operationSignature__EntryLevelSystemCall href="000_minimum-channel-polling.repository#_WRe8YGfIEeu0JqHJffcXiQ"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="10.0"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
 </usagemodel:UsageModel>
