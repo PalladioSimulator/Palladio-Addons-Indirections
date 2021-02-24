@@ -3,10 +3,11 @@ package org.palladiosimulator.indirections.scheduler;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
-import org.palladiosimulator.indirections.interfaces.IDataChannelResourceFactory;
 import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
@@ -15,8 +16,10 @@ import de.uka.ipd.sdq.scheduler.SchedulerModel;
 public class DataChannelResourceFactory implements IDataChannelResourceFactory {
     @SuppressWarnings("unchecked")
     @Override
-    public IDataChannelResource createDataChannelResource(final DataChannel dataChannel,
-            final InterpreterDefaultContext context, final SchedulerModel model) {
+    public IDataChannelResource createDataChannelResource(DataChannel dataChannel, AssemblyContext assemblyContext,
+            InterpreterDefaultContext context, SchedulerModel model,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory,
+            DataChannelResourceRegistry dataChannelResourceRegistry) {
 
         if (!(dataChannel instanceof JavaClassDataChannel)) {
             throw new PCMModelInterpreterException("Currently only " + JavaClassDataChannel.class
@@ -38,13 +41,24 @@ public class DataChannelResourceFactory implements IDataChannelResourceFactory {
                     "Could not find realizing class " + fqn + " for " + javaClassDataChannel, e);
         }
 
-        // AbstractSimDataChannelResource(final DataChannel dataChannel, final
-        // InterpreterDefaultContext context, final SchedulerModel model)
+        // public AbstractSimDataChannelResource(
+        // DataChannel dataChannel,
+        // AssemblyContext assemblyContext,
+        // InterpreterDefaultContext mainContext,
+        // SchedulerModel model,
+        // SimulatedThreadComponent.Factory simulatedThreadComponentFactory,
+        // DataChannelResourceRegistry dataChannelResourceRegistry)
         Constructor<IDataChannelResource> constructor;
         try {
-            constructor = clazz.getDeclaredConstructor(JavaClassDataChannel.class, InterpreterDefaultContext.class,
-                    SchedulerModel.class);
-            final IDataChannelResource instance = constructor.newInstance(javaClassDataChannel, context, model);
+            constructor = clazz.getDeclaredConstructor(//
+                    JavaClassDataChannel.class, //
+                    AssemblyContext.class, //
+                    InterpreterDefaultContext.class, //
+                    SchedulerModel.class, //
+                    SimulatedThreadComponent.Factory.class, //
+                    DataChannelResourceRegistry.class);
+            final IDataChannelResource instance = constructor.newInstance(javaClassDataChannel, assemblyContext,
+                    context, model, simulatedThreadComponentFactory, dataChannelResourceRegistry);
             return instance;
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException e) {

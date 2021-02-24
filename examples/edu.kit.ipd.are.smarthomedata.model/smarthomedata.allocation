@@ -2,12 +2,52 @@
 <allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="allocation.ID" entityName="allocation">
   <targetResourceEnvironment_Allocation href="smarthomedata.resourceenvironment#/"/>
   <system_Allocation href="smarthomedata.system#_myRVALusEeq4r6D5ZG3ytw"/>
-  <allocationContexts_Allocation id="Emitter.AssemblyContext.ID" entityName="Emitter.AssemblyContext">
-    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
-    <assemblyContext_AllocationContext href="smarthomedata.system#Emitter.AssemblyContext.ID"/>
+  <allocationContexts_Allocation id="_rMrkQDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_AverageAllMedians">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#averageAllMediansResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_WI1-EDMgEeuOIo32JW6c4g"/>
   </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="MedianEachPlug.AssemblyContext.ID" entityName="MedianEachPlug.AssemblyContext">
-    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#resourceContainer.ID"/>
-    <assemblyContext_AllocationContext href="smarthomedata.system#MedianEachPlug.AssemblyContext.ID"/>
+  <allocationContexts_Allocation id="_rmlSADMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_Distribution">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_kti-oDWGEeuzcs1SwARfWg"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_762AIDMfEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_sYsEYDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_Emitter">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#emitterResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_bo47sDMfEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_tOENMDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_Joining">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_kti-oDWGEeuzcs1SwARfWg"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_TimUkDMgEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_tqd1UDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_MedianEachPlug">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#medianEachPlugResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_pfzoMDMfEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_uHERwDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_MedianWindowing">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_kti-oDWGEeuzcs1SwARfWg"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_IW6fQDMgEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_wQTPIDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_MedianWindowingAndPartitioning">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_kti-oDWGEeuzcs1SwARfWg"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_JHUBcDMgEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_xATvwDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_OutlierCalculation">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#outlierCalculationResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_iLtTADMgEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_xZz04DMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_ReadingWindowing">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_kti-oDWGEeuzcs1SwARfWg"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_kwL3YDMfEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_x-U3MDMgEeuOIo32JW6c4g" entityName="Allocation_Assembly_WindowedReadingRepartitioning">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_kti-oDWGEeuzcs1SwARfWg"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_wkvDgDMfEeuOIo32JW6c4g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_hJP_8DYfEeuyPKnz7MoCyQ" entityName="Allocation_Assembly_OutlierCalculationFromGroup">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#outlierCalculationResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_DFXVkDYfEeuyPKnz7MoCyQ"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_jXrmYDYfEeuyPKnz7MoCyQ" entityName="Allocation_Assembly_JoiningToGroup">
+    <resourceContainer_AllocationContext href="smarthomedata.resourceenvironment#_kti-oDWGEeuzcs1SwARfWg"/>
+    <assemblyContext_AllocationContext href="smarthomedata.system#_SMbbUDYfEeuyPKnz7MoCyQ"/>
   </allocationContexts_Allocation>
 </allocation:Allocation>

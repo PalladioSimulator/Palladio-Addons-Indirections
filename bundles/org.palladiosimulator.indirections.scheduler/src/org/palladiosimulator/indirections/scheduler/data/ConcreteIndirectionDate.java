@@ -16,21 +16,21 @@ import de.uka.ipd.sdq.simucomframework.variables.stoexvisitor.VariableMode;
 
 public class ConcreteIndirectionDate implements IndirectionDate {
     private final Map<String, Object> data;
-    private final double time;
+    private final Collection<Double> time;
     public final UUID uuid = UUID.randomUUID();
 
-    public ConcreteIndirectionDate(final Map<String, Object> data, final double time) {
+    public ConcreteIndirectionDate(Map<String, Object> data, Collection<Double> time) {
         this.data = Collections.unmodifiableMap(new HashMap<>(data));
         this.time = time;
     }
 
     @Override
-    public void addDate(final String key, final Object value) {
+    public void addDate(String key, Object value) {
         this.data.put(key, value);
     }
 
     @Override
-    public Object evaluate(final PCMRandomVariable expression) {
+    public Object evaluate(PCMRandomVariable expression) {
         return StackContext.evaluateStatic(expression.getSpecification(),
                 SimulatedStackHelper.createFromMap(this.getData()), VariableMode.EXCEPTION_ON_NOT_FOUND);
     }
@@ -42,7 +42,7 @@ public class ConcreteIndirectionDate implements IndirectionDate {
 
     @Override
     public Collection<Double> getTime() {
-        return Collections.singletonList(this.time);
+        return this.time;
     }
 
     @Override

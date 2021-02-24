@@ -2,10 +2,9 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.palladiosimulator.simulizar.interpreter.rdseffswitch">
-      <rdseffswitch
-            rdseffswitch="org.palladiosimulator.indirections.simulizar.rdseffswitch.IndirectionsAwareRDSeffSwitchFactory">
-      </rdseffswitch>
+         point="org.palladiosimulator.simulizar.extension.factory">
+      <component
+            factory="org.palladiosimulator.indirections.simulizar.rdseffswitch.IndirectionsExtensionComponent$EclipseFactory">
+      </component>
    </extension>
-
 </plugin>

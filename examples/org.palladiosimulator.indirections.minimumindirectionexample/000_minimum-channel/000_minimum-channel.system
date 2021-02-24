@@ -1,30 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<org.palladiosimulator.indirections.system:IndirectionsAwareSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:org.palladiosimulator.indirections.composition="http://palladiosimulator.org/Indirections/Composition/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:org.palladiosimulator.indirections.system="http://palladiosimulator.org/Indirections/System/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="System.ID" entityName="System">
-  <assemblyContexts__ComposedStructure id="componentA.AssemblyContext.ID" entityName="componentA.AssemblyContext">
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:org.palladiosimulator.indirections.composition="http://palladiosimulator.org/Indirections/Composition/1.0" xmlns:org.palladiosimulator.indirections.repository="http://palladiosimulator.org/Indirections/Repository/1.0" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_3yREMCbJEeulNqChKeSAOg">
+  <assemblyContexts__ComposedStructure id="_beTNYCbLEeulNqChKeSAOg" entityName="Assembly_DataChannel1">
+    <encapsulatedComponent__AssemblyContext xsi:type="org.palladiosimulator.indirections.repository:JavaClassDataChannel" href="000_minimum-channel.repository#DataChannel1.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_czSqYCbLEeulNqChKeSAOg" entityName="Assembly_componentA">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="000_minimum-channel.repository#componentA.ID"/>
   </assemblyContexts__ComposedStructure>
-  <assemblyContexts__ComposedStructure id="componentB.AssemblyContext.ID" entityName="componentB.AssemblyContext">
+  <assemblyContexts__ComposedStructure id="_dXC3sCbLEeulNqChKeSAOg" entityName="Assembly_componentB">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="000_minimum-channel.repository#componentB.ID"/>
   </assemblyContexts__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyContextToDataChannelConnector" id="componentA.sends-to.DataChannel.ID" entityName="componentA.sends-to.DataChannel" dataSinkRole="DataChannel.accepts.Data.ID" sourceAssemblyContext="componentA.AssemblyContext.ID" sinkDataChannel="DataChannel.ID">
-    <dataSourceRole href="000_minimum-channel.repository#componentA.providesData"/>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_qG6ckCbLEeulNqChKeSAOg" entityName="newAssemblyDataConnector" sinkAssemblyContext="_beTNYCbLEeulNqChKeSAOg" sourceAssemblyContext="_czSqYCbLEeulNqChKeSAOg">
+    <dataSourceRole href="000_minimum-channel.repository#componentA.is-source-for.DataInterfaceA.ID"/>
+    <dataSinkRole href="000_minimum-channel.repository#DataChannel1.is-sink-for.DataInterfaceA.ID"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:DataChannelToAssemblyContextConnector" id="DataChannel.sends-to.componentB.ID" entityName="DataChannel.sends-to.componentB" dataSourceRole="DataChannel.provides.Data.ID" sourceDataChannel="DataChannel.ID" sinkAssemblyContext="componentB.AssemblyContext.ID">
-    <dataSinkRole href="000_minimum-channel.repository#componentB.acceptsData.ID"/>
-    <pushesTo xsi:type="repository:OperationSignature" href="000_minimum-channel.repository#acceptData.Signature.ID"/>
+  <connectors__ComposedStructure xsi:type="org.palladiosimulator.indirections.composition:AssemblyDataConnector" id="_qlDxICbLEeulNqChKeSAOg" entityName="newAssemblyDataConnector" sinkAssemblyContext="_dXC3sCbLEeulNqChKeSAOg" sourceAssemblyContext="_beTNYCbLEeulNqChKeSAOg">
+    <dataSourceRole href="000_minimum-channel.repository#DataChannel1.is-source-for.DataInterfaceA.ID"/>
+    <dataSinkRole href="000_minimum-channel.repository#componentB.is-sink-for.DataInterfaceA.ID"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="System.delegates.IAcceptData.to.componentA.AssemblyContext.ID" entityName="System.delegates.IAcceptData.to.componentA.AssemblyContext" outerProvidedRole_ProvidedDelegationConnector="System.provides.IAcceptData.ID" assemblyContext_ProvidedDelegationConnector="componentA.AssemblyContext.ID">
-    <innerProvidedRole_ProvidedDelegationConnector href="000_minimum-channel.repository#_vj4psbuuEeq6yLif1TQnIQ"/>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_rZ5ucCbLEeulNqChKeSAOg" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="System.provides.IAcceptData.ID" assemblyContext_ProvidedDelegationConnector="_czSqYCbLEeulNqChKeSAOg">
+    <innerProvidedRole_ProvidedDelegationConnector href="000_minimum-channel.repository#componentA.provides.IAcceptData.ID"/>
   </connectors__ComposedStructure>
   <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="System.provides.IAcceptData.ID" entityName="System.provides.IAcceptData">
     <providedInterface__OperationProvidedRole href="000_minimum-channel.repository#IAcceptData.ID"/>
   </providedRoles_InterfaceProvidingEntity>
-  <dataChannels xsi:type="org.palladiosimulator.indirections.system:JavaClassDataChannel" id="DataChannel.ID" entityName="DataChannel" realizingClassFqn="org.palladiosimulator.indirections.scheduler.implementations.AnyToAnyBlockingChannel">
-    <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="DataChannel.accepts.Data.ID" entityName="DataChannel.accepts.Data">
-      <eventGroup href="000_minimum-channel.repository#DataEventGroup.ID"/>
-    </providedRoles_InterfaceProvidingEntity>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="org.palladiosimulator.indirections.repository:DataSourceRole" id="DataChannel.provides.Data.ID" entityName="DataChannel.provides.Data">
-      <eventGroup href="000_minimum-channel.repository#DataEventGroup.ID"/>
-    </requiredRoles_InterfaceRequiringEntity>
-  </dataChannels>
-</org.palladiosimulator.indirections.system:IndirectionsAwareSystem>
+</system:System>

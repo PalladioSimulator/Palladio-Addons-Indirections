@@ -4,30 +4,44 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
-import org.palladiosimulator.indirections.composition.abstract_.AssemblyContextSinkConnector;
-import org.palladiosimulator.indirections.composition.abstract_.DataChannelSinkConnector;
-import org.palladiosimulator.indirections.composition.abstract_.DataChannelSourceConnector;
-import org.palladiosimulator.indirections.interfaces.IDataChannelResource;
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
-import org.palladiosimulator.indirections.repository.DataSinkRole;
-import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
 import org.palladiosimulator.indirections.repository.DataChannel;
-import org.palladiosimulator.indirections.util.simulizar.DataChannelRegistry;
+import org.palladiosimulator.indirections.repository.DataSinkRole;
+import org.palladiosimulator.indirections.repository.DataSourceRole;
+import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegistry;
+import org.palladiosimulator.indirections.scheduler.util.IndirectionSimulationUtil;
+import org.palladiosimulator.indirections.util.ObjectUtil;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.CompositionFactory;
+import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.ProvidedRole;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 import org.palladiosimulator.pcm.usagemodel.UsagemodelFactory;
 import org.palladiosimulator.probeframework.probes.TriggeredProbe;
+import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
+import org.palladiosimulator.simulizar.interpreter.InterpreterFacade;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 import org.palladiosimulator.simulizar.interpreter.UsageScenarioSwitch;
+import org.palladiosimulator.simulizar.usagemodel.IScenarioRunnerFactory;
 
+import de.uka.ipd.sdq.scheduler.resources.active.IResourceTableManager;
 import de.uka.ipd.sdq.simucomframework.SimuComSimProcess;
 import de.uka.ipd.sdq.simucomframework.exceptions.FailureException;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.usage.AbstractWorkloadUserFactory;
 import de.uka.ipd.sdq.simucomframework.usage.IUser;
+import de.uka.ipd.sdq.simucomframework.usage.OpenWorkloadUser;
 
+/**
+ * This class is currently a bit of a hacky solution. It would probably be better to create {@link OpenWorkloadUser OpenWorkloadUsers} with a
+ * custom Scenario Runner.
+ * <br />
+ * @see InterpreterFacade
+ * @see IScenarioRunnerFactory
+ */
 public class CallbackUserFactory extends AbstractWorkloadUserFactory {
     /**
      * @param <T>
@@ -39,7 +53,7 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
         protected T date = null;
 
         protected AbstractCallbackUser(final SimuComModel model, final String name) {
-            super(model, name);
+            super(model, name, CallbackUserFactory.this.resourceTableManager);
         }
 
         @Override
@@ -112,14 +126,13 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
 
         @Override
         public void scenarioRunner(final SimuComSimProcess thread) {
-            final var simulationCall = getCallInvocation(CallbackUserFactory.this.connector);
+            final var simulationCall = getCallInvocation(CallbackUserFactory.this.sinkRole, thread);
 
             for (final IndirectionDate currentDate : this.date) {
                 // TODO: fix helper method to handle data on stack
                 this.context.getStack()
                     .createAndPushNewStackFrame();
-                final String parameterName = CallbackUserFactory.this.connector.getDataSinkRole()
-                    .getDataInterface()
+                final String parameterName = CallbackUserFactory.this.sourceRole.getDataInterface()
                     .getDataSignature()
                     .getParameter()
                     .getParameterName();
@@ -140,13 +153,12 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
         public CallbackUser(final SimuComModel owner, final String name) {
             super(owner, name);
 
-            parameterName = CallbackUserFactory.this.connector.getDataSinkRole()
-                .getDataInterface()
+            parameterName = CallbackUserFactory.this.sourceRole.getDataInterface()
                 .getDataSignature()
                 .getParameter()
                 .getParameterName();
 
-            simulationCall = getCallInvocation(CallbackUserFactory.this.connector);
+            simulationCall = getCallInvocation(CallbackUserFactory.this.sinkRole, this);
         }
 
         @Override
@@ -163,66 +175,96 @@ public class CallbackUserFactory extends AbstractWorkloadUserFactory {
         }
     }
 
-    public static CallbackUserFactory createPushingUserFactory(final SimuComModel model,
-            final DataChannelSourceConnector connector) {
-        return new CallbackUserFactory(model, connector);
+    public static CallbackUserFactory createPushingUserFactory(final SimuComModel model, DataSourceRole sourceRole,
+            DataSinkRole sinkRole, AssemblyContext sinkAssemblyContext, IResourceTableManager resourceTableManager,
+            DataChannelResourceRegistry dataChannelResourceRegistry,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+        return new CallbackUserFactory(model, sourceRole, sinkRole, sinkAssemblyContext, resourceTableManager,
+                dataChannelResourceRegistry, simulatedThreadComponentFactory);
     }
 
-    private static BiConsumer<InterpreterDefaultContext, String> getCallInvocation(
-            final DataChannelSourceConnector connector) {
-        if (connector instanceof DataChannelSinkConnector) {
-            return (context, parameterName) -> simulateDataChannelCall(context, (DataChannelSinkConnector) connector,
-                    parameterName);
-        } else if (connector instanceof AssemblyContextSinkConnector) {
-            return (context, parameterName) -> simulateComponentCall(context, (AssemblyContextSinkConnector) connector,
-                    parameterName);
+    private BiConsumer<InterpreterDefaultContext, String> getCallInvocation(DataSinkRole role, SimuComSimProcess user) {
+        var providingEntity = role.getProvidingEntity_ProvidedRole();
+        if (providingEntity instanceof DataChannel) {
+            return (context, parameterName) -> simulateDataChannelCall(context, role, parameterName, user);
+        } else if (providingEntity instanceof BasicComponent) {
+            return (context, parameterName) -> simulateComponentCall(context, role, parameterName, user);
         } else {
-            throw new PCMModelInterpreterException(
-                    "Unknown connector type for pushing: " + connector.getClass() + " (" + connector + ")");
+            throw new PCMModelInterpreterException("Unknown target providing entity for pushing: "
+                    + providingEntity.getClass() + " (" + providingEntity + ")");
         }
     }
 
-    private static UsageScenario initNewUsageScenario(final DataChannelSourceConnector connector) {
+    private static UsageScenario initNewUsageScenario(final DataSourceRole role) {
         final UsageScenario usageScenario = UsagemodelFactory.eINSTANCE.createUsageScenario();
-        usageScenario.setEntityName(connector.getEntityName() + "_pushing_UsageScenario");
+        usageScenario.setEntityName(role.getEntityName() + "_pushing_UsageScenario");
         return usageScenario;
+    }
+    
+    /**
+     * This is a duplicate of {@link RepositoryComponentSwitch#generateSystemAssemblyContext(ProvidedRole)}.
+     * It should be factored out, or the mechanism should be changed.
+     */
+    private AssemblyContext generateSystemAssemblyContext(ProvidedRole providedRole) {
+        final AssemblyContext result = CompositionFactory.eINSTANCE.createAssemblyContext();
+        result.setEntityName(providedRole.getProvidingEntity_ProvidedRole().getEntityName());
+        result.setId(RepositoryComponentSwitch.SYSTEM_ASSEMBLY_CONTEXT.getId());
+        return result;
     }
 
     /**
      * @see UsageScenarioSwitch#caseEntryLevelSystemCall(EntryLevelSystemCall)
      * @param context
+     * @param user
      * @param connector
      */
-    private static void simulateComponentCall(final InterpreterDefaultContext context,
-            final AssemblyContextSinkConnector connector, String parameterName) {
-        final DataSinkRole sinkRole = connector.getDataSinkRole();
+    private void simulateComponentCall(final InterpreterDefaultContext context, final DataSinkRole sinkRole,
+            String parameterName, SimuComSimProcess user) {
 
-        final RepositoryComponentSwitch providedDelegationSwitch = new RepositoryComponentSwitch(context,
-                connector.getSinkAssemblyContext(), connector.getPushesTo(), sinkRole);
+        context.getAssemblyContextStack().add(generateSystemAssemblyContext(sinkRole));
+        
+        var simulatedThreadComponent = this.simulatedThreadComponentFactory.create(context, user);
+        var repositoryComponentSwitch = simulatedThreadComponent.repositoryComponentSwitchFactory()
+            .create(context, CallbackUserFactory.this.sinkAssemblyContext, sinkRole.getDataInterface()
+                .getDataSignature(), sinkRole);
 
-        providedDelegationSwitch.doSwitch(sinkRole);
+        repositoryComponentSwitch.doSwitch(sinkRole);
         context.getStack()
             .removeStackFrame();
+        context.getAssemblyContextStack().pop();
     }
 
-    private static void simulateDataChannelCall(final InterpreterDefaultContext context,
-            final DataChannelSinkConnector connector, String parameterName) {
+    private void simulateDataChannelCall(final InterpreterDefaultContext context, DataSinkRole sinkRole,
+            String parameterName, SimuComSimProcess user) {
 
-        final DataSinkRole sinkRole = connector.getDataSinkRole();
-        final DataChannel dataChannel = connector.getSinkDataChannel();
+        final DataChannel dataChannel = ObjectUtil.forceCast(sinkRole.getProvidingEntity_ProvidedRole(),
+                DataChannel.class);
 
-        final IDataChannelResource dataChannelResource = DataChannelRegistry.getInstanceFor(context)
-            .getOrCreateDataChannelResource(dataChannel);
+        final IDataChannelResource dataChannelResource = dataChannelResourceRegistry
+            .getOrCreateDataChannelResource(dataChannel, CallbackUserFactory.this.sinkAssemblyContext);
 
         IndirectionDate date = IndirectionSimulationUtil.claimDataFromStack(context.getStack(), parameterName);
-        dataChannelResource.put(context.getThread(), connector, date);
+        dataChannelResource.put(context.getThread(), sinkRole, date);
     }
 
-    private final DataChannelSourceConnector connector;
+    private final DataSourceRole sourceRole;
+    private final DataSinkRole sinkRole;
+    private final IResourceTableManager resourceTableManager;
+    private final SimulatedThreadComponent.Factory simulatedThreadComponentFactory;
+    private final AssemblyContext sinkAssemblyContext;
+    private final DataChannelResourceRegistry dataChannelResourceRegistry;
 
-    public CallbackUserFactory(final SimuComModel model, final DataChannelSourceConnector connector) {
-        super(model, initNewUsageScenario(connector));
-        this.connector = connector;
+    public CallbackUserFactory(SimuComModel model, DataSourceRole sourceRole, DataSinkRole sinkRole,
+            AssemblyContext sinkAssemblyContext, IResourceTableManager resourceTableManager,
+            DataChannelResourceRegistry dataChannelResourceRegistry,
+            SimulatedThreadComponent.Factory simulatedThreadComponentFactory) {
+        super(model, initNewUsageScenario(sourceRole));
+        this.sourceRole = sourceRole;
+        this.sinkRole = sinkRole;
+        this.sinkAssemblyContext = sinkAssemblyContext;
+        this.resourceTableManager = resourceTableManager;
+        this.dataChannelResourceRegistry = dataChannelResourceRegistry;
+        this.simulatedThreadComponentFactory = simulatedThreadComponentFactory;
     }
 
     public CallbackIteratingUser createIteratingUser() {

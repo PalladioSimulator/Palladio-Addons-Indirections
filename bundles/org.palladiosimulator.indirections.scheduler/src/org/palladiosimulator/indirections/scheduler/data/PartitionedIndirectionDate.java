@@ -10,7 +10,7 @@ public class PartitionedIndirectionDate<P, T extends IndirectionDate> extends Co
 
     public PartitionedIndirectionDate(final P partition, final List<T> values, final Map<String, Object> extraData) {
         super(values, extraData);
-        this.extraData.put("NUMBER_OF_ELEMENTS.VALUE", values.size());
+        this.extraData.put("NUMBER_OF_ELEMENTS", values.size());
         this.extraData.put("PARTITION.VALUE", partition);
         if (partition instanceof Map) {
             final Map<String, Object> partitionMap = (Map<String, Object>) partition;

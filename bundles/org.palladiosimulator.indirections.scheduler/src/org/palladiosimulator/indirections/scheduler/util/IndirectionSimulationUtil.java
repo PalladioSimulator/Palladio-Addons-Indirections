@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.palladiosimulator.indirections.repository.DataInterface;
 import org.palladiosimulator.indirections.repository.JavaClassDataChannel;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteGroupingIndirectionDate;
 import org.palladiosimulator.indirections.scheduler.data.ConcreteIndirectionDate;
+import org.palladiosimulator.indirections.scheduler.data.GenericJoinedDate;
 import org.palladiosimulator.indirections.util.IterableUtil;
 import org.palladiosimulator.pcm.core.PCMRandomVariable;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -28,6 +30,7 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.identifier.Identifier;
+import de.uka.ipd.sdq.simucomframework.entities.SimuComEntity;
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.EvaluationProxy;
 import de.uka.ipd.sdq.simucomframework.variables.StackContext;
@@ -38,6 +41,37 @@ import de.uka.ipd.sdq.stoex.AbstractNamedReference;
 import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
 public final class IndirectionSimulationUtil {
+    public final static class Pair<A, B> {
+        public final A a;
+        public final B b;
+
+        public Pair(A a, B b) {
+            this.a = a;
+            this.b = b;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(a, b);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            Pair other = (Pair) obj;
+            return Objects.equals(a, other.a) && Objects.equals(b, other.b);
+        }
+
+        public static <A, B> Pair<A, B> of(A a, B b) {
+            return new Pair<>(a, b);
+        }
+    }
+
     private final static Logger LOGGER = Logger.getLogger(IndirectionSimulationUtil.class);
 
     /**
@@ -142,7 +176,7 @@ public final class IndirectionSimulationUtil {
     }
 
     public static IndirectionDate createData(final SimulatedStack<Object> contextStack,
-            final Iterable<VariableUsage> variableUsages, final Double time) {
+            final Iterable<VariableUsage> variableUsages, Collection<Double> time) {
 
         final Map<String, Object> entries = createDataEntries(contextStack, variableUsages);
         final IndirectionDate result = new ConcreteIndirectionDate(entries, time);
@@ -211,9 +245,16 @@ public final class IndirectionSimulationUtil {
         } else if (date instanceof ConcreteGroupingIndirectionDate<?>) {
             final ConcreteGroupingIndirectionDate<?> groupingIndirectionDate = (ConcreteGroupingIndirectionDate<?>) date;
 
-            final int numberOfElements = groupingIndirectionDate.getDataInGroup()
-                .size();
-            stackframe.addValue(baseName + ".NUMBER_OF_ELEMENTS", numberOfElements);
+            for (final Entry<String, Object> dataEntry : groupingIndirectionDate.getData()
+                .entrySet()) {
+                stackframe.addValue(baseName + "." + dataEntry.getKey(), dataEntry.getValue());
+            }
+        } else if (date instanceof GenericJoinedDate) {
+            final GenericJoinedDate<?, ?> genericJoinedDate = (GenericJoinedDate<?, ?>) date;
+
+            for (var entry : genericJoinedDate.data.entrySet()) {
+                flattenDataOnStackframe(stackframe, baseName + "." + entry.getKey(), entry.getValue().date);
+            }
         } else {
             throw new PCMModelInterpreterException(
                     baseName + " is not a ConcreteIndirectionDate, but a " + date.getClass()
@@ -270,10 +311,21 @@ public final class IndirectionSimulationUtil {
     public static PeriodicallyTriggeredSimulationEntity triggerPeriodically(final SimuComModel model,
             final double firstOccurrence, final double delay, final Runnable taskToRun) {
 
-        return new PeriodicallyTriggeredSimulationEntity(model, firstOccurrence, delay) {
+        return new PeriodicallyTriggeredSimulationEntity(model.getSimEngineFactory(), firstOccurrence, delay) {
             @Override
             protected void triggerInternal() {
                 System.out.println("Triggering periodic process at " + model.getSimulationControl()
+                    .getCurrentSimulationTime());
+                taskToRun.run();
+            }
+        };
+    }
+
+    public static SimuComEntity triggerOnce(SimuComModel model, double delay, Runnable taskToRun) {
+        return new OneShotSimulationEntity(model, delay) {
+            @Override
+            protected void triggerInternal() {
+                System.out.println("Triggering single process at " + model.getSimulationControl()
                     .getCurrentSimulationTime());
                 taskToRun.run();
             }
@@ -358,6 +410,25 @@ public final class IndirectionSimulationUtil {
             throw new PCMModelInterpreterException("Cannot split string " + it + " at " + splitter);
 
         return new String[] { it.substring(0, split), it.substring(split + splitter.length()) };
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void flatResolveTimes(Object timeDependency, List<Double> times) {
+        if (timeDependency instanceof Collection) {
+            ((Collection<Object>) timeDependency).forEach(it -> flatResolveTimes(it, times));
+        } else if (timeDependency instanceof ConcreteIndirectionDate) {
+            times.addAll(((ConcreteIndirectionDate) timeDependency).getTime());
+        } else {
+            throw new PCMModelInterpreterException("Error when getting date for " + timeDependency);
+        }
+    }
+    
+    public static List<Double> flatResolveTimes(List<Object> timeDependencies) {
+        List<Double> result = new ArrayList<Double>();
+        for (var it : timeDependencies) {
+            flatResolveTimes(it, result);
+        }
+        return result;
     }
 
 }

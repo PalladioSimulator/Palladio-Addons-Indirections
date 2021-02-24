@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_z8jM8EFOEeuLNaVZK2IiYQ">
+  <targetResourceEnvironment_Allocation href="baseline.resourceenvironment#/"/>
+  <system_Allocation href="baseline-independent.system#_JX3J4EFNEeuLNaVZK2IiYQ"/>
+  <allocationContexts_Allocation id="_-7bVUEFOEeuLNaVZK2IiYQ" entityName="Allocation_Assembly_IsolatedAverageAllMedians">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#averageAllMediansResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="baseline-independent.system#_o2q6IEFNEeuLNaVZK2IiYQ"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="__QbU8EFOEeuLNaVZK2IiYQ" entityName="Allocation_Assembly_IsolatedMedianEachPlug">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#medianEachPlugResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="baseline-independent.system#_oD4LQEFNEeuLNaVZK2IiYQ"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_AKkpAEFPEeuLNaVZK2IiYQ" entityName="Allocation_Assembly_OutlierCalculation">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#outlierCalculationResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="baseline-independent.system#_pgsukEFNEeuLNaVZK2IiYQ"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>

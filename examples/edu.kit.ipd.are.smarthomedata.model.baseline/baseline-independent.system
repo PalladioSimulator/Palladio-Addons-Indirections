@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_JX3J4EFNEeuLNaVZK2IiYQ" entityName="BaselineSystemIndependent">
+  <assemblyContexts__ComposedStructure id="_oD4LQEFNEeuLNaVZK2IiYQ" entityName="Assembly_IsolatedMedianEachPlug">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="baseline.repository#_02c7UEFMEeuLNaVZK2IiYQ"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_o2q6IEFNEeuLNaVZK2IiYQ" entityName="Assembly_IsolatedAverageAllMedians">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="baseline.repository#_1FA7wEFMEeuLNaVZK2IiYQ"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_pgsukEFNEeuLNaVZK2IiYQ" entityName="Assembly_OutlierCalculation">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="baseline.repository#OutlierCalculation.ID"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_uUDI0EFNEeuLNaVZK2IiYQ" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_qCP8cEFNEeuLNaVZK2IiYQ" assemblyContext_ProvidedDelegationConnector="_oD4LQEFNEeuLNaVZK2IiYQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="baseline.repository#_7xkTUEFMEeuLNaVZK2IiYQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_uqsHMEFNEeuLNaVZK2IiYQ" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_rHMLQEFNEeuLNaVZK2IiYQ" assemblyContext_ProvidedDelegationConnector="_o2q6IEFNEeuLNaVZK2IiYQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="baseline.repository#_8WiBkEFMEeuLNaVZK2IiYQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_u8ZiQEFNEeuLNaVZK2IiYQ" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_sJ6MgEFNEeuLNaVZK2IiYQ" assemblyContext_ProvidedDelegationConnector="_pgsukEFNEeuLNaVZK2IiYQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="baseline.repository#_eNMPcEFMEeuLNaVZK2IiYQ"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qCP8cEFNEeuLNaVZK2IiYQ" entityName="IAcceptPartitionedReadingWindowsProvidedRole">
+    <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptPartitionedReadingWindows.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_rHMLQEFNEeuLNaVZK2IiYQ" entityName="IAcceptMedianWindowPerHouseProvidedRole">
+    <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptMedianWindow.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sJ6MgEFNEeuLNaVZK2IiYQ" entityName="IAcceptAverageAndHouseMedianGroupProvidedRole">
+    <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptAverageAndHouseMedianGroup.ID"/>
+  </providedRoles_InterfaceProvidingEntity>
+</system:System>

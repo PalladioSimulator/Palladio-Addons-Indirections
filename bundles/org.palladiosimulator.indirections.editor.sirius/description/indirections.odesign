@@ -30,6 +30,15 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
+        <edgeMappings name="InfrastructureRequiredRoleDataChannel" sourceMapping="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@containerMappings[name='JavaClassDataChannel']" targetFinderExpression="feature:requiredInterface__InfrastructureRequiredRole" sourceFinderExpression="feature:requiringEntity_RequiredRole" domainClass="InfrastructureRequiredRole" useDomainElement="true">
+          <targetMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']/@ownedRepresentations[name='Repository%20Diagram']/@defaultLayer/@containerMappings[name='InfrastructureInterface']"/>
+          <style>
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription showIcon="false" labelExpression="aql: '&lt;&lt;Requires>>\n' + self.entityName">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
         <containerMappings name="DataInterface" deletionDescription="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='DataInterface%20Deletion']" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='Edit%20DataInterface']" semanticCandidatesExpression="feature:interfaces__Repository" domainClass="repository::DataInterface" childrenPresentation="List">
           <subNodeMappings name="DataSignature" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@toolSections.0/@ownedTools[name='Edit%20DataSignature']" semanticCandidatesExpression="feature:dataSignature" domainClass="DataSignature">
             <style xsi:type="style:SquareDescription" labelExpression="aql:self.entityName + '(' + self.parameter.parameterName + ':' + self.parameter.dataType__Parameter->select(p | p.oclIsKindOf(entity::Entity)).entityName + self.parameter.dataType__Parameter->select(p | p.oclIsKindOf(repository::PrimitiveDataType)).type + ')'" labelPosition="node" resizeKind="NSEW">
@@ -221,6 +230,20 @@
             </initialOperation>
             <edgeView name="edgeView"/>
           </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="InfrastructureRequiredRole" edgeMappings="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20Repository']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections']/@edgeMappings[name='InfrastructureRequiredRoleDataChannel']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:source">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="InfrastructureRequiredRole" referenceName="requiredRoles_InterfaceRequiringEntity">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="requiredInterface__InfrastructureRequiredRole" valueExpression="var:target"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="entityName" valueExpression="aql:self.requiringEntity_RequiredRole.entityName + '.' + self.requiredInterface__InfrastructureRequiredRole.entityName + '.InfrastructureRequiredRole' + source.eContents()->filter(repository::InfrastructureRequiredRole)->size()"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
           <ownedTools xsi:type="tool:DirectEditLabel" name="Edit DataChannel" inputLabelExpression="feature:entityName">
             <mask mask="{0}"/>
             <initialOperation>
@@ -402,6 +425,7 @@
       <metamodel href="../../org.palladiosimulator.indirections/model/indirections.ecore#//actions"/>
       <layers name="org.palladiosimulator.indirections.editor.sirius.Indirections.seff" label="PCM Indirections" activeByDefault="true" optional="false">
         <edgeMappings name="ControlFlowWithDataActions" preconditionExpression="aql:source.oclIsKindOf(actions::DataAction) or target.oclIsKindOf(actions::DataAction)" deletionDescription="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@toolSections.0/@ownedTools[name='deleteControlFlow']" targetFinderExpression="feature:successor_AbstractAction" reconnections="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@toolSections.0/@ownedTools[name='Control%20Flow%20Target'] //@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@toolSections.0/@ownedTools[name='Control%20Flow%20Source']">
+          <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='AnalyseStackAction']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='ConsumeDataAction']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='CreateDateAction']"/>
           <sourceMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='EmitDataAction']"/>
@@ -417,6 +441,7 @@
           <sourceMapping xsi:type="description_1:ContainerMapping" href="../../org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='SetVariableAction']"/>
           <sourceMapping xsi:type="description_1:NodeMapping" href="../../org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StartNode']"/>
           <sourceMapping xsi:type="description_1:NodeMapping" href="../../org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StopNode']"/>
+          <targetMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='AnalyseStackAction']"/>
           <targetMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='ConsumeDataAction']"/>
           <targetMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='CreateDateAction']"/>
           <targetMapping xsi:type="description_1:ContainerMapping" href="#//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@containerMappings[name='EmitDataAction']"/>
@@ -518,6 +543,28 @@
             </style>
           </subContainerMappings>
           <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="aql: '&lt;&lt;CreateDateAction>>\n' + self.entityName">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="AnalyseStackAction" labelDirectEdit="//@ownedViewpoints[name='PCM-Indirections']/@ownedRepresentationExtensions[name='PCM%20Indirections%20SEFF']/@layers[name='org.palladiosimulator.indirections.editor.sirius.Indirections.seff']/@toolSections.0/@ownedTools[name='EditEntityNameOfActions']" semanticCandidatesExpression="feature:steps_Behaviour" domainClass="AnalyseStackAction" childrenPresentation="List">
+          <subNodeMappings name="MeasurementIdentificationKey" semanticCandidatesExpression="var:self" domainClass="AnalyseStackAction">
+            <style xsi:type="style:SquareDescription" labelExpression="aql: 'Key: ' + self.measurementIdentificationKey" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </subNodeMappings>
+          <subNodeMappings name="VariableReference" semanticCandidatesExpression="feature:variableReference" domainClass="VariableReference">
+            <style xsi:type="style:SquareDescription" labelExpression="service:getFullName()" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelExpression="aql: '&lt;&lt;AnalyseStackAction>>\n' + self.entityName">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>

@@ -17,7 +17,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.seff.AbstractAction;
 import org.palladiosimulator.probeframework.calculator.ICalculatorFactory;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
-import org.palladiosimulator.simulizar.runtimestate.AbstractSimuLizarRuntimeState;
+import org.palladiosimulator.simulizar.runtimestate.SimuLizarRuntimeState;
 
 import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.probes.TakeCurrentSimulationTimeProbe;
@@ -63,14 +63,14 @@ public class IndirectionMeasuringPointRegistry {
         .createMeasuringPointRepository();
 
     /** Default EMF factory for measuring points. */
-    private static Map<AbstractSimuLizarRuntimeState, IndirectionMeasuringPointRegistry> registries = new HashMap<>();
+    private static Map<InterpreterDefaultContext, IndirectionMeasuringPointRegistry> registries = new HashMap<>();
 
     // TODO: really static?
-    public static IndirectionMeasuringPointRegistry getInstanceFor(final InterpreterDefaultContext context) {
-        registries.computeIfAbsent(context.getRuntimeState(),
+    public static IndirectionMeasuringPointRegistry getInstanceFor(final InterpreterDefaultContext mainContext) {
+        registries.computeIfAbsent(mainContext,
                 (ctx) -> new IndirectionMeasuringPointRegistry(ctx.getModel()));
 
-        return registries.get(context.getRuntimeState());
+        return registries.get(mainContext);
     }
 
     private final Map<AllocatedAction, TriggeredProxyProbe<Double, Duration>> actionToProbe = new HashMap<>();

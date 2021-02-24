@@ -4,24 +4,39 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 
 /**
- * A joined date that retains information about where elements come from in form of tags. 
+ * A joined date that retains information about where elements come from in form of tags.
  *
- * @param <T> the type of the resulting date
- * @param <TAG> type of the information about the source of the data
+ * @param <T>
+ *            the type of the resulting date
+ * @param <TAG>
+ *            type of the information about the source of the data
  */
-public class GenericJoinedDate<T extends IndirectionDate, TAG>
-        implements GroupingIndirectionDate<T> {
+public class GenericJoinedDate<T extends IndirectionDate, TAG> implements GroupingIndirectionDate<T> {
     public Map<TAG, TaggedDate<T, TAG>> data;
     protected final Map<String, Object> extraData;
 
     public GenericJoinedDate(final Map<TAG, TaggedDate<T, TAG>> dataMap) {
         this.data = dataMap;
         this.extraData = new HashMap<>();
+    }
+
+    public static <T extends IndirectionDate, TAG> GenericJoinedDate<T, TAG> of(Collection<TaggedDate<T, TAG>> data) {
+        var dataMap = data.stream()
+            .collect(Collectors.toMap(it -> it.tag, Function.identity()));
+        return new GenericJoinedDate<>(dataMap);
+    }
+
+    public static <T extends IndirectionDate, TAG> GenericJoinedDate<T, TAG> of(Map<TAG, T> data) {
+        var dataMap = data.entrySet()
+            .stream()
+            .collect(Collectors.toMap(it -> it.getKey(), it -> new TaggedDate<>(it.getKey(), it.getValue())));
+        return new GenericJoinedDate<>(dataMap);
     }
 
     @Override
@@ -51,15 +66,18 @@ public class GenericJoinedDate<T extends IndirectionDate, TAG>
 
     @Override
     public List<T> getDataInGroup() {
-        return this.data.values().stream().map(it -> it.date).collect(Collectors.toUnmodifiableList());
+        return this.data.values()
+            .stream()
+            .map(it -> it.date)
+            .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
     public Collection<Double> getTime() {
         return this.getDataInGroup()
-                .stream()
-                .flatMap(it -> it.getTime()
-                    .stream())
-                .collect(Collectors.toList());
+            .stream()
+            .flatMap(it -> it.getTime()
+                .stream())
+            .collect(Collectors.toList());
     }
 }

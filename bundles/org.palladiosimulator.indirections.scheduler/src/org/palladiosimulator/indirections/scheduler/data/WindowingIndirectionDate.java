@@ -1,10 +1,8 @@
 package org.palladiosimulator.indirections.scheduler.data;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.palladiosimulator.indirections.interfaces.IndirectionDate;
 import org.palladiosimulator.indirections.scheduler.operators.Emitters.Window;

@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<usagemodel:UsageModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" xmlns:usagemodel="http://palladiosimulator.org/PalladioComponentModel/UsageModel/5.2">
+  <usageScenario_UsageModel id="Plug_2.ID" entityName="Plug_2">
+    <scenarioBehaviour_UsageScenario id="Plug_2.ScenarioBehaviour.ID" entityName="Plug_2.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_2.start.ID" entityName="Plug_2.start" successor="Plug_2.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_2.ELSC.ID" entityName="Plug_2.ELSC" successor="Plug_2.stop.ID" predecessor="Plug_2.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_2.stop.ID" entityName="Plug_2.stop" predecessor="Plug_2.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.6428571428571429)(1.0;0.17346938775510204)(3.0;0.14285714285714285)(4.0;0.030612244897959183)(0.0;0.01020408163265306)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_3.ID" entityName="Plug_3">
+    <scenarioBehaviour_UsageScenario id="Plug_3.ScenarioBehaviour.ID" entityName="Plug_3.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_3.start.ID" entityName="Plug_3.start" successor="Plug_3.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_3.ELSC.ID" entityName="Plug_3.ELSC" successor="Plug_3.stop.ID" predecessor="Plug_3.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="3"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_3.stop.ID" entityName="Plug_3.stop" predecessor="Plug_3.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(5.0;0.5833333333333334)(6.0;0.4166666666666667)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_20000.ID" entityName="Plug_20000">
+    <scenarioBehaviour_UsageScenario id="Plug_20000.ScenarioBehaviour.ID" entityName="Plug_20000.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_20000.start.ID" entityName="Plug_20000.start" successor="Plug_20000.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_20000.ELSC.ID" entityName="Plug_20000.ELSC" successor="Plug_20000.stop.ID" predecessor="Plug_20000.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_20000.stop.ID" entityName="Plug_20000.stop" predecessor="Plug_20000.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.9183673469387755)(3.0;0.05102040816326531)(1.0;0.030612244897959183)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_20002.ID" entityName="Plug_20002">
+    <scenarioBehaviour_UsageScenario id="Plug_20002.ScenarioBehaviour.ID" entityName="Plug_20002.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_20002.start.ID" entityName="Plug_20002.start" successor="Plug_20002.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_20002.ELSC.ID" entityName="Plug_20002.ELSC" successor="Plug_20002.stop.ID" predecessor="Plug_20002.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_20002.stop.ID" entityName="Plug_20002.stop" predecessor="Plug_20002.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.9696969696969697)(3.0;0.020202020202020204)(1.0;0.010101010101010102)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_20003.ID" entityName="Plug_20003">
+    <scenarioBehaviour_UsageScenario id="Plug_20003.ScenarioBehaviour.ID" entityName="Plug_20003.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_20003.start.ID" entityName="Plug_20003.start" successor="Plug_20003.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_20003.ELSC.ID" entityName="Plug_20003.ELSC" successor="Plug_20003.stop.ID" predecessor="Plug_20003.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="3"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_20003.stop.ID" entityName="Plug_20003.stop" predecessor="Plug_20003.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.7575757575757576)(3.0;0.12121212121212122)(1.0;0.12121212121212122)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_20004.ID" entityName="Plug_20004">
+    <scenarioBehaviour_UsageScenario id="Plug_20004.ScenarioBehaviour.ID" entityName="Plug_20004.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_20004.start.ID" entityName="Plug_20004.start" successor="Plug_20004.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_20004.ELSC.ID" entityName="Plug_20004.ELSC" successor="Plug_20004.stop.ID" predecessor="Plug_20004.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_20004.stop.ID" entityName="Plug_20004.stop" predecessor="Plug_20004.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.7575757575757576)(3.0;0.12121212121212122)(1.0;0.12121212121212122)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_20005.ID" entityName="Plug_20005">
+    <scenarioBehaviour_UsageScenario id="Plug_20005.ScenarioBehaviour.ID" entityName="Plug_20005.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_20005.start.ID" entityName="Plug_20005.start" successor="Plug_20005.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_20005.ELSC.ID" entityName="Plug_20005.ELSC" successor="Plug_20005.stop.ID" predecessor="Plug_20005.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_20005.stop.ID" entityName="Plug_20005.stop" predecessor="Plug_20005.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.8979591836734694)(3.0;0.061224489795918366)(1.0;0.04081632653061224)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_30000.ID" entityName="Plug_30000">
+    <scenarioBehaviour_UsageScenario id="Plug_30000.ScenarioBehaviour.ID" entityName="Plug_30000.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_30000.start.ID" entityName="Plug_30000.start" successor="Plug_30000.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_30000.ELSC.ID" entityName="Plug_30000.ELSC" successor="Plug_30000.stop.ID" predecessor="Plug_30000.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="3"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_30000.stop.ID" entityName="Plug_30000.stop" predecessor="Plug_30000.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(5.0;0.5833333333333334)(6.0;0.4166666666666667)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_30001.ID" entityName="Plug_30001">
+    <scenarioBehaviour_UsageScenario id="Plug_30001.ScenarioBehaviour.ID" entityName="Plug_30001.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_30001.start.ID" entityName="Plug_30001.start" successor="Plug_30001.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_30001.ELSC.ID" entityName="Plug_30001.ELSC" successor="Plug_30001.stop.ID" predecessor="Plug_30001.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="1"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="3"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_30001.stop.ID" entityName="Plug_30001.stop" predecessor="Plug_30001.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.7575757575757576)(3.0;0.12121212121212122)(1.0;0.12121212121212122)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_30004.ID" entityName="Plug_30004">
+    <scenarioBehaviour_UsageScenario id="Plug_30004.ScenarioBehaviour.ID" entityName="Plug_30004.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_30004.start.ID" entityName="Plug_30004.start" successor="Plug_30004.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_30004.ELSC.ID" entityName="Plug_30004.ELSC" successor="Plug_30004.stop.ID" predecessor="Plug_30004.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="3"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_30004.stop.ID" entityName="Plug_30004.stop" predecessor="Plug_30004.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.5306122448979592)(1.0;0.19387755102040816)(3.0;0.14285714285714285)(4.0;0.07142857142857142)(0.0;0.05102040816326531)(5.0;0.01020408163265306)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_40000.ID" entityName="Plug_40000">
+    <scenarioBehaviour_UsageScenario id="Plug_40000.ScenarioBehaviour.ID" entityName="Plug_40000.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_40000.start.ID" entityName="Plug_40000.start" successor="Plug_40000.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_40000.ELSC.ID" entityName="Plug_40000.ELSC" successor="Plug_40000.stop.ID" predecessor="Plug_40000.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_40000.stop.ID" entityName="Plug_40000.stop" predecessor="Plug_40000.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.9183673469387755)(3.0;0.05102040816326531)(1.0;0.030612244897959183)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_40001.ID" entityName="Plug_40001">
+    <scenarioBehaviour_UsageScenario id="Plug_40001.ScenarioBehaviour.ID" entityName="Plug_40001.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_40001.start.ID" entityName="Plug_40001.start" successor="Plug_40001.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_40001.ELSC.ID" entityName="Plug_40001.ELSC" successor="Plug_40001.stop.ID" predecessor="Plug_40001.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="1"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_40001.stop.ID" entityName="Plug_40001.stop" predecessor="Plug_40001.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(5.0;0.5833333333333334)(6.0;0.4166666666666667)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_40004.ID" entityName="Plug_40004">
+    <scenarioBehaviour_UsageScenario id="Plug_40004.ScenarioBehaviour.ID" entityName="Plug_40004.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_40004.start.ID" entityName="Plug_40004.start" successor="Plug_40004.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_40004.ELSC.ID" entityName="Plug_40004.ELSC" successor="Plug_40004.stop.ID" predecessor="Plug_40004.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_40004.stop.ID" entityName="Plug_40004.stop" predecessor="Plug_40004.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.8979591836734694)(3.0;0.061224489795918366)(1.0;0.04081632653061224)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_40005.ID" entityName="Plug_40005">
+    <scenarioBehaviour_UsageScenario id="Plug_40005.ScenarioBehaviour.ID" entityName="Plug_40005.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_40005.start.ID" entityName="Plug_40005.start" successor="Plug_40005.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_40005.ELSC.ID" entityName="Plug_40005.ELSC" successor="Plug_40005.stop.ID" predecessor="Plug_40005.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_40005.stop.ID" entityName="Plug_40005.stop" predecessor="Plug_40005.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.9696969696969697)(3.0;0.020202020202020204)(1.0;0.010101010101010102)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_50000.ID" entityName="Plug_50000">
+    <scenarioBehaviour_UsageScenario id="Plug_50000.ScenarioBehaviour.ID" entityName="Plug_50000.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_50000.start.ID" entityName="Plug_50000.start" successor="Plug_50000.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_50000.ELSC.ID" entityName="Plug_50000.ELSC" successor="Plug_50000.stop.ID" predecessor="Plug_50000.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_50000.stop.ID" entityName="Plug_50000.stop" predecessor="Plug_50000.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.7575757575757576)(3.0;0.12121212121212122)(1.0;0.12121212121212122)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_50003.ID" entityName="Plug_50003">
+    <scenarioBehaviour_UsageScenario id="Plug_50003.ScenarioBehaviour.ID" entityName="Plug_50003.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_50003.start.ID" entityName="Plug_50003.start" successor="Plug_50003.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_50003.ELSC.ID" entityName="Plug_50003.ELSC" successor="Plug_50003.stop.ID" predecessor="Plug_50003.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="3"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_50003.stop.ID" entityName="Plug_50003.stop" predecessor="Plug_50003.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.6428571428571429)(1.0;0.17346938775510204)(3.0;0.14285714285714285)(4.0;0.030612244897959183)(0.0;0.01020408163265306)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_50001.ID" entityName="Plug_50001">
+    <scenarioBehaviour_UsageScenario id="Plug_50001.ScenarioBehaviour.ID" entityName="Plug_50001.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_50001.start.ID" entityName="Plug_50001.start" successor="Plug_50001.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_50001.ELSC.ID" entityName="Plug_50001.ELSC" successor="Plug_50001.stop.ID" predecessor="Plug_50001.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="1"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_50001.stop.ID" entityName="Plug_50001.stop" predecessor="Plug_50001.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.9081632653061225)(3.0;0.05102040816326531)(1.0;0.04081632653061224)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_50002.ID" entityName="Plug_50002">
+    <scenarioBehaviour_UsageScenario id="Plug_50002.ScenarioBehaviour.ID" entityName="Plug_50002.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_50002.start.ID" entityName="Plug_50002.start" successor="Plug_50002.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_50002.ELSC.ID" entityName="Plug_50002.ELSC" successor="Plug_50002.stop.ID" predecessor="Plug_50002.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_50002.stop.ID" entityName="Plug_50002.stop" predecessor="Plug_50002.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.9081632653061225)(3.0;0.05102040816326531)(1.0;0.04081632653061224)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_50004.ID" entityName="Plug_50004">
+    <scenarioBehaviour_UsageScenario id="Plug_50004.ScenarioBehaviour.ID" entityName="Plug_50004.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_50004.start.ID" entityName="Plug_50004.start" successor="Plug_50004.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_50004.ELSC.ID" entityName="Plug_50004.ELSC" successor="Plug_50004.stop.ID" predecessor="Plug_50004.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_50004.stop.ID" entityName="Plug_50004.stop" predecessor="Plug_50004.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.9081632653061225)(3.0;0.05102040816326531)(1.0;0.04081632653061224)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_4.ID" entityName="Plug_4">
+    <scenarioBehaviour_UsageScenario id="Plug_4.ScenarioBehaviour.ID" entityName="Plug_4.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_4.start.ID" entityName="Plug_4.start" successor="Plug_4.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_4.ELSC.ID" entityName="Plug_4.ELSC" successor="Plug_4.stop.ID" predecessor="Plug_4.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_4.stop.ID" entityName="Plug_4.stop" predecessor="Plug_4.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(5.0;0.6111111111111112)(6.0;0.3888888888888889)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_5.ID" entityName="Plug_5">
+    <scenarioBehaviour_UsageScenario id="Plug_5.ScenarioBehaviour.ID" entityName="Plug_5.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_5.start.ID" entityName="Plug_5.start" successor="Plug_5.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_5.ELSC.ID" entityName="Plug_5.ELSC" successor="Plug_5.stop.ID" predecessor="Plug_5.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_5.stop.ID" entityName="Plug_5.stop" predecessor="Plug_5.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.5656565656565656)(1.0;0.16161616161616163)(3.0;0.15151515151515152)(0.0;0.06060606060606061)(4.0;0.06060606060606061)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_10001.ID" entityName="Plug_10001">
+    <scenarioBehaviour_UsageScenario id="Plug_10001.ScenarioBehaviour.ID" entityName="Plug_10001.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_10001.start.ID" entityName="Plug_10001.start" successor="Plug_10001.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_10001.ELSC.ID" entityName="Plug_10001.ELSC" successor="Plug_10001.stop.ID" predecessor="Plug_10001.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="1"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="1"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_10001.stop.ID" entityName="Plug_10001.stop" predecessor="Plug_10001.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(2.0;0.5656565656565656)(1.0;0.16161616161616163)(3.0;0.15151515151515152)(0.0;0.06060606060606061)(4.0;0.06060606060606061)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_0.ID" entityName="Plug_0">
+    <scenarioBehaviour_UsageScenario id="Plug_0.ScenarioBehaviour.ID" entityName="Plug_0.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_0.start.ID" entityName="Plug_0.start" successor="Plug_0.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_0.ELSC.ID" entityName="Plug_0.ELSC" successor="Plug_0.stop.ID" predecessor="Plug_0.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="0"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_0.stop.ID" entityName="Plug_0.stop" predecessor="Plug_0.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(5.0;0.6111111111111112)(6.0;0.3888888888888889)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_30005.ID" entityName="Plug_30005">
+    <scenarioBehaviour_UsageScenario id="Plug_30005.ScenarioBehaviour.ID" entityName="Plug_30005.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_30005.start.ID" entityName="Plug_30005.start" successor="Plug_30005.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_30005.ELSC.ID" entityName="Plug_30005.ELSC" successor="Plug_30005.stop.ID" predecessor="Plug_30005.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="5"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="3"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_30005.stop.ID" entityName="Plug_30005.stop" predecessor="Plug_30005.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(5.0;0.6111111111111112)(6.0;0.3888888888888889)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="Plug_40002.ID" entityName="Plug_40002">
+    <scenarioBehaviour_UsageScenario id="Plug_40002.ScenarioBehaviour.ID" entityName="Plug_40002.ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="Plug_40002.start.ID" entityName="Plug_40002.start" successor="Plug_40002.ELSC.ID"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="Plug_40002.ELSC.ID" entityName="Plug_40002.ELSC" successor="Plug_40002.stop.ID" predecessor="Plug_40002.start.ID">
+        <providedRole_EntryLevelSystemCall href="smarthomedata.system#_bIrxoDMfEeuOIo32JW6c4g"/>
+        <operationSignature__EntryLevelSystemCall href="smarthomedata.repository#acceptSingleReading.Signature.ID"/>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="2"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.plugId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+        <inputParameterUsages_EntryLevelSystemCall>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="4"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="reading.houseId"/>
+        </inputParameterUsages_EntryLevelSystemCall>
+      </actions_ScenarioBehaviour>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="Plug_40002.stop.ID" entityName="Plug_40002.stop" predecessor="Plug_40002.ELSC.ID"/>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="DoublePMF[(5.0;0.6111111111111112)(6.0;0.3888888888888889)]"/>
+    </workload_UsageScenario>
+  </usageScenario_UsageModel>
+</usagemodel:UsageModel>
