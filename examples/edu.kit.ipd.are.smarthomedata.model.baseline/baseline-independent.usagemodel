@@ -10,7 +10,7 @@
       </actions_ScenarioBehaviour>
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
-      <interArrivalTime_OpenWorkload specification="0.0"/>
+      <interArrivalTime_OpenWorkload specification="5"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
   <usageScenario_UsageModel id="_Tb_r0EFOEeuLNaVZK2IiYQ" entityName="UsageScenarioAverageAllMedians">
@@ -19,11 +19,11 @@
       <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_WSq-AUFOEeuLNaVZK2IiYQ" predecessor="_W0f4sEFOEeuLNaVZK2IiYQ"/>
       <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_W0f4sEFOEeuLNaVZK2IiYQ" entityName="EntryLevelSystemCall1" successor="_WSq-AUFOEeuLNaVZK2IiYQ" predecessor="_WSq-AEFOEeuLNaVZK2IiYQ">
         <providedRole_EntryLevelSystemCall href="baseline-independent.system#_rHMLQEFNEeuLNaVZK2IiYQ"/>
-        <operationSignature__EntryLevelSystemCall href="baseline.repository#acceptMedianWindowPerHouse.ID"/>
+        <operationSignature__EntryLevelSystemCall href="baseline.repository#acceptMedianWindow.ID"/>
       </actions_ScenarioBehaviour>
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
-      <interArrivalTime_OpenWorkload specification="0.0"/>
+      <interArrivalTime_OpenWorkload specification="5"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
   <usageScenario_UsageModel id="_bGrfkEFOEeuLNaVZK2IiYQ" entityName="UsageScenarioOutlierCalculation">
@@ -36,7 +36,7 @@
       </actions_ScenarioBehaviour>
     </scenarioBehaviour_UsageScenario>
     <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
-      <interArrivalTime_OpenWorkload specification="0.0"/>
+      <interArrivalTime_OpenWorkload specification="5"/>
     </workload_UsageScenario>
   </usageScenario_UsageModel>
 </usagemodel:UsageModel>

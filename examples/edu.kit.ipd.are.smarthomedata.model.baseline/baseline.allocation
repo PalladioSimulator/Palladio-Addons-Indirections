@@ -14,4 +14,8 @@
     <resourceContainer_AllocationContext href="baseline.resourceenvironment#medianEachPlugResourceContainer.ID"/>
     <assemblyContext_AllocationContext href="baseline.system#_LNG0QEFNEeuLNaVZK2IiYQ"/>
   </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_ksNNwHTzEeusZIvz8JrtWQ" entityName="Allocation_Assembly_RegroupMedian">
+    <resourceContainer_AllocationContext href="baseline.resourceenvironment#averageAllMediansResourceContainer.ID"/>
+    <assemblyContext_AllocationContext href="baseline.system#_YfjqsHTzEeusZIvz8JrtWQ"/>
+  </allocationContexts_Allocation>
 </allocation:Allocation>

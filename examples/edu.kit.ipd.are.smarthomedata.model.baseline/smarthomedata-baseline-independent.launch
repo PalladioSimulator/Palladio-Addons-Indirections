@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="de.upb.pcm.interpreter.SimuLizarLaunching">
-    <stringAttribute key="EDP2RepositoryID" value="_EdLywDGuEeu0qdfEGufRGw"/>
+    <stringAttribute key="EDP2RepositoryID" value="_vLpSgGeJEeuwsNPtOT7XWQ"/>
     <stringAttribute key="accuracyQualityAnnotationFile" value=""/>
     <stringAttribute key="actionModelFile" value="platform:/plugin/org.palladiosimulator.simulizar.action.repository/model/repository.actions"/>
     <stringAttribute key="allocationFile" value="platform:/resource/edu.kit.ipd.are.smarthomedata.model.baseline/baseline-independent.allocation"/>
@@ -36,7 +36,7 @@
     <booleanAttribute key="simulateEvents" value="false"/>
     <booleanAttribute key="simulateFailures" value="false"/>
     <booleanAttribute key="simulateLinkingResources" value="false"/>
-    <booleanAttribute key="simulateThroughputOfLinkingResources" value="true"/>
+    <booleanAttribute key="simulateThroughputOfLinkingResources" value="false"/>
     <stringAttribute key="simulatorId" value="de.uka.ipd.sdq.codegen.simucontroller.simucom"/>
     <stringAttribute key="stepwidth" value=""/>
     <stringAttribute key="storageProject" value="org.palladiosimulator.temporary"/>

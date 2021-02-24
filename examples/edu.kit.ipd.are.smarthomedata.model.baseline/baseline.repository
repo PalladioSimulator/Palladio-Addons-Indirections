@@ -2,30 +2,64 @@
 <repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="repository.ID" entityName="repository">
   <components__Repository xsi:type="repository:BasicComponent" id="MedianEachPlug.ID" entityName="MedianEachPlug">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_dT9hYEFMEeuLNaVZK2IiYQ" entityName="MedianEachPlug.IAcceptPartitionedReadingWindows.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptPartitionedReadingWindows.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_j369oEFMEeuLNaVZK2IiYQ" entityName="MedianEachPlug.IAcceptMedianWindowPerHouse.OperationRequiredRole1" requiredInterface__OperationRequiredRole="IAcceptMedianWindowPerHouse.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_j369oEFMEeuLNaVZK2IiYQ" entityName="MedianEachPlug.IAcceptMedianWindowPerHouse.OperationRequiredRole1" requiredInterface__OperationRequiredRole="IAcceptMedianWindow.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_e-13wHTyEeusZIvz8JrtWQ" entityName="MedianEachPlug.IAcceptMedianWindow2.OperationRequiredRole2" requiredInterface__OperationRequiredRole="IAcceptMedianWindow2.ID"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dUIggEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptPartitionedReadingWindows.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="_dUJHkEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_ne5EUEFMEeuLNaVZK2IiYQ"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_dUJHkUFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_lWSZEEFMEeuLNaVZK2IiYQ"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_lWSZEEFMEeuLNaVZK2IiYQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_ne5EUEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_dUJHkUFMEeuLNaVZK2IiYQ" calledService_ExternalService="acceptMedianWindowPerHouse.ID" role_ExternalService="_j369oEFMEeuLNaVZK2IiYQ"/>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="_ne5EUEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_dUJHkEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_lWSZEEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dUJHkUFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_4oPT0HTyEeusZIvz8JrtWQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_lWSZEEFMEeuLNaVZK2IiYQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_ne5EUEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_4oPT0HTyEeusZIvz8JrtWQ" calledService_ExternalService="acceptMedianWindow.ID" role_ExternalService="_j369oEFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_ne5EUEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_dUJHkEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_lWSZEEFMEeuLNaVZK2IiYQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="5"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_4oPT0HTyEeusZIvz8JrtWQ" entityName="ExternalCallAction2" predecessor_AbstractAction="_lWSZEEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_dUJHkUFMEeuLNaVZK2IiYQ" calledService_ExternalService="_XdXDUHTyEeusZIvz8JrtWQ" role_ExternalService="_e-13wHTyEeusZIvz8JrtWQ"/>
+      <steps_Behaviour xsi:type="seff:ForkAction" id="_6q5IEHTyEeusZIvz8JrtWQ" entityName="ForkAction1">
+        <asynchronousForkedBehaviours_ForkAction id="_8V0_4HTyEeusZIvz8JrtWQ">
+          <steps_Behaviour xsi:type="seff:StartAction" id="_8V0_4XTyEeusZIvz8JrtWQ" successor_AbstractAction="_-n9akHTyEeusZIvz8JrtWQ"/>
+          <steps_Behaviour xsi:type="seff:StopAction" id="_8V0_4nTyEeusZIvz8JrtWQ" predecessor_AbstractAction="_-n9akHTyEeusZIvz8JrtWQ"/>
+          <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_-n9akHTyEeusZIvz8JrtWQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_8V0_4XTyEeusZIvz8JrtWQ" successor_AbstractAction="_8V0_4nTyEeusZIvz8JrtWQ" calledService_ExternalService="acceptMedianWindow.ID" role_ExternalService="_j369oEFMEeuLNaVZK2IiYQ"/>
+        </asynchronousForkedBehaviours_ForkAction>
+        <asynchronousForkedBehaviours_ForkAction id="_870B0HTyEeusZIvz8JrtWQ">
+          <steps_Behaviour xsi:type="seff:StartAction" id="_870B0XTyEeusZIvz8JrtWQ" successor_AbstractAction="_C8z68HTzEeusZIvz8JrtWQ"/>
+          <steps_Behaviour xsi:type="seff:StopAction" id="_870B0nTyEeusZIvz8JrtWQ" predecessor_AbstractAction="_C8z68HTzEeusZIvz8JrtWQ"/>
+          <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_C8z68HTzEeusZIvz8JrtWQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_870B0XTyEeusZIvz8JrtWQ" successor_AbstractAction="_870B0nTyEeusZIvz8JrtWQ" calledService_ExternalService="_XdXDUHTyEeusZIvz8JrtWQ" role_ExternalService="_e-13wHTyEeusZIvz8JrtWQ"/>
+        </asynchronousForkedBehaviours_ForkAction>
+      </steps_Behaviour>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="AverageAllMedians.ID" entityName="AverageAllMedians">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_dzlcoEFMEeuLNaVZK2IiYQ" entityName="AverageAllMedians.IAcceptMedianWindowPerHouse.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptMedianWindowPerHouse.ID"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_kgPh4EFMEeuLNaVZK2IiYQ" entityName="AverageAllMedians.IAcceptAverageAndHouseMedianGroup.OperationRequiredRole1" requiredInterface__OperationRequiredRole="IAcceptAverageAndHouseMedianGroup.ID"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dzmDsEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptMedianWindowPerHouse.ID">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_dzlcoEFMEeuLNaVZK2IiYQ" entityName="AverageAllMedians.IAcceptMedianWindowPerHouse.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptMedianWindow.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_iLTCIHTxEeusZIvz8JrtWQ" entityName="AverageAllMedians.IAcceptAverageAndHouseMedianGroup.OperationRequiredRole2" requiredInterface__OperationRequiredRole="IAcceptAverageAndHouseMedianGroup.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_dzmDsEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptMedianWindow.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="_dzmDsUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_quNgAEFMEeuLNaVZK2IiYQ"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_dzmDskFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_rCnCsEFMEeuLNaVZK2IiYQ"/>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="_quNgAEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_dzmDsUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_rCnCsEFMEeuLNaVZK2IiYQ"/>
-      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_rCnCsEFMEeuLNaVZK2IiYQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_quNgAEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_dzmDskFMEeuLNaVZK2IiYQ" calledService_ExternalService="acceptAverageAndHouseMedianGroup.ID" role_ExternalService="_kgPh4EFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_dzmDskFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_EWfOMHT0EeusZIvz8JrtWQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_quNgAEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_dzmDsUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_EWfOMHT0EeusZIvz8JrtWQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="10-5"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_EWfOMHT0EeusZIvz8JrtWQ" entityName="ExternalCallAction2" predecessor_AbstractAction="_quNgAEFMEeuLNaVZK2IiYQ" successor_AbstractAction="_dzmDskFMEeuLNaVZK2IiYQ" calledService_ExternalService="acceptAverageAndHouseMedianGroup.ID" role_ExternalService="_iLTCIHTxEeusZIvz8JrtWQ"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculation.ID" entityName="OutlierCalculation">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_eNMPcEFMEeuLNaVZK2IiYQ" entityName="OutlierCalculation.IAcceptAverageAndHouseMedianGroup.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptAverageAndHouseMedianGroup.ID"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_YrxMoHTxEeusZIvz8JrtWQ" entityName="OutlierCalculation.IAcceptMedianWindowPerHouse.OperationProvidedRole2" providedInterface__OperationProvidedRole="_heKEwHTwEeusZIvz8JrtWQ"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_eNM2gEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptAverageAndHouseMedianGroup.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="_eNM2gUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_t_JsUEFMEeuLNaVZK2IiYQ"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_eNM2gkFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="_t_JsUEFMEeuLNaVZK2IiYQ"/>
-      <steps_Behaviour xsi:type="seff:InternalAction" id="_t_JsUEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_eNM2gUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_eNM2gkFMEeuLNaVZK2IiYQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_t_JsUEFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_eNM2gUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_eNM2gkFMEeuLNaVZK2IiYQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="15-5-5"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_nvHX4KkREdyEA_b89s7q9w"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_YrxzsHTxEeusZIvz8JrtWQ" describedService__SEFF="_LHmdAHTxEeusZIvz8JrtWQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_YrxzsXTxEeusZIvz8JrtWQ" successor_AbstractAction="_YrxzsnTxEeusZIvz8JrtWQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_YrxzsnTxEeusZIvz8JrtWQ" predecessor_AbstractAction="_YrxzsXTxEeusZIvz8JrtWQ"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_02c7UEFMEeuLNaVZK2IiYQ" entityName="IsolatedMedianEachPlug">
@@ -37,11 +71,20 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_1FA7wEFMEeuLNaVZK2IiYQ" entityName="IsolatedAverageAllMedians">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_8WiBkEFMEeuLNaVZK2IiYQ" entityName="IsolatedAverageAllMedians.IAcceptMedianWindowPerHouse.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptMedianWindowPerHouse.ID"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_8WiooEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptMedianWindowPerHouse.ID">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_8WiBkEFMEeuLNaVZK2IiYQ" entityName="IsolatedAverageAllMedians.IAcceptMedianWindowPerHouse.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptMedianWindow.ID"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_8WiooEFMEeuLNaVZK2IiYQ" describedService__SEFF="acceptMedianWindow.ID">
       <steps_Behaviour xsi:type="seff:StartAction" id="_8WiooUFMEeuLNaVZK2IiYQ" successor_AbstractAction="__EEl4EFMEeuLNaVZK2IiYQ"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_8WiookFMEeuLNaVZK2IiYQ" predecessor_AbstractAction="__EEl4EFMEeuLNaVZK2IiYQ"/>
       <steps_Behaviour xsi:type="seff:InternalAction" id="__EEl4EFMEeuLNaVZK2IiYQ" entityName="InternalAction1" predecessor_AbstractAction="_8WiooUFMEeuLNaVZK2IiYQ" successor_AbstractAction="_8WiookFMEeuLNaVZK2IiYQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_dbgHoHTwEeusZIvz8JrtWQ" entityName="RegroupMedian">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_gxe6EHTyEeusZIvz8JrtWQ" entityName="RegroupMedian.IAcceptMedianWindow2.OperationProvidedRole1" providedInterface__OperationProvidedRole="IAcceptMedianWindow2.ID"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_W47WAHTxEeusZIvz8JrtWQ" entityName="RegroupMedian.IAcceptMedianWindowPerHouse.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_heKEwHTwEeusZIvz8JrtWQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_RWj5oHTxEeusZIvz8JrtWQ" describedService__SEFF="_XdXDUHTyEeusZIvz8JrtWQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_RWkgsHTxEeusZIvz8JrtWQ" successor_AbstractAction="_0WBQsHTyEeusZIvz8JrtWQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_RWkgsXTxEeusZIvz8JrtWQ" predecessor_AbstractAction="_0WBQsHTyEeusZIvz8JrtWQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_0WBQsHTyEeusZIvz8JrtWQ" entityName="ExternalCallAction1" predecessor_AbstractAction="_RWkgsHTxEeusZIvz8JrtWQ" successor_AbstractAction="_RWkgsXTxEeusZIvz8JrtWQ" calledService_ExternalService="_LHmdAHTxEeusZIvz8JrtWQ" role_ExternalService="_W47WAHTxEeusZIvz8JrtWQ"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptPartitionedReadingWindows.ID" entityName="IAcceptPartitionedReadingWindows">
@@ -49,14 +92,24 @@
       <parameters__OperationSignature dataType__Parameter="PartitionedReadingWindowsDataType.ID" parameterName="partitionedReadingWindows"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptMedianWindowPerHouse.ID" entityName="IAcceptMedianWindowPerHouse">
-    <signatures__OperationInterface id="acceptMedianWindowPerHouse.ID" entityName="acceptMedianWindowPerHouse">
-      <parameters__OperationSignature dataType__Parameter="MedianWindowPerHouseDataType.ID" parameterName="medianWindowPerHouse"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptMedianWindow.ID" entityName="IAcceptMedianWindow">
+    <signatures__OperationInterface id="acceptMedianWindow.ID" entityName="acceptMedianWindow">
+      <parameters__OperationSignature dataType__Parameter="MedianWindowDataType.ID" parameterName="medianWindow"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptAverageAndHouseMedianGroup.ID" entityName="IAcceptAverageAndHouseMedianGroup">
     <signatures__OperationInterface id="acceptAverageAndHouseMedianGroup.ID" entityName="acceptAverageAndHouseMedianGroup">
       <parameters__OperationSignature dataType__Parameter="AverageAndHouseMedianGroupDataType.ID" parameterName="averageAndHouseMedianGroup"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_heKEwHTwEeusZIvz8JrtWQ" entityName="IAcceptMedianWindowPerHouse">
+    <signatures__OperationInterface id="_LHmdAHTxEeusZIvz8JrtWQ" entityName="acceptMedianWindowPerHouse">
+      <parameters__OperationSignature dataType__Parameter="MedianWindowPerHouseDataType.ID" parameterName="medianWindowPerHouse"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="IAcceptMedianWindow2.ID" entityName="IAcceptMedianWindow2">
+    <signatures__OperationInterface id="_XdXDUHTyEeusZIvz8JrtWQ" entityName="acceptMedianWindow2">
+      <parameters__OperationSignature dataType__Parameter="MedianWindowDataType.ID" parameterName="medianWindow"/>
     </signatures__OperationInterface>
   </interfaces__Repository>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="ReadingDataType.ID" entityName="ReadingDataType">

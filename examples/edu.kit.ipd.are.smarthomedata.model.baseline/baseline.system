@@ -9,16 +9,27 @@
   <assemblyContexts__ComposedStructure id="_PSYAgEFNEeuLNaVZK2IiYQ" entityName="Assembly_OutlierCalculation">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="baseline.repository#OutlierCalculation.ID"/>
   </assemblyContexts__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_TecYUEFNEeuLNaVZK2IiYQ" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_RzR3AEFNEeuLNaVZK2IiYQ" assemblyContext_ProvidedDelegationConnector="_LNG0QEFNEeuLNaVZK2IiYQ">
-    <innerProvidedRole_ProvidedDelegationConnector href="baseline.repository#_dT9hYEFMEeuLNaVZK2IiYQ"/>
-  </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_XNVE4EFNEeuLNaVZK2IiYQ" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_LNG0QEFNEeuLNaVZK2IiYQ" providingAssemblyContext_AssemblyConnector="_N5Y0UEFNEeuLNaVZK2IiYQ">
+  <assemblyContexts__ComposedStructure id="_YfjqsHTzEeusZIvz8JrtWQ" entityName="Assembly_RegroupMedian">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="baseline.repository#_dbgHoHTwEeusZIvz8JrtWQ"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_aTiw0HTzEeusZIvz8JrtWQ" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_LNG0QEFNEeuLNaVZK2IiYQ" providingAssemblyContext_AssemblyConnector="_N5Y0UEFNEeuLNaVZK2IiYQ">
     <providedRole_AssemblyConnector href="baseline.repository#_dzlcoEFMEeuLNaVZK2IiYQ"/>
     <requiredRole_AssemblyConnector href="baseline.repository#_j369oEFMEeuLNaVZK2IiYQ"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_XybWAEFNEeuLNaVZK2IiYQ" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_N5Y0UEFNEeuLNaVZK2IiYQ" providingAssemblyContext_AssemblyConnector="_PSYAgEFNEeuLNaVZK2IiYQ">
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_by6R0HTzEeusZIvz8JrtWQ" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_LNG0QEFNEeuLNaVZK2IiYQ" providingAssemblyContext_AssemblyConnector="_YfjqsHTzEeusZIvz8JrtWQ">
+    <providedRole_AssemblyConnector href="baseline.repository#_gxe6EHTyEeusZIvz8JrtWQ"/>
+    <requiredRole_AssemblyConnector href="baseline.repository#_e-13wHTyEeusZIvz8JrtWQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_g0y3UHTzEeusZIvz8JrtWQ" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_N5Y0UEFNEeuLNaVZK2IiYQ" providingAssemblyContext_AssemblyConnector="_PSYAgEFNEeuLNaVZK2IiYQ">
     <providedRole_AssemblyConnector href="baseline.repository#_eNMPcEFMEeuLNaVZK2IiYQ"/>
-    <requiredRole_AssemblyConnector href="baseline.repository#_kgPh4EFMEeuLNaVZK2IiYQ"/>
+    <requiredRole_AssemblyConnector href="baseline.repository#_iLTCIHTxEeusZIvz8JrtWQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_hq0gYHTzEeusZIvz8JrtWQ" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_YfjqsHTzEeusZIvz8JrtWQ" providingAssemblyContext_AssemblyConnector="_PSYAgEFNEeuLNaVZK2IiYQ">
+    <providedRole_AssemblyConnector href="baseline.repository#_YrxMoHTxEeusZIvz8JrtWQ"/>
+    <requiredRole_AssemblyConnector href="baseline.repository#_W47WAHTxEeusZIvz8JrtWQ"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_OeTLsHT0EeusZIvz8JrtWQ" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_RzR3AEFNEeuLNaVZK2IiYQ" assemblyContext_ProvidedDelegationConnector="_LNG0QEFNEeuLNaVZK2IiYQ">
+    <innerProvidedRole_ProvidedDelegationConnector href="baseline.repository#_dT9hYEFMEeuLNaVZK2IiYQ"/>
   </connectors__ComposedStructure>
   <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_RzR3AEFNEeuLNaVZK2IiYQ" entityName="IAcceptPartitionedReadingWindowsProvidedRole">
     <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptPartitionedReadingWindows.ID"/>

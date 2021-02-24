@@ -22,7 +22,7 @@
     <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptPartitionedReadingWindows.ID"/>
   </providedRoles_InterfaceProvidingEntity>
   <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_rHMLQEFNEeuLNaVZK2IiYQ" entityName="IAcceptMedianWindowPerHouseProvidedRole">
-    <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptMedianWindowPerHouse.ID"/>
+    <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptMedianWindow.ID"/>
   </providedRoles_InterfaceProvidingEntity>
   <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sJ6MgEFNEeuLNaVZK2IiYQ" entityName="IAcceptAverageAndHouseMedianGroupProvidedRole">
     <providedInterface__OperationProvidedRole href="baseline.repository#IAcceptAverageAndHouseMedianGroup.ID"/>

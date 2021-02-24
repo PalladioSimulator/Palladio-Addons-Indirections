@@ -105,6 +105,8 @@
     <configEntries>windowShift->10</configEntries>
     <configEntries>emitEmptyWindows->true</configEntries>
     <configEntries>gracePeriod->5</configEntries>
+    <configEntries>scheduledAdvance->true</configEntries>
+    <configEntries>advanceOnData->false</configEntries>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="OutlierCalculation.ID" entityName="OutlierCalculation">
     <providedRoles_InterfaceProvidingEntity xsi:type="org.palladiosimulator.indirections.repository:DataSinkRole" id="_63DSwDMdEeuOIo32JW6c4g" entityName="OutlierCalculation.AverageAndHouseMedian.DataSinkRole0" dataInterface="AverageAndHouseMedian.ID"/>
