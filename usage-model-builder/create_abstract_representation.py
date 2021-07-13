@@ -5,6 +5,11 @@ from collections import defaultdict
 import pandas as pd
 from create_double_pmf import create_double_pmf
 
+configuration = {
+    'window_size': 10,
+    'window_shift': 10,
+}
+
 
 def windows(shift, size, maximum):
     return [(it, it + size) for it in range(0, maximum + 1, shift)]
@@ -14,7 +19,7 @@ def data_in_window(data, window):
     return data[(window[0] <= data['timestamp']) & (data['timestamp'] < window[1])]
 
 
-def create_abstract_representation(data):
+def create_abstract_representation(data, configuration):
     data['pid'] = data['house_id'] * 10_000 + data['household_id'] * 100 + data['plug_id']
 
     data_per_houseid = defaultdict(lambda: defaultdict(int))
@@ -30,7 +35,10 @@ def create_abstract_representation(data):
         value_counts = all_shifts.value_counts()
 
         distribution = value_counts / value_counts.sum()
-        pmfs_per_houseid[house_id][int(pid)] = create_double_pmf(distribution)
+        pmfs_per_houseid[house_id][int(pid)] = {
+            'plug_id': plug_id,
+            'iat': create_double_pmf(distribution)
+        }
 
         for k, v in dict(value_counts).items():
             data_per_houseid[house_id][k] += v
@@ -60,11 +68,14 @@ def create_abstract_representation(data):
     houses_out = []
     for house_id in house_ids:
         house_description = {
-            "house_id": house_id,
+            "house_id": int(house_id),
             "plug_ids": int(plug_id_counts_per_house_id[house_id]),
             "pmf_iat": pmf_per_house_id[house_id],
             "average_iat": average_iat_per_house_id[house_id],
-            "pmf_iat_per_plug": pmfs_per_houseid[house_id]
+            "pmf_iat_per_plug": pmfs_per_houseid[house_id],
+            "window_size": configuration["window_size"],
+            "window_shift": configuration["window_shift"],
+            "number_of_elements_distribution": "???"
         }
 
         houses_out.append(house_description)
@@ -79,6 +90,6 @@ if __name__ == "__main__":
         exit(1)
 
     data = pd.read_csv(in_filename)
-    abstract = create_abstract_representation(data)
-    with open('abstract_representation.json', 'w') as output_json:
+    abstract = create_abstract_representation(data, configuration)
+    with open('out/abstract_representation.json', 'w') as output_json:
         json.dump(abstract, output_json, indent=4)

@@ -23,7 +23,7 @@ env = jinja2.Environment(
 
 
 def create_usage_model(entries):
-    return env.get_template('usage_model.xmi').render(entries=entries)
+    return env.get_template('usage_model_indirections.xmi').render(entries=entries)
 
 
 def in_interval(start, end_exclusive):

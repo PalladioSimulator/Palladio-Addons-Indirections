@@ -1,0 +1,27 @@
+<!-- start usage scenario for House {{entry.house_id}} -->
+<usageScenario_UsageModel id="House_{{entry.house_id}}.ID" entityName="UsageScenario">
+    <scenarioBehaviour_UsageScenario id="House_{{entry.house_id}}.ScenarioBehaviour.ID" entityName="House_{{entry.house_id}}.ScenarioBehaviour">
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="House_{{entry.house_id}}.ScenarioBehaviour.Start.ID" successor="House_{{entry.house_id}}.ELSC.ID"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="House_{{entry.house_id}}.ScenarioBehaviour.Stop.ID" predecessor="House_{{entry.house_id}}.ELSC.ID"/>
+        <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="House_{{entry.house_id}}.ELSC.ID" entityName="House_{{entry.house_id}}.ELSC" successor="House_{{entry.house_id}}.ScenarioBehaviour.Stop.ID" predecessor="House_{{entry.house_id}}.ScenarioBehaviour.Start.ID">
+            <providedRole_EntryLevelSystemCall href="baseline.system#_RzR3AEFNEeuLNaVZK2IiYQ"/>
+            <operationSignature__EntryLevelSystemCall href="baseline.repository#acceptPartitionedReadingWindows.ID"/>
+            <inputParameterUsages_EntryLevelSystemCall>
+                <variableCharacterisation_VariableUsage type="NUMBER_OF_ELEMENTS">
+                    <specification_VariableCharacterisation specification="{{entry.number_of_elements_distribution}}"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="readings"/>
+            </inputParameterUsages_EntryLevelSystemCall>
+            <inputParameterUsages_EntryLevelSystemCall>
+                <variableCharacterisation_VariableUsage type="VALUE">
+                    <specification_VariableCharacterisation specification="{{entry.window_size}}"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="window_size"/>
+            </inputParameterUsages_EntryLevelSystemCall>
+        </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+    <workload_UsageScenario xsi:type="usagemodel:OpenWorkload">
+      <interArrivalTime_OpenWorkload specification="{{entry.interarrivaltime}}"/>
+    </workload_UsageScenario>
+</usageScenario_UsageModel>
+<!-- end usage scenario for Plug {{entry.pid}} -->
