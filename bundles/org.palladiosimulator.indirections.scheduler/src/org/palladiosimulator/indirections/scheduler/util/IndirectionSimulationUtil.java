@@ -1,5 +1,6 @@
 package org.palladiosimulator.indirections.scheduler.util;
 
+import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.palladiosimulator.pcm.parameter.VariableCharacterisation;
 import org.palladiosimulator.pcm.parameter.VariableUsage;
 import org.palladiosimulator.pcm.repository.EventGroup;
 import org.palladiosimulator.pcm.repository.Parameter;
+import org.palladiosimulator.pcm.stoex.api.StoExSerialiser;
 import org.palladiosimulator.simulizar.exceptions.PCMModelInterpreterException;
 import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSimulationEntity;
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
@@ -38,7 +40,6 @@ import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameExcep
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStack;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 import de.uka.ipd.sdq.stoex.AbstractNamedReference;
-import de.uka.ipd.sdq.stoex.analyser.visitors.StoExPrettyPrintVisitor;
 
 public final class IndirectionSimulationUtil {
     public final static class Pair<A, B> {
@@ -63,6 +64,7 @@ public final class IndirectionSimulationUtil {
                 return false;
             if (getClass() != obj.getClass())
                 return false;
+            @SuppressWarnings("rawtypes")
             Pair other = (Pair) obj;
             return Objects.equals(a, other.a) && Objects.equals(b, other.b);
         }
@@ -73,6 +75,7 @@ public final class IndirectionSimulationUtil {
     }
 
     private final static Logger LOGGER = Logger.getLogger(IndirectionSimulationUtil.class);
+    private final static StoExSerialiser STOEX_SERIALISER = StoExSerialiser.createInstance();
 
     /**
      * Same as
@@ -133,10 +136,15 @@ public final class IndirectionSimulationUtil {
                     .getVariableUsage_VariableCharacterisation()
                     .getNamedReference__VariableUsage();
 
-                final String id = new StoExPrettyPrintVisitor().doSwitch(namedReference)
-                    .toString() + "."
-                        + variableCharacterisation.getType()
-                            .getLiteral();
+                String id;
+                try {
+                    id = STOEX_SERIALISER.serialise(namedReference)
+                        .toString() + "."
+                            + variableCharacterisation.getType()
+                                .getLiteral();
+                } catch (NotSerializableException e1) {
+                    throw new PCMModelInterpreterException("Could not serialise a named reference.", e1);
+                }
 
                 if (SimulatedStackHelper.isInnerReference(namedReference)) {
                     targetStackFrame.addValue(id,
