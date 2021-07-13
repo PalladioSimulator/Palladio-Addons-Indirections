@@ -33,7 +33,7 @@ def create_indirections_usagemodel(abstract_representation, configuration):
             usage_scenarios.append(usage_scenario)
 
     print(f"{len(usage_scenarios)} scenarios")
-    with open('./generated_indirections.usagemodel', 'w') as f:
+    with open('./out/generated_indirections.usagemodel', 'w') as f:
         f.write(render_usage_model_indirections(usage_scenarios))
 
 
@@ -61,7 +61,7 @@ def create_baseline_usagemodel(abstract_representation, configuration):
         usage_scenarios.append(usage_scenario)
 
     print(f"{len(usage_scenarios)} scenarios")
-    with open('./generated_baseline.usagemodel', 'w') as f:
+    with open('./out/generated_baseline.usagemodel', 'w') as f:
         f.write(render_usage_model_baseline(usage_scenarios))
 
 
