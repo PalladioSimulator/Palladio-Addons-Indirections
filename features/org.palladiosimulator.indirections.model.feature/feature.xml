@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.palladiosimulator.indirections.editor.tree.feature"
-      label="Indirections Tree Editor Feature"
+      id="org.palladiosimulator.indirections.model.feature"
+      label="PCM Indirections Model"
       version="5.0.0.qualifier"
       provider-name="palladiosimulator.org"
       plugin="org.palladiosimulator.branding"
       license-feature="org.palladiosimulator.license"
       license-feature-version="1.0.0">
 
-   <includes
-         id="org.palladiosimulator.indirections.model.feature"
-         version="0.0.0"/>
-
    <requires>
       <import plugin="org.palladiosimulator.branding"/>
-      <import plugin="org.palladiosimulator.pcm"/>
    </requires>
 
    <plugin
-         id="org.palladiosimulator.indirections.edit"
+         id="org.palladiosimulator.indirections"
          download-size="0"
          install-size="0"
          version="0.0.0"
