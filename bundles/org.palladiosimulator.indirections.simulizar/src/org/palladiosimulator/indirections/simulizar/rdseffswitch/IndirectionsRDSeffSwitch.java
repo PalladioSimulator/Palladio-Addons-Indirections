@@ -52,6 +52,23 @@ import de.uka.ipd.sdq.simucomframework.variables.StackContext;
 import de.uka.ipd.sdq.simucomframework.variables.stackframe.SimulatedStackframe;
 
 public class IndirectionsRDSeffSwitch extends ActionsSwitch<InterpreterResult> {
+	public static final InterpreterResult NOT_OK = new InterpreterResult() {
+        @Override
+        public boolean hasNoIssues() {
+            return false;
+        }
+
+        @Override
+        public Iterable<InterpretationIssue> getIssues() {
+            return Collections.singleton(new InterpretationIssue() {
+				@Override
+				public boolean isHandled() {
+					return false;
+				}
+            });
+        }
+    };
+	
     @AssistedFactory
     public interface Factory extends RDSeffSwitchContributionFactory {
         IndirectionsRDSeffSwitch create(InterpreterDefaultContext context, RDSeffElementDispatcher parentSwitch);
@@ -178,18 +195,7 @@ public class IndirectionsRDSeffSwitch extends ActionsSwitch<InterpreterResult> {
         if (result)
             return InterpreterResult.OK;
         else {
-            return new InterpreterResult() {
-                @Override
-                public boolean hasNoIssues() {
-                    return false;
-                }
-
-                @Override
-                public Iterable<InterpretationIssue> getIssues() {
-                    return Collections.singleton(new InterpretationIssue() {
-                    }); // ???
-                }
-            };
+            return NOT_OK;
         }
     }
 
