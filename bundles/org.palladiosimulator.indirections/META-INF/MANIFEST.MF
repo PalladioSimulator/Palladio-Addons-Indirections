@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.palladiosimulator.indirections;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -34,5 +34,5 @@ Require-Bundle: org.eclipse.core.runtime,
  de.uka.ipd.sdq.probfunction;visibility:=reexport,
  de.uka.ipd.sdq.stoex;visibility:=reexport,
  de.uka.ipd.sdq.units;visibility:=reexport,
- org.palladiosimulator.indirections.mwe2;bundle-version="5.0.0";resolution:=optional
+ org.palladiosimulator.indirections.mwe2;bundle-version="5.1.0";resolution:=optional
 Bundle-ActivationPolicy: lazy

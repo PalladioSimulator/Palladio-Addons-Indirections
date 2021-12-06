@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.palladiosimulator.indirections.interfaces
 Bundle-SymbolicName: org.palladiosimulator.indirections.interfaces;singleton:=true
-Bundle-Version: 4.3.0.qualifier
+Bundle-Version: 5.1.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.indirections.interfaces
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.palladiosimulator.pcm,
