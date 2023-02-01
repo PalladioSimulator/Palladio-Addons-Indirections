@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Automatic-Module-Name: org.palladiosimulator.indirections.monitoring
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.palladiosimulator.indirections.monitoring,
  org.palladiosimulator.indirections.monitoring.simulizar,
  org.palladiosimulator.indirectionsmeasuringpoint,

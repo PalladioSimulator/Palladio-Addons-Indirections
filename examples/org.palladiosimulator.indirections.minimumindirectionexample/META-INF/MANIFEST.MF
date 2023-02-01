@@ -5,5 +5,5 @@ Bundle-SymbolicName: org.palladiosimulator.indirections.minimumindirectionexampl
 Bundle-Version: 5.1.0.qualifier
 Require-Bundle: org.palladiosimulator.pcm;bundle-version="4.3.0",
  org.palladiosimulator.pcm.resources;bundle-version="4.3.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.palladiosimulator.indirections.minimumindirectionexample
