@@ -24,7 +24,7 @@ Require-Bundle: org.palladiosimulator.simulizar,
 Export-Package: org.palladiosimulator.indirections.simulizar.rdseffswitch
 Import-Package: com.google.auto.factory;version="1.0.0",
  com.google.common.collect;version="27.1.0",
- dagger;version="2.29.1",
- dagger.internal;version="2.29.1",
- dagger.multibindings;version="2.29.1",
+ dagger;version="2.31.0",
+ dagger.internal;version="2.31.0",
+ dagger.multibindings;version="2.31.0",
  javax.inject;version="1.0.0"
