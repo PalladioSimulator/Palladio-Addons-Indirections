@@ -2,7 +2,6 @@ package org.palladiosimulator.indirections.tests;
 
 import java.util.Collections;
 
-import org.eclipse.ui.IFileEditorInput;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.palladiosimulator.indirections.simulizar.rdseffswitch.DaggerIndirectionsExtensionComponent;
 import org.palladiosimulator.simulizar.di.component.dependency.SimEngineComponent.Factory;

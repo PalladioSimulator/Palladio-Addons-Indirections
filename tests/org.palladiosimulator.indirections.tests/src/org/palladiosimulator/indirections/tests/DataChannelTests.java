@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.measure.unit.SI;
 
-import org.eclipse.ui.IFileEditorInput;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.edp2.models.ExperimentData.ExperimentRun;
@@ -20,8 +19,8 @@ import tools.mdsd.junit5utils.annotations.PluginTestOnly;
 public class DataChannelTests {
     @BeforeAll
     static void beforeAll() {
-        var c = IFileEditorInput.class;
-        System.out.println(c);
+        //var c = IFileEditorInput.class;
+        //System.out.println(c);
     }
     
     @Test
