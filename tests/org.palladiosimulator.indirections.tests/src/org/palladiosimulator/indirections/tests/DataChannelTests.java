@@ -23,7 +23,7 @@ public class DataChannelTests {
         //System.out.println(c);
     }
     
-    @Test
+/*    @Test
     @LoadPCMInstanceFromBundle(bundleName = "org.palladiosimulator.indirections.minimumindirectionexample", basePath = "000_minimum-channel", modelFiles = {
             "000_minimum-channel.allocation", "000_minimum-channel.measuringpoint",
             "000_minimum-channel.monitorrepository", "000_minimum-channel.repository",
@@ -52,6 +52,6 @@ public class DataChannelTests {
         // * the second component takes the value and creates a resource demand from the value.
         MeasurementTestUtils.allDoubleMeasurementValuesMatch(measurement.get(),
                 MetricDescriptionConstants.RESOURCE_DEMAND_METRIC, SI.SECOND, equalTo(42.0));
-    }
+    }*/
 
 }

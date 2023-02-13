@@ -10,12 +10,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.sirius,
  org.eclipse.sirius.common.acceleo.aql,
- org.palladiosimulator.editors.sirius.assembly;bundle-version="4.3.0",
- org.palladiosimulator.editors.sirius.repository;bundle-version="4.3.0",
- org.palladiosimulator.editors.sirius.seff;bundle-version="4.3.0",
+ org.palladiosimulator.editors.sirius.assembly,
+ org.palladiosimulator.editors.sirius.repository,
+ org.palladiosimulator.editors.sirius.seff,
  de.uka.ipd.sdq.stoex,
  org.palladiosimulator.indirections;bundle-version="5.1.0",
- org.palladiosimulator.editors.commons.dialogs;bundle-version="4.3.0"
+ org.palladiosimulator.editors.commons.dialogs
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: %providerName

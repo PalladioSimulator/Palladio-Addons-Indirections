@@ -22,7 +22,7 @@ Require-Bundle: de.uka.ipd.sdq.scheduler,
  org.palladiosimulator.edp2.util,
  org.palladiosimulator.measurementframework,
  org.palladiosimulator.edp2,
- org.palladiosimulator.reliability;bundle-version="4.2.0",
+ org.palladiosimulator.reliability,
  com.google.auto.factory-annotations,
  org.palladiosimulator.indirections.scheduler,
  javax.inject.javax.inject
