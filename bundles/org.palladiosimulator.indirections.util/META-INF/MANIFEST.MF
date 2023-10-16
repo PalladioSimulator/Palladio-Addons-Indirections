@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.palladiosimulator.indirections.util
 Bundle-SymbolicName: org.palladiosimulator.indirections.util;singleton:=true
-Bundle-Version: 5.1.0.qualifier
+Bundle-Version: 5.2.0
 Automatic-Module-Name: org.palladiosimulator.indirections.util
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.palladiosimulator.pcm,
