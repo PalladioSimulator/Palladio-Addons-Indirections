@@ -1,7 +1,7 @@
 package org.palladiosimulator.indirections.calculators.scheduler;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Dimensionless;
+import jakarta.measure.Measure;
+import jakarta.measure.quantity.Dimensionless;
 
 import org.palladiosimulator.metricspec.BaseMetricDescription;
 import org.palladiosimulator.metricspec.MetricSetDescription;

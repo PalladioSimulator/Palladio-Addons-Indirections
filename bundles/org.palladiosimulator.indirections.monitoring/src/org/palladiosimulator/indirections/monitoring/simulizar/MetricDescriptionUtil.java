@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Quantity;
+import jakarta.measure.Measure;
+import jakarta.measure.quantity.Quantity;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.edp2.util.MetricDescriptionUtility;

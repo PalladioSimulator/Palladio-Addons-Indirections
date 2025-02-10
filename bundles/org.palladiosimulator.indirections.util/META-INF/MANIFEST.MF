@@ -14,6 +14,6 @@ Require-Bundle: org.palladiosimulator.pcm,
  de.uka.ipd.sdq.stoex.analyser,
  org.apache.log4j,
  com.google.auto.factory-annotations;bundle-version="1.0.0",
- javax.inject.javax.inject
+ jakarta.inject.jakarta.inject
 Export-Package: org.palladiosimulator.indirections.util
 Import-Package: org.palladiosimulator.commons.eclipseutils

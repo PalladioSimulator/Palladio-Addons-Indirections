@@ -1,7 +1,7 @@
 package org.palladiosimulator.indirections.monitoring.simulizar;
 
-import javax.measure.Measure;
-import javax.measure.quantity.Quantity;
+import jakarta.measure.Measure;
+import jakarta.measure.quantity.Quantity;
 
 import org.palladiosimulator.metricspec.BaseMetricDescription;
 import org.palladiosimulator.probeframework.measurement.RequestContext;

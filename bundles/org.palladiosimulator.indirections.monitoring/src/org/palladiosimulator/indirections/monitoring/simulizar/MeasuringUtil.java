@@ -1,6 +1,6 @@
 package org.palladiosimulator.indirections.monitoring.simulizar;
 
-import javax.measure.quantity.Dimensionless;
+import jakarta.measure.quantity.Dimensionless;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.edp2.models.measuringpoint.MeasuringPointRepository;

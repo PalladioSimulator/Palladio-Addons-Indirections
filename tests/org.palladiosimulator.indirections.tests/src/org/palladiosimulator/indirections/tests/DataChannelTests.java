@@ -3,7 +3,7 @@ package org.palladiosimulator.indirections.tests;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.measure.unit.SI;
+import jakarta.measure.unit.SI;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

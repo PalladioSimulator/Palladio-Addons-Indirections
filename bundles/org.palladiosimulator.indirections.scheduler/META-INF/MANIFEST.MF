@@ -25,7 +25,7 @@ Require-Bundle: de.uka.ipd.sdq.scheduler,
  org.palladiosimulator.reliability,
  com.google.auto.factory-annotations,
  org.palladiosimulator.indirections.scheduler,
- javax.inject.javax.inject
+ jakarta.inject.jakarta.inject
 Export-Package: org.palladiosimulator.indirections.scheduler,
  org.palladiosimulator.indirections.scheduler.data,
  org.palladiosimulator.indirections.scheduler.scheduling,
