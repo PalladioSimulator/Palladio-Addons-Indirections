@@ -28,11 +28,11 @@ import org.palladiosimulator.simulizar.interpreter.UsageScenarioSwitch;
 import org.palladiosimulator.simulizar.usagemodel.IScenarioRunnerFactory;
 
 import de.uka.ipd.sdq.scheduler.resources.active.IResourceTableManager;
-import de.uka.ipd.sdq.simucomframework.SimuComSimProcess;
-import de.uka.ipd.sdq.simucomframework.exceptions.FailureException;
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.SimuComSimProcess;
+import de.uka.ipd.sdq.simucomframework.core.exceptions.FailureException;
+import de.uka.ipd.sdq.simucomframework.core.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.usage.IUser;
 import de.uka.ipd.sdq.simucomframework.usage.AbstractWorkloadUserFactory;
-import de.uka.ipd.sdq.simucomframework.usage.IUser;
 import de.uka.ipd.sdq.simucomframework.usage.OpenWorkloadUser;
 
 /**

@@ -32,8 +32,8 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import org.palladiosimulator.simulizar.utils.SimulatedStackHelper;
 
 import de.uka.ipd.sdq.identifier.Identifier;
-import de.uka.ipd.sdq.simucomframework.entities.SimuComEntity;
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.entities.SimuComEntity;
+import de.uka.ipd.sdq.simucomframework.core.model.SimuComModel;
 import de.uka.ipd.sdq.simucomframework.variables.EvaluationProxy;
 import de.uka.ipd.sdq.simucomframework.variables.StackContext;
 import de.uka.ipd.sdq.simucomframework.variables.exceptions.ValueNotInFrameException;

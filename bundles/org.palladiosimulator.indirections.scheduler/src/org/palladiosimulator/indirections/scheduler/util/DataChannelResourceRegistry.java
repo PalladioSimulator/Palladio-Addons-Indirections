@@ -17,7 +17,7 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext.Mai
 import org.palladiosimulator.simulizar.runtimestate.RuntimeStateEntityManager;
 import org.palladiosimulator.simulizar.scopes.RuntimeExtensionScope;
 
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.model.SimuComModel;
 
 @RuntimeExtensionScope
 public class DataChannelResourceRegistry implements RuntimeStateEntityManager {

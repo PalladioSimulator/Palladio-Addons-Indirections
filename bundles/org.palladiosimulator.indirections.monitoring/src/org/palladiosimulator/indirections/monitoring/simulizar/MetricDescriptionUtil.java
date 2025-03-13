@@ -26,7 +26,7 @@ import org.palladiosimulator.probeframework.probes.EventProbeList;
 import org.palladiosimulator.probeframework.probes.Probe;
 import org.palladiosimulator.probeframework.probes.listener.IProbeListener;
 
-import de.uka.ipd.sdq.simucomframework.resources.CalculatorHelper;
+import de.uka.ipd.sdq.simucomframework.core.resources.CalculatorHelper;
 import de.uka.ipd.sdq.simulation.abstractsimengine.ISimulationControl;
 
 // TODO: clean up
