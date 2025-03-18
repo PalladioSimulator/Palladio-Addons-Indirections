@@ -2,8 +2,8 @@ package org.palladiosimulator.indirections.scheduler.util;
 
 import org.apache.log4j.Logger;
 
-import de.uka.ipd.sdq.simucomframework.entities.SimuComEntity;
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.entities.SimuComEntity;
+import de.uka.ipd.sdq.simucomframework.core.model.SimuComModel;
 
 public class OneShotSimulationEntity extends SimuComEntity {
 

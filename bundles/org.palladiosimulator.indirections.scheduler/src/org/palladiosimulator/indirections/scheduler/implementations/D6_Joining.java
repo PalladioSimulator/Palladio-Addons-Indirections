@@ -29,7 +29,7 @@ import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.RepositoryComponentSwitch;
 
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
-import de.uka.ipd.sdq.simucomframework.entities.SimuComEntity;
+import de.uka.ipd.sdq.simucomframework.core.entities.SimuComEntity;
 
 public class D6_Joining extends AbstractSimDataChannelResource {
     public static final String GRACE_PERIOD_PARAMETER_NAME = "gracePeriod";

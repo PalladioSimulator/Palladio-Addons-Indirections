@@ -3,6 +3,7 @@ bin/
 target/
 xtend-gen/
 src-gen/
+.polyglot.*
 
 # Package Files #
 *.jar
