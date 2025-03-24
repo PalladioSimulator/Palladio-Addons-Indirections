@@ -6,7 +6,7 @@ import org.palladiosimulator.indirections.scheduler.util.DataChannelResourceRegi
 import org.palladiosimulator.simulizar.di.component.core.SimuLizarRuntimeComponent;
 import org.palladiosimulator.simulizar.di.component.dependency.SimuComFrameworkComponent;
 import org.palladiosimulator.simulizar.di.extension.ExtensionComponent;
-import org.palladiosimulator.simulizar.scopes.RuntimeExtensionScope;
+import org.palladiosimulator.simulizar.di.scopes.RuntimeExtensionScope;
 
 import dagger.Component;
 
