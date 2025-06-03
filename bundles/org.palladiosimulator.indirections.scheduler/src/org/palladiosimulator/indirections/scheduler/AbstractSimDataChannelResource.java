@@ -36,7 +36,7 @@ import org.palladiosimulator.simulizar.simulationevents.PeriodicallyTriggeredSim
 import de.uka.ipd.sdq.scheduler.ISchedulableProcess;
 import de.uka.ipd.sdq.scheduler.SchedulerModel;
 import de.uka.ipd.sdq.scheduler.resources.active.IResourceTableManager;
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.model.SimuComModel;
 import de.uka.ipd.sdq.simulation.abstractsimengine.ISimulationControl;
 
 public abstract class AbstractSimDataChannelResource implements IDataChannelResource {

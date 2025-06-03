@@ -15,7 +15,7 @@ import org.palladiosimulator.metricspec.MetricSetDescription;
 import org.palladiosimulator.probeframework.calculator.ICalculatorFactory;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.model.SimuComModel;
 
 public class TriggerableCalculator<V, Q extends Quantity> {
     protected final SimuComModel model;

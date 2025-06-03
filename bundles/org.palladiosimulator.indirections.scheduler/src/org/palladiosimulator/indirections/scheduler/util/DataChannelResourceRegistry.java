@@ -11,13 +11,13 @@ import org.palladiosimulator.indirections.repository.DataChannel;
 import org.palladiosimulator.indirections.scheduler.IDataChannelResource;
 import org.palladiosimulator.indirections.scheduler.IDataChannelResourceFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.simulizar.di.base.scopes.RuntimeExtensionScope;
 import org.palladiosimulator.simulizar.di.component.interfaces.SimulatedThreadComponent;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext;
 import org.palladiosimulator.simulizar.interpreter.InterpreterDefaultContext.MainContext;
 import org.palladiosimulator.simulizar.runtimestate.RuntimeStateEntityManager;
-import org.palladiosimulator.simulizar.scopes.RuntimeExtensionScope;
 
-import de.uka.ipd.sdq.simucomframework.model.SimuComModel;
+import de.uka.ipd.sdq.simucomframework.core.model.SimuComModel;
 
 @RuntimeExtensionScope
 public class DataChannelResourceRegistry implements RuntimeStateEntityManager {
