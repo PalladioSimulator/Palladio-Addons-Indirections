@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.palladiosimulator.indirections.scheduler
 Bundle-SymbolicName: org.palladiosimulator.indirections.scheduler;singleton:=true
-Bundle-Version: 5.2.1.qualifier
+Bundle-Version: 5.2.2
 Automatic-Module-Name: org.palladiosimulator.indirections.scheduler
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: de.uka.ipd.sdq.scheduler,
@@ -26,7 +26,7 @@ Require-Bundle: de.uka.ipd.sdq.scheduler,
  com.google.auto.factory-annotations,
  org.palladiosimulator.indirections.scheduler,
  javax.inject.javax.inject,
- org.palladiosimulator.commons.stoex;bundle-version="5.2.1"
+ org.palladiosimulator.commons.stoex;bundle-version="5.2.2"
 Export-Package: org.palladiosimulator.indirections.scheduler,
  org.palladiosimulator.indirections.scheduler.data,
  org.palladiosimulator.indirections.scheduler.scheduling,
