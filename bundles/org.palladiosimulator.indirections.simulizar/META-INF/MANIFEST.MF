@@ -20,11 +20,12 @@ Require-Bundle: org.palladiosimulator.simulizar,
  de.uka.ipd.sdq.simucomframework,
  de.uka.ipd.sdq.simulation.abstractsimengine,
  org.palladiosimulator.probeframework,
- com.google.dagger
+ com.google.dagger;bundle-version="[2.60.0,3.0.0)",
+ jakarta.inject.jakarta.inject-api;bundle-version="[2.0.0,3.0.0)"
 Export-Package: org.palladiosimulator.indirections.simulizar.rdseffswitch
 Import-Package: com.google.auto.factory;version="1.0.0",
  com.google.common.collect;version="27.1.0",
- dagger;version="2.31.0",
- dagger.internal;version="2.31.0",
- dagger.multibindings;version="2.31.0",
- javax.inject;version="1.0.0"
+ dagger;version="[2.60.0,3.0.0)",
+ dagger.internal;version="[2.60.0,3.0.0)",
+ dagger.multibindings;version="[2.60.0,3.0.0)",
+ javax.inject;version="[1.0.0,2.0.0)"
